@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "TAISI — Toronto AI Safety Student Initiative",
   description:
     "A student group at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     title: "TAISI — Toronto AI Safety Student Initiative",
     description:
