@@ -115,7 +115,7 @@ export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <Hero />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <StayConnected />
     </main>
   );
