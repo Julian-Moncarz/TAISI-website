@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, FormEvent } from "react";
+import React, { useState, useRef, useEffect, useCallback, FormEvent } from "react";
 
 const MAJOR_OPTIONS = [
   "Computer Science", "Statistics", "Mathematics", "Economics", "Physics",
@@ -18,12 +18,88 @@ const YEAR_OPTIONS = [
 const AVAILABILITY_OPTIONS = ["Not available", "Saturday only", "Sunday only", "Both days"];
 const MONTHS = ["May", "June", "July", "August"] as const;
 
+const STORAGE_KEY = "taisi-summer-intensive-draft";
+
+type DraftData = {
+  name?: string;
+  email?: string;
+  majors?: string[];
+  year?: string;
+  why?: string;
+  projectLink?: string;
+  priorExperience?: string;
+  [key: `availability-${string}`]: string;
+};
+
+function loadDraft(): DraftData | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function clearDraft() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
+}
+
 export default function SummerIntensive() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [majorDropdownOpen, setMajorDropdownOpen] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const restoredRef = useRef(false);
+
+  // Restore draft on mount
+  useEffect(() => {
+    const draft = loadDraft();
+    if (!draft || !formRef.current) {
+      restoredRef.current = true;
+      return;
+    }
+    const form = formRef.current;
+
+    if (draft.name) (form.elements.namedItem("name") as HTMLInputElement).value = draft.name;
+    if (draft.email) (form.elements.namedItem("email") as HTMLInputElement).value = draft.email;
+    if (draft.majors?.length) setSelectedMajors(draft.majors);
+    if (draft.year) (form.elements.namedItem("year") as HTMLSelectElement).value = draft.year;
+    if (draft.why) (form.elements.namedItem("why") as HTMLTextAreaElement).value = draft.why;
+    if (draft.projectLink) (form.elements.namedItem("projectLink") as HTMLInputElement).value = draft.projectLink;
+    if (draft.priorExperience) (form.elements.namedItem("priorExperience") as HTMLTextAreaElement).value = draft.priorExperience;
+    for (const month of MONTHS) {
+      const key = `availability-${month}` as keyof DraftData;
+      if (draft[key]) (form.elements.namedItem(`availability-${month}`) as HTMLSelectElement).value = draft[key] as string;
+    }
+    restoredRef.current = true;
+  }, []);
+
+  // Save draft on every change
+  const saveDraft = useCallback(() => {
+    if (!formRef.current || !restoredRef.current) return;
+    const form = formRef.current;
+    const data = new FormData(form);
+    const draft: DraftData = {
+      name: data.get("name") as string,
+      email: data.get("email") as string,
+      majors: selectedMajors,
+      year: data.get("year") as string,
+      why: data.get("why") as string,
+      projectLink: data.get("projectLink") as string,
+      priorExperience: data.get("priorExperience") as string,
+    };
+    for (const month of MONTHS) {
+      draft[`availability-${month}`] = data.get(`availability-${month}`) as string;
+    }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(draft)); } catch {}
+  }, [selectedMajors]);
+
+  // Save whenever majors change (since they're not native form elements)
+  useEffect(() => {
+    saveDraft();
+  }, [selectedMajors, saveDraft]);
 
   function toggleMajor(major: string) {
     setSelectedMajors((prev) =>
@@ -70,6 +146,7 @@ export default function SummerIntensive() {
       });
 
       if (!res.ok) throw new Error("Submission failed");
+      clearDraft();
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -160,7 +237,7 @@ export default function SummerIntensive() {
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="max-w-[640px] space-y-8 mt-8">
+          <form ref={formRef} onSubmit={handleSubmit} onChange={saveDraft} className="max-w-[640px] space-y-8 mt-8">
             {error && (
               <p className="text-accent text-[15px] font-medium">{error}</p>
             )}
