@@ -1,17 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
+import RotatingText from "@/components/RotatingText";
 
 function Hero() {
   return (
     <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-10">
       <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
-        We&rsquo;re a student group at the University of Toronto focused on
-        mitigating{" "}
-        <span className="text-accent">catastrophic risks from advanced AI</span>
-        .
+        We take talented students, introduce them to AI safety, and pour resources into making them{" "}
+        <span className="text-accent">impactful</span><br />
+        <RotatingText />
       </h1>
 
       <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
+        <p className="text-text">
+          We do this because we think reducing risks from advanced AI is the most important challenge of our time. It&rsquo;s also an exciting, open problem. It needs far more people working on it.
+        </p>
         <p className="text-text">
           We are part of a network of university AI safety groups funded by Kairos, which also
           funds groups at MIT, Harvard, and Cambridge. We run{" "}
@@ -52,9 +55,9 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 py-8 md:py-10">
-      <h2 className="text-[1.1rem] sm:text-[1.25rem] font-semibold tracking-tight mb-8 sm:mb-10">
-        From our fellows
+    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
+      <h2 className="text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8 font-normal text-text">
+        Our fellows love us:
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
         {testimonials.map((t, i) => (
@@ -84,43 +87,12 @@ function Testimonials() {
   );
 }
 
-function StayConnected() {
-  return (
-    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 py-8 md:py-10">
-      <h2 className="text-[1.1rem] sm:text-[1.25rem] font-semibold tracking-tight mb-4">
-        Stay connected
-      </h2>
-      <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-6">
-        Join our community to hear about upcoming programs, events, and opportunities in AI safety.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-        <a
-          href="https://airtable.com/app4Q5tCYanb6H22G/shrIdIZDclGqNuFYs"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center px-5 sm:px-6 py-3 border border-text text-text text-[15px] font-semibold hover:bg-text hover:text-white transition-colors"
-        >
-          Join our mailing list &rarr;
-        </a>
-        <a
-          href="https://discord.com/invite/tuG88vBxS2"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center px-5 sm:px-6 py-3 border border-text text-text text-[15px] font-semibold hover:bg-text hover:text-white transition-colors"
-        >
-          Join our Discord &rarr;
-        </a>
-      </div>
-    </section>
-  );
-}
 
 export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <Hero />
       <Testimonials />
-      <StayConnected />
     </main>
   );
 }

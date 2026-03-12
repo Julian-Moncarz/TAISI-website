@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Fellowships() {
   return (
     <main>
@@ -28,6 +30,19 @@ export default function Fellowships() {
             Curriculum developed by BlueDot Impact, adapted by TAISI.
           </p>
         </div>
+
+        <blockquote className="mt-8 sm:mt-10 border-l border-accent pl-5">
+          <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-4">
+            Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.
+          </p>
+          <footer className="flex items-center gap-3">
+            <Image src="/divy.webp" alt="Divy" width={64} height={64} className="w-16 h-16 object-cover object-top shrink-0" />
+            <div>
+              <span className="block text-[15px] font-semibold text-text">Divy</span>
+              <span className="block text-[13px] text-text-secondary">Fellow &rsquo;25</span>
+            </div>
+          </footer>
+        </blockquote>
 
         <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
 

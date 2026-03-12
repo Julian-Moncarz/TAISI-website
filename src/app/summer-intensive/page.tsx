@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, FormEvent } from "react";
 import Image from "next/image";
+import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 
 const YEAR_OPTIONS = [
   "1st Year", "2nd Year", "3rd Year", "4th Year",
@@ -136,76 +137,20 @@ export default function SummerIntensive() {
           <span className="text-accent">Summer Intensive</span>
         </h1>
 
-        <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
-          <p className="text-text">
-            AI progress is accelerating. AI safety is talent-constrained.
-          </p>
-          <p className="text-text">
-            In partnership with Trajectory Labs, we&rsquo;re running 4-day
-            summer bootcamps to bring more talent into AI safety.
-          </p>
+        <RoughNotationGroup show={true}>
+        <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
           <p>
-            The intensive introduces ambitious undergraduates to the hard
-            problems of aligning and controlling superintelligent AI systems. No machine learning background or prior engagement with the field is
-            required. We&rsquo;re looking for strong quantitative thinkers
-            who care about this problem.
+            4-day bootcamp for ambitious students who want to work on the hardest problems in AI safety. Small cohort of <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>exceptional peers</RoughNotation>. Mornings are facilitated discussions, afternoons are technical sessions where you leave with tangible artifacts. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
+          </p>
+          <p className="text-text-secondary">
+            One weekend day a week, 4 weeks. Cohorts monthly May&ndash;August. Hosted at Trajectory Labs, Toronto. No ML background required. Applications close April 5th.
           </p>
         </div>
-
-        <hr className="mt-10 border-t border-gray-200" />
-
-        <div className="mt-10">
-          <h2 className="text-[1.25rem] sm:text-[1.5rem] md:text-[2rem] leading-[1.15] tracking-tight font-normal text-text mb-6">
-            About the program
-          </h2>
-          <div className="space-y-5 text-[17px] sm:text-[19px] text-text-secondary">
-            <div>
-              <p className="font-semibold text-text">People</p>
-              <p>A small cohort of exceptional, engaged peers.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-text">Mornings</p>
-              <p>Facilitated discussions on the hardest open problems in AI safety: what the risks are, why they&rsquo;re hard, and what the field is doing about them. You&rsquo;ll do curated readings beforehand.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-text">Lunch</p>
-              <p>Catered lunch. Hang out with AI safety researchers.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-text">Afternoons</p>
-              <p>Technical workshops to teach you the critical tools of AI safety research. Each session builds a specific skill and produces a finished artifact you can show someone to prove you have it. Compute and API credits covered.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-text">After</p>
-              <p>After the intensive, you&rsquo;re in our network: we&rsquo;ll keep connecting you with research opportunities and people in the field.</p>
-            </div>
-            <div>
-              <p className="font-semibold text-text">Logistics</p>
-              <p>The intensive runs one day per week on a weekend (to be compatible with internships and other summer commitments), for 4 weeks. Cohorts run May through August, hosted at Trajectory Labs in Toronto. Each cohort ~8 people.</p>
-            </div>
-          </div>
-        </div>
-
-        <blockquote className="mt-10 border-l border-accent pl-5">
-          <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-4">
-            I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.
-          </p>
-          <footer className="flex items-center gap-3">
-            <Image src="/pera.webp" alt="Pera" width={64} height={64} className="w-16 h-16 object-cover object-top shrink-0" />
-            <div>
-              <span className="block text-[15px] font-semibold text-text">Pera</span>
-              <span className="block text-[13px] text-text-secondary">Fellow &rsquo;25</span>
-            </div>
-          </footer>
-        </blockquote>
-
-        <p className="mt-10 text-text font-semibold text-[17px] sm:text-[19px]">
-          Applications are selective and close April 5th, EoD.
-        </p>
+        </RoughNotationGroup>
 
         <hr className="mt-14 border-t border-gray-200" />
 
-        <div className="mt-10">
+        <div id="apply" className="mt-10 scroll-mt-8">
           <h2 className="text-[1.5rem] sm:text-[2rem] leading-[1.15] tracking-tight mb-2 font-normal">
             Application form
           </h2>
