@@ -9,8 +9,7 @@ export default function Fellowships() {
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
           <p className="text-text">
             We offer two parallel introductory fellowships in AI safety:{" "}
-            <span className="text-orange-500 font-semibold">alignment</span> and{" "}
-            <span className="text-orange-500 font-semibold">governance</span>.
+            alignment and governance.
           </p>
           <p>
             The alignment track introduces the technical challenge of making AI

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 function Hero() {
@@ -12,8 +13,8 @@ function Hero() {
 
       <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
         <p className="text-text">
-          We are part of a network of university AI safety groups funded by Kairos, alongside
-          MIT, Harvard, and Cambridge. We run{" "}
+          We are part of a network of university AI safety groups funded by Kairos, which also
+          funds groups at MIT, Harvard, and Cambridge. We run{" "}
           <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">intensives</Link> during the summer and{" "}
           <Link href="/fellowships" className="underline hover:text-accent transition-colors">fellowships</Link> during the school year, with 50+ participants across 8 cohorts to date.
         </p>
@@ -34,21 +35,18 @@ function Hero() {
 const testimonials = [
   {
     quote:
-      "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
-    name: "Pera",
-    role: "Fellow",
+      "This fellowship gave me a structured, interesting set of things to think and learn about each week, but more importantly it gave me an environment where I could talk and connect with people who have compelling ideas and share similar concerns. After completing the program, I am part of a community rich with opportunity and information. I would recommend it to anyone with any interest in the technical aspect of AI systems or AI safety.",
+    name: "Paul",
+    role: "Fellow '25",
+    image: "/paul.webp",
   },
   {
     quote:
-      "I participated in a fellowship last fall, and absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety!",
+      "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
     name: "Boyan",
-    role: "Fellow",
-  },
-  {
-    quote:
-      "Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.",
-    name: "Divy",
-    role: "Fellow",
+    role: "Fellow '25",
+    image: "/boyan.png",
+    imagePosition: "center 20%",
   },
 ];
 
@@ -58,14 +56,18 @@ function Testimonials() {
       <h2 className="text-[1.1rem] sm:text-[1.25rem] font-semibold tracking-tight mb-8 sm:mb-10">
         From our fellows
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
         {testimonials.map((t, i) => (
           <blockquote key={i} className="border-l border-accent pl-5">
             <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-4">
-              &ldquo;{t.quote}&rdquo;
+              {t.quote}
             </p>
             <footer className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gray-200 shrink-0" />
+              {t.image ? (
+                <Image src={t.image} alt={t.name} width={64} height={64} className="w-16 h-16 object-cover shrink-0" style={t.imagePosition ? { objectPosition: t.imagePosition } : { objectPosition: "top" }} />
+              ) : (
+                <div className="w-16 h-16 bg-gray-200 shrink-0" />
+              )}
               <div>
                 <span className="block text-[15px] font-semibold text-text">
                   {t.name}
