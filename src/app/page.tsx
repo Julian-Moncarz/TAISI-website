@@ -34,21 +34,21 @@ function Hero() {
 const testimonials = [
   {
     quote:
-      "Before TAISI's fellowship, I had no idea what AI safety was. Now I want to dedicate my career to it. The people were awesome, and it gave me a ton of context about the field.",
-    name: "Divy Lastname",
-    role: "Fellow '25",
+      "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
+    name: "Pera",
+    role: "Fellow",
   },
   {
     quote:
-      "Placeholder testimonial — replace with a real quote from a fellow or participant.",
-    name: "First Last",
-    role: "Fellow '25",
+      "I participated in a fellowship last fall, and absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety!",
+    name: "Boyan",
+    role: "Fellow",
   },
   {
     quote:
-      "Placeholder testimonial — replace with a real quote from a fellow or participant.",
-    name: "First Last",
-    role: "Fellow '25",
+      "Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.",
+    name: "Divy",
+    role: "Fellow",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <Hero />
-      {/* <Testimonials /> */}
+      <Testimonials />
       <StayConnected />
     </main>
   );
