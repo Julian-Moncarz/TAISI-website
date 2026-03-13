@@ -84,7 +84,7 @@ function Testimonials() {
         ))}
       </div>
       <p className="text-[15px] sm:text-[16px] text-text-secondary mt-8">
-        Fellows have gone on to join SPAR, AI Safety Camp, and <a href="https://zhijing-jin.com/home/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Prof. Zhijing Jin&rsquo;s research group</a>.
+        Fellows have gone on to join SPAR, AI Safety Camp, and university labs such as <a href="https://zhijing-jin.com/home/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Prof. Zhijing Jin&rsquo;s group</a>.
       </p>
     </section>
   );

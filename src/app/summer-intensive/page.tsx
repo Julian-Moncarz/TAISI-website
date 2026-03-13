@@ -214,7 +214,7 @@ export default function SummerIntensive() {
                 required
                 rows={5}
                 className="form-input resize-y"
-                placeholder={"I used to think... but now I think... because..."}
+                placeholder={"I used to think... Now I think... because..."}
               />
             </Field>
 
