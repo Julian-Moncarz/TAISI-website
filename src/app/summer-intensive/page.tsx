@@ -209,8 +209,8 @@ export default function SummerIntensive() {
               />
             </Field>
 
-            <Field label="Resume" required hint="PDF only">
-              <FileInput name="resume" accept=".pdf,application/pdf" required />
+            <Field label="Resume" hint="PDF only (optional)">
+              <FileInput name="resume" accept=".pdf,application/pdf" />
             </Field>
 
             <Field label="Link us to something that shows your ability" hint="e.g., essay, blog post, GitHub repo, paper (optional)">
