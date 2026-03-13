@@ -15,7 +15,7 @@ export default function RotatingText() {
         setIndex((i) => (i + 1) % words.length);
         setFading(false);
       }, 300);
-    }, 3000);
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
