@@ -22,7 +22,6 @@ type DraftData = {
   why?: string;
   changedMind?: string;
   projectLink?: string;
-  priorExperience?: string;
   [key: `availability-${string}`]: string;
 };
 
@@ -62,7 +61,7 @@ export default function SummerIntensive() {
     if (draft.why) (form.elements.namedItem("why") as HTMLTextAreaElement).value = draft.why;
     if (draft.changedMind) (form.elements.namedItem("changedMind") as HTMLTextAreaElement).value = draft.changedMind;
     if (draft.projectLink) (form.elements.namedItem("projectLink") as HTMLInputElement).value = draft.projectLink;
-    if (draft.priorExperience) (form.elements.namedItem("priorExperience") as HTMLTextAreaElement).value = draft.priorExperience;
+
     for (const month of MONTHS) {
       const key = `availability-${month}` as keyof DraftData;
       if (draft[key]) (form.elements.namedItem(`availability-${month}`) as HTMLSelectElement).value = draft[key] as string;
@@ -83,7 +82,6 @@ export default function SummerIntensive() {
       why: data.get("why") as string,
       changedMind: data.get("changedMind") as string,
       projectLink: data.get("projectLink") as string,
-      priorExperience: data.get("priorExperience") as string,
     };
     for (const month of MONTHS) {
       draft[`availability-${month}`] = data.get(`availability-${month}`) as string;
@@ -107,7 +105,6 @@ export default function SummerIntensive() {
     payload.set("why", data.get("why") as string);
     payload.set("changedMind", data.get("changedMind") as string);
     payload.set("projectLink", (data.get("projectLink") as string) || "");
-    payload.set("priorExperience", (data.get("priorExperience") as string) || "");
     payload.set("availabilityMay", data.get("availability-May") as string);
     payload.set("availabilityJune", data.get("availability-June") as string);
     payload.set("availabilityJuly", data.get("availability-July") as string);
@@ -207,33 +204,26 @@ export default function SummerIntensive() {
                 required
                 rows={5}
                 className="form-input resize-y"
-                placeholder="- First reason&#10;- Second reason&#10;- Third reason"
+                placeholder={"- First reason\n- Second reason\n- Third reason"}
               />
             </Field>
 
-            <Field label="What's something you've changed your mind about recently?" required hint="3–5 sentences">
+            <Field label="What's something you've changed your mind about recently?" required hint="Max 4 sentences">
               <textarea
                 name="changedMind"
                 required
                 rows={5}
                 className="form-input resize-y"
+                placeholder={"I used to think... but now I think... because..."}
               />
             </Field>
 
-            <Field label="Link us to something that shows how you think" hint="e.g., GitHub repo, paper, blog post, essay — optional">
+            <Field label="Link us to something that shows your ability" hint="e.g., essay, blog post, GitHub repo, paper — optional">
               <input type="url" name="projectLink" className="form-input" placeholder="https://..." />
             </Field>
 
             <Field label="Resume" hint="PDF only — optional">
               <FileInput name="resume" accept=".pdf,application/pdf" />
-            </Field>
-
-            <Field label="Do you have any prior AI safety involvement?" hint="Optional">
-              <textarea
-                name="priorExperience"
-                rows={3}
-                className="form-input resize-y"
-              />
             </Field>
 
             <fieldset className="space-y-4">

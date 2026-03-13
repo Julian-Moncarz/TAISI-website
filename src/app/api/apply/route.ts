@@ -27,11 +27,6 @@ export async function POST(req: NextRequest) {
       fields["Project Link"] = projectLink;
     }
 
-    const priorExperience = formData.get("priorExperience") as string;
-    if (priorExperience) {
-      fields["Prior AI Safety Experience"] = priorExperience;
-    }
-
     // Step 1: Create the record (without resume)
     const createRes = await fetch(
       `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`,
