@@ -6,10 +6,17 @@ function Hero() {
   return (
     <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-10">
       <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
+        We are a student group working on reducing{" "}
+        <span className="text-accent">catastrophic risk</span> from advanced AI.
+      </h1>
+
+      {/* Previous header:
+      <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
         We take talented students, introduce them to AI safety, and pour resources into making them{" "}
         <span className="text-accent">impactful</span><br />
         <RotatingText />
       </h1>
+      */}
 
       <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
         <p className="text-text">
