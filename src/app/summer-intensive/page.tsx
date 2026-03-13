@@ -20,6 +20,7 @@ type DraftData = {
   major?: string;
   year?: string;
   why?: string;
+  changedMind?: string;
   projectLink?: string;
   priorExperience?: string;
   [key: `availability-${string}`]: string;
@@ -59,6 +60,7 @@ export default function SummerIntensive() {
     if (draft.major) (form.elements.namedItem("major") as HTMLInputElement).value = draft.major;
     if (draft.year) (form.elements.namedItem("year") as HTMLSelectElement).value = draft.year;
     if (draft.why) (form.elements.namedItem("why") as HTMLTextAreaElement).value = draft.why;
+    if (draft.changedMind) (form.elements.namedItem("changedMind") as HTMLTextAreaElement).value = draft.changedMind;
     if (draft.projectLink) (form.elements.namedItem("projectLink") as HTMLInputElement).value = draft.projectLink;
     if (draft.priorExperience) (form.elements.namedItem("priorExperience") as HTMLTextAreaElement).value = draft.priorExperience;
     for (const month of MONTHS) {
@@ -79,6 +81,7 @@ export default function SummerIntensive() {
       major: data.get("major") as string,
       year: data.get("year") as string,
       why: data.get("why") as string,
+      changedMind: data.get("changedMind") as string,
       projectLink: data.get("projectLink") as string,
       priorExperience: data.get("priorExperience") as string,
     };
@@ -102,6 +105,7 @@ export default function SummerIntensive() {
     payload.set("major", data.get("major") as string);
     payload.set("year", data.get("year") as string);
     payload.set("why", data.get("why") as string);
+    payload.set("changedMind", data.get("changedMind") as string);
     payload.set("projectLink", (data.get("projectLink") as string) || "");
     payload.set("priorExperience", (data.get("priorExperience") as string) || "");
     payload.set("availabilityMay", data.get("availability-May") as string);
@@ -140,10 +144,10 @@ export default function SummerIntensive() {
         <RoughNotationGroup show={true}>
         <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
           <p>
-            4-day bootcamp for ambitious students who want to work on the hardest problems in AI safety. Small cohort of <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>exceptional peers</RoughNotation>. Mornings are facilitated discussions, afternoons are technical sessions where you leave with tangible artifacts. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
+            A program for ambitious students who want to work on the hardest problems in AI safety. 5–8 <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>exceptional peers</RoughNotation> per cohort. Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
           </p>
-          <p className="text-text-secondary">
-            One weekend day a week, 4 weeks. Cohorts monthly May&ndash;August. Hosted at Trajectory Labs, Toronto. No ML background required. Applications close April 5th.
+          <p className="text-text">
+            One Saturday or Sunday a week, four weeks. Cohorts monthly May&ndash;August. Hosted at <a href="https://www.trajectorylabs.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Trajectory Labs</a>, Toronto. Applications close April 5th.
           </p>
         </div>
         </RoughNotationGroup>
@@ -183,7 +187,7 @@ export default function SummerIntensive() {
             </Field>
 
             <Field label="Major(s)" required>
-              <input type="text" name="major" required className="form-input" placeholder="e.g., Computer Science, Mathematics" />
+              <input type="text" name="major" required className="form-input" />
             </Field>
 
             <Field label="Year" required>
@@ -207,8 +211,21 @@ export default function SummerIntensive() {
               />
             </Field>
 
-            <Field label="Link us to a project you think shows your ability" hint="e.g., GitHub repo, paper, blog post — optional">
+            <Field label="What's something you've changed your mind about recently?" required hint="3–5 sentences">
+              <textarea
+                name="changedMind"
+                required
+                rows={5}
+                className="form-input resize-y"
+              />
+            </Field>
+
+            <Field label="Link us to something that shows how you think" hint="e.g., GitHub repo, paper, blog post, essay — optional">
               <input type="url" name="projectLink" className="form-input" placeholder="https://..." />
+            </Field>
+
+            <Field label="Resume" hint="PDF only — optional">
+              <FileInput name="resume" accept=".pdf,application/pdf" />
             </Field>
 
             <Field label="Do you have any prior AI safety involvement?" hint="Optional">
@@ -217,10 +234,6 @@ export default function SummerIntensive() {
                 rows={3}
                 className="form-input resize-y"
               />
-            </Field>
-
-            <Field label="Resume" hint="PDF only — optional">
-              <FileInput name="resume" accept=".pdf,application/pdf" />
             </Field>
 
             <fieldset className="space-y-4">

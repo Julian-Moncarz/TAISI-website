@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
       Major: formData.get("major"),
       Year: formData.get("year"),
       "Why do you want to do this program?": formData.get("why"),
+      "Changed Mind": formData.get("changedMind"),
       "May 2026 Availability": formData.get("availabilityMay"),
       "June 2026 Availability": formData.get("availabilityJune"),
       "July 2026 Availability": formData.get("availabilityJuly"),

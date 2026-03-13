@@ -16,10 +16,10 @@ function Hero() {
           We do this because we think reducing risks from advanced AI is the most important challenge of our time. It&rsquo;s also an exciting, open problem. It needs far more people working on it.
         </p>
         <p className="text-text">
-          We are part of a network of university AI safety groups funded by Kairos, which also
+          We are part of a network of university AI safety groups funded by <a href="https://kairos-project.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Kairos</a>, which also
           funds groups at MIT, Harvard, and Cambridge. We run{" "}
           <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">intensives</Link> during the summer and{" "}
-          <Link href="/fellowships" className="underline hover:text-accent transition-colors">fellowships</Link> during the school year, with 50+ participants across 8 cohorts to date.
+          <Link href="/fellowships" className="underline hover:text-accent transition-colors">fellowships</Link> during the school year.
         </p>
       </div>
 
@@ -38,10 +38,10 @@ function Hero() {
 const testimonials = [
   {
     quote:
-      "This fellowship gave me a structured, interesting set of things to think and learn about each week, but more importantly it gave me an environment where I could talk and connect with people who have compelling ideas and share similar concerns. After completing the program, I am part of a community rich with opportunity and information. I would recommend it to anyone with any interest in the technical aspect of AI systems or AI safety.",
-    name: "Paul",
-    role: "Fellow '25",
-    image: "/paul.webp",
+      "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
+    name: "Pera",
+    role: "Fellow '25 and '26",
+    image: "/pera.webp",
   },
   {
     quote:
@@ -83,6 +83,9 @@ function Testimonials() {
           </blockquote>
         ))}
       </div>
+      <p className="text-[15px] sm:text-[16px] text-text-secondary mt-8">
+        Fellows have gone on to join SPAR, AI Safety Camp, and <a href="https://zhijing-jin.com/home/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Prof. Zhijing Jin&rsquo;s research group</a>.
+      </p>
     </section>
   );
 }

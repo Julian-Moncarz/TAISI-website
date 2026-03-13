@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const words = ["researchers", "founders", "policymakers", "field-builders"];
+const words = ["researchers", "founders", "policymakers"];
 
 export default function RotatingText() {
   const [index, setIndex] = useState(0);
