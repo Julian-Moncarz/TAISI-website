@@ -143,7 +143,7 @@ export default function SummerIntensive() {
             Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
           </p>
           <p className="text-text">
-            One Saturday or Sunday a week, four weeks. Cohorts monthly May&ndash;August. Hosted at <a href="https://www.trajectorylabs.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Trajectory Labs</a>, Toronto. Applications close April 5th.
+            One Saturday or Sunday a week, four weeks. Cohorts monthly May&ndash;August. Hosted at <a href="https://www.trajectorylabs.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Trajectory Labs</a>, Toronto. <strong>Applications close April 5th.</strong>
           </p>
           <p className="text-text">
             No prior AI safety or ML experience is required. If you are a smart, hardworking, ambitious student, we want you.
