@@ -20,11 +20,20 @@ export default function RotatingText() {
   }, []);
 
   return (
-    <span
-      className="text-accent transition-opacity duration-300"
-      style={{ opacity: fading ? 0 : 1 }}
-    >
-      {words[index]}
+    <span className="relative inline-grid">
+      {/* Hidden words to reserve space for the longest */}
+      {words.map((w) => (
+        <span key={w} className="invisible col-start-1 row-start-1 text-accent">
+          {w}
+        </span>
+      ))}
+      {/* Visible rotating word */}
+      <span
+        className="col-start-1 row-start-1 text-accent transition-opacity duration-300"
+        style={{ opacity: fading ? 0 : 1 }}
+      >
+        {words[index]}
+      </span>
     </span>
   );
 }
