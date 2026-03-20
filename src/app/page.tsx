@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import RotatingText from "@/components/RotatingText";
+import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 
 function Hero() {
   return (
@@ -90,11 +93,68 @@ function Testimonials() {
 }
 
 
+function WhatIsAISafety() {
+  return (
+    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
+      <RoughNotationGroup show={true}>
+      <h2 className="text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8 font-normal text-text">
+        <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>What is AI safety?</RoughNotation>
+      </h2>
+      <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+        <p>
+          AI systems are getting powerful. They can outperform human hackers, and they won gold at the IMO. They can complete increasingly long-horizon tasks.
+        </p>
+        <p>
+          The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons.
+        </p>
+        <p>
+          These are not just chatbots anymore. We are putting them in charge of real world things, with dangerous consequences.
+        </p>
+        <p>
+          With this increase in power comes an increase in risk. AI safety asks the question: how can we make sure AI systems don&rsquo;t do bad things?
+        </p>
+        <p>
+          We think that this is the most pressing problem of our time.
+        </p>
+      </div>
+      </RoughNotationGroup>
+    </section>
+  );
+}
+
+function WhyItMatters() {
+  return (
+    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-16 md:pb-24">
+      <RoughNotationGroup show={true}>
+      <h2 className="text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8 font-normal text-text">
+        <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>How is AI safety relevant to me?</RoughNotation>
+      </h2>
+      <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+        <p>
+          There are not enough talented people working on this problem. Yet.
+        </p>
+        <p>
+          The field is talent-constrained, but it&rsquo;s growing fast. This is the cutting edge. If you care about careers, there are many to be made in this space. If you care about impact, this is a chance to have a huge positive impact on the world.
+        </p>
+        <p>
+          Put simply, AI safety needs more researchers. People are pouring money into getting more talent into the field.
+        </p>
+        <p>
+          That&rsquo;s why we exist. <a href="https://kairos-project.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Kairos</a> funds us to find talented students, introduce them to AI safety, and train them to become exceptional researchers, founders, and policymakers.
+        </p>
+      </div>
+      </RoughNotationGroup>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <Hero />
       <Testimonials />
+      <WhatIsAISafety />
+      <WhyItMatters />
     </main>
   );
 }
