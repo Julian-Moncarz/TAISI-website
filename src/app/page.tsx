@@ -6,7 +6,7 @@ function Hero() {
   return (
     <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-10">
       <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
-        We invest heavily in making exceptional students into impactful AI safety{" "}
+        We train exceptional students to become AI safety{" "}
         <RotatingText />
       </h1>
 
