@@ -137,7 +137,7 @@ export default function SummerIntensive() {
         <RoughNotationGroup show={true}>
         <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
           <p>
-            A program for ambitious students who want to work on the hardest problems in AI safety. 5–8 <RoughNotation type="underline" color="#D94F30" strokeWidth={2} order={1}>exceptional peers</RoughNotation> per cohort.
+            A program for ambitious students who want to work on the hardest problems in AI safety.
           </p>
           <p>
             Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
