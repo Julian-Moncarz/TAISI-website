@@ -132,7 +132,7 @@ export default function SummerIntensive() {
           Apply to the <span className="text-accent">Summer Intensive</span>
         </h1>
 
-        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px] mb-8 space-y-4">
+        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
