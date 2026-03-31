@@ -90,7 +90,7 @@ function Hero() {
         <RotatingText />
       </h1>
 
-      <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
+      <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
         <p>
           AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
         </p>
@@ -109,7 +109,7 @@ function Hero() {
 function Pitch() {
   return (
     <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
-      <div className="max-w-[800px] space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+      <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
         <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight">
           What is AI safety?
         </h2>
@@ -136,6 +136,9 @@ function Pitch() {
         <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
           The Summer Intensive
         </h2>
+        <p>
+          Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. Compute and API credits covered.
+        </p>
         <ul className="space-y-2 pl-0 list-none">
           <li className="flex gap-2.5">
             <span className="text-accent font-bold shrink-0">&#8594;</span>
@@ -148,10 +151,6 @@ function Pitch() {
           <li className="flex gap-2.5">
             <span className="text-accent font-bold shrink-0">&#8594;</span>
             <span>Free fancy lunch, hang out with AI safety researchers</span>
-          </li>
-          <li className="flex gap-2.5">
-            <span className="text-accent font-bold shrink-0">&#8594;</span>
-            <span>Learn and apply AI research skills &mdash; leave with finished GitHub repos you can show profs or employers</span>
           </li>
           <li className="flex gap-2.5">
             <span className="text-accent font-bold shrink-0">&#8594;</span>
