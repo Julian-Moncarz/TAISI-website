@@ -6,10 +6,18 @@ const TABLE_ID = "tblVh25vVyhH3aHOe"; // Email List table
 
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json();
+    const { email, source } = await req.json();
 
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
+    const fields: Record<string, string> = {
+      Email: email,
+      "Submission time": new Date().toISOString(),
+    };
+    if (source && typeof source === "string") {
+      fields["Source"] = source;
     }
 
     const res = await fetch(
@@ -21,14 +29,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          records: [
-            {
-              fields: {
-                Email: email,
-                "Submission time": new Date().toISOString(),
-              },
-            },
-          ],
+          records: [{ fields }],
         }),
       }
     );

@@ -18,7 +18,7 @@ export default function QRPage() {
       const res = await fetch("/api/qr-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source: "lecture" }),
       });
 
       if (!res.ok) throw new Error("Failed");
@@ -55,7 +55,7 @@ export default function QRPage() {
                 disabled={emailSubmitting}
                 className="w-full inline-flex items-center justify-center px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {emailSubmitting ? "..." : "Get the details"}
+                {emailSubmitting ? "..." : "Send me the info"}
               </button>
             </form>
           </div>
