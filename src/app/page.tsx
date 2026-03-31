@@ -130,7 +130,7 @@ function HomeInner() {
             We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
           </p>
           <p>
-            This summer, we&rsquo;re running a weekend AI safety intensive. One day a week, you work through technical material and leave with finished projects for your portfolio.
+            This summer, we&rsquo;re running a weekend AI safety intensive. One day a week, free lunch with AI safety researchers, and you leave with finished projects for your portfolio.
           </p>
         </div>
 
@@ -196,7 +196,7 @@ function HomeInner() {
 
       {/* Testimonials */}
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
-        <h2 className="font-medium text-navy-light text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8">
+        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8">
           What our fellows say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
@@ -223,6 +223,15 @@ function HomeInner() {
             </blockquote>
           ))}
         </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-4 md:pt-8 pb-16 md:pb-24">
+        <hr className="border-t border-black/10 mb-8" />
+        <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-4">
+          Drop your email and we&rsquo;ll send you the details.
+        </p>
+        <EmailCapture location={location} />
       </section>
     </main>
   );
