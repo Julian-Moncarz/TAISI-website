@@ -6,6 +6,7 @@ export default function QRPage() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
 
   async function handleEmailSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -13,6 +14,7 @@ export default function QRPage() {
     setEmailSubmitting(true);
 
     const email = new FormData(e.currentTarget).get("email") as string;
+    setSubmittedEmail(email);
 
     try {
       const res = await fetch("/api/qr-signup", {
@@ -68,7 +70,7 @@ export default function QRPage() {
               Want to apply right now?
             </p>
             <a
-              href="/summer-intensive#apply"
+              href={`/summer-intensive?email=${encodeURIComponent(submittedEmail)}#apply`}
               className="inline-flex items-center px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
             >
               Apply now &rarr;

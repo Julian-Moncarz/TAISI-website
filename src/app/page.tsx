@@ -40,7 +40,7 @@ function EmailCapture({ location }: { location: string | null }) {
           Thanks! We&rsquo;ll send you the details.
         </p>
         <Link
-          href="/summer-intensive#apply"
+          href={`/summer-intensive?email=${encodeURIComponent(email)}#apply`}
           className="inline-flex items-center px-5 sm:px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
         >
           Apply now &rarr;

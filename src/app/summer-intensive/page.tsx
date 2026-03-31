@@ -42,17 +42,28 @@ export default function SummerIntensive() {
   const formRef = useRef<HTMLFormElement>(null);
   const restoredRef = useRef(false);
 
-  // Restore draft on mount
+  // Restore draft on mount + pre-fill email from query param
   useEffect(() => {
-    const draft = loadDraft();
-    if (!draft || !formRef.current) {
+    if (!formRef.current) {
       restoredRef.current = true;
       return;
     }
     const form = formRef.current;
 
+    // Pre-fill email from query param (e.g. coming from email capture)
+    const urlEmail = new URLSearchParams(window.location.search).get("email");
+    if (urlEmail) {
+      (form.elements.namedItem("email") as HTMLInputElement).value = urlEmail;
+    }
+
+    const draft = loadDraft();
+    if (!draft) {
+      restoredRef.current = true;
+      return;
+    }
+
     if (draft.name) (form.elements.namedItem("name") as HTMLInputElement).value = draft.name;
-    if (draft.email) (form.elements.namedItem("email") as HTMLInputElement).value = draft.email;
+    if (!urlEmail && draft.email) (form.elements.namedItem("email") as HTMLInputElement).value = draft.email;
     if (draft.major) (form.elements.namedItem("major") as HTMLInputElement).value = draft.major;
     if (draft.year) (form.elements.namedItem("year") as HTMLSelectElement).value = draft.year;
     if (draft.why) (form.elements.namedItem("why") as HTMLTextAreaElement).value = draft.why;
