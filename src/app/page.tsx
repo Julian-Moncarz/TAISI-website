@@ -192,14 +192,6 @@ function HomeInner() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-4 md:pt-8 pb-16 md:pb-24">
-        <hr className="border-t border-black/10 mb-8" />
-        <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-4">
-          Drop your email and we&rsquo;ll send you the details.
-        </p>
-        <EmailCapture location={location} />
-      </section>
     </main>
   );
 }
