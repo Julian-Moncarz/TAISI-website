@@ -1,6 +1,86 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import RotatingText from "@/components/RotatingText";
+
+function EmailCapture() {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("/api/qr-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "website" }),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setDone(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <div className="mt-8">
+        <p className="text-[17px] sm:text-[19px] text-text mb-4">
+          Thanks! We&rsquo;ll send you the details.
+        </p>
+        <Link
+          href="/summer-intensive"
+          className="inline-flex items-center px-5 sm:px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
+        >
+          Apply now &rarr;
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-8 max-w-[400px]">
+      <form onSubmit={handleSubmit}>
+        {error && (
+          <p className="text-accent text-[14px] font-medium mb-3">{error}</p>
+        )}
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          placeholder="you@mail.utoronto.ca"
+          className="block w-full px-4 py-3 text-[16px] border border-black/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent mb-3"
+        />
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full flex items-center justify-center px-6 py-3 bg-accent text-white text-[16px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50"
+        >
+          {submitting ? "..." : "Send me the info"}
+        </button>
+      </form>
+      <p className="text-[13px] text-text-secondary mt-3">
+        Or{" "}
+        <Link
+          href="/summer-intensive"
+          className="underline hover:text-accent transition-colors"
+        >
+          apply now
+        </Link>
+      </p>
+    </div>
+  );
+}
 
 function Hero() {
   return (
@@ -10,25 +90,81 @@ function Hero() {
         <RotatingText />
       </h1>
 
-      <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text-secondary">
-        <p className="text-text">
-          AI systems are advancing faster than we can make them safe. Making sure advanced AI goes well for humanity is the defining issue of our time. It&rsquo;s also an exciting, open problem, and it needs more people.
+      <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
+        <p>
+          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
         </p>
-        <p className="text-text">
-          We are part of a network of university AI safety groups funded by <a href="https://kairos-project.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Kairos</a>, which also
-          funds groups at MIT, Harvard, and Cambridge. We run{" "}
+        <p>
+          We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge. We run{" "}
           <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">intensives</Link> during the summer and{" "}
           <Link href="/fellowships" className="underline hover:text-accent transition-colors">fellowships</Link> during the school year.
         </p>
       </div>
 
-      <div className="mt-8">
-        <Link
-          href="/summer-intensive"
-          className="inline-flex items-center px-5 sm:px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
-        >
-          Apply to our Summer Intensive &rarr;
-        </Link>
+      <EmailCapture />
+    </section>
+  );
+}
+
+function Pitch() {
+  return (
+    <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
+      <div className="max-w-[800px] space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+          What is AI safety?
+        </h2>
+        <p>
+          AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore &mdash; people are putting them in charge of real-world things, with dangerous consequences.
+        </p>
+        <p>
+          And this is the stupidest that the AI will ever be. They are going to get smarter. People are going to put them in charge of more things.
+        </p>
+        <p>
+          So, AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
+        </p>
+
+        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+          Why should you care?
+        </h2>
+        <p>
+          AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist &mdash; we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
+        </p>
+        <p>
+          If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.
+        </p>
+
+        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+          The Summer Intensive
+        </h2>
+        <ul className="space-y-2 pl-0 list-none">
+          <li className="flex gap-2.5">
+            <span className="text-accent font-bold shrink-0">&#8594;</span>
+            <span>Runs one Saturday or Sunday per week &mdash; <strong>compatible with internships or jobs</strong></span>
+          </li>
+          <li className="flex gap-2.5">
+            <span className="text-accent font-bold shrink-0">&#8594;</span>
+            <span>Hosted at an awesome off-campus AI safety lab near King Station</span>
+          </li>
+          <li className="flex gap-2.5">
+            <span className="text-accent font-bold shrink-0">&#8594;</span>
+            <span>Free fancy lunch, hang out with AI safety researchers</span>
+          </li>
+          <li className="flex gap-2.5">
+            <span className="text-accent font-bold shrink-0">&#8594;</span>
+            <span>Learn and apply AI research skills &mdash; leave with finished GitHub repos you can show profs or employers</span>
+          </li>
+          <li className="flex gap-2.5">
+            <span className="text-accent font-bold shrink-0">&#8594;</span>
+            <span>Top participants get connected to research opportunities after</span>
+          </li>
+        </ul>
+
+        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+          Who is this for?
+        </h2>
+        <p>
+          You don&rsquo;t need an ML background or prior engagement with the field. <strong>If you are a smart, hardworking student, we want you.</strong>
+        </p>
       </div>
     </section>
   );
@@ -89,11 +225,11 @@ function Testimonials() {
   );
 }
 
-
 export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <Hero />
+      <Pitch />
       <Testimonials />
     </main>
   );
