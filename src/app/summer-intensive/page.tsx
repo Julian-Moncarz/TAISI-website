@@ -133,14 +133,17 @@ export default function SummerIntensive() {
         </h1>
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
+          <p>
+            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. Compute and API credits covered.
+          </p>
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One day/week (Sat or Sun) &mdash; <strong>compatible with jobs</strong></span>
+              <span>One day/week (Sat or Sun) &mdash; <strong>compatible with internships or other summer commitments</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Off-campus AI safety lab near King Station</span>
+              <span>Hosted at Trajectory Labs, an off-campus AI safety lab near King Station</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>

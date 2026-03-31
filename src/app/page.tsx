@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
 
 function EmailCapture({ location }: { location: string | null }) {
@@ -11,24 +11,6 @@ function EmailCapture({ location }: { location: string | null }) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
-  const scanRecordId = useRef<string | null>(null);
-  const logged = useRef(false);
-
-  // Log poster scan on page load if loc param is present
-  useEffect(() => {
-    if (!location || logged.current) return;
-    logged.current = true;
-    fetch("/api/poster-scan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ location }),
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        scanRecordId.current = d.recordId ?? null;
-      })
-      .catch(() => {});
-  }, [location]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -36,19 +18,11 @@ function EmailCapture({ location }: { location: string | null }) {
     setSubmitting(true);
 
     try {
-      // Update poster scan record with email if from a poster
-      if (scanRecordId.current) {
-        await fetch("/api/poster-scan", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ recordId: scanRecordId.current, email }),
-        }).catch(() => {});
-      }
-
+      const source = location ? `poster-${location}` : "website";
       const res = await fetch("/api/qr-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: location ? "poster" : "website" }),
+        body: JSON.stringify({ email, source }),
       });
       if (!res.ok) throw new Error("Failed");
       setDone(true);
@@ -76,36 +50,29 @@ function EmailCapture({ location }: { location: string | null }) {
   }
 
   return (
-    <div className="mt-8 max-w-[400px]">
+    <div className="mt-8">
       <form onSubmit={handleSubmit}>
         {error && (
           <p className="text-accent text-[14px] font-medium mb-3">{error}</p>
         )}
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          placeholder="you@mail.utoronto.ca"
-          className="block w-full px-4 py-3 text-[16px] border border-black/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent mb-3"
-        />
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full flex items-center justify-center px-6 py-3 bg-accent text-white text-[16px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50"
-        >
-          {submitting ? "..." : "Send me the info"}
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 max-w-[500px]">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="you@mail.utoronto.ca"
+            className="flex-1 px-4 py-3 text-[16px] border border-black/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+          />
+          <button
+            type="submit"
+            disabled={submitting}
+            className="shrink-0 flex items-center justify-center px-6 py-3 bg-accent text-white text-[16px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50"
+          >
+            {submitting ? "..." : "Send me the info"}
+          </button>
+        </div>
       </form>
-      <p className="text-[13px] text-text-secondary mt-3">
-        Or{" "}
-        <Link
-          href="/summer-intensive"
-          className="underline hover:text-accent transition-colors"
-        >
-          apply now
-        </Link>
-      </p>
     </div>
   );
 }
@@ -163,17 +130,14 @@ function HomeInner() {
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             The Summer Intensive
           </h2>
-          <p>
-            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. Compute and API credits covered.
-          </p>
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One Saturday or Sunday per week &mdash; <strong>compatible with internships or jobs</strong></span>
+              <span>One Saturday or Sunday per week &mdash; <strong>compatible with internships or other summer commitments</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Hosted at an off-campus AI safety lab near King Station</span>
+              <span>Hosted at Trajectory Labs, an off-campus AI safety lab near King Station</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
@@ -184,6 +148,9 @@ function HomeInner() {
               <span>Top participants get connected to research opportunities after</span>
             </li>
           </ul>
+          <p>
+            <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">See full program details and apply &rarr;</Link>
+          </p>
 
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             Who is this for?
