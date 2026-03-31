@@ -160,6 +160,8 @@ export default function SummerIntensive() {
           </p>
         </div>
 
+        <hr className="border-t border-gray-200 mb-8" />
+
         <div id="apply" className="scroll-mt-8">
           <p className="text-[15px] text-text-secondary">
             Fields marked with <span className="text-accent">*</span> are required. Your progress is saved automatically.
