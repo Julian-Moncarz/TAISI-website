@@ -118,43 +118,54 @@ function PosterLandingInner() {
         </form>
 
 
-        {/* Pitch — scrollable below the fold, tighter for mobile */}
+        {/* Pitch — scrollable below the fold */}
         <hr className="border-t border-black/10 mb-8" />
 
-        <div className="space-y-4 text-[16px] sm:text-[17px] leading-[1.7] text-text">
+        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+            What is AI safety?
+          </h2>
           <p>
-            These are not just chatbots anymore &mdash; people are putting AI in charge of real-world things, with dangerous consequences. And this is the <em>stupidest</em> it will ever be. AI safety asks: <strong>how do we make sure the machines don&rsquo;t do bad things?</strong>
+            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore &mdash; people are putting them in charge of real-world things, with dangerous consequences. And this is the stupidest that the AI will ever be.
           </p>
           <p>
-            The field needs more researchers, and there&rsquo;s serious money going into training them. That&rsquo;s what we do.
+            AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
           </p>
 
-          <p className="font-semibold text-navy text-[17px]">
-            What you get:
+          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+            What&rsquo;s in it for you?
+          </h2>
+          <p>
+            AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist &mdash; we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
           </p>
-          <ul className="space-y-1.5 pl-0 list-none">
+          <p>
+            If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.
+          </p>
+
+          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+            The program
+          </h2>
+          <p>
+            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. Compute and API credits covered.
+          </p>
+          <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One day/week (Sat or Sun) &mdash; <strong>compatible with jobs</strong></span>
+              <span>One Saturday or Sunday per week &mdash; <strong>compatible with internships or jobs</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Off-campus AI safety lab near King Station</span>
+              <span>Hosted at an off-campus AI safety lab near King Station</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Free lunch with AI safety researchers</span>
+              <span>Free lunch, hang out with AI safety researchers</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Leave with finished projects for your portfolio</span>
-            </li>
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Top participants get research opportunities after</span>
+              <span>Top participants get connected to research opportunities after</span>
             </li>
           </ul>
-
           <p>
             No ML background needed. <strong>If you&rsquo;re a smart, hardworking student, we want you.</strong>
           </p>
