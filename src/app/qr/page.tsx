@@ -43,7 +43,7 @@ export default function QRPage() {
 
             <form onSubmit={handleEmailSubmit}>
               {emailError && (
-                <p className="text-accent text-[14px] font-medium mb-3">{emailError}</p>
+                <p className="text-accent text-[15px] font-medium mb-3">{emailError}</p>
               )}
               <input
                 type="email"
@@ -81,28 +81,6 @@ export default function QRPage() {
           </div>
         )}
       </section>
-
-      <style jsx global>{`
-        .form-input {
-          display: block;
-          width: 100%;
-          padding: 0.625rem 0.75rem;
-          font-size: 15px;
-          line-height: 1.5;
-          color: var(--color-text);
-          background-color: white;
-          border: 1px solid rgba(26, 26, 26, 0.2);
-          transition: border-color 0.15s ease;
-        }
-        .form-input:focus {
-          outline: none;
-          border-color: var(--color-accent);
-          box-shadow: 0 0 0 1px var(--color-accent);
-        }
-        .form-input::placeholder {
-          color: #9ca3af;
-        }
-      `}</style>
     </main>
   );
 }

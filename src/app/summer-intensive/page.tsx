@@ -265,34 +265,6 @@ export default function SummerIntensive() {
           </form>
         )}
       </section>
-
-      <style jsx global>{`
-        .form-input {
-          display: block;
-          width: 100%;
-          padding: 0.625rem 0.75rem;
-          font-size: 15px;
-          line-height: 1.5;
-          color: var(--color-text);
-          background-color: white;
-          border: 1px solid rgba(26, 26, 26, 0.2);
-          transition: border-color 0.15s ease;
-        }
-        .form-input:focus {
-          outline: none;
-          border-color: var(--color-accent);
-          box-shadow: 0 0 0 1px var(--color-accent);
-        }
-        .form-input::placeholder {
-          color: #9ca3af;
-        }
-        .form-select {
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-          padding-right: 2.5rem;
-        }
-      `}</style>
     </main>
   );
 }

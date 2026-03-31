@@ -56,7 +56,7 @@ function EmailCapture({ location }: { location: string | null }) {
     <div className="mt-8">
       <form onSubmit={handleSubmit}>
         {error && (
-          <p className="text-accent text-[14px] font-medium mb-3">{error}</p>
+          <p className="text-accent text-[15px] font-medium mb-3">{error}</p>
         )}
         <div className="flex flex-col sm:flex-row gap-3 max-w-[500px]">
           <input
@@ -65,7 +65,7 @@ function EmailCapture({ location }: { location: string | null }) {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="you@mail.utoronto.ca"
-            className="flex-1 px-4 py-3 text-[16px] border border-black/20 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+            className="form-input flex-1"
           />
           <button
             type="submit"
