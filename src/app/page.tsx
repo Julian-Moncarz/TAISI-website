@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
 
 function EmailCapture({ location }: { location: string | null }) {
@@ -83,6 +83,17 @@ function EmailCapture({ location }: { location: string | null }) {
 function HomeInner() {
   const params = useSearchParams();
   const location = params.get("loc") || null;
+  const tracked = useRef(false);
+
+  useEffect(() => {
+    if (!location || tracked.current) return;
+    tracked.current = true;
+    fetch("/api/qr-visit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ location }),
+    }).catch(() => {});
+  }, [location]);
 
   return (
     <main className="md:overflow-hidden">
