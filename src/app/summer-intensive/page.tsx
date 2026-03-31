@@ -177,21 +177,22 @@ export default function SummerIntensive() {
         <hr className="border-t border-gray-200 mb-8" />
 
         <div id="apply" className="scroll-mt-8">
-          <p className="text-[15px] text-text-secondary">
-            Fields marked with <span className="text-accent">*</span> are required. Your progress is saved automatically.
-          </p>
         </div>
 
         {submitted ? (
-          <div className="mt-10 max-w-[640px]">
-            <h2 className="text-[1.5rem] sm:text-[2rem] leading-[1.15] tracking-tight mb-4 font-normal">
-              Application <span className="text-accent">submitted</span>
+          <div className="mt-8 border border-black/20 p-6 sm:p-8 max-w-[500px]">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
+              Application submitted
             </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary leading-[1.7]">
+            <p className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">
               Thanks for applying. We&rsquo;ll be in touch.
             </p>
           </div>
         ) : (
+          <>
+          <p className="text-[15px] text-text-secondary mb-0">
+            Fields marked with <span className="text-accent">*</span> are required. Your progress is saved automatically.
+          </p>
           <form ref={formRef} onSubmit={handleSubmit} onChange={saveDraft} className="max-w-[640px] space-y-8 mt-8">
             {error && (
               <p className="text-accent text-[15px] font-medium">{error}</p>
@@ -263,6 +264,7 @@ export default function SummerIntensive() {
               {submitting ? "Submitting..." : "Submit Application"}
             </button>
           </form>
+          </>
         )}
       </section>
     </main>
