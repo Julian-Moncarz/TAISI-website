@@ -32,7 +32,7 @@ export default function QRPage() {
 
   return (
     <main>
-      <section className="max-w-[480px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
         {!emailSubmitted ? (
           <div>
             <h1 className="text-[1.75rem] sm:text-[2.25rem] leading-[1.15] tracking-tight mb-8 font-normal">

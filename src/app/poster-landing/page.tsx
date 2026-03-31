@@ -63,7 +63,7 @@ function PosterLandingInner() {
   if (done) {
     return (
       <main>
-        <section className="max-w-[480px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
+        <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
           <h1 className="text-[1.75rem] sm:text-[2.25rem] leading-[1.15] tracking-tight mb-4 font-normal">
             Thanks! We&rsquo;ll send you the details.
           </h1>
@@ -83,7 +83,7 @@ function PosterLandingInner() {
 
   return (
     <main>
-      <section className="max-w-[600px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12 pb-16">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12 pb-16">
         {/* Headline + email — must be above the fold */}
         <h1 className="text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] leading-[1.15] tracking-tight mb-3 font-normal">
           TAISI{" "}
