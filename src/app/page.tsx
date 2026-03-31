@@ -97,7 +97,7 @@ function HomeInner() {
             We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
           </p>
           <p>
-            This summer, we&rsquo;re running a weekend AI safety intensive. One day a week, free lunch with AI safety researchers, and you leave with finished projects for your portfolio.
+            This summer, we&rsquo;re running a weekend AI safety intensive. It runs one day a week, we&rsquo;ll buy you lunch, invite AI safety researchers to hang out with you, and you&rsquo;ll leave with finished projects for your portfolio.
           </p>
         </div>
 
