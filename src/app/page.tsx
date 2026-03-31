@@ -40,11 +40,14 @@ function EmailCapture({ location }: { location: string | null }) {
           Thanks! We&rsquo;ll send you the details.
         </p>
         <Link
-          href="/summer-intensive"
+          href="/summer-intensive#apply"
           className="inline-flex items-center px-5 sm:px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
         >
           Apply now &rarr;
         </Link>
+        <p className="text-[14px] text-text-secondary mt-2">
+          Takes about 3 minutes.
+        </p>
       </div>
     );
   }
@@ -149,7 +152,7 @@ function HomeInner() {
             </li>
           </ul>
           <p>
-            <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">See full program details and apply &rarr;</Link>
+            <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">See full program details and apply &rarr;</Link> Takes about 3 minutes.
           </p>
 
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">

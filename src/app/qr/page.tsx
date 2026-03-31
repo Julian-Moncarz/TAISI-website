@@ -64,8 +64,8 @@ export default function QRPage() {
             <h1 className="text-[1.75rem] sm:text-[2.25rem] leading-[1.15] tracking-tight mb-4 font-normal">
               Thanks! We will send you the details.
             </h1>
-            <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8">
-              Want to apply right now? Takes like 3 minutes 😄
+            <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-4">
+              Want to apply right now?
             </p>
             <a
               href="/summer-intensive#apply"
@@ -73,6 +73,9 @@ export default function QRPage() {
             >
               Apply now &rarr;
             </a>
+            <p className="text-[14px] text-text-secondary mt-2">
+              Takes about 3 minutes.
+            </p>
           </div>
         )}
       </section>
