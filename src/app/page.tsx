@@ -128,14 +128,14 @@ function HomeInner() {
             AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore. People are putting them in charge of real-world things, with dangerous consequences. And this is the stupidest that the AI will ever be.
           </p>
           <p>
-            AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
+            AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong>
           </p>
 
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             What&rsquo;s in it for you?
           </h2>
           <p>
-            AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist: we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
+            AI safety needs more researchers, and people are pouring money into getting more talent into the field. <strong>That&rsquo;s why we exist:</strong> we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
           </p>
           <p>
             If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.
