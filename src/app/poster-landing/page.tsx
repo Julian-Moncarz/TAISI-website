@@ -90,7 +90,7 @@ function PosterLandingInner() {
           <span className="text-accent">Summer Intensive</span>
         </h1>
         <p className="text-[17px] sm:text-[18px] leading-[1.6] text-text mb-5">
-          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
+          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers. This summer, we&rsquo;re running a weekend intensive where you learn AI safety research skills and leave with real projects for your portfolio.
           </p>
           <p className="text-[17px] sm:text-[18px] leading-[1.6] text-text mb-5">
           Drop your email and we&rsquo;ll send you the details.

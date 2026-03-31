@@ -92,11 +92,10 @@ function Hero() {
 
       <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
         <p>
-          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
+          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers. This summer, we&rsquo;re running a weekend intensive where you learn AI safety research skills and leave with real projects for your portfolio.
         </p>
         <p>
-          We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge. We run{" "}
-          <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">intensives</Link> during the summer and{" "}
+          We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge. We also run{" "}
           <Link href="/fellowships" className="underline hover:text-accent transition-colors">fellowships</Link> during the school year.
         </p>
       </div>
@@ -114,17 +113,14 @@ function Pitch() {
           What is AI safety?
         </h2>
         <p>
-          AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore &mdash; people are putting them in charge of real-world things, with dangerous consequences.
+          AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore &mdash; people are putting them in charge of real-world things, with dangerous consequences. And this is the stupidest that the AI will ever be.
         </p>
         <p>
-          And this is the stupidest that the AI will ever be. They are going to get smarter. People are going to put them in charge of more things.
-        </p>
-        <p>
-          So, AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
+          AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
         </p>
 
         <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
-          Why should you care?
+          What&rsquo;s in it for you?
         </h2>
         <p>
           AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist &mdash; we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
