@@ -150,7 +150,7 @@ export default function SummerIntensive() {
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One day/week (Sat or Sun) &mdash; <strong>compatible with internships or other summer commitments</strong></span>
+              <span>One day/week (Sat or Sun), <strong>compatible with internships or other summer commitments</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>

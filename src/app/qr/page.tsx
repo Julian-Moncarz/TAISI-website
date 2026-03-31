@@ -67,7 +67,7 @@ export default function QRPage() {
               Got it. Check your inbox (and spam).
             </h2>
             <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-5">
-              Want to get ahead? Apply now &mdash; it takes about 3 minutes.
+              Want to get ahead? Apply now. It takes about 3 minutes.
             </p>
             <a
               href={`/summer-intensive?email=${encodeURIComponent(submittedEmail)}#apply`}

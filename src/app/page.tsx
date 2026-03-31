@@ -40,7 +40,7 @@ function EmailCapture({ location }: { location: string | null }) {
           Got it. Check your inbox (and spam).
         </h2>
         <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-5">
-          Want to get ahead? Apply now &mdash; it takes about 3 minutes.
+          Want to get ahead? Apply now. It takes about 3 minutes.
         </p>
         <Link
           href={`/summer-intensive?email=${encodeURIComponent(email)}#apply`}
@@ -125,7 +125,7 @@ function HomeInner() {
             What is AI safety?
           </h2>
           <p>
-            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore &mdash; people are putting them in charge of real-world things, with dangerous consequences. And this is the stupidest that the AI will ever be.
+            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. These are not just chatbots anymore. People are putting them in charge of real-world things, with dangerous consequences. And this is the stupidest that the AI will ever be.
           </p>
           <p>
             AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong> We think that this is the most pressing problem of our time.
@@ -135,7 +135,7 @@ function HomeInner() {
             What&rsquo;s in it for you?
           </h2>
           <p>
-            AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist &mdash; we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
+            AI safety needs more researchers, and people are pouring money into getting more talent into the field. That&rsquo;s why we exist: we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
           </p>
           <p>
             If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.
@@ -147,7 +147,7 @@ function HomeInner() {
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One Saturday or Sunday per week &mdash; <strong>compatible with internships or other summer commitments</strong></span>
+              <span>One Saturday or Sunday per week, <strong>compatible with internships or other summer commitments</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
