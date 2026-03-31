@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendApplicationConfirmation } from "@/lib/email";
 
 const PAT = process.env.AIRTABLE_PAT!;
 const BASE_ID = process.env.AIRTABLE_BASE_ID!;
@@ -83,6 +84,12 @@ export async function POST(req: NextRequest) {
         console.error("Attachment upload error:", attachErr);
         // Record was already created, continue without resume
       }
+    }
+
+    const email = formData.get("email") as string;
+    const name = formData.get("name") as string;
+    if (email) {
+      sendApplicationConfirmation(email, name || "there");
     }
 
     return NextResponse.json({ success: true });

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/last-day-email",
+      "schedule": "0 14 5 4 *"
+    }
+  ]
+}

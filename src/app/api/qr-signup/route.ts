@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendWelcomeEmail } from "@/lib/email";
 
 const PAT = process.env.AIRTABLE_PAT!;
 const BASE_ID = process.env.AIRTABLE_BASE_ID!;
@@ -42,6 +43,9 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Fire-and-forget: don't block response on email delivery
+    sendWelcomeEmail(email);
 
     return NextResponse.json({ success: true });
   } catch (e) {

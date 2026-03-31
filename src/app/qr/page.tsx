@@ -64,7 +64,7 @@ export default function QRPage() {
         ) : (
           <div className="border border-black/20 p-6 sm:p-8 max-w-[500px]">
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
-              Got it. Check your inbox.
+              Got it. Check your inbox (and spam).
             </h2>
             <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-5">
               Want to get ahead? Apply now &mdash; it takes about 3 minutes.
