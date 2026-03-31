@@ -92,7 +92,10 @@ function Hero() {
 
       <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
         <p>
-          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers. We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
+          AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
+        </p>
+        <p>
+          We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
         </p>
         <p>
           This summer, we&rsquo;re running a weekend intensive where you learn AI safety research skills and leave with real projects for your portfolio. We also run{" "}
