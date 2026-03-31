@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback, FormEvent } from "react";
-import Image from "next/image";
-import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
 
 const YEAR_OPTIONS = [
   "1st Year", "2nd Year", "3rd Year", "4th Year",
@@ -130,33 +128,39 @@ export default function SummerIntensive() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
-          <span className="text-accent">Summer Intensive</span>
+        <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-4 sm:mb-6 font-normal">
+          Apply to the <span className="text-accent">Summer Intensive</span>
         </h1>
 
-        <RoughNotationGroup show={true}>
-        <div className="space-y-4 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px]">
+        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[800px] mb-8 space-y-4">
+          <ul className="space-y-2 pl-0 list-none">
+            <li className="flex gap-2.5">
+              <span className="text-accent font-bold shrink-0">&#8594;</span>
+              <span>One day/week (Sat or Sun) &mdash; <strong>compatible with jobs</strong></span>
+            </li>
+            <li className="flex gap-2.5">
+              <span className="text-accent font-bold shrink-0">&#8594;</span>
+              <span>Off-campus AI safety lab near King Station</span>
+            </li>
+            <li className="flex gap-2.5">
+              <span className="text-accent font-bold shrink-0">&#8594;</span>
+              <span>Free lunch with AI safety researchers</span>
+            </li>
+            <li className="flex gap-2.5">
+              <span className="text-accent font-bold shrink-0">&#8594;</span>
+              <span>Leave with finished projects for your portfolio</span>
+            </li>
+            <li className="flex gap-2.5">
+              <span className="text-accent font-bold shrink-0">&#8594;</span>
+              <span>Top participants get research opportunities after</span>
+            </li>
+          </ul>
           <p>
-            A program for ambitious students who want to work on the hardest problems in AI safety.
-          </p>
-          <p>
-            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you leave with a GitHub repo or technical writeup. <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={2}>Free lunch with AI safety researchers</RoughNotation>. Compute and API credits covered. Top participants get connected to <RoughNotation type="underline" color="#D94F30" strokeWidth={2} multiline={true} order={3}>research opportunities</RoughNotation> afterwards.
-          </p>
-          <p className="text-text">
-            One Saturday or Sunday a week, four weeks. Cohorts monthly May&ndash;August. Hosted at <a href="https://www.trajectorylabs.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent transition-colors">Trajectory Labs</a>, Toronto. <strong>Applications close April 5th.</strong>
-          </p>
-          <p className="text-text">
-            No prior AI safety or ML experience is required. If you are a smart, hardworking, ambitious student, we want you.
+            Cohorts monthly May&ndash;August. No prior ML or AI safety experience required. <strong>Applications close April 5th.</strong>
           </p>
         </div>
-        </RoughNotationGroup>
 
-        <hr className="mt-14 border-t border-gray-200" />
-
-        <div id="apply" className="mt-10 scroll-mt-8">
-          <h2 className="text-[1.5rem] sm:text-[2rem] leading-[1.15] tracking-tight mb-2 font-normal">
-            Application form
-          </h2>
+        <div id="apply" className="scroll-mt-8">
           <p className="text-[15px] text-text-secondary">
             Fields marked with <span className="text-accent">*</span> are required. Your progress is saved automatically.
           </p>
