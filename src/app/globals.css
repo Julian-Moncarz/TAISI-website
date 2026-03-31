@@ -27,7 +27,8 @@
   line-height: 1.5;
   color: var(--color-text);
   background-color: white;
-  border: 1px solid rgba(26, 26, 26, 0.2);
+  border: 1px solid rgba(26, 26, 26, 0.2) !important;
+  border-radius: 0 !important;
   transition: border-color 0.15s ease;
 }
 .form-input:focus {

@@ -62,22 +62,19 @@ export default function QRPage() {
             </form>
           </div>
         ) : (
-          <div>
-            <h1 className="text-[1.75rem] sm:text-[2.25rem] leading-[1.15] tracking-tight mb-4 font-normal">
-              Thanks! We will send you the details.
-            </h1>
-            <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-4">
-              Want to apply right now?
+          <div className="border border-black/20 p-6 sm:p-8 max-w-[500px]">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
+              Got it. Check your inbox.
+            </h2>
+            <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-5">
+              Want to get ahead? Apply now &mdash; it takes about 3 minutes.
             </p>
             <a
               href={`/summer-intensive?email=${encodeURIComponent(submittedEmail)}#apply`}
-              className="inline-flex items-center px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
+              className="inline-flex items-center px-5 sm:px-6 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors"
             >
               Apply now &rarr;
             </a>
-            <p className="text-[14px] text-text-secondary mt-2">
-              Takes about 3 minutes.
-            </p>
           </div>
         )}
       </section>

@@ -35,9 +35,12 @@ function EmailCapture({ location }: { location: string | null }) {
 
   if (done) {
     return (
-      <div className="mt-8">
-        <p className="text-[17px] sm:text-[19px] text-text mb-4">
-          Thanks! We&rsquo;ll send you the details.
+      <div className="mt-8 max-w-[500px] border border-black/20 p-6 sm:p-8">
+        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
+          Got it. Check your inbox.
+        </h2>
+        <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-5">
+          Want to get ahead? Apply now &mdash; it takes about 3 minutes.
         </p>
         <Link
           href={`/summer-intensive?email=${encodeURIComponent(email)}#apply`}
@@ -45,9 +48,6 @@ function EmailCapture({ location }: { location: string | null }) {
         >
           Apply now &rarr;
         </Link>
-        <p className="text-[14px] text-text-secondary mt-2">
-          Takes about 3 minutes.
-        </p>
       </div>
     );
   }
