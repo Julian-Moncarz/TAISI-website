@@ -151,16 +151,19 @@ function HomeInner() {
               <span>Top participants get connected to research opportunities after</span>
             </li>
           </ul>
-          <p>
-            <Link href="/summer-intensive" className="underline hover:text-accent transition-colors">See full program details and apply &rarr;</Link> Takes about 3 minutes.
-          </p>
-
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             Who is this for?
           </h2>
           <p>
             You don&rsquo;t need an ML background or prior engagement with the field. <strong>If you are a smart, hardworking student, we want you.</strong>
           </p>
+        </div>
+
+        <div className="mt-8">
+          <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-4">
+            Drop us your email and we&rsquo;ll send you more program details.
+          </p>
+          <EmailCapture location={location} />
         </div>
       </section>
 
