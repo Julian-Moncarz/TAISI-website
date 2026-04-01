@@ -80,6 +80,51 @@ function EmailCapture({ location }: { location: string | null }) {
   );
 }
 
+function ResearchGrid() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-3 text-[15px] sm:text-[16px] text-text-secondary hover:text-navy transition-colors group"
+      >
+        <span
+          className="text-accent font-bold text-[13px] transition-transform duration-200"
+          style={{ display: "inline-block", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+        >
+          &#8594;
+        </span>
+        <span>Examples of AI safety research</span>
+      </button>
+      {open && (
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10">
+          {researchLinks.map((category) => (
+            <div key={category.category} className="bg-white p-5 sm:p-6">
+              <p className="text-[11px] font-semibold tracking-widest uppercase text-accent mb-3">
+                {category.category}
+              </p>
+              <ul className="space-y-2">
+                {category.links.map((link) => (
+                  <li key={link.url}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[14px] sm:text-[15px] leading-[1.5] text-navy hover:text-accent transition-colors"
+                    >
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HomeInner() {
   const params = useSearchParams();
   const location = params.get("loc") || null;
@@ -130,7 +175,13 @@ function HomeInner() {
           <p>
             AI safety asks the question: <strong>&ldquo;how can we make sure the machines don&rsquo;t do bad things?&rdquo;</strong>
           </p>
+        </div>
 
+        <div className="mt-6">
+          <ResearchGrid />
+        </div>
+
+        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text mt-6">
           <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             What&rsquo;s in it for you?
           </h2>
@@ -212,6 +263,53 @@ function HomeInner() {
     </main>
   );
 }
+
+const researchLinks = [
+  {
+    category: "Accessible Introductions",
+    links: [
+      { title: "The AI Revolution (Wait But Why)", url: "https://waitbutwhy.com/2015/01/artificial-intelligence-revolution-1.html" },
+      { title: "A.I. — Humanity's Final Invention? (Kurzgesagt)", url: "https://www.youtube.com/watch?v=fa8k8IQ1_X0" },
+      { title: "What Failure Looks Like (Paul Christiano)", url: "https://www.lesswrong.com/posts/HBxe6wdjxK239zajf/what-failure-looks-like" },
+    ],
+  },
+  {
+    category: "Mechanistic Interpretability",
+    links: [
+      { title: "Multimodal Neurons in Artificial Neural Networks", url: "https://distill.pub/2021/multimodal-neurons/" },
+      { title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet", url: "https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html" },
+    ],
+  },
+  {
+    category: "Alignment Failures",
+    links: [
+      { title: "Alignment Faking in Large Language Models (Anthropic)", url: "https://www.anthropic.com/research/alignment-faking" },
+      { title: "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training", url: "https://arxiv.org/abs/2401.05566" },
+    ],
+  },
+  {
+    category: "Evals & AI Control",
+    links: [
+      { title: "AI Control: Improving Safety Despite Intentional Subversion (Redwood Research)", url: "https://arxiv.org/abs/2312.06942" },
+      { title: "Model Evaluation for Extreme Risks (DeepMind)", url: "https://arxiv.org/abs/2305.15324" },
+    ],
+  },
+  {
+    category: "Timelines & Forecasting [some content dated]",
+    links: [
+      { title: "Algorithmic Progress in Language Models (Epoch AI)", url: "https://epoch.ai/blog/algorithmic-progress-in-language-models" },
+      { title: "AI 2027 (Kokotajlo et al.)", url: "https://ai-2027.com" },
+      { title: "Situational Awareness: From GPT-4 to AGI (Aschenbrenner)", url: "https://situational-awareness.ai/from-gpt-4-to-agi/" },
+    ],
+  },
+  {
+    category: "Economics of AI",
+    links: [
+      { title: "Gradual Disempowerment (Kulveit et al.)", url: "https://gradual-disempowerment.ai" },
+      { title: "Explosive Growth from AI Automation (Epoch AI)", url: "https://epoch.ai/blog/explosive-growth-from-ai-a-review-of-the-arguments" },
+    ],
+  },
+];
 
 const testimonials = [
   {
