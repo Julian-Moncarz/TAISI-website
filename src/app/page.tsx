@@ -150,7 +150,7 @@ function HomeInner() {
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
           <p>
-            AI safety is possibly the most pressing issue of our time, it needs more researchers, and we have a bunch of money to spend on making you into those cracked researchers.
+            AI systems are advancing faster than we can make them safe. Making sure advanced AI goes well for humanity is the defining issue of our time. It&rsquo;s also an exciting, open problem, and it needs more people.
           </p>
           <p>
             We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
