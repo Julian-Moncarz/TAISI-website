@@ -283,6 +283,7 @@ const researchLinks = [
   {
     category: "Alignment Failures",
     links: [
+      { title: "Emergent Misalignment: Narrow Finetuning Can Produce Broadly Misaligned LLMs", url: "https://www.emergent-misalignment.com/" },
       { title: "Alignment Faking in Large Language Models (Anthropic)", url: "https://www.anthropic.com/research/alignment-faking" },
       { title: "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training", url: "https://arxiv.org/abs/2401.05566" },
     ],
