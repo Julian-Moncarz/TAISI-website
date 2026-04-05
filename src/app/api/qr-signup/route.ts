@@ -44,8 +44,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Fire-and-forget: don't block response on email delivery
-    sendWelcomeEmail(email);
+    await sendWelcomeEmail(email);
 
     return NextResponse.json({ success: true });
   } catch (e) {

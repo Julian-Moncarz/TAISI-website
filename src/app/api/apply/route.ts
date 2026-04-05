@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     const email = formData.get("email") as string;
     const name = formData.get("name") as string;
     if (email) {
-      sendApplicationConfirmation(email, name || "there");
+      await sendApplicationConfirmation(email, name || "there");
     }
 
     return NextResponse.json({ success: true });
