@@ -14,12 +14,9 @@ export async function POST(req: NextRequest) {
     }
 
     const fields: Record<string, string> = {
-      Email: email,
+      email: email,
       "Submission time": new Date().toISOString(),
     };
-    if (source && typeof source === "string") {
-      fields["Source"] = source;
-    }
 
     const res = await fetch(
       `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`,
