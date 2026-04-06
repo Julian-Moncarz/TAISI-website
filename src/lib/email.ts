@@ -5,19 +5,16 @@ function getResend() {
 }
 
 const FROM = "Julian from TAISI <julian@taisi.ca>";
-const APPLY_URL = "https://taisi.ca/summer-intensive";
-
 export async function sendWelcomeEmail(email: string) {
   try {
     await getResend().emails.send({
       from: FROM,
       to: email,
-      subject: "Apply to TAISI's Summer Intensive (closes April 5)",
+      subject: "Welcome to TAISI",
       html: `
 <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
-  <p style="margin: 0 0 16px;">We're putting together small cohorts of ambitious students for a 4-day AI safety intensive this summer. No prior ML or AI safety experience required. You'll work through technical material, build something for your GitHub, eat free lunch with AI safety researchers, and walk away with valuable research skills.</p>
-  <p style="margin: 0 0 24px;">The application takes about 4 minutes. Deadline is April 5th.</p>
-  <a href="${APPLY_URL}" style="display: inline-block; background: #D94F30; color: #fff; padding: 14px 28px; text-decoration: none; font-weight: 600; font-size: 16px;">Apply now</a>
+  <p style="margin: 0 0 16px;">You're on the TAISI mailing list. We'll keep you posted on upcoming programs, events, and opportunities in AI safety.</p>
+  <p style="margin: 0 0 16px;">In the meantime, you can learn more about us at <a href="https://taisi.ca" style="color: #D94F30; text-decoration: none;">taisi.ca</a>.</p>
   <p style="margin: 24px 0 0; color: #666; font-size: 14px;">Julian Moncarz<br/>TAISI</p>
 </div>`,
     });

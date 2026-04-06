@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendWelcomeEmail } from "@/lib/email";
 
 const PAT = process.env.AIRTABLE_PAT!;
-const BASE_ID = process.env.AIRTABLE_BASE_ID!;
-const TABLE_ID = "tblVh25vVyhH3aHOe"; // Email List table
+const BASE_ID = "appLQunyWZ3t3kx5o";
+const TABLE_ID = "tblH7kI5rrYwne7a9";
 
 export async function POST(req: NextRequest) {
   try {
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (e) {
-    console.error("QR signup error:", e);
+    console.error("Subscribe error:", e);
     return NextResponse.json(
       { error: "Failed to save email" },
       { status: 500 }

@@ -9,6 +9,9 @@ export default function Fellowships() {
         </h1>
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+          <p className="font-semibold">
+            Applications are currently closed and will reopen late summer.
+          </p>
           <p>
             We offer two parallel introductory fellowships in AI safety:{" "}
             alignment and governance.
@@ -22,9 +25,6 @@ export default function Fellowships() {
           <p>
             Fellowships run weekly over dinner for 8 sessions in the form of
             paper discussions.
-          </p>
-          <p className="font-semibold">
-            Applications are currently closed, and will reopen mid-March.
           </p>
           <p className="text-text-secondary">
             Curriculum developed by BlueDot Impact, adapted by TAISI.
