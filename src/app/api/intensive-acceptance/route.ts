@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendIntensiveAcceptanceConfirmation } from "@/lib/email";
+import {
+  sendIntensiveAcceptanceConfirmation,
+  sendIntensiveAcceptanceDecline,
+} from "@/lib/email";
 
 const PAT = process.env.AIRTABLE_PAT!;
 const BASE_ID = process.env.AIRTABLE_BASE_ID!;
@@ -69,7 +72,7 @@ export async function POST(req: NextRequest) {
 
     if (recordId) {
       await updateAcceptance(recordId, status, notes);
-      await sendConfirmationEmailIfNeeded({
+      await sendAcceptanceResponseEmailIfNeeded({
         email,
         name,
         status,
@@ -117,7 +120,7 @@ export async function POST(req: NextRequest) {
     }
 
     await updateAcceptance(record.id, status, notes);
-    await sendConfirmationEmailIfNeeded({
+    await sendAcceptanceResponseEmailIfNeeded({
       email,
       name,
       status,
@@ -142,7 +145,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function sendConfirmationEmailIfNeeded({
+async function sendAcceptanceResponseEmailIfNeeded({
   email,
   name,
   status,
@@ -153,7 +156,17 @@ async function sendConfirmationEmailIfNeeded({
   status: string;
   cohort: string;
 }) {
-  if (status !== "Confirmed" || !email) return;
+  if (!email) return;
+
+  if (status === "Declined") {
+    await sendIntensiveAcceptanceDecline({
+      email,
+      name,
+    });
+    return;
+  }
+
+  if (status !== "Confirmed") return;
 
   const details = COHORT_DETAILS[cohort];
   await sendIntensiveAcceptanceConfirmation({

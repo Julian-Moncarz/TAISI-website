@@ -80,6 +80,34 @@ export async function sendIntensiveAcceptanceConfirmation({
   }
 }
 
+export async function sendIntensiveAcceptanceDecline({
+  email,
+  name,
+}: {
+  email: string;
+  name?: string;
+}) {
+  try {
+    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
+
+    await getResend().emails.send({
+      from: FROM,
+      to: email,
+      subject: "Thanks for letting us know",
+      html: `
+<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
+  <p style="margin: 0 0 16px;">${greeting}</p>
+  <p style="margin: 0 0 16px;">Thanks for letting us know.</p>
+  <p style="margin: 0 0 16px;">We're sorry the timing won't work, and we really appreciated your application.</p>
+  <p style="margin: 0 0 16px;">If your availability changes, or if there's any context we should know, please reply to this email. We'd be glad to hear from you.</p>
+  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
+</div>`,
+    });
+  } catch (err) {
+    console.error("Failed to send intensive decline confirmation:", err);
+  }
+}
+
 function firstName(name: string) {
   return name.trim().split(/\s+/)[0] || name;
 }

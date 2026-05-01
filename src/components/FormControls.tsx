@@ -16,7 +16,7 @@ export function SuccessPanel({
   className = "",
 }: {
   title: string;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }) {
   return (
@@ -24,9 +24,11 @@ export function SuccessPanel({
       <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
         {title}
       </h2>
-      <div className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">
-        {children}
-      </div>
+      {children && (
+        <div className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">
+          {children}
+        </div>
+      )}
     </div>
   );
 }

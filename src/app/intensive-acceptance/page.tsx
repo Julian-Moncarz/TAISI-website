@@ -114,16 +114,12 @@ export default function IntensiveAcceptance() {
 
         {submitted ? (
           <SuccessPanel
-            title={submitted.status === "Confirmed" ? "Spot confirmed" : "Response received"}
+            title={submitted.status === "Confirmed" ? "Spot confirmed" : "Thanks for letting us know"}
             className="mx-auto"
           >
-            {submitted.status === "Confirmed" ? (
+            {submitted.status === "Confirmed" && (
               <p>
                 Thanks for confirming. Please make sure all four sessions are in your calendar.
-              </p>
-            ) : (
-              <p>
-                Thanks for letting us know. We&rsquo;ll make your spot available to another applicant.
               </p>
             )}
           </SuccessPanel>
@@ -136,6 +132,11 @@ export default function IntensiveAcceptance() {
         ) : (
           <>
             <div className="max-w-[640px] mx-auto space-y-4 text-center text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary">
+              {name && (
+                <p className="text-text text-[16px] sm:text-[17px]">
+                  <strong>{name}</strong>
+                </p>
+              )}
               {cohortDetails && (
                 <p className="text-text">
                   Your cohort: <strong>{cohortDetails.name}</strong>
