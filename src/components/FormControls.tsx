@@ -20,7 +20,7 @@ export function SuccessPanel({
   className?: string;
 }) {
   return (
-    <div className={`mt-8 border border-black/20 p-6 sm:p-8 max-w-[500px] ${className}`}>
+    <div className={`mt-8 mx-auto w-full max-w-[500px] border border-black/20 p-6 sm:p-8 ${className}`}>
       <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
         {title}
       </h2>

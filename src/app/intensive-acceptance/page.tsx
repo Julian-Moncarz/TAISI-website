@@ -43,11 +43,11 @@ export default function IntensiveAcceptance() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState<ConfirmationResult | null>(null);
+  const [linkLoaded, setLinkLoaded] = useState(false);
   const [cohort, setCohort] = useState("");
   const [recordId, setRecordId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [prefilling, setPrefilling] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -55,27 +55,14 @@ export default function IntensiveAcceptance() {
     const prefillEmail = params.get("email") || "";
     const prefillRecordId = params.get("recordId") || params.get("id") || "";
     const cohortParam = params.get("cohort");
-    let cancelled = false;
 
     setRecordId(prefillRecordId);
+    setName(prefillName);
+    setEmail(prefillEmail);
     if (cohortParam) {
       setCohort(normalizeCohort(cohortParam));
     }
-
-    async function runPrefillAnimation() {
-      if (!prefillName && !prefillEmail) return;
-
-      setPrefilling(true);
-      await typeIntoField(prefillName, setName, () => cancelled, 28);
-      await typeIntoField(prefillEmail, setEmail, () => cancelled, 18);
-      if (!cancelled) setPrefilling(false);
-    }
-
-    runPrefillAnimation();
-
-    return () => {
-      cancelled = true;
-    };
+    setLinkLoaded(true);
   }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -126,7 +113,10 @@ export default function IntensiveAcceptance() {
         </h1>
 
         {submitted ? (
-          <SuccessPanel title={submitted.status === "Confirmed" ? "Spot confirmed" : "Response received"}>
+          <SuccessPanel
+            title={submitted.status === "Confirmed" ? "Spot confirmed" : "Response received"}
+            className="mx-auto"
+          >
             {submitted.status === "Confirmed" ? (
               <p>
                 Thanks for confirming. Please make sure all four sessions are in your calendar.
@@ -136,6 +126,12 @@ export default function IntensiveAcceptance() {
                 Thanks for letting us know. We&rsquo;ll make your spot available to another applicant.
               </p>
             )}
+          </SuccessPanel>
+        ) : !linkLoaded ? null : !recordId ? (
+          <SuccessPanel title="Use your personalized link" className="mx-auto">
+            <p>
+              This confirmation page needs the unique link from your acceptance email. Please open that link, or reply to us and we&rsquo;ll confirm manually.
+            </p>
           </SuccessPanel>
         ) : (
           <>
@@ -151,35 +147,13 @@ export default function IntensiveAcceptance() {
 
             <form onSubmit={handleSubmit} className="max-w-[640px] mx-auto space-y-8 mt-8">
               {error && (
-                <p className="text-accent text-[15px] font-medium">{error}</p>
+                <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">{error}</p>
               )}
 
               <input type="hidden" name="recordId" value={recordId} />
               <input type="hidden" name="cohort" value={cohort} />
-
-              <FormField label="Full Name" required>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  readOnly={prefilling}
-                  className="form-input"
-                />
-              </FormField>
-
-              <FormField label="Email" required>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  readOnly={prefilling}
-                  className="form-input"
-                />
-              </FormField>
+              <input type="hidden" name="name" value={name} />
+              <input type="hidden" name="email" value={email} />
 
               <FormField label="Do you commit to attending all four sessions?" required>
                 <SelectWrapper>
@@ -236,39 +210,4 @@ function normalizeCohort(value: string) {
   };
 
   return aliases[lower] || decoded;
-}
-
-function typeIntoField(
-  value: string,
-  setValue: (value: string) => void,
-  isCancelled: () => boolean,
-  delayMs: number
-) {
-  return new Promise<void>((resolve) => {
-    if (!value) {
-      resolve();
-      return;
-    }
-
-    let index = 0;
-
-    function tick() {
-      if (isCancelled()) {
-        resolve();
-        return;
-      }
-
-      index += 1;
-      setValue(value.slice(0, index));
-
-      if (index >= value.length) {
-        window.setTimeout(resolve, 120);
-        return;
-      }
-
-      window.setTimeout(tick, delayMs);
-    }
-
-    window.setTimeout(tick, 180);
-  });
 }

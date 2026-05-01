@@ -56,7 +56,7 @@ export async function sendIntensiveAcceptanceConfirmation({
   dates?: string;
 }) {
   try {
-    const greeting = name ? `Hi ${escapeHtml(name)},` : "Hi,";
+    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
     const cohortLine = cohort
       ? `<p style="margin: 0 0 16px;">You're confirmed for the ${escapeHtml(cohort)} cohort at Trajectory Labs${dates ? `, meeting on ${escapeHtml(dates)}` : ""}.</p>`
       : `<p style="margin: 0 0 16px;">You're confirmed for TAISI's summer intensive.</p>`;
@@ -68,7 +68,7 @@ export async function sendIntensiveAcceptanceConfirmation({
       html: `
 <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
   <p style="margin: 0 0 16px;">${greeting}</p>
-  <p style="margin: 0 0 16px;">Thanks for confirming your spot in TAISI's summer intensive. We're excited to have you join us.</p>
+  <p style="margin: 0 0 16px;">Thanks for confirming your spot! We're excited to have you join us.</p>
   ${cohortLine}
   <p style="margin: 0 0 16px;">Please make sure all four sessions are in your calendar. We'll send more details before your cohort begins.</p>
   <p style="margin: 0 0 16px;">If anything changes, reply to this email as soon as you can.</p>
@@ -78,6 +78,10 @@ export async function sendIntensiveAcceptanceConfirmation({
   } catch (err) {
     console.error("Failed to send intensive acceptance confirmation:", err);
   }
+}
+
+function firstName(name: string) {
+  return name.trim().split(/\s+/)[0] || name;
 }
 
 function escapeHtml(value: string) {

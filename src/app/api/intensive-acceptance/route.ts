@@ -57,8 +57,9 @@ export async function POST(req: NextRequest) {
     const email = stringValue(body.email).toLowerCase();
     const status = stringValue(body.status);
     const notes = stringValue(body.notes);
+    const hasValidEmail = Boolean(email && email.includes("@"));
 
-    if (!email || !email.includes("@")) {
+    if (email && !hasValidEmail) {
       return NextResponse.json({ error: "A valid email is required" }, { status: 400 });
     }
 
@@ -80,6 +81,13 @@ export async function POST(req: NextRequest) {
         status,
         cohort: submittedCohort,
       });
+    }
+
+    if (!hasValidEmail) {
+      return NextResponse.json(
+        { error: "Please use the personalized confirmation link from your acceptance email." },
+        { status: 400 }
+      );
     }
 
     const record = await findRecordByEmail(email);
@@ -145,7 +153,7 @@ async function sendConfirmationEmailIfNeeded({
   status: string;
   cohort: string;
 }) {
-  if (status !== "Confirmed") return;
+  if (status !== "Confirmed" || !email) return;
 
   const details = COHORT_DETAILS[cohort];
   await sendIntensiveAcceptanceConfirmation({
@@ -207,7 +215,7 @@ async function updateAcceptance(recordId: string, status: string, notes: string)
     console.error("Airtable acceptance update error:", airtableError);
     throw new UserFacingError(
       airtableUpdateErrorMessage(updateRes.status, airtableError),
-      updateRes.status >= 500 ? 502 : 500
+      airtableUpdateErrorStatus(updateRes.status, airtableError)
     );
   }
 }
@@ -275,4 +283,18 @@ function airtableUpdateErrorMessage(status: number, detail: string) {
   }
 
   return "We could not save your confirmation because Airtable returned an error. Please try again, or reply to your acceptance email and we will confirm manually.";
+}
+
+function airtableUpdateErrorStatus(status: number, detail: string) {
+  if (
+    status === 404 ||
+    detail.includes("ROW_DOES_NOT_EXIST") ||
+    detail.includes("INVALID_RECORDS") ||
+    detail.includes("NOT_FOUND") ||
+    detail.includes("could not be found")
+  ) {
+    return 404;
+  }
+
+  return status >= 500 ? 502 : 500;
 }
