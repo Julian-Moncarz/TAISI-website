@@ -48,7 +48,7 @@ export default function Fellowships() {
 
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
           <div>
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-1">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Governance Fellowship
             </h2>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">8 weeks</p>
@@ -64,7 +64,7 @@ export default function Fellowships() {
           </div>
 
           <div>
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-1">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Alignment Fellowship
             </h2>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">8 weeks</p>

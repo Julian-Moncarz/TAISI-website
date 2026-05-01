@@ -135,13 +135,13 @@ export default function SecretApplication() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-8 font-normal">
+        <h1 className="text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-8 font-semibold">
           Secret post deadline application
         </h1>
 
         {submitted ? (
           <div className="mt-8 border border-black/20 p-6 sm:p-8 max-w-[500px]">
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-3">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
               Application submitted
             </h2>
             <p className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">

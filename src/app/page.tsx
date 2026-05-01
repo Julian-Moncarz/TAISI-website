@@ -35,7 +35,7 @@ function EmailCapture({ location }: { location: string | null }) {
   if (done) {
     return (
       <div className="mt-8 max-w-[500px] border border-black/20 p-6 sm:p-8">
-        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-3">
+        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
           You&rsquo;re on the list.
         </h2>
         <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary">
@@ -165,7 +165,7 @@ function HomeInner() {
       {/* What is AI safety? */}
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-0 pb-8 md:pb-10">
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal">
             What is AI safety?
           </h2>
           <p>
@@ -183,7 +183,7 @@ function HomeInner() {
         </div>
 
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text mt-6">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal pt-4">
             What&rsquo;s in it for you?
           </h2>
           <p>
@@ -198,7 +198,7 @@ function HomeInner() {
 
         {/* Where AI safety work happens */}
         <div className="mt-10 space-y-5 text-text">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal">
             Where does AI safety work happen?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px border border-black/10 bg-black/10 mt-2">
@@ -272,7 +272,7 @@ function HomeInner() {
 
       {/* Testimonials */}
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
-        <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8">
+        <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal mb-6 sm:mb-8">
           What our fellows say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
