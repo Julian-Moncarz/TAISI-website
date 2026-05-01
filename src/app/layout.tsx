@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
+import { Archivo_Narrow } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const titleFont = Archivo_Narrow({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-title",
+});
 
 export const metadata: Metadata = {
   title: "TAISI | Toronto AI Safety Student Initiative",
@@ -34,7 +41,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className={`${titleFont.variable} min-h-screen flex flex-col`}>
         <Nav />
         {children}
         <Analytics />

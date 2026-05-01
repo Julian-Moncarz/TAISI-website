@@ -57,3 +57,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.hero-title {
+  font-family: var(--font-title), "Arial Narrow", Arial, sans-serif;
+}

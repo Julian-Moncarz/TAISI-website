@@ -35,7 +35,7 @@ function EmailCapture({ location }: { location: string | null }) {
   if (done) {
     return (
       <div className="mt-8 max-w-[500px] border border-black/20 p-6 sm:p-8">
-        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
+        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-3">
           You&rsquo;re on the list.
         </h2>
         <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary">
@@ -90,7 +90,7 @@ function ResearchGrid() {
         <span>Examples of AI safety work</span>
       </button>
       {open && (
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px border border-black/10 bg-black/10">
           {researchLinks.map((category) => (
             <div key={category.category} className="bg-white p-5 sm:p-6">
               <p className="text-[11px] font-semibold tracking-widest uppercase text-accent mb-3">
@@ -135,8 +135,8 @@ function HomeInner() {
 
   return (
     <main className="md:overflow-hidden">
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-10">
-        <h1 className="text-[2rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[1.15] tracking-tight mb-6 sm:mb-8 font-normal">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-12 sm:pt-18 md:pt-24 pb-4 md:pb-6">
+        <h1 className="hero-title text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
           We train exceptional students to become AI safety{" "}
           <RotatingText />
         </h1>
@@ -152,7 +152,7 @@ function HomeInner() {
 
         <EmailCapture location={location} />
 
-        <div className="border border-black/10 bg-gray-50 p-5 sm:p-6 mt-8 space-y-2 text-[15px] sm:text-[17px] leading-[1.6] text-text">
+        <div className="border border-black/10 p-5 sm:p-6 mt-8 space-y-2 text-[15px] sm:text-[17px] leading-[1.6] text-text">
           <p>
             <a href="/fellowships" className="text-accent underline">Fellowship</a> applications reopen late summer.
           </p>
@@ -163,9 +163,9 @@ function HomeInner() {
       </section>
 
       {/* What is AI safety? */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-0 pb-8 md:pb-10">
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight">
             What is AI safety?
           </h2>
           <p>
@@ -183,7 +183,7 @@ function HomeInner() {
         </div>
 
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text mt-6">
-          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight pt-4">
             What&rsquo;s in it for you?
           </h2>
           <p>
@@ -198,10 +198,10 @@ function HomeInner() {
 
         {/* Where AI safety work happens */}
         <div className="mt-10 space-y-5 text-text">
-          <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight">
+          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight">
             Where does AI safety work happen?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-black/10 mt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px border border-black/10 bg-black/10 mt-2">
             {safetyOrgs.map((org) => (
               <a
                 key={org.name}
@@ -215,7 +215,7 @@ function HomeInner() {
                   alt={org.name}
                   width={40}
                   height={40}
-                  className="w-10 h-10 object-contain shrink-0"
+                  className="w-[1.8rem] h-[1.8rem] object-contain shrink-0"
                 />
                 <div>
                   <span className="block text-[15px] sm:text-[16px] font-semibold text-navy group-hover:text-accent transition-colors">
@@ -233,7 +233,7 @@ function HomeInner() {
                 alt="University labs"
                 width={40}
                 height={40}
-                className="w-10 h-10 object-contain shrink-0"
+                className="w-[1.8rem] h-[1.8rem] object-contain shrink-0"
               />
               <div>
                 <span className="block text-[15px] sm:text-[16px] font-semibold text-navy">
@@ -272,7 +272,7 @@ function HomeInner() {
 
       {/* Testimonials */}
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
-        <h2 className="font-semibold text-navy text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8">
+        <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-tight mb-6 sm:mb-8">
           What our fellows say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
@@ -309,31 +309,31 @@ const safetyOrgs = [
   {
     name: "Anthropic",
     description: "Frontier lab, does a lot of safety work",
-    logo: "/logos/anthropic.svg",
+    logo: "/logos/anthropic-icon.png",
     url: "https://www.anthropic.com",
   },
   {
     name: "MATS",
     description: "The top advanced AI safety research fellowship",
-    logo: "/logos/mats.svg",
+    logo: "/logos/mats-icon.png",
     url: "https://www.matsprogram.org",
   },
   {
     name: "Redwood Research",
     description: "AI control research",
-    logo: "/logos/redwood.svg",
+    logo: "/logos/redwood-icon.png",
     url: "https://www.redwoodresearch.org",
   },
   {
     name: "METR",
     description: "Tests whether frontier models are dangerous",
-    logo: "/logos/metr.svg",
+    logo: "/logos/metr-icon.png",
     url: "https://metr.org",
   },
   {
     name: "Center for AI Safety",
     description: "Provides compute and funding for safety researchers",
-    logo: "/logos/cais.svg",
+    logo: "/logos/cais-icon.png",
     url: "https://www.safe.ai",
   },
   {
@@ -346,19 +346,19 @@ const safetyOrgs = [
   {
     name: "Epoch AI",
     description: "AI trends and forecasting",
-    logo: "/logos/epoch.svg",
+    logo: "/logos/epoch-icon.svg",
     url: "https://epoch.ai",
   },
   {
     name: "GovAI",
     description: "Oxford-based AI governance research. Runs competitive fellowships",
-    logo: "/logos/govai.png",
+    logo: "/logos/govai-icon.jpg",
     url: "https://www.governance.ai",
   },
   {
     name: "80,000 Hours",
     description: "Career advice and the main AI safety job board",
-    logo: "/logos/80k.png",
+    logo: "/logos/80k-icon.png",
     url: "https://80000hours.org",
   },
 ];

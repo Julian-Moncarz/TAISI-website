@@ -141,7 +141,7 @@ export default function SecretApplication() {
 
         {submitted ? (
           <div className="mt-8 border border-black/20 p-6 sm:p-8 max-w-[500px]">
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-navy tracking-tight mb-3">
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-tight mb-3">
               Application submitted
             </h2>
             <p className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">
