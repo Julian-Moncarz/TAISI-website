@@ -12,24 +12,24 @@ const titleFont = Archivo_Narrow({
 });
 
 export const metadata: Metadata = {
-  title: "TAISI | Toronto AI Safety Student Initiative",
+  title: "TAISI | Toronto AI Safety Initiative",
   description:
-    "A student group at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+    "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
   },
   openGraph: {
-    title: "TAISI | Toronto AI Safety Student Initiative",
+    title: "TAISI | Toronto AI Safety Initiative",
     description:
-      "A student group at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+      "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
     images: ["/logo.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TAISI | Toronto AI Safety Student Initiative",
+    title: "TAISI | Toronto AI Safety Initiative",
     description:
-      "A student group at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+      "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
     images: ["/logo.png"],
   },
 };

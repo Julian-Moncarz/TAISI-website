@@ -44,7 +44,7 @@ export default function Nav() {
               className="h-[28px] sm:h-[32px] w-auto translate-y-[2px]"
             />
             <span className="text-[15px] sm:text-[17px] font-normal tracking-tight text-text">
-              Toronto AI Safety Student Initiative
+              Toronto AI Safety Initiative
             </span>
           </Link>
 

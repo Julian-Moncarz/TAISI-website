@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
+import {
+  FileInput,
+  FormField,
+  RequiredFieldsNote,
+  SelectWrapper,
+  SuccessPanel,
+} from "@/components/FormControls";
 
 const YEAR_OPTIONS = [
   "1st Year", "2nd Year", "3rd Year", "4th Year",
@@ -140,37 +147,37 @@ export default function SecretApplication() {
         </h1>
 
         {submitted ? (
-          <div className="mt-8 border border-black/20 p-6 sm:p-8 max-w-[500px]">
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
-              Application submitted
-            </h2>
-            <p className="text-[15px] sm:text-[16px] text-text-secondary leading-[1.7]">
+          <SuccessPanel title="Application submitted">
+            <p>
               Thanks for applying. We&rsquo;ll be in touch.
             </p>
-          </div>
+          </SuccessPanel>
         ) : (
           <>
-          <p className="text-[15px] text-text-secondary mb-0">
-            Fields marked with <span className="text-accent">*</span> are required. Your progress is saved automatically.
-          </p>
+          <div className="space-y-1">
+            <RequiredFieldsNote />
+            <p className="text-[15px] text-text-secondary mb-0">
+              Your progress is saved automatically.
+            </p>
+          </div>
           <form ref={formRef} onSubmit={handleSubmit} onChange={saveDraft} className="max-w-[640px] space-y-8 mt-8">
             {error && (
               <p className="text-accent text-[15px] font-medium">{error}</p>
             )}
 
-            <Field label="Full Name" required>
+            <FormField label="Full Name" required>
               <input type="text" name="name" required className="form-input" />
-            </Field>
+            </FormField>
 
-            <Field label="Email" required>
+            <FormField label="Email" required>
               <input type="email" name="email" required className="form-input" />
-            </Field>
+            </FormField>
 
-            <Field label="Major(s)" required>
+            <FormField label="Major(s)" required>
               <input type="text" name="major" required className="form-input" />
-            </Field>
+            </FormField>
 
-            <Field label="Year" required>
+            <FormField label="Year" required>
               <SelectWrapper>
                 <select name="year" required className="form-input form-select" defaultValue="">
                   <option value="" disabled>Select your year</option>
@@ -179,31 +186,31 @@ export default function SecretApplication() {
                   ))}
                 </select>
               </SelectWrapper>
-            </Field>
+            </FormField>
 
-            <Field label="What is the number one reason you want to do this program?" required>
+            <FormField label="What is the number one reason you want to do this program?" required>
               <textarea
                 name="why"
                 required
                 rows={5}
                 className="form-input resize-y"
               />
-            </Field>
+            </FormField>
 
-            <Field label="Resume" hint="PDF only (optional)">
+            <FormField label="Resume" hint="PDF only (optional)">
               <FileInput name="resume" accept=".pdf,application/pdf" />
-            </Field>
+            </FormField>
 
-            <Field label="Link us to something that shows your ability" hint="e.g., essay, blog post, GitHub repo, paper (optional)">
+            <FormField label="Link us to something that shows your ability" hint="e.g., essay, blog post, GitHub repo, paper (optional)">
               <input type="url" name="projectLink" className="form-input" placeholder="https://..." />
-            </Field>
+            </FormField>
 
             <fieldset className="space-y-4">
               <legend className="text-[15px] font-semibold text-text tracking-wide uppercase mb-2">
                 Availability <span className="text-accent">*</span>
               </legend>
               {MONTHS.map((month) => (
-                <Field key={month} label={`${month} 2026`} required>
+                <FormField key={month} label={`${month} 2026`} required>
                   <SelectWrapper>
                     <select name={`availability-${month}`} required className="form-input form-select" defaultValue="">
                       <option value="" disabled>Select availability</option>
@@ -212,14 +219,14 @@ export default function SecretApplication() {
                       ))}
                     </select>
                   </SelectWrapper>
-                </Field>
+                </FormField>
               ))}
             </fieldset>
 
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center justify-center px-8 py-3 bg-accent text-white text-[15px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="primary-cta px-8 py-3 text-[15px] disabled:cursor-not-allowed"
             >
               {submitting ? "Submitting..." : "Submit Application"}
             </button>
@@ -228,83 +235,5 @@ export default function SecretApplication() {
         )}
       </section>
     </main>
-  );
-}
-
-function FileInput({ name, accept, required }: { name: string; accept: string; required?: boolean }) {
-  const [fileName, setFileName] = useState<string | null>(null);
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  return (
-    <div>
-      <div className="relative">
-        <input
-          ref={inputRef}
-          type="file"
-          name={name}
-          accept={accept}
-          required={required}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
-        />
-        <div className="form-input text-left">
-          <span className={fileName ? "" : "text-[#9ca3af]"}>
-            {fileName || "Choose file"}
-          </span>
-        </div>
-      </div>
-      {fileName && (
-        <div className="mt-2 flex items-center gap-2 text-[14px] text-text-secondary">
-          <span>{fileName}</span>
-          <button
-            type="button"
-            onClick={() => {
-              if (inputRef.current) inputRef.current.value = "";
-              setFileName(null);
-            }}
-            className="text-accent hover:text-accent-hover transition-colors"
-          >
-            Remove
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function SelectWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative">
-      {children}
-      <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  required,
-  hint,
-  children,
-}: {
-  label: string;
-  required?: boolean;
-  hint?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label className="block mb-1.5">
-        <span className="text-[15px] font-medium text-text">
-          {label}
-          {required && <span className="text-accent ml-0.5">*</span>}
-        </span>
-        {hint && (
-          <span className="block text-[13px] text-text-secondary mt-0.5">{hint}</span>
-        )}
-      </label>
-      {children}
-    </div>
   );
 }

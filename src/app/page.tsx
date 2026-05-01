@@ -63,7 +63,7 @@ function EmailCapture({ location }: { location: string | null }) {
           <button
             type="submit"
             disabled={submitting}
-            className="shrink-0 flex items-center justify-center px-6 py-3 bg-accent text-white text-[16px] font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50"
+            className="primary-cta shrink-0 px-6 py-3 text-[16px]"
           >
             {submitting ? "..." : "Join our mailing list"}
           </button>
@@ -152,20 +152,20 @@ function HomeInner() {
 
         <EmailCapture location={location} />
 
-        <div className="border border-black/10 p-5 sm:p-6 mt-8 space-y-2 text-[15px] sm:text-[17px] leading-[1.6] text-text">
+        <div className="max-w-[720px] border-l-2 border-accent pl-4 mt-8 space-y-1.5 text-[15px] sm:text-[16px] leading-[1.55] text-text">
           <p>
-            <a href="/fellowships" className="text-accent underline">Fellowship</a> applications reopen late summer.
+            <a href="/fellowships" className="text-text underline hover:text-accent transition-colors">Fellowship</a> applications reopen late summer.
           </p>
           <p>
-            <a href="/summer-intensive" className="text-accent underline">Intensive</a> applications are closed, but exceptional candidates can still reach out.
+            <a href="/summer-intensive" className="text-text underline hover:text-accent transition-colors">Intensive</a> applications are closed, but exceptional candidates can still reach out.
           </p>
         </div>
       </section>
 
       {/* What is AI safety? */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-0 pb-8 md:pb-10">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-3 pb-8 md:pb-10">
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal">
+          <h2 className="section-header">
             What is AI safety?
           </h2>
           <p>
@@ -183,11 +183,11 @@ function HomeInner() {
         </div>
 
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text mt-6">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal pt-4">
+          <h2 className="section-header pt-5">
             What&rsquo;s in it for you?
           </h2>
           <p>
-            AI safety needs more researchers, and people are pouring money into getting more talent into the field.
+            AI safety needs more researchers. People are pouring money into finding talent for the field.
             <br /><br />
             <strong>That&rsquo;s why we exist:</strong> we have funding to find talented students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
           </p>
@@ -197,8 +197,8 @@ function HomeInner() {
         </div>
 
         {/* Where AI safety work happens */}
-        <div className="mt-10 space-y-5 text-text">
-          <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal">
+        <div className="mt-11 space-y-5 text-text">
+          <h2 className="section-header">
             Where does AI safety work happen?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-px border border-black/10 bg-black/10 mt-2">
@@ -271,8 +271,8 @@ function HomeInner() {
       </section>
 
       {/* Testimonials */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
-        <h2 className="font-semibold text-text text-[1.35rem] sm:text-[1.5rem] tracking-normal mb-6 sm:mb-8">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-3 md:pt-5 pb-8 md:pb-10">
+        <h2 className="section-header mb-6 sm:mb-8">
           What our fellows say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
