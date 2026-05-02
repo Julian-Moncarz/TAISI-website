@@ -82,9 +82,6 @@ export default function SummerFellowshipAvailability() {
                   <strong>{name}</strong>
                 </p>
               )}
-              <p>
-                We&rsquo;re exploring summer fellowship iterations that would run on weekday evenings at Trajectory Labs. The program would cover similar content as the intensives. And, we&rsquo;ll buy you sushi (or some other fancy dinner).
-              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="max-w-[640px] mx-auto space-y-8 mt-8">
