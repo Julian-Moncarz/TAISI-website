@@ -83,7 +83,7 @@ export default function SummerFellowshipAvailability() {
                 </p>
               )}
               <p>
-                We&rsquo;re exploring summer fellowship iterations that would run on weekday evenings at Trajectory Labs. The program would cover similar content to the intensives, and we&rsquo;ll buy sushi.
+                We&rsquo;re exploring summer fellowship iterations that would run on weekday evenings at Trajectory Labs. The program would cover similar content as the intensives. And, we&rsquo;ll buy you sushi :) (or some other fancy dinner)
               </p>
             </div>
 
