@@ -108,8 +108,74 @@ export async function sendIntensiveAcceptanceDecline({
   }
 }
 
+export async function sendSeptemberFellowshipConfirmation({
+  email,
+  name,
+}: {
+  email: string;
+  name?: string;
+}) {
+  try {
+    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
+
+    await getResend().emails.send({
+      from: FROM,
+      to: email,
+      subject: "Your September fellowship spot is saved",
+      html: `
+<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
+  <p style="margin: 0 0 16px;">${greeting}</p>
+  <p style="margin: 0 0 16px;">Thanks for confirming. We've saved your guaranteed spot in the September fellowship.</p>
+  <p style="margin: 0 0 16px;">We'll send more details closer to September.</p>
+  <p style="margin: 0 0 16px;">If anything changes, reply to this email and let us know.</p>
+  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
+</div>`,
+    });
+  } catch (err) {
+    console.error("Failed to send September fellowship confirmation:", err);
+  }
+}
+
+export async function sendSummerFellowshipAvailabilityConfirmation({
+  email,
+  name,
+  session1Evenings,
+  session2Evenings,
+}: {
+  email: string;
+  name?: string;
+  session1Evenings: string[];
+  session2Evenings: string[];
+}) {
+  try {
+    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
+
+    await getResend().emails.send({
+      from: FROM,
+      to: email,
+      subject: "We saved your summer fellowship availability",
+      html: `
+<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
+  <p style="margin: 0 0 16px;">${greeting}</p>
+  <p style="margin: 0 0 16px;">Thanks for sharing your availability. We've saved it.</p>
+  <p style="margin: 0 0 16px;">Session 1 evenings: ${escapeHtml(formatEvenings(session1Evenings))}</p>
+  <p style="margin: 0 0 16px;">Session 2 evenings: ${escapeHtml(formatEvenings(session2Evenings))}</p>
+  <p style="margin: 0 0 16px;">We'll reach out if we're able to run an evening summer fellowship that matches your availability.</p>
+  <p style="margin: 0 0 16px;">If anything changes, reply to this email and let us know.</p>
+  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
+</div>`,
+    });
+  } catch (err) {
+    console.error("Failed to send summer fellowship availability confirmation:", err);
+  }
+}
+
 function firstName(name: string) {
   return name.trim().split(/\s+/)[0] || name;
+}
+
+function formatEvenings(evenings: string[]) {
+  return evenings.length ? evenings.join(", ") : "None selected";
 }
 
 function escapeHtml(value: string) {

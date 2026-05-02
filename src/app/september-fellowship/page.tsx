@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { FormField, SuccessPanel } from "@/components/FormControls";
+import { SuccessPanel } from "@/components/FormControls";
 
 export default function SeptemberFellowship() {
   const [recordId, setRecordId] = useState("");
@@ -56,13 +56,13 @@ export default function SeptemberFellowship() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <h1 className="text-center text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 font-semibold">
+        <h1 className="text-center text-[1.75rem] sm:text-[2.25rem] md:text-[3rem] leading-[0.98] tracking-normal mb-6 font-semibold">
           September fellowship spot
         </h1>
 
         {submitted ? (
           <SuccessPanel title="Spot saved" className="mx-auto">
-            <p>Thanks. We&rsquo;ve saved your September fellowship spot.</p>
+            <p>Thanks. We&rsquo;ve saved your September fellowship spot and sent you a confirmation email.</p>
           </SuccessPanel>
         ) : !linkLoaded ? null : !recordId ? (
           <SuccessPanel title="Use your personalized link" className="mx-auto">
@@ -78,9 +78,12 @@ export default function SeptemberFellowship() {
                   <strong>{name}</strong>
                 </p>
               )}
+              <p>
+                Confirm below and we&rsquo;ll hold a guaranteed spot for you in the September fellowship.
+              </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="max-w-[640px] mx-auto space-y-8 mt-8">
+            <form onSubmit={handleSubmit} className="max-w-[560px] mx-auto space-y-8 mt-8">
               {error && (
                 <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">{error}</p>
               )}
@@ -89,18 +92,16 @@ export default function SeptemberFellowship() {
               <input type="hidden" name="name" value={name} />
               <input type="hidden" name="email" value={email} />
 
-              <FormField label="September fellowship" required>
-                <label className="flex items-start gap-3 text-[16px] leading-[1.6] text-text">
-                  <input
-                    type="checkbox"
-                    name="wantsSpot"
-                    value="yes"
-                    required
-                    className="mt-1 h-4 w-4 accent-accent"
-                  />
-                  <span>I would like a guaranteed spot in the September fellowship.</span>
-                </label>
-              </FormField>
+              <label className="flex items-start gap-3 border border-black/20 px-4 py-4 text-left text-[15px] sm:text-[16px] leading-[1.6] text-text">
+                <input
+                  type="checkbox"
+                  name="wantsSpot"
+                  value="yes"
+                  required
+                  className="mt-1 h-4 w-4 shrink-0 accent-accent"
+                />
+                <span>I would like a guaranteed spot in the September fellowship.</span>
+              </label>
 
               <div className="flex justify-center">
                 <button

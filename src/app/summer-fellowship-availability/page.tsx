@@ -66,7 +66,7 @@ export default function SummerFellowshipAvailability() {
 
         {submitted ? (
           <SuccessPanel title="Availability saved" className="mx-auto">
-            <p>Thanks. We&rsquo;ve saved your availability.</p>
+            <p>Thanks. We&rsquo;ve saved your availability and sent you a confirmation email.</p>
           </SuccessPanel>
         ) : !linkLoaded ? null : !recordId ? (
           <SuccessPanel title="Use your personalized link" className="mx-auto">

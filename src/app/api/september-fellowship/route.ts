@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendSeptemberFellowshipConfirmation } from "@/lib/email";
 
 const PAT = process.env.AIRTABLE_PAT!;
 const BASE_ID = process.env.AIRTABLE_BASE_ID!;
@@ -17,7 +18,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const recordId = stringValue(body.recordId);
+    const name = stringValue(body.name);
+    const email = stringValue(body.email).toLowerCase();
     const wantsSpot = Boolean(body.wantsSpot);
+    const hasValidEmail = Boolean(email && email.includes("@"));
+
+    if (email && !hasValidEmail) {
+      return NextResponse.json({ error: "A valid email is required" }, { status: 400 });
+    }
 
     if (!recordId) {
       return NextResponse.json(
@@ -34,6 +42,9 @@ export async function POST(req: NextRequest) {
     }
 
     await updateSeptemberFellowship(recordId);
+    if (hasValidEmail) {
+      await sendSeptemberFellowshipConfirmation({ email, name });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
