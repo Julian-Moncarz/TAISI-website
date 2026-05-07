@@ -97,6 +97,7 @@ export default function ExitSurveyPage() {
   const [cutOrChange, setCutOrChange] = useState("");
   const [peopleToCallOut, setPeopleToCallOut] = useState("");
   const [referrals, setReferrals] = useState("");
+  const [testimonial, setTestimonial] = useState("");
 
   useAutosave(
     "exit",
@@ -126,6 +127,7 @@ export default function ExitSurveyPage() {
       cutOrChange,
       peopleToCallOut,
       referrals,
+      testimonial,
     },
     (saved) => {
       const set = <K extends string>(k: K, fn: (v: never) => void, type: "string" | "number" | "stringArray") => {
@@ -158,6 +160,7 @@ export default function ExitSurveyPage() {
       set("cutOrChange", setCutOrChange, "string");
       set("peopleToCallOut", setPeopleToCallOut, "string");
       set("referrals", setReferrals, "string");
+      set("testimonial", setTestimonial, "string");
     },
     submitted
   );
@@ -239,6 +242,7 @@ export default function ExitSurveyPage() {
             careerBucketOther: careerBucket === "Other" ? careerBucketOther : "",
             commitment,
             stayInTouch,
+            testimonial,
             favouriteParts,
             favouritePartsOther: favouriteParts.includes("Other") ? favouritePartsOther : "",
             mostValuableWeek,
@@ -582,6 +586,18 @@ export default function ExitSurveyPage() {
             lowLabel="0 = not at all"
             highLabel="10 = extremely likely"
           />
+
+          <FormField
+            label="Got a quote we can share?"
+            hint="Optional. We use these on the website and in funder reports."
+          >
+            <textarea
+              rows={3}
+              className="form-input resize-y"
+              value={testimonial}
+              onChange={(e) => setTestimonial(e.target.value)}
+            />
+          </FormField>
 
           <FormField
             label="Do you know 1 to 3 people who'd be a great fit for a future TAISI cohort?"

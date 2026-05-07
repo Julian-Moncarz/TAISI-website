@@ -56,6 +56,7 @@ export async function POST(req: NextRequest) {
     set(f.peopleToCallOut, str(body.peopleToCallOut));
     set(f.programNps, num(body.programNps));
     set(f.referrals, str(body.referrals));
+    set(f.testimonial, str(body.testimonial));
     set(f.futureHelp, arr(body.futureHelp));
 
     await createAirtableRecord(SURVEY.exit.tableId, fields);
