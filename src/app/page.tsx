@@ -34,7 +34,7 @@ function EmailCapture({ location }: { location: string | null }) {
 
   if (done) {
     return (
-      <div className="mt-8 max-w-[500px] border border-black/20 p-6 sm:p-8">
+      <div className="mt-8 border border-black/20 p-6 sm:p-8">
         <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
           You&rsquo;re on the list.
         </h2>
@@ -46,12 +46,12 @@ function EmailCapture({ location }: { location: string | null }) {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 border border-black/20 p-6 sm:p-8">
       <form onSubmit={handleSubmit}>
         {error && (
           <p className="text-accent text-[15px] font-medium mb-3">{error}</p>
         )}
-        <div className="flex flex-col sm:flex-row gap-3 max-w-[500px]">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="email"
             value={email}
@@ -135,35 +135,52 @@ function HomeInner() {
 
   return (
     <main className="md:overflow-hidden">
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-12 sm:pt-18 md:pt-24 pb-4 md:pb-6">
-        <h1 className="hero-title text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-          We train exceptional students to become AI safety{" "}
-          <RotatingText />
-        </h1>
+      <section className="relative max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 pb-24 min-h-[calc(100svh-4rem)] flex flex-col justify-center">
+        <div className="-translate-y-[3vh] sm:-translate-y-[4vh]">
+          <h1
+            className="hero-title intro-rise text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold"
+            style={{ animationDelay: "150ms" }}
+          >
+            We train exceptional students to become AI safety{" "}
+            <RotatingText />
+          </h1>
 
-        <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <p>
-            AI systems are advancing faster than we can make them safe. Making sure advanced AI goes well for humanity is the defining issue of our time. It&rsquo;s also an exciting, open problem, and it needs more people.
-          </p>
-          <p>
-            We are a sister organization to AI safety student groups at MIT, Harvard, and Cambridge.
-          </p>
+          <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+            <p className="intro-rise" style={{ animationDelay: "1400ms" }}>
+              AI systems are advancing faster than we can make them safe.
+            </p>
+            <p className="intro-rise" style={{ animationDelay: "2400ms" }}>
+              The field needs more people.
+            </p>
+            <p className="intro-rise" style={{ animationDelay: "3400ms" }}>
+              We are a sister organization to AI safety groups at MIT, Harvard, and Cambridge.
+            </p>
+          </div>
         </div>
 
-        <EmailCapture location={location} />
-
-        <div className="max-w-[720px] border-l-2 border-accent pl-4 mt-8 space-y-1.5 text-[15px] sm:text-[16px] leading-[1.55] text-text">
-          <p>
-            <a href="/fellowships" className="text-text underline hover:text-accent transition-colors">Fellowship</a> applications reopen late summer.
-          </p>
-          <p>
-            <a href="/summer-intensive" className="text-text underline hover:text-accent transition-colors">Intensive</a> applications are closed, but exceptional candidates can still reach out.
-          </p>
+        <div
+          className="intro-fade absolute bottom-8 left-0 right-0 flex justify-center"
+          style={{ animationDelay: "3900ms" }}
+        >
+          <a
+            href="#mailing-list"
+            aria-label="Scroll to next section"
+            className="text-text-secondary/40 hover:text-text-secondary transition-colors"
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </a>
         </div>
       </section>
 
+      {/* Mailing list */}
+      <section id="mailing-list" className="scroll-mt-20 max-w-[1200px] mx-auto px-5 sm:px-8 pt-12 md:pt-16 pb-8 md:pb-10">
+        <EmailCapture location={location} />
+      </section>
+
       {/* What is AI safety? */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-3 pb-8 md:pb-10">
+      <section id="what-is-ai-safety" className="scroll-mt-20 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-8 md:pb-10">
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
           <h2 className="section-header">
             What is AI safety?
@@ -268,6 +285,19 @@ function HomeInner() {
           </p>
         </div>
 
+      </section>
+
+      {/* What do we run? */}
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-3 md:pt-5 pb-8 md:pb-10">
+        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+          <h2 className="section-header">What do we run?</h2>
+          <p>
+            <a href="/fellowships" className="text-accent hover:underline">Fellowship</a> applications reopen late summer.
+          </p>
+          <p>
+            <a href="/summer-intensive" className="text-accent hover:underline">Intensive</a> applications are closed, but exceptional candidates can still reach out.
+          </p>
+        </div>
       </section>
 
       {/* Testimonials */}

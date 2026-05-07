@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo_Narrow } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -43,7 +44,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${titleFont.variable} min-h-screen flex flex-col`}>
         <Nav />
-        {children}
+        <div className="flex-1">{children}</div>
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>

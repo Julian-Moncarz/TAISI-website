@@ -32,7 +32,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="sticky top-0 z-[100] bg-white/95 backdrop-blur-sm">
+      <nav className="sticky top-0 z-[100] bg-white/95 backdrop-blur-sm border-b border-black/10">
         <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-4">
           <Link href="/" className="flex items-center gap-2.5">
             <Image

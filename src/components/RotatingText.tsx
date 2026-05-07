@@ -9,14 +9,22 @@ export default function RotatingText() {
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const rotate = () => {
       setFading(true);
       setTimeout(() => {
         setIndex((i) => (i + 1) % words.length);
         setFading(false);
       }, 300);
-    }, 3500);
-    return () => clearInterval(interval);
+    };
+    const initial = setTimeout(() => {
+      rotate();
+      interval = setInterval(rotate, 3500);
+    }, 4500);
+    return () => {
+      clearTimeout(initial);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   return (
