@@ -80,10 +80,12 @@ export function FileInput({
   name,
   accept,
   required,
+  onFile,
 }: {
   name: string;
   accept: string;
   required?: boolean;
+  onFile?: (file: File | null) => void;
 }) {
   const [fileName, setFileName] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -98,7 +100,11 @@ export function FileInput({
           accept={accept}
           required={required}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-          onChange={(event) => setFileName(event.target.files?.[0]?.name || null)}
+          onChange={(event) => {
+            const file = event.target.files?.[0] || null;
+            setFileName(file?.name || null);
+            onFile?.(file);
+          }}
         />
         <div className="form-input text-left">
           <span className={fileName ? "" : "text-[#9ca3af]"}>
@@ -114,6 +120,7 @@ export function FileInput({
             onClick={() => {
               if (inputRef.current) inputRef.current.value = "";
               setFileName(null);
+              onFile?.(null);
             }}
             className="text-accent hover:text-accent-hover transition-colors"
           >

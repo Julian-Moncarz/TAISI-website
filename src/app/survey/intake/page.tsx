@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { FormPage } from "@/components/FormPage";
 import {
+  FileInput,
   FormField,
   SelectWrapper,
 } from "@/components/FormControls";
@@ -38,12 +39,15 @@ export default function IntakeSurveyPage() {
   const [careerBucket, setCareerBucket] = useState("");
   const [careerBucketOther, setCareerBucketOther] = useState("");
   const [counterfactual, setCounterfactual] = useState("");
+  const [bio, setBio] = useState("");
+  const [photo, setPhoto] = useState<File | null>(null);
 
   useAutosave(
     "intake",
     participantId,
     {
       counterfactual,
+      bio,
       knowledgeAis,
       knowledgeEvals,
       knowledgeFt,
@@ -55,6 +59,7 @@ export default function IntakeSurveyPage() {
     },
     (saved) => {
       if (typeof saved.counterfactual === "string") setCounterfactual(saved.counterfactual);
+      if (typeof saved.bio === "string") setBio(saved.bio);
       if (typeof saved.knowledgeAis === "number") setKnowledgeAis(saved.knowledgeAis);
       if (typeof saved.knowledgeEvals === "number") setKnowledgeEvals(saved.knowledgeEvals);
       if (typeof saved.knowledgeFt === "number") setKnowledgeFt(saved.knowledgeFt);
@@ -79,24 +84,27 @@ export default function IntakeSurveyPage() {
     }
     setSubmitting(true);
 
-    const payload = {
-      participantId,
-      counterfactual,
-      knowledgeAis,
-      knowledgeEvals,
-      knowledgeFt,
-      knowledgeMech,
-      fieldFit,
-      careerClarity,
-      careerBucket,
-      careerBucketOther: careerBucket === "Other" ? careerBucketOther : "",
-    };
+    const fd = new FormData();
+    fd.set("participantId", participantId);
+    fd.set("counterfactual", counterfactual);
+    fd.set("bio", bio);
+    if (knowledgeAis !== null) fd.set("knowledgeAis", String(knowledgeAis));
+    if (knowledgeEvals !== null) fd.set("knowledgeEvals", String(knowledgeEvals));
+    if (knowledgeFt !== null) fd.set("knowledgeFt", String(knowledgeFt));
+    if (knowledgeMech !== null) fd.set("knowledgeMech", String(knowledgeMech));
+    if (fieldFit !== null) fd.set("fieldFit", String(fieldFit));
+    if (careerClarity !== null) fd.set("careerClarity", String(careerClarity));
+    fd.set("careerBucket", careerBucket);
+    fd.set(
+      "careerBucketOther",
+      careerBucket === "Other" ? careerBucketOther : ""
+    );
+    if (photo) fd.set("photo", photo);
 
     try {
       const res = await fetch("/api/survey/intake", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: fd,
       });
       const body = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(body.error || "Submission failed");
@@ -134,6 +142,33 @@ export default function IntakeSurveyPage() {
           participants={participants}
           loading={loading}
         />
+
+        <FormField
+          label="Short bio"
+          hint="2 to 4 sentences. School, year, what you're into, anything you'd want a cohort-mate to know."
+          required
+        >
+          <textarea
+            rows={4}
+            required
+            className="form-input resize-y"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+        </FormField>
+
+        <FormField
+          label="Photo"
+          hint="A headshot or any clear photo of your face. JPG or PNG."
+          required
+        >
+          <FileInput
+            name="photo"
+            accept="image/jpeg,image/png,image/jpg"
+            required
+            onFile={setPhoto}
+          />
+        </FormField>
 
         <FormField
           label="If TAISI summer intensives didn't exist, what would you be doing on these Saturdays?"

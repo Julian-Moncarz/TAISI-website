@@ -1,15 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
+  APPLICATIONS_TABLE_ID,
   SURVEY,
+  SURVEY_BASE_ID,
+  airtableHeaders,
   buildSubmissionId,
   createAirtableRecord,
   fetchConfirmedParticipants,
 } from "@/lib/survey";
 
+const PAT = process.env.AIRTABLE_PAT!;
+const APPLICATIONS_BIO_FIELD_ID = "fld5uy3jZxdFzXCvZ";
+const APPLICATIONS_PHOTO_FIELD_ID = "fld0phrVcHcHBz3gf";
+
+function numOrNull(v: FormDataEntryValue | null): number | null {
+  if (v === null) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const participantId = String(body.participantId || "").trim();
+    const form = await req.formData();
+    const participantId = String(form.get("participantId") || "").trim();
     if (!participantId) {
       return NextResponse.json({ error: "Missing participant" }, { status: 400 });
     }
@@ -30,23 +43,82 @@ export async function POST(req: NextRequest) {
       [f.submittedAt]: new Date().toISOString(),
     };
 
-    if (body.counterfactual) fields[f.counterfactual] = String(body.counterfactual);
-    if (typeof body.knowledgeAis === "number")
-      fields[f.knowledgeAis] = body.knowledgeAis;
-    if (typeof body.knowledgeEvals === "number")
-      fields[f.knowledgeEvals] = body.knowledgeEvals;
-    if (typeof body.knowledgeFt === "number")
-      fields[f.knowledgeFt] = body.knowledgeFt;
-    if (typeof body.knowledgeMech === "number")
-      fields[f.knowledgeMech] = body.knowledgeMech;
-    if (typeof body.fieldFit === "number") fields[f.fieldFit] = body.fieldFit;
-    if (typeof body.careerClarity === "number")
-      fields[f.careerClarity] = body.careerClarity;
-    if (body.careerBucket) fields[f.careerBucket] = String(body.careerBucket);
-    if (body.careerBucketOther)
-      fields[f.careerBucketOther] = String(body.careerBucketOther);
+    const counterfactual = form.get("counterfactual");
+    if (counterfactual) fields[f.counterfactual] = String(counterfactual);
+
+    const knowledgeAis = numOrNull(form.get("knowledgeAis"));
+    if (knowledgeAis !== null) fields[f.knowledgeAis] = knowledgeAis;
+    const knowledgeEvals = numOrNull(form.get("knowledgeEvals"));
+    if (knowledgeEvals !== null) fields[f.knowledgeEvals] = knowledgeEvals;
+    const knowledgeFt = numOrNull(form.get("knowledgeFt"));
+    if (knowledgeFt !== null) fields[f.knowledgeFt] = knowledgeFt;
+    const knowledgeMech = numOrNull(form.get("knowledgeMech"));
+    if (knowledgeMech !== null) fields[f.knowledgeMech] = knowledgeMech;
+    const fieldFit = numOrNull(form.get("fieldFit"));
+    if (fieldFit !== null) fields[f.fieldFit] = fieldFit;
+    const careerClarity = numOrNull(form.get("careerClarity"));
+    if (careerClarity !== null) fields[f.careerClarity] = careerClarity;
+
+    const careerBucket = form.get("careerBucket");
+    if (careerBucket) fields[f.careerBucket] = String(careerBucket);
+    const careerBucketOther = form.get("careerBucketOther");
+    if (careerBucketOther) fields[f.careerBucketOther] = String(careerBucketOther);
 
     await createAirtableRecord(SURVEY.intake.tableId, fields);
+
+    // Write bio + photo back to the participant's Applications record.
+    const bio = form.get("bio");
+    if (bio && String(bio).trim()) {
+      const patchRes = await fetch(
+        `https://api.airtable.com/v0/${SURVEY_BASE_ID}/${APPLICATIONS_TABLE_ID}/${participant.id}`,
+        {
+          method: "PATCH",
+          headers: airtableHeaders(),
+          body: JSON.stringify({
+            fields: { [APPLICATIONS_BIO_FIELD_ID]: String(bio) },
+          }),
+        }
+      );
+      if (!patchRes.ok) {
+        console.error(
+          "Airtable bio update error:",
+          patchRes.status,
+          await patchRes.text()
+        );
+      }
+    }
+
+    const photo = form.get("photo");
+    if (photo && photo instanceof File && photo.size > 0) {
+      try {
+        const bytes = Buffer.from(await photo.arrayBuffer());
+        const uploadRes = await fetch(
+          `https://content.airtable.com/v0/${SURVEY_BASE_ID}/${participant.id}/${APPLICATIONS_PHOTO_FIELD_ID}/uploadAttachment`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${PAT}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              contentType: photo.type || "application/octet-stream",
+              filename: photo.name || "photo",
+              file: bytes.toString("base64"),
+            }),
+          }
+        );
+        if (!uploadRes.ok) {
+          console.error(
+            "Airtable photo upload error:",
+            uploadRes.status,
+            await uploadRes.text()
+          );
+        }
+      } catch (err) {
+        console.error("Photo upload error:", err);
+      }
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Intake survey submission error:", error);
