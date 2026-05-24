@@ -85,7 +85,7 @@ export default function ExitSurveyPage() {
   const [fieldFit, setFieldFit] = useState<number | null>(null);
   const [careerClarity, setCareerClarity] = useState<number | null>(null);
   const [favouriteParts, setFavouriteParts] = useState<string[]>([]);
-  const [careerBucket, setCareerBucket] = useState("");
+  const [careerBucket, setCareerBucket] = useState<string[]>([]);
   const [careerBucketOther, setCareerBucketOther] = useState("");
   const [programNps, setProgramNps] = useState<number | null>(null);
   const [futureHelp, setFutureHelp] = useState<string[]>([]);
@@ -150,7 +150,7 @@ export default function ExitSurveyPage() {
       set("programNps", setProgramNps, "number");
       set("favouriteParts", setFavouriteParts, "stringArray");
       set("futureHelp", setFutureHelp, "stringArray");
-      set("careerBucket", setCareerBucket, "string");
+      set("careerBucket", setCareerBucket, "stringArray");
       set("careerBucketOther", setCareerBucketOther, "string");
       set("commitment", setCommitment, "string");
       set("stayInTouch", setStayInTouch, "string");
@@ -212,6 +212,10 @@ export default function ExitSurveyPage() {
     setError("");
     if (favouriteParts.length === 0)
       return setError("Please pick at least one favourite part.");
+    if (careerBucket.length === 0)
+      return setError("Please select at least one option for your AIS plans.");
+    if (careerBucket.includes("Other") && !careerBucketOther.trim())
+      return setError("Please fill in the 'Other' details for your AIS plans.");
     setSubmitting(true);
     try {
       const [pulseRes, exitRes] = await Promise.all([
@@ -239,7 +243,7 @@ export default function ExitSurveyPage() {
             fieldFit,
             careerClarity,
             careerBucket,
-            careerBucketOther: careerBucket === "Other" ? careerBucketOther : "",
+            careerBucketOther: careerBucket.includes("Other") ? careerBucketOther : "",
             commitment,
             stayInTouch,
             testimonial,
@@ -423,27 +427,25 @@ export default function ExitSurveyPage() {
             highLabel="10 = concrete plan"
           />
 
-          <FormField label="Which best describes your AIS plans right now?" required>
-            <SelectWrapper>
-              <select
-                required
-                className="form-input form-select"
-                value={careerBucket}
-                onChange={(e) => setCareerBucket(e.target.value)}
-              >
-                <option value="" disabled>
-                  Select one
-                </option>
-                {CAREER_BUCKETS.map((o) => (
-                  <option key={o} value={o}>
+          <FormField label="Which best describes your AIS plans right now? (select all that apply)" required>
+            <div className="space-y-2">
+              {CAREER_BUCKETS.map((o) => {
+                const checked = careerBucket.includes(o);
+                return (
+                  <label key={o} className="flex items-center gap-2 text-[15px]">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => setCareerBucket(toggle(careerBucket, o))}
+                    />
                     {o}
-                  </option>
-                ))}
-              </select>
-            </SelectWrapper>
+                  </label>
+                );
+              })}
+            </div>
           </FormField>
 
-          {careerBucket === "Other" && (
+          {careerBucket.includes("Other") && (
             <FormField label="Tell us more" required>
               <input
                 type="text"

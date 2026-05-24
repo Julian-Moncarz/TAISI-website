@@ -59,8 +59,17 @@ export async function POST(req: NextRequest) {
     const careerClarity = numOrNull(form.get("careerClarity"));
     if (careerClarity !== null) fields[f.careerClarity] = careerClarity;
 
-    const careerBucket = form.get("careerBucket");
-    if (careerBucket) fields[f.careerBucket] = String(careerBucket);
+    const careerBucketRaw = form.get("careerBucket");
+    if (careerBucketRaw) {
+      try {
+        const parsed = JSON.parse(String(careerBucketRaw));
+        if (Array.isArray(parsed) && parsed.every((x) => typeof x === "string") && parsed.length > 0) {
+          fields[f.careerBucket] = parsed;
+        }
+      } catch {
+        // ignore malformed
+      }
+    }
     const careerBucketOther = form.get("careerBucketOther");
     if (careerBucketOther) fields[f.careerBucketOther] = String(careerBucketOther);
 

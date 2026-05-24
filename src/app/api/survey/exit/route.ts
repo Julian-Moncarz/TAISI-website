@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     set(f.knowledgeMech, num(body.knowledgeMech));
     set(f.fieldFit, num(body.fieldFit));
     set(f.careerClarity, num(body.careerClarity));
-    set(f.careerBucket, str(body.careerBucket));
+    set(f.careerBucket, arr(body.careerBucket));
     set(f.careerBucketOther, str(body.careerBucketOther));
     set(f.commitment, str(body.commitment));
     set(f.stayInTouch, str(body.stayInTouch));

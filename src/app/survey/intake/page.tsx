@@ -5,7 +5,6 @@ import { FormPage } from "@/components/FormPage";
 import {
   FileInput,
   FormField,
-  SelectWrapper,
 } from "@/components/FormControls";
 import {
   CohortAndNamePicker,
@@ -36,7 +35,7 @@ export default function IntakeSurveyPage() {
   const [knowledgeMech, setKnowledgeMech] = useState<number | null>(null);
   const [fieldFit, setFieldFit] = useState<number | null>(null);
   const [careerClarity, setCareerClarity] = useState<number | null>(null);
-  const [careerBucket, setCareerBucket] = useState("");
+  const [careerBucket, setCareerBucket] = useState<string[]>([]);
   const [careerBucketOther, setCareerBucketOther] = useState("");
   const [counterfactual, setCounterfactual] = useState("");
   const [bio, setBio] = useState("");
@@ -66,7 +65,8 @@ export default function IntakeSurveyPage() {
       if (typeof saved.knowledgeMech === "number") setKnowledgeMech(saved.knowledgeMech);
       if (typeof saved.fieldFit === "number") setFieldFit(saved.fieldFit);
       if (typeof saved.careerClarity === "number") setCareerClarity(saved.careerClarity);
-      if (typeof saved.careerBucket === "string") setCareerBucket(saved.careerBucket);
+      if (Array.isArray(saved.careerBucket) && saved.careerBucket.every((x) => typeof x === "string"))
+        setCareerBucket(saved.careerBucket as string[]);
       if (typeof saved.careerBucketOther === "string") setCareerBucketOther(saved.careerBucketOther);
     },
     submitted
@@ -82,6 +82,14 @@ export default function IntakeSurveyPage() {
       setError("Please select your name.");
       return;
     }
+    if (careerBucket.length === 0) {
+      setError("Please select at least one option for your AIS plans.");
+      return;
+    }
+    if (careerBucket.includes("Other") && !careerBucketOther.trim()) {
+      setError("Please fill in the 'Other' details for your AIS plans.");
+      return;
+    }
     setSubmitting(true);
 
     const fd = new FormData();
@@ -94,10 +102,10 @@ export default function IntakeSurveyPage() {
     if (knowledgeMech !== null) fd.set("knowledgeMech", String(knowledgeMech));
     if (fieldFit !== null) fd.set("fieldFit", String(fieldFit));
     if (careerClarity !== null) fd.set("careerClarity", String(careerClarity));
-    fd.set("careerBucket", careerBucket);
+    fd.set("careerBucket", JSON.stringify(careerBucket));
     fd.set(
       "careerBucketOther",
-      careerBucket === "Other" ? careerBucketOther : ""
+      careerBucket.includes("Other") ? careerBucketOther : ""
     );
     if (photo) fd.set("photo", photo);
 
@@ -231,27 +239,31 @@ export default function IntakeSurveyPage() {
           highLabel="10 = concrete plan"
         />
 
-        <FormField label="Which best describes your AIS plans right now?" required>
-          <SelectWrapper>
-            <select
-              required
-              className="form-input form-select"
-              value={careerBucket}
-              onChange={(e) => setCareerBucket(e.target.value)}
-            >
-              <option value="" disabled>
-                Select one
-              </option>
-              {CAREER_BUCKETS.map((o) => (
-                <option key={o} value={o}>
+        <FormField label="Which best describes your AIS plans right now? (select all that apply)" required>
+          <div className="space-y-2">
+            {CAREER_BUCKETS.map((o) => {
+              const checked = careerBucket.includes(o);
+              return (
+                <label key={o} className="flex items-center gap-2 text-[15px]">
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() =>
+                      setCareerBucket(
+                        checked
+                          ? careerBucket.filter((x) => x !== o)
+                          : [...careerBucket, o]
+                      )
+                    }
+                  />
                   {o}
-                </option>
-              ))}
-            </select>
-          </SelectWrapper>
+                </label>
+              );
+            })}
+          </div>
         </FormField>
 
-        {careerBucket === "Other" && (
+        {careerBucket.includes("Other") && (
           <FormField label="Tell us more" required>
             <input
               type="text"
