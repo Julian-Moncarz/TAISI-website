@@ -26,6 +26,7 @@ export const SURVEY = {
       dietaryRestrictions: "fldGsKJa34v9R3eJx",
       pronouns: "fldzN9aWGQ2WJUpTM",
       photoConsent: "fldSdQHnVmPBLD9vX",
+      shirtSize: "fldTMupTV0hJyDSlv",
     },
   },
   pulse: {

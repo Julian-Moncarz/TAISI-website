@@ -38,6 +38,7 @@ export default function IntakeSurveyPage() {
   const [pronouns, setPronouns] = useState("");
   const [dietaryRestrictions, setDietaryRestrictions] = useState("");
   const [photoConsent, setPhotoConsent] = useState(false);
+  const [shirtSize, setShirtSize] = useState("");
 
   // Step 2 - AIS questions
   const [counterfactual, setCounterfactual] = useState("");
@@ -68,6 +69,7 @@ export default function IntakeSurveyPage() {
       pronouns,
       dietaryRestrictions,
       photoConsent,
+      shirtSize,
     },
     (saved) => {
       if (typeof saved.counterfactual === "string") setCounterfactual(saved.counterfactual);
@@ -84,6 +86,7 @@ export default function IntakeSurveyPage() {
       if (typeof saved.pronouns === "string") setPronouns(saved.pronouns);
       if (typeof saved.dietaryRestrictions === "string") setDietaryRestrictions(saved.dietaryRestrictions);
       if (typeof saved.photoConsent === "boolean") setPhotoConsent(saved.photoConsent);
+      if (typeof saved.shirtSize === "string") setShirtSize(saved.shirtSize);
     },
     submitted
   );
@@ -96,6 +99,7 @@ export default function IntakeSurveyPage() {
     if (!participantId) return setError("Please select your name.");
     if (!bio.trim()) return setError("Please write a short bio.");
     if (!photo) return setError("Please upload a photo.");
+    if (!shirtSize) return setError("Please select a shirt size.");
     setStep(2);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -132,6 +136,7 @@ export default function IntakeSurveyPage() {
     fd.set("pronouns", pronouns);
     fd.set("dietaryRestrictions", dietaryRestrictions);
     fd.set("photoConsent", String(photoConsent));
+    fd.set("shirtSize", shirtSize);
     if (photo) fd.set("photo", photo);
 
     try {
@@ -228,6 +233,28 @@ export default function IntakeSurveyPage() {
               value={dietaryRestrictions}
               onChange={(e) => setDietaryRestrictions(e.target.value)}
             />
+          </FormField>
+
+          <FormField label="Shirt size" required>
+            <div className="flex flex-wrap gap-2">
+              {["XS", "S", "M", "L", "XL", "XXL"].map((size) => {
+                const selected = shirtSize === size;
+                return (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => setShirtSize(size)}
+                    className={`px-4 py-2 text-[15px] border ${
+                      selected
+                        ? "border-accent bg-accent text-white"
+                        : "border-black/30 hover:border-black/60"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
+            </div>
           </FormField>
 
           <FormField label="Photo/video consent">

@@ -82,6 +82,10 @@ export async function POST(req: NextRequest) {
     const photoConsent = form.get("photoConsent");
     fields[f.photoConsent] = String(photoConsent) === "true";
 
+    const shirtSize = form.get("shirtSize");
+    if (shirtSize && String(shirtSize).trim())
+      fields[f.shirtSize] = String(shirtSize).trim();
+
     await createAirtableRecord(SURVEY.intake.tableId, fields);
 
     // Write bio + photo back to the participant's Applications record.
