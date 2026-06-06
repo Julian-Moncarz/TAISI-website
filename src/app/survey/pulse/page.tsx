@@ -35,6 +35,7 @@ const WEEK_ACTIVITIES: Record<string, string[]> = {
     "Intro to notebooks talk",
     "Notebooks",
     "Pair programming partner",
+    "Walk",
   ],
   "Week 2: Fine-tuning / RLHF": [],
   "Week 3: Mech interp": [],
