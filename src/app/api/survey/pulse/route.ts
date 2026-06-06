@@ -3,6 +3,7 @@ import {
   SURVEY,
   buildSubmissionId,
   createAirtableRecord,
+  createAirtableRecords,
   fetchConfirmedParticipants,
 } from "@/lib/survey";
 
@@ -25,19 +26,47 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const submissionId = buildSubmissionId(participant.name);
+    const submittedAt = new Date().toISOString();
+
     const f = SURVEY.pulse.fields;
     const fields: Record<string, unknown> = {
-      [f.submissionId]: buildSubmissionId(participant.name),
+      [f.submissionId]: submissionId,
       [f.participant]: [participant.id],
-      [f.submittedAt]: new Date().toISOString(),
+      [f.submittedAt]: submittedAt,
       [f.week]: week,
     };
     if (typeof body.dayNps === "number") fields[f.dayNps] = body.dayNps;
     if (body.bestPart) fields[f.bestPart] = String(body.bestPart);
     if (body.whatChange) fields[f.whatChange] = String(body.whatChange);
     if (body.anythingElse) fields[f.anythingElse] = String(body.anythingElse);
+    if (body.readings) fields[f.readings] = String(body.readings);
+    if (body.taFrequency) fields[f.taFrequency] = String(body.taFrequency);
+    if (body.notebookDifficulty)
+      fields[f.notebookDifficulty] = String(body.notebookDifficulty);
 
     await createAirtableRecord(SURVEY.pulse.tableId, fields);
+
+    // Activity ratings: one row per rated activity, grouped by submissionId.
+    const ratings =
+      body.activityRatings && typeof body.activityRatings === "object"
+        ? (body.activityRatings as Record<string, unknown>)
+        : {};
+    const r = SURVEY.pulseRatings.fields;
+    const ratingRows = Object.entries(ratings)
+      .filter(([, v]) => typeof v === "number")
+      .map(([activity, value]) => ({
+        [r.submissionId]: submissionId,
+        [r.participant]: [participant.id],
+        [r.submittedAt]: submittedAt,
+        [r.week]: week,
+        [r.activity]: activity,
+        [r.rating]: value as number,
+      }));
+    if (ratingRows.length) {
+      await createAirtableRecords(SURVEY.pulseRatings.tableId, ratingRows);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Pulse survey submission error:", error);

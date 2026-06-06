@@ -23,6 +23,58 @@ const WEEKS = [
 // Drop the description for display; the value submitted/matched stays full.
 const weekLabel = (w: string) => w.split(":")[0].trim();
 
+// Activities rated 1-5, per week. Add/remove freely; no Airtable schema change
+// needed (ratings are stored long-format, one row per activity). Empty list =
+// no activity ratings shown for that week yet.
+const WEEK_ACTIVITIES: Record<string, string[]> = {
+  "Week 1: Evals": [
+    "Intro talk",
+    "Facilitated discussion",
+    "Lunch",
+    "Anson's talk",
+    "Intro to notebooks talk",
+    "Notebooks",
+    "Pair programming partner",
+  ],
+  "Week 2: Fine-tuning / RLHF": [],
+  "Week 3: Mech interp": [],
+};
+
+const READINGS_OPTIONS = ["Yes", "Some of them", "No"];
+const TA_FREQUENCY_OPTIONS = ["Too high", "Just right", "Too low"];
+const NOTEBOOK_DIFFICULTY_OPTIONS = ["Too hard", "Just right", "Too easy"];
+
+function ChoiceField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+}) {
+  return (
+    <FormField label={label}>
+      <SelectWrapper>
+        <select
+          className="form-input form-select"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="">Select one</option>
+          {options.map((o) => (
+            <option key={o} value={o}>
+              {o}
+            </option>
+          ))}
+        </select>
+      </SelectWrapper>
+    </FormField>
+  );
+}
+
 function PulseSurveyInner() {
   const params = useSearchParams();
   const weekParam = params.get("week");
@@ -38,6 +90,10 @@ function PulseSurveyInner() {
   const [error, setError] = useState("");
   const [dayNps, setDayNps] = useState<number | null>(null);
   const [week, setWeek] = useState(initialWeek || "");
+  const [activityRatings, setActivityRatings] = useState<Record<string, number>>({});
+  const [readings, setReadings] = useState("");
+  const [taFrequency, setTaFrequency] = useState("");
+  const [notebookDifficulty, setNotebookDifficulty] = useState("");
   const [bestPart, setBestPart] = useState("");
   const [whatChange, setWhatChange] = useState("");
   const [anythingElse, setAnythingElse] = useState("");
@@ -46,13 +102,20 @@ function PulseSurveyInner() {
     if (initialWeek && !week) setWeek(initialWeek);
   }, [initialWeek, week]);
 
+  const activities = WEEK_ACTIVITIES[week] || [];
+
   // Autosave keyed by week so each Saturday's responses are independent.
   useAutosave(
     `pulse-${week || "_"}`,
     participantId,
-    { dayNps, bestPart, whatChange, anythingElse },
+    { dayNps, activityRatings, readings, taFrequency, notebookDifficulty, bestPart, whatChange, anythingElse },
     (saved) => {
       if (typeof saved.dayNps === "number") setDayNps(saved.dayNps);
+      if (saved.activityRatings && typeof saved.activityRatings === "object")
+        setActivityRatings(saved.activityRatings as Record<string, number>);
+      if (typeof saved.readings === "string") setReadings(saved.readings);
+      if (typeof saved.taFrequency === "string") setTaFrequency(saved.taFrequency);
+      if (typeof saved.notebookDifficulty === "string") setNotebookDifficulty(saved.notebookDifficulty);
       if (typeof saved.bestPart === "string") setBestPart(saved.bestPart);
       if (typeof saved.whatChange === "string") setWhatChange(saved.whatChange);
       if (typeof saved.anythingElse === "string") setAnythingElse(saved.anythingElse);
@@ -69,6 +132,11 @@ function PulseSurveyInner() {
     if (!week) return setError("Please select which week.");
     setSubmitting(true);
     try {
+      // Only send ratings for activities shown this week.
+      const ratingsForWeek: Record<string, number> = {};
+      for (const a of activities) {
+        if (typeof activityRatings[a] === "number") ratingsForWeek[a] = activityRatings[a];
+      }
       const res = await fetch("/api/survey/pulse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,6 +144,10 @@ function PulseSurveyInner() {
           participantId,
           week,
           dayNps,
+          activityRatings: ratingsForWeek,
+          readings,
+          taFrequency,
+          notebookDifficulty,
           bestPart,
           whatChange,
           anythingElse,
@@ -142,6 +214,50 @@ function PulseSurveyInner() {
           onChange={setDayNps}
           lowLabel="0 = not at all"
           highLabel="10 = extremely likely"
+        />
+
+        {activities.length > 0 && (
+          <div className="space-y-6">
+            <p className="text-[15px] font-medium leading-[1.7]">
+              Rate today&apos;s activities (1 = poor, 5 = loved it)
+            </p>
+            {activities.map((activity) => (
+              <RatingScale
+                key={activity}
+                name={`activity-${activity}`}
+                label={activity}
+                min={1}
+                max={5}
+                value={activityRatings[activity] ?? null}
+                onChange={(v) =>
+                  setActivityRatings((prev) => ({ ...prev, [activity]: v }))
+                }
+                lowLabel="poor"
+                highLabel="loved it"
+              />
+            ))}
+          </div>
+        )}
+
+        <ChoiceField
+          label="Did you do the readings?"
+          value={readings}
+          onChange={setReadings}
+          options={READINGS_OPTIONS}
+        />
+
+        <ChoiceField
+          label="TA visit frequency"
+          value={taFrequency}
+          onChange={setTaFrequency}
+          options={TA_FREQUENCY_OPTIONS}
+        />
+
+        <ChoiceField
+          label="Notebook difficulty"
+          value={notebookDifficulty}
+          onChange={setNotebookDifficulty}
+          options={NOTEBOOK_DIFFICULTY_OPTIONS}
         />
 
         <FormField label="Best part of today" hint="One sentence" required>

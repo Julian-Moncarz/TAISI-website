@@ -40,6 +40,21 @@ export const SURVEY = {
       bestPart: "fldN3tf6ZwBDEolIR",
       whatChange: "fldd2ASSeJRhKJHpX",
       anythingElse: "fldpIGf0YYMcYuGn1",
+      readings: "fld2e6AaT0mrN2Kdw",
+      taFrequency: "fld7NW0V60rqT7yZG",
+      notebookDifficulty: "fldbjZ94HTZoWvxB5",
+    },
+  },
+  // Long-format: one row per activity rated, per participant, per week.
+  pulseRatings: {
+    tableId: "tbluGvhL0qVJQOMrI",
+    fields: {
+      submissionId: "fld3qpFOvsvCjWfa3",
+      participant: "fldaaiPXB1faGXWME",
+      submittedAt: "fld28bwtkW4Ue27sq",
+      week: "fldfcGAqlmBO7TAgw",
+      activity: "fldOZTKJq8NQA6lTm",
+      rating: "fldvgaRu19iDKWHMv",
     },
   },
   exit: {
@@ -122,6 +137,29 @@ export async function createAirtableRecord(
     throw new Error("Could not save your survey response. Please try again.");
   }
   return res.json();
+}
+
+// Create many records in one table (Airtable caps at 10 per request; chunked).
+export async function createAirtableRecords(
+  tableId: string,
+  records: AirtableFields[]
+) {
+  for (let i = 0; i < records.length; i += 10) {
+    const chunk = records.slice(i, i + 10).map((fields) => ({ fields }));
+    const res = await fetch(
+      `https://api.airtable.com/v0/${SURVEY_BASE_ID}/${tableId}`,
+      {
+        method: "POST",
+        headers: airtableHeaders(),
+        body: JSON.stringify({ records: chunk }),
+      }
+    );
+    if (!res.ok) {
+      const detail = await res.text();
+      console.error("Airtable batch create error:", res.status, detail);
+      throw new Error("Could not save your survey response. Please try again.");
+    }
+  }
 }
 
 export type Participant = {
