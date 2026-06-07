@@ -267,7 +267,7 @@ function PulseSurveyInner() {
         )}
 
         <ChoiceField
-          label="Did you do the readings?"
+          label="How much of the readings did you actually do? Please be honest, we use this to fix the readings and we won't judge you :)"
           value={readings}
           onChange={setReadings}
           options={READINGS_OPTIONS}
