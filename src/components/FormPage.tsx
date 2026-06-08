@@ -49,6 +49,21 @@ export function FormPage({
           </SuccessPanel>
         ) : (
           <div className="mx-auto" style={{ maxWidth: formWidth }}>
+            <div className="mt-8 mb-8">
+              <span className="block mb-1.5 text-[15px] font-medium text-text">
+                Have anonymous feedback?
+              </span>
+              <div className="form-input">
+                <a
+                  href="https://airtable.com/appVfG77MoQbG3bgi/pagCFWbfrImkt4nq4/form"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent font-medium underline underline-offset-4 hover:opacity-80"
+                >
+                  anonymous feedback form link
+                </a>
+              </div>
+            </div>
             {children}
           </div>
         )}
