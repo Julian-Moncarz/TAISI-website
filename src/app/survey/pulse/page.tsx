@@ -23,21 +23,26 @@ const WEEKS = [
 // Drop the description for display; the value submitted/matched stays full.
 const weekLabel = (w: string) => w.split(":")[0].trim();
 
-// Activities rated 1-5, per week. Add/remove freely; no Airtable schema change
-// needed (ratings are stored long-format, one row per activity). Empty list =
-// no activity ratings shown for that week yet.
+const WEEK_1_ACTIVITIES = [
+  "Intro talk",
+  "Facilitated discussion",
+  "Lunch",
+  "Anson's talk",
+  "Intro to notebooks talk",
+  "Notebooks",
+  "Pair programming partner",
+  "Walk",
+];
+
+const NOTEBOOK_LEARNING_ACTIVITY =
+  "Notebook content: how much did you feel you learned from it?";
+
+// Activities/items rated 1-5, per week. Add/remove freely; no Airtable schema
+// change needed (ratings are stored long-format, one row per item). Empty list =
+// no ratings shown for that week yet.
 const WEEK_ACTIVITIES: Record<string, string[]> = {
-  "Week 1: Evals": [
-    "Intro talk",
-    "Facilitated discussion",
-    "Lunch",
-    "Anson's talk",
-    "Intro to notebooks talk",
-    "Notebooks",
-    "Pair programming partner",
-    "Walk",
-  ],
-  "Week 2: Fine-tuning / RLHF": [],
+  "Week 1: Evals": WEEK_1_ACTIVITIES,
+  "Week 2: Fine-tuning / RLHF": [...WEEK_1_ACTIVITIES, NOTEBOOK_LEARNING_ACTIVITY],
   "Week 3: Mech interp": [],
 };
 
@@ -230,7 +235,7 @@ function PulseSurveyInner() {
         {activities.length > 0 && (
           <div className="space-y-6">
             <p className="text-[15px] font-medium leading-[1.7]">
-              Rate today&apos;s activities (1 = poor, 5 = loved it)
+              Rate these items (1 = low/poor, 5 = high/loved it)
             </p>
             {activities.map((activity) => {
               const rating = activityRatings[activity];
@@ -241,6 +246,16 @@ function PulseSurveyInner() {
                     label={activity}
                     min={1}
                     max={5}
+                    lowLabel={
+                      activity === NOTEBOOK_LEARNING_ACTIVITY
+                        ? "1 = learned very little"
+                        : undefined
+                    }
+                    highLabel={
+                      activity === NOTEBOOK_LEARNING_ACTIVITY
+                        ? "5 = learned a lot"
+                        : undefined
+                    }
                     value={rating ?? null}
                     onChange={(v) =>
                       setActivityRatings((prev) => ({ ...prev, [activity]: v }))
@@ -250,7 +265,11 @@ function PulseSurveyInner() {
                     <input
                       type="text"
                       className="form-input"
-                      placeholder="What did you dislike? (one sentence)"
+                      placeholder={
+                        activity === NOTEBOOK_LEARNING_ACTIVITY
+                          ? "What would have helped you learn more? (one sentence)"
+                          : "What did you dislike? (one sentence)"
+                      }
                       value={activityReasons[activity] || ""}
                       onChange={(e) =>
                         setActivityReasons((prev) => ({
