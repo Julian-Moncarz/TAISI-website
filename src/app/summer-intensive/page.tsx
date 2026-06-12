@@ -1,3 +1,5 @@
+import WorkingProfessionalsForm from "@/components/WorkingProfessionalsForm";
+
 export default function SummerIntensive() {
   return (
     <main>
@@ -8,7 +10,8 @@ export default function SummerIntensive() {
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
           <p className="font-semibold">
-            Applications for the Summer 2026 intensive are now closed.
+            Expressions of interest are open for our{" "}
+            <span className="text-accent">working professionals cohort this August</span>.
           </p>
 
           <hr className="border-t border-gray-200 !my-8" />
@@ -19,11 +22,11 @@ export default function SummerIntensive() {
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One day/week (Sat or Sun), <strong>compatible with internships or other summer commitments</strong></span>
+              <span>One day/week (Sat or Sun), <strong>built to fit around a full-time job</strong></span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Hosted at Trajectory Labs, an off-campus AI safety lab near King Station</span>
+              <span>Held in person at Trajectory Labs, an off-campus AI safety lab in downtown Toronto near King Station</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
@@ -39,8 +42,18 @@ export default function SummerIntensive() {
             </li>
           </ul>
           <p>
-            Cohorts monthly May&ndash;August. No prior ML or AI safety experience required.
+            The working professionals cohort runs in person in Toronto this August. No prior ML or AI safety experience required.
           </p>
+        </div>
+
+        <hr className="border-t border-gray-200 !my-8 max-w-[560px] mx-0" />
+
+        <div>
+          <h2 className="section-header mb-4">Express your interest</h2>
+          <p className="text-[16px] sm:text-[17px] leading-[1.7] text-text-secondary mb-6 max-w-[560px]">
+            Share your details and we&rsquo;ll follow up with dates and next steps. This is not an application, just a way to let us know you&rsquo;re interested.
+          </p>
+          <WorkingProfessionalsForm />
         </div>
       </section>
     </main>

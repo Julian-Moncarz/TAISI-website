@@ -156,6 +156,15 @@ function HomeInner() {
               We are a sister organization to AI safety groups at MIT, Harvard, and Cambridge.
             </p>
           </div>
+
+          <div className="intro-rise mt-8 sm:mt-10" style={{ animationDelay: "3800ms" }}>
+            <a
+              href="/summer-intensive"
+              className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
+            >
+              Express interest in our August cohort
+            </a>
+          </div>
         </div>
 
         <div
@@ -295,7 +304,7 @@ function HomeInner() {
             <a href="/fellowships" className="text-accent hover:underline">Fellowship</a> applications reopen late summer.
           </p>
           <p>
-            <a href="/summer-intensive" className="text-accent hover:underline">Intensive</a> applications are closed.
+            <a href="/summer-intensive" className="text-accent hover:underline">Intensive</a> expressions of interest are open for our working professionals cohort this August.
           </p>
         </div>
       </section>
