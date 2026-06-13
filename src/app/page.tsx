@@ -154,7 +154,7 @@ function HomeInner() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-no-repeat bg-cover bg-[#FDFDFE]"
           style={{
-            backgroundImage: "url('/hero-observatory.png')",
+            backgroundImage: "url('/hero-observatory.webp')",
             backgroundPosition: "right center",
           }}
         />
