@@ -5,11 +5,17 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
 
-function EmailCapture({ location }: { location: string | null }) {
+function HeroEmailCTA({ location }: { location: string | null }) {
+  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,42 +40,49 @@ function EmailCapture({ location }: { location: string | null }) {
 
   if (done) {
     return (
-      <div className="mt-8 border border-black/20 p-6 sm:p-8">
-        <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-3">
-          You&rsquo;re on the list.
-        </h2>
-        <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary">
-          We&rsquo;ll keep you posted on upcoming programs, events, and opportunities.
-        </p>
+      <div className="secondary-cta px-7 py-3.5 text-[15px] sm:text-[16px] cursor-default">
+        You&rsquo;re on the list.
       </div>
     );
   }
 
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="secondary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
+      >
+        Join our mailing list
+      </button>
+    );
+  }
+
   return (
-    <div className="mt-8 border border-black/20 p-6 sm:p-8">
-      <form onSubmit={handleSubmit}>
-        {error && (
-          <p className="text-accent text-[15px] font-medium mb-3">{error}</p>
-        )}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="you@mail.utoronto.ca"
-            className="form-input flex-1"
-          />
-          <button
-            type="submit"
-            disabled={submitting}
-            className="primary-cta shrink-0 px-6 py-3 text-[16px]"
-          >
-            {submitting ? "..." : "Join our mailing list"}
-          </button>
-        </div>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col sm:flex-row sm:items-center gap-3"
+    >
+      <input
+        ref={inputRef}
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        placeholder="you@gmail.com"
+        className="form-input sm:w-64 self-stretch"
+      />
+      <button
+        type="submit"
+        disabled={submitting}
+        className="secondary-cta shrink-0 px-7 py-3.5 text-[15px] sm:text-[16px]"
+      >
+        {submitting ? "..." : "Sign up"}
+      </button>
+      {error && (
+        <p className="text-accent text-[14px] font-medium">{error}</p>
+      )}
+    </form>
   );
 }
 
@@ -157,13 +170,17 @@ function HomeInner() {
             </p>
           </div>
 
-          <div className="intro-rise mt-8 sm:mt-10" style={{ animationDelay: "3800ms" }}>
+          <div
+            className="intro-rise mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+            style={{ animationDelay: "3800ms" }}
+          >
             <a
               href="/summer-intensive"
               className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
             >
               Express interest in our August cohort
             </a>
+            <HeroEmailCTA location={location} />
           </div>
         </div>
 
@@ -172,7 +189,7 @@ function HomeInner() {
           style={{ animationDelay: "3900ms" }}
         >
           <a
-            href="#mailing-list"
+            href="#what-is-ai-safety"
             aria-label="Scroll to next section"
             className="text-text-secondary/40 hover:text-text-secondary transition-colors"
           >
@@ -181,11 +198,6 @@ function HomeInner() {
             </svg>
           </a>
         </div>
-      </section>
-
-      {/* Mailing list */}
-      <section id="mailing-list" className="scroll-mt-20 max-w-[1200px] mx-auto px-5 sm:px-8 pt-12 md:pt-16 pb-8 md:pb-10">
-        <EmailCapture location={location} />
       </section>
 
       {/* What is AI safety? */}
