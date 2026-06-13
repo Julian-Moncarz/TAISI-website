@@ -112,10 +112,6 @@ export default function Footer() {
             <FooterEmailForm />
           </div>
         </div>
-
-        <div className="mt-10 pt-6 border-t border-black/10 text-[12px] text-text-secondary">
-          © 2026 Toronto AI Safety Initiative
-        </div>
       </div>
     </footer>
   );
