@@ -148,32 +148,40 @@ function HomeInner() {
 
   return (
     <main className="md:overflow-hidden">
-      <section className="relative max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 pb-24 min-h-[calc(100svh-4rem)] flex flex-col justify-center">
-        <div className="-translate-y-[3vh] sm:-translate-y-[4vh]">
-          <h1
-            className="hero-title intro-rise text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold"
-            style={{ animationDelay: "150ms" }}
-          >
+      <section className="relative overflow-hidden bg-[#FDFDFE] -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
+        {/* Hero background */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-no-repeat bg-cover bg-[#FDFDFE]"
+          style={{
+            backgroundImage: "url('/hero-observatory.png')",
+            backgroundPosition: "right center",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FDFDFE] from-25% via-[#FDFDFE]/60 via-65% to-transparent"
+        />
+
+        <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
+          <h1 className="hero-title text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
             We train exceptional students to become AI safety{" "}
             <RotatingText />
           </h1>
 
           <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-            <p className="intro-rise" style={{ animationDelay: "1400ms" }}>
+            <p>
               AI systems are advancing faster than we can make them safe.
             </p>
-            <p className="intro-rise" style={{ animationDelay: "2400ms" }}>
+            <p>
               The field needs more people.
             </p>
-            <p className="intro-rise" style={{ animationDelay: "3400ms" }}>
+            <p>
               We are a sister organization to AI safety groups at MIT, Harvard, and Cambridge.
             </p>
           </div>
 
-          <div
-            className="intro-rise mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
-            style={{ animationDelay: "3800ms" }}
-          >
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <a
               href="/summer-intensive"
               className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
@@ -184,10 +192,7 @@ function HomeInner() {
           </div>
         </div>
 
-        <div
-          className="intro-fade absolute bottom-8 left-0 right-0 flex justify-center"
-          style={{ animationDelay: "3900ms" }}
-        >
+        <div className="absolute z-10 bottom-8 left-0 right-0 flex justify-center">
           <a
             href="#what-is-ai-safety"
             aria-label="Scroll to next section"
@@ -201,7 +206,7 @@ function HomeInner() {
       </section>
 
       {/* What is AI safety? */}
-      <section id="what-is-ai-safety" className="scroll-mt-20 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-8 md:pb-10">
+      <section id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-8 md:pb-10">
         <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
           <h2 className="section-header">
             What is AI safety?
