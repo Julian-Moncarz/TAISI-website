@@ -243,7 +243,7 @@ function PulseSurveyInner() {
         {activities.length > 0 && (
           <div className="space-y-6">
             <p className="text-[15px] font-medium leading-[1.7]">
-              Rate these items (1 = low/poor, 5 = high/loved it)
+              Rate these items
             </p>
             {activities.map((activity) => {
               const rating = activityRatings[activity];
