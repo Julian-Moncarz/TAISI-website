@@ -52,7 +52,10 @@ const NOTEBOOK_LEARNING_POINTS = [
 // no ratings shown for that week yet.
 const WEEK_ACTIVITIES: Record<string, string[]> = {
   "Week 1: Evals": WEEK_1_ACTIVITIES,
-  "Week 2: Fine-tuning / RLHF": [...WEEK_1_ACTIVITIES, NOTEBOOK_LEARNING_ACTIVITY],
+  "Week 2: Fine-tuning / RLHF": [
+    ...WEEK_1_ACTIVITIES.filter((a) => a !== "Anson's talk"),
+    NOTEBOOK_LEARNING_ACTIVITY,
+  ],
   "Week 3: Mech interp": [],
 };
 
