@@ -56,7 +56,7 @@ export const SURVEY = {
       submittedAt: "fld28bwtkW4Ue27sq",
       week: "fldfcGAqlmBO7TAgw",
       activity: "fldOZTKJq8NQA6lTm",
-      rating: "fldvgaRu19iDKWHMv",
+      rating: "flddHRHfFpOD5RVmT",
       reason: "fldm8UIPYf4eL4GLg",
     },
   },

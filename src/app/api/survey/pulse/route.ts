@@ -7,6 +7,7 @@ import {
   fetchConfirmedParticipants,
   toAgreementLabel,
 } from "@/lib/survey";
+import { activityLabel } from "@/lib/pulseActivities";
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,7 +71,8 @@ export async function POST(req: NextRequest) {
           [r.submittedAt]: submittedAt,
           [r.week]: week,
           [r.activity]: activity,
-          [r.rating]: value as number,
+          // Stored as the word label (Poor..Loved it / Very little..A ton).
+          [r.rating]: activityLabel(activity, value as number),
         };
         // Capture the "why" only for low ratings (2 or 1).
         if ((value as number) <= 2 && reasons[activity])

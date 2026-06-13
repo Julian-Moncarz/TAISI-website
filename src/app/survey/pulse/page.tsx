@@ -12,6 +12,11 @@ import {
   useParticipants,
 } from "@/components/ParticipantPicker";
 import { RatingScale, AGREEMENT_POINTS } from "@/components/RatingScale";
+import {
+  NOTEBOOK_LEARNING_ACTIVITY,
+  ACTIVITY_POINTS,
+  NOTEBOOK_LEARNING_POINTS,
+} from "@/lib/pulseActivities";
 import { useAutosave } from "@/lib/autosave";
 
 const WEEKS = [
@@ -34,18 +39,6 @@ const WEEK_1_ACTIVITIES = [
   "Walk",
 ];
 
-const NOTEBOOK_LEARNING_ACTIVITY =
-  "Notebook content: how much did you feel you learned from it?";
-
-// Fully-labeled 5-point scales for the activity ratings.
-const ACTIVITY_POINTS = ["Poor", "Fair", "Okay", "Good", "Loved it"];
-const NOTEBOOK_LEARNING_POINTS = [
-  "Very little",
-  "A little",
-  "Some",
-  "A lot",
-  "A ton",
-];
 
 // Activities/items rated 1-5, per week. Add/remove freely; no Airtable schema
 // change needed (ratings are stored long-format, one row per item). Empty list =
