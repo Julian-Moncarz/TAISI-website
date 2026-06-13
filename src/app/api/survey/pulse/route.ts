@@ -72,8 +72,8 @@ export async function POST(req: NextRequest) {
           [r.activity]: activity,
           [r.rating]: value as number,
         };
-        // Capture the "why" only for low ratings (3 stars or less).
-        if ((value as number) <= 3 && reasons[activity])
+        // Capture the "why" only for low ratings (2 or 1).
+        if ((value as number) <= 2 && reasons[activity])
           row[r.reason] = String(reasons[activity]);
         return row;
       });

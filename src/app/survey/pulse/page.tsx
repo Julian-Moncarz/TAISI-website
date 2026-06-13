@@ -160,8 +160,8 @@ function PulseSurveyInner() {
       for (const a of activities) {
         if (typeof activityRatings[a] === "number") {
           ratingsForWeek[a] = activityRatings[a];
-          // Capture the "why" only for low ratings (3 stars or less).
-          if (activityRatings[a] <= 3 && activityReasons[a]?.trim())
+          // Capture the "why" only for low ratings (2 or 1).
+          if (activityRatings[a] <= 2 && activityReasons[a]?.trim())
             reasonsForWeek[a] = activityReasons[a].trim();
         }
       }
@@ -267,7 +267,7 @@ function PulseSurveyInner() {
                       setActivityRatings((prev) => ({ ...prev, [activity]: v }))
                     }
                   />
-                  {typeof rating === "number" && rating <= 3 && (
+                  {typeof rating === "number" && rating <= 2 && (
                     <input
                       type="text"
                       className="form-input"
