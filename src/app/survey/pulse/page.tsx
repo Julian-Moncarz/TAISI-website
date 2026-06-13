@@ -11,7 +11,7 @@ import {
   CohortAndNamePicker,
   useParticipants,
 } from "@/components/ParticipantPicker";
-import { RatingScale } from "@/components/RatingScale";
+import { RatingScale, AGREEMENT_POINTS } from "@/components/RatingScale";
 import { useAutosave } from "@/lib/autosave";
 
 const WEEKS = [
@@ -36,6 +36,16 @@ const WEEK_1_ACTIVITIES = [
 
 const NOTEBOOK_LEARNING_ACTIVITY =
   "Notebook content: how much did you feel you learned from it?";
+
+// Fully-labeled 5-point scales for the activity ratings.
+const ACTIVITY_POINTS = ["Poor", "Fair", "Okay", "Good", "Loved it"];
+const NOTEBOOK_LEARNING_POINTS = [
+  "Very little",
+  "A little",
+  "Some",
+  "A lot",
+  "A ton",
+];
 
 // Activities/items rated 1-5, per week. Add/remove freely; no Airtable schema
 // change needed (ratings are stored long-format, one row per item). Empty list =
@@ -185,7 +195,7 @@ function PulseSurveyInner() {
       submitted={submitted}
       successTitle={firstName ? `Thanks ${firstName}!` : "Thanks for submitting"}
     >
-      <form onSubmit={handleSubmit} className="space-y-8 mt-8">
+      <form onSubmit={handleSubmit} className="space-y-10 mt-8">
         {(error || loadError) && (
           <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
             {error || loadError}
@@ -223,13 +233,11 @@ function PulseSurveyInner() {
 
         <RatingScale
           name="dayNps"
-          label="How likely are you to recommend today to a friend interested in AI safety?"
+          label="I would recommend today to a friend interested in AI safety."
           required
-          min={0}
           value={dayNps}
           onChange={setDayNps}
-          lowLabel="0 = not at all"
-          highLabel="10 = extremely likely"
+          points={AGREEMENT_POINTS}
         />
 
         {activities.length > 0 && (
@@ -246,15 +254,10 @@ function PulseSurveyInner() {
                     label={activity}
                     min={1}
                     max={5}
-                    lowLabel={
+                    points={
                       activity === NOTEBOOK_LEARNING_ACTIVITY
-                        ? "1 = learned very little"
-                        : undefined
-                    }
-                    highLabel={
-                      activity === NOTEBOOK_LEARNING_ACTIVITY
-                        ? "5 = learned a lot"
-                        : undefined
+                        ? NOTEBOOK_LEARNING_POINTS
+                        : ACTIVITY_POINTS
                     }
                     value={rating ?? null}
                     onChange={(v) =>
@@ -286,7 +289,7 @@ function PulseSurveyInner() {
         )}
 
         <ChoiceField
-          label="How much of the readings did you actually do? Please be honest, we use this to fix the readings and we won't judge you :)"
+          label="Did you do the readings? Please be honest, we use this to fix the readings and we won't judge you :)"
           value={readings}
           onChange={setReadings}
           options={READINGS_OPTIONS}

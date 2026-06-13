@@ -5,6 +5,7 @@ import {
   createAirtableRecord,
   createAirtableRecords,
   fetchConfirmedParticipants,
+  toAgreementLabel,
 } from "@/lib/survey";
 
 export async function POST(req: NextRequest) {
@@ -36,7 +37,10 @@ export async function POST(req: NextRequest) {
       [f.submittedAt]: submittedAt,
       [f.week]: week,
     };
-    if (typeof body.dayNps === "number") fields[f.dayNps] = body.dayNps;
+    const dayNpsLabel = toAgreementLabel(
+      typeof body.dayNps === "number" ? body.dayNps : null
+    );
+    if (dayNpsLabel) fields[f.dayNps] = dayNpsLabel;
     if (body.bestPart) fields[f.bestPart] = String(body.bestPart);
     if (body.whatChange) fields[f.whatChange] = String(body.whatChange);
     if (body.anythingElse) fields[f.anythingElse] = String(body.anythingElse);

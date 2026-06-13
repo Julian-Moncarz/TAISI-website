@@ -10,7 +10,7 @@ import {
   ParticipantPicker,
   useParticipants,
 } from "@/components/ParticipantPicker";
-import { RatingScale } from "@/components/RatingScale";
+import { RatingScale, AGREEMENT_POINTS } from "@/components/RatingScale";
 import { useAutosave } from "@/lib/autosave";
 
 const HOURS = ["0", "1-2", "3-5", "6-10", "10+"];
@@ -160,7 +160,7 @@ export default function FollowupSurveyPage() {
       submitted={submitted}
       successTitle={firstName ? `Thanks ${firstName}!` : "Thanks for submitting"}
     >
-      <form onSubmit={handleSubmit} className="space-y-8 mt-8">
+      <form onSubmit={handleSubmit} className="space-y-10 mt-8">
         {(error || loadError) && (
           <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
             {error || loadError}
@@ -228,11 +228,10 @@ export default function FollowupSurveyPage() {
 
         <RatingScale
           name="fieldFit"
-          label="How confident are you now that AI safety is the right field for you?"
+          label="I'm confident that AI safety is the right field for me."
           value={fieldFit}
           onChange={setFieldFit}
-          lowLabel="1 = not at all"
-          highLabel="10 = very confident"
+          points={AGREEMENT_POINTS}
         />
 
         <RatingScale
@@ -240,8 +239,7 @@ export default function FollowupSurveyPage() {
           label="I have a clear sense of how I would actually pursue a career in AI safety from where I am today."
           value={careerClarity}
           onChange={setCareerClarity}
-          lowLabel="1 = no idea"
-          highLabel="10 = concrete plan"
+          points={AGREEMENT_POINTS}
         />
 
         <RatingScale
@@ -249,8 +247,7 @@ export default function FollowupSurveyPage() {
           label="I feel like I belong in the AI safety community."
           value={belonging}
           onChange={setBelonging}
-          lowLabel="1 = strongly disagree"
-          highLabel="10 = strongly agree"
+          points={AGREEMENT_POINTS}
         />
 
         <RatingScale
@@ -258,8 +255,7 @@ export default function FollowupSurveyPage() {
           label="I could contribute to a real AI safety project today."
           value={selfEfficacy}
           onChange={setSelfEfficacy}
-          lowLabel="1 = strongly disagree"
-          highLabel="10 = strongly agree"
+          points={AGREEMENT_POINTS}
         />
 
         <FormField label="I can name at least 3 specific AI safety programs, fellowships, or orgs I could realistically apply to next.">

@@ -10,7 +10,7 @@ import {
   CohortAndNamePicker,
   useParticipants,
 } from "@/components/ParticipantPicker";
-import { RatingScale, RatingGroup, RatingRow } from "@/components/RatingScale";
+import { RatingScale, AGREEMENT_POINTS } from "@/components/RatingScale";
 import { useAutosave } from "@/lib/autosave";
 
 const CAREER_BUCKETS = [
@@ -63,12 +63,12 @@ const BARRIERS = [
 ];
 
 type IntakePrefill = {
-  knowledgeAis: number | null;
-  knowledgeEvals: number | null;
-  knowledgeFt: number | null;
-  knowledgeMech: number | null;
-  fieldFit: number | null;
-  careerClarity: number | null;
+  knowledgeAis: string | null;
+  knowledgeEvals: string | null;
+  knowledgeFt: string | null;
+  knowledgeMech: string | null;
+  fieldFit: string | null;
+  careerClarity: string | null;
 };
 
 export default function ExitSurveyPage() {
@@ -221,9 +221,12 @@ export default function ExitSurveyPage() {
     return [...arr, v];
   }
 
-  function intakeHint(score: number | null | undefined) {
+  function intakeHint(score: string | number | null | undefined) {
+    if (typeof score === "string" && score.trim()) {
+      return `You said "${score}" at intake`;
+    }
     if (typeof score === "number" && score > 0) {
-      return `You said ${score}/10 at intake`;
+      return `You said ${score}/5 at intake`;
     }
     return undefined;
   }
@@ -317,7 +320,7 @@ export default function ExitSurveyPage() {
       successBody={<p>See you at the demos.</p>}
     >
       {step === 1 && (
-        <form onSubmit={handleNext} className="space-y-8 mt-8">
+        <form onSubmit={handleNext} className="space-y-10 mt-8">
           {(error || loadError) && (
             <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
               {error || loadError}
@@ -339,13 +342,11 @@ export default function ExitSurveyPage() {
 
           <RatingScale
             name="dayNps"
-            label="How likely are you to recommend today to a friend interested in AI safety?"
+            label="I would recommend today to a friend interested in AI safety."
             required
-            min={0}
             value={dayNps}
             onChange={setDayNps}
-            lowLabel="0 = not at all"
-            highLabel="10 = extremely likely"
+            points={AGREEMENT_POINTS}
           />
 
           <FormField label="Best part of today" hint="One sentence" required>
@@ -392,7 +393,7 @@ export default function ExitSurveyPage() {
       )}
 
       {step === 2 && (
-        <form onSubmit={handleSubmit} className="space-y-8 mt-8">
+        <form onSubmit={handleSubmit} className="space-y-10 mt-8">
           {error && (
             <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
               {error}
@@ -403,55 +404,54 @@ export default function ExitSurveyPage() {
             Step 2 of 2: program wrap-up
           </p>
 
-          <RatingGroup
-            label="How would you rate your knowledge of..."
+          <RatingScale
+            name="knowledgeAis"
+            label="I have a solid understanding of AI safety / alignment."
+            hint={intakeHint(prefill?.knowledgeAis)}
             required
-            lowLabel="1 = complete beginner"
-            highLabel="10 = could teach this"
-          >
-            <RatingRow
-              rowLabel={
-                "AI safety / alignment broadly" +
-                (intakeHint(prefill?.knowledgeAis) ? ` (${intakeHint(prefill?.knowledgeAis)})` : "")
-              }
-              value={knowledgeAis}
-              onChange={setKnowledgeAis}
-            />
-            <RatingRow
-              rowLabel={
-                "AI evaluations" +
-                (intakeHint(prefill?.knowledgeEvals) ? ` (${intakeHint(prefill?.knowledgeEvals)})` : "")
-              }
-              value={knowledgeEvals}
-              onChange={setKnowledgeEvals}
-            />
-            <RatingRow
-              rowLabel={
-                "Fine-tuning / RLHF" +
-                (intakeHint(prefill?.knowledgeFt) ? ` (${intakeHint(prefill?.knowledgeFt)})` : "")
-              }
-              value={knowledgeFt}
-              onChange={setKnowledgeFt}
-            />
-            <RatingRow
-              rowLabel={
-                "Mechanistic interpretability" +
-                (intakeHint(prefill?.knowledgeMech) ? ` (${intakeHint(prefill?.knowledgeMech)})` : "")
-              }
-              value={knowledgeMech}
-              onChange={setKnowledgeMech}
-            />
-          </RatingGroup>
+            value={knowledgeAis}
+            onChange={setKnowledgeAis}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeEvals"
+            label="I have a solid understanding of AI evaluations."
+            hint={intakeHint(prefill?.knowledgeEvals)}
+            required
+            value={knowledgeEvals}
+            onChange={setKnowledgeEvals}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeFt"
+            label="I have a solid understanding of fine-tuning / RLHF."
+            hint={intakeHint(prefill?.knowledgeFt)}
+            required
+            value={knowledgeFt}
+            onChange={setKnowledgeFt}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeMech"
+            label="I have a solid understanding of mechanistic interpretability."
+            hint={intakeHint(prefill?.knowledgeMech)}
+            required
+            value={knowledgeMech}
+            onChange={setKnowledgeMech}
+            points={AGREEMENT_POINTS}
+          />
 
           <RatingScale
             name="fieldFit"
-            label="How confident are you now that AI safety is the right field for you?"
+            label="I'm confident that AI safety is the right field for me."
             hint={intakeHint(prefill?.fieldFit)}
             required
             value={fieldFit}
             onChange={setFieldFit}
-            lowLabel="1 = not at all"
-            highLabel="10 = very confident"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -461,8 +461,7 @@ export default function ExitSurveyPage() {
             required
             value={careerClarity}
             onChange={setCareerClarity}
-            lowLabel="1 = no idea"
-            highLabel="10 = concrete plan"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -471,8 +470,7 @@ export default function ExitSurveyPage() {
             required
             value={belonging}
             onChange={setBelonging}
-            lowLabel="1 = strongly disagree"
-            highLabel="10 = strongly agree"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -481,8 +479,7 @@ export default function ExitSurveyPage() {
             required
             value={selfEfficacy}
             onChange={setSelfEfficacy}
-            lowLabel="1 = strongly disagree"
-            highLabel="10 = strongly agree"
+            points={AGREEMENT_POINTS}
           />
 
           <FormField label="Which best describes your AIS plans right now? (select all that apply)" required>
@@ -695,13 +692,11 @@ export default function ExitSurveyPage() {
 
           <RatingScale
             name="programNps"
-            label="How likely are you to recommend this program to a friend interested in AI safety?"
+            label="I would recommend this program to a friend interested in AI safety."
             required
-            min={0}
             value={programNps}
             onChange={setProgramNps}
-            lowLabel="0 = not at all"
-            highLabel="10 = extremely likely"
+            points={AGREEMENT_POINTS}
           />
 
           <FormField

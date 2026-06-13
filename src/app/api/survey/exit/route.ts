@@ -4,6 +4,7 @@ import {
   buildSubmissionId,
   createAirtableRecord,
   fetchConfirmedParticipants,
+  toAgreementLabel,
 } from "@/lib/survey";
 
 export async function POST(req: NextRequest) {
@@ -29,23 +30,25 @@ export async function POST(req: NextRequest) {
       [f.submittedAt]: new Date().toISOString(),
     };
 
-    const num = (v: unknown) => (typeof v === "number" ? v : undefined);
     const str = (v: unknown) => (typeof v === "string" && v.trim() ? v : undefined);
     const arr = (v: unknown) =>
       Array.isArray(v) && v.every((x) => typeof x === "string") ? (v as string[]) : undefined;
+    // 5-point agreement scales are stored as label text, not a number.
+    const agree = (v: unknown) =>
+      toAgreementLabel(typeof v === "number" ? v : null) ?? undefined;
 
     const set = (key: string, v: unknown) => {
       if (v !== undefined) fields[key] = v;
     };
 
-    set(f.knowledgeAis, num(body.knowledgeAis));
-    set(f.knowledgeEvals, num(body.knowledgeEvals));
-    set(f.knowledgeFt, num(body.knowledgeFt));
-    set(f.knowledgeMech, num(body.knowledgeMech));
-    set(f.fieldFit, num(body.fieldFit));
-    set(f.careerClarity, num(body.careerClarity));
-    set(f.belonging, num(body.belonging));
-    set(f.selfEfficacy, num(body.selfEfficacy));
+    set(f.knowledgeAis, agree(body.knowledgeAis));
+    set(f.knowledgeEvals, agree(body.knowledgeEvals));
+    set(f.knowledgeFt, agree(body.knowledgeFt));
+    set(f.knowledgeMech, agree(body.knowledgeMech));
+    set(f.fieldFit, agree(body.fieldFit));
+    set(f.careerClarity, agree(body.careerClarity));
+    set(f.belonging, agree(body.belonging));
+    set(f.selfEfficacy, agree(body.selfEfficacy));
     set(f.canNameOrgs, str(body.canNameOrgs));
     set(f.orgsList, str(body.orgsList));
     set(f.barriers, arr(body.barriers));
@@ -60,7 +63,7 @@ export async function POST(req: NextRequest) {
     set(f.doubleDownOn, str(body.doubleDownOn));
     set(f.cutOrChange, str(body.cutOrChange));
     set(f.peopleToCallOut, str(body.peopleToCallOut));
-    set(f.programNps, num(body.programNps));
+    set(f.programNps, agree(body.programNps));
     set(f.referrals, str(body.referrals));
     set(f.testimonial, str(body.testimonial));
     set(f.futureHelp, arr(body.futureHelp));

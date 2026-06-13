@@ -7,6 +7,7 @@ import {
   buildSubmissionId,
   createAirtableRecord,
   fetchConfirmedParticipants,
+  toAgreementLabel,
 } from "@/lib/survey";
 
 const PAT = process.env.AIRTABLE_PAT!;
@@ -46,22 +47,23 @@ export async function POST(req: NextRequest) {
     const counterfactual = form.get("counterfactual");
     if (counterfactual) fields[f.counterfactual] = String(counterfactual);
 
-    const knowledgeAis = numOrNull(form.get("knowledgeAis"));
-    if (knowledgeAis !== null) fields[f.knowledgeAis] = knowledgeAis;
-    const knowledgeEvals = numOrNull(form.get("knowledgeEvals"));
-    if (knowledgeEvals !== null) fields[f.knowledgeEvals] = knowledgeEvals;
-    const knowledgeFt = numOrNull(form.get("knowledgeFt"));
-    if (knowledgeFt !== null) fields[f.knowledgeFt] = knowledgeFt;
-    const knowledgeMech = numOrNull(form.get("knowledgeMech"));
-    if (knowledgeMech !== null) fields[f.knowledgeMech] = knowledgeMech;
-    const fieldFit = numOrNull(form.get("fieldFit"));
-    if (fieldFit !== null) fields[f.fieldFit] = fieldFit;
-    const careerClarity = numOrNull(form.get("careerClarity"));
-    if (careerClarity !== null) fields[f.careerClarity] = careerClarity;
-    const belonging = numOrNull(form.get("belonging"));
-    if (belonging !== null) fields[f.belonging] = belonging;
-    const selfEfficacy = numOrNull(form.get("selfEfficacy"));
-    if (selfEfficacy !== null) fields[f.selfEfficacy] = selfEfficacy;
+    // 5-point agreement scales are stored as label text, not a number.
+    const knowledgeAis = toAgreementLabel(numOrNull(form.get("knowledgeAis")));
+    if (knowledgeAis) fields[f.knowledgeAis] = knowledgeAis;
+    const knowledgeEvals = toAgreementLabel(numOrNull(form.get("knowledgeEvals")));
+    if (knowledgeEvals) fields[f.knowledgeEvals] = knowledgeEvals;
+    const knowledgeFt = toAgreementLabel(numOrNull(form.get("knowledgeFt")));
+    if (knowledgeFt) fields[f.knowledgeFt] = knowledgeFt;
+    const knowledgeMech = toAgreementLabel(numOrNull(form.get("knowledgeMech")));
+    if (knowledgeMech) fields[f.knowledgeMech] = knowledgeMech;
+    const fieldFit = toAgreementLabel(numOrNull(form.get("fieldFit")));
+    if (fieldFit) fields[f.fieldFit] = fieldFit;
+    const careerClarity = toAgreementLabel(numOrNull(form.get("careerClarity")));
+    if (careerClarity) fields[f.careerClarity] = careerClarity;
+    const belonging = toAgreementLabel(numOrNull(form.get("belonging")));
+    if (belonging) fields[f.belonging] = belonging;
+    const selfEfficacy = toAgreementLabel(numOrNull(form.get("selfEfficacy")));
+    if (selfEfficacy) fields[f.selfEfficacy] = selfEfficacy;
 
     const careerBucketRaw = form.get("careerBucket");
     if (careerBucketRaw) {

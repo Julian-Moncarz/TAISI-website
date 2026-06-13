@@ -10,7 +10,7 @@ import {
   CohortAndNamePicker,
   useParticipants,
 } from "@/components/ParticipantPicker";
-import { RatingScale, RatingGroup, RatingRow } from "@/components/RatingScale";
+import { RatingScale, AGREEMENT_POINTS } from "@/components/RatingScale";
 import { useAutosave } from "@/lib/autosave";
 
 const CAREER_BUCKETS = [
@@ -175,7 +175,7 @@ export default function IntakeSurveyPage() {
       successBody={<p>See you on Day 1.</p>}
     >
       {step === 1 && (
-        <form onSubmit={handleNext} className="space-y-8 mt-8">
+        <form onSubmit={handleNext} className="space-y-10 mt-8">
           {(error || loadError) && (
             <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
               {error || loadError}
@@ -295,7 +295,7 @@ export default function IntakeSurveyPage() {
       )}
 
       {step === 2 && (
-        <form onSubmit={handleSubmit} className="space-y-8 mt-8">
+        <form onSubmit={handleSubmit} className="space-y-10 mt-8">
           {error && (
             <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">
               {error}
@@ -320,41 +320,48 @@ export default function IntakeSurveyPage() {
             />
           </FormField>
 
-          <RatingGroup
-            label="How would you rate your knowledge of..."
+          <RatingScale
+            name="knowledgeAis"
+            label="I have a solid understanding of AI safety / alignment."
             required
-            lowLabel="1 = complete beginner"
-            highLabel="10 = could teach this"
-          >
-            <RatingRow
-              rowLabel="AI safety / alignment broadly"
-              value={knowledgeAis}
-              onChange={setKnowledgeAis}
-            />
-            <RatingRow
-              rowLabel="AI evaluations"
-              value={knowledgeEvals}
-              onChange={setKnowledgeEvals}
-            />
-            <RatingRow
-              rowLabel="Fine-tuning / RLHF"
-              value={knowledgeFt}
-              onChange={setKnowledgeFt}
-            />
-            <RatingRow
-              rowLabel="Mechanistic interpretability"
-              value={knowledgeMech}
-              onChange={setKnowledgeMech}
-            />
-          </RatingGroup>
+            value={knowledgeAis}
+            onChange={setKnowledgeAis}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeEvals"
+            label="I have a solid understanding of AI evaluations."
+            required
+            value={knowledgeEvals}
+            onChange={setKnowledgeEvals}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeFt"
+            label="I have a solid understanding of fine-tuning / RLHF."
+            required
+            value={knowledgeFt}
+            onChange={setKnowledgeFt}
+            points={AGREEMENT_POINTS}
+          />
+
+          <RatingScale
+            name="knowledgeMech"
+            label="I have a solid understanding of mechanistic interpretability."
+            required
+            value={knowledgeMech}
+            onChange={setKnowledgeMech}
+            points={AGREEMENT_POINTS}
+          />
 
           <RatingScale
             name="fieldFit"
-            label="How confident are you that AI safety is the right field for you?"
+            label="I'm confident that AI safety is the right field for me."
             value={fieldFit}
             onChange={setFieldFit}
-            lowLabel="1 = not at all"
-            highLabel="10 = very confident"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -363,8 +370,7 @@ export default function IntakeSurveyPage() {
             required
             value={careerClarity}
             onChange={setCareerClarity}
-            lowLabel="1 = no idea"
-            highLabel="10 = concrete plan"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -372,8 +378,7 @@ export default function IntakeSurveyPage() {
             label="I feel like I belong in the AI safety community."
             value={belonging}
             onChange={setBelonging}
-            lowLabel="1 = strongly disagree"
-            highLabel="10 = strongly agree"
+            points={AGREEMENT_POINTS}
           />
 
           <RatingScale
@@ -381,8 +386,7 @@ export default function IntakeSurveyPage() {
             label="I could contribute to a real AI safety project today."
             value={selfEfficacy}
             onChange={setSelfEfficacy}
-            lowLabel="1 = strongly disagree"
-            highLabel="10 = strongly agree"
+            points={AGREEMENT_POINTS}
           />
 
           <FormField label="Which best describes your AIS plans right now? (select all that apply)" required>

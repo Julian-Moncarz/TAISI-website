@@ -14,14 +14,14 @@ export const SURVEY = {
       submittedAt: "fldZMZCBXlS3xWYN6",
       priorExposure: "fldIB3luUzsoMCAMk",
       counterfactual: "fldoTbsCJlA9MPLAu",
-      knowledgeAis: "fldP7E73Mki9WCc00",
-      knowledgeEvals: "fld2rjLXJkUVMhhYx",
-      knowledgeFt: "fldDo5zEe96L3ZfAV",
-      knowledgeMech: "fldDBnkLTc6aODEW6",
-      fieldFit: "fldwJXCA4mYlY4oYn",
-      careerClarity: "fld10rSnl4aq2p3qq",
-      belonging: "fldgteHR2Sjrun6Ke",
-      selfEfficacy: "fld0v0l3NDx1q1Yak",
+      knowledgeAis: "fld9401W8ep3XX9yQ",
+      knowledgeEvals: "fld3IR2NEti49u8Q0",
+      knowledgeFt: "fldGsuyL3r2JWZBzK",
+      knowledgeMech: "fldIraYqUf8DtqWtb",
+      fieldFit: "fldNFwpuKwL0aJqos",
+      careerClarity: "fldjCqpGn43RbwjGj",
+      belonging: "fld8fGkWAYHKDHtSU",
+      selfEfficacy: "fldVuQU9tqFLvQmWR",
       hoursPerWeek: "fldW9oj2786IPXN2s",
       careerBucket: "fldDWuJ7vNtEWD6f1",
       careerBucketOther: "fldmYKHeG99AoZPsZ",
@@ -38,7 +38,7 @@ export const SURVEY = {
       participant: "fldrxYMV3e1RkkU2o",
       submittedAt: "fldqEpHjOFYbNdgv7",
       week: "fldIcDe2VEH2MzTMW",
-      dayNps: "fldDOROuBb2Yzjm4P",
+      dayNps: "flddnBFn2vFmOLcbL",
       bestPart: "fldN3tf6ZwBDEolIR",
       whatChange: "fldd2ASSeJRhKJHpX",
       anythingElse: "fldpIGf0YYMcYuGn1",
@@ -66,14 +66,14 @@ export const SURVEY = {
       submissionId: "fldKoAK0astWB4vO1",
       participant: "fld4KBx8AIIkY0jr4",
       submittedAt: "fldEjRr9etVlWAAjk",
-      knowledgeAis: "flddUpfzMyqTJgOKZ",
-      knowledgeEvals: "fldp6ejLuiQbsC0F9",
-      knowledgeFt: "fldltFhHUQo6t7wQP",
-      knowledgeMech: "fldzvXo1zBjxB6rYX",
-      fieldFit: "fldCwk2uaM4Ag0SI5",
-      careerClarity: "fld59nbtqDxxzH8Fc",
-      belonging: "fldkzPdwQ6FbNQnf2",
-      selfEfficacy: "fld4DovzFzpiWtwKu",
+      knowledgeAis: "fld0X9gJBkAgyOPyT",
+      knowledgeEvals: "fld16jTZ1yN1uYdwB",
+      knowledgeFt: "fldEFryKs9uRkYG7C",
+      knowledgeMech: "fldjIF4mFA7PISY95",
+      fieldFit: "fld9MKS9m5oxM2o9I",
+      careerClarity: "fldW9XBpLqqyx7rVR",
+      belonging: "fldEhVbWHgyloypnH",
+      selfEfficacy: "fldL22tk51dcmeHIz",
       canNameOrgs: "fldEEVsOsvFncCn23",
       orgsList: "fld9jyrmYgj4y1dOr",
       barriers: "fldjnAQMDCUjbwf9b",
@@ -89,7 +89,7 @@ export const SURVEY = {
       doubleDownOn: "fldGT450H43seQNX8",
       cutOrChange: "fldLKeP4A9P2xtfUI",
       peopleToCallOut: "fld3ehnwavrVlGf13",
-      programNps: "fldb7yg8Z6icrk9Fc",
+      programNps: "fld10yE6p649KRV2T",
       anythingElse: "fldl46kMU9gwNes9D",
       referrals: "fldF29wOSX1HqpzYQ",
       futureHelp: "fld4xrErSkGp2Xn4F",
@@ -107,10 +107,10 @@ export const SURVEY = {
       fellowshipOrJob: "fld1FfBBHwnnmslMp",
       didYouDoIt: "fldG6bVIV7O4Raqc2",
       whatGotInTheWay: "fldb3d7R1m4qPkagx",
-      fieldFit: "fldB3yJ8Cari2MERt",
-      careerClarity: "fldwfreehDwlkB2zA",
-      belonging: "fldkB9VgX6x8XPKBZ",
-      selfEfficacy: "fldBtQl9CARui4yz2",
+      fieldFit: "fld7PiNSKH7I4qbuV",
+      careerClarity: "fldLaNHjEtYx6okeS",
+      belonging: "fldN2jdo92ZqQusEY",
+      selfEfficacy: "fldY5mQKwbpYU5Wgj",
       canNameOrgs: "fldJNozNdpNiUdEFi",
       orgsList: "fld0TbLIenoXMKZ36",
       barriers: "fldh7ird4kWqKU28L",
@@ -122,6 +122,23 @@ export const SURVEY = {
     },
   },
 } as const;
+
+// The 5-point agreement scales are stored in Airtable as singleSelect label
+// text (e.g. "Slightly agree"), not a number. The UI submits 1..5; convert it.
+export const AGREEMENT_LABELS = [
+  "Strongly disagree",
+  "Slightly disagree",
+  "Neutral",
+  "Slightly agree",
+  "Strongly agree",
+] as const;
+
+export function toAgreementLabel(
+  v: number | null | undefined
+): string | null {
+  if (typeof v !== "number" || v < 1 || v > 5) return null;
+  return AGREEMENT_LABELS[v - 1];
+}
 
 const PAT = process.env.AIRTABLE_PAT!;
 

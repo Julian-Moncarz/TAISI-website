@@ -2,45 +2,18 @@
 
 import { FormField } from "@/components/FormControls";
 
-// Round, full-width-distributed scale. Default 1..10.
-export function RatingButtons({
-  value,
-  onChange,
-  min = 1,
-  max = 10,
-}: {
-  value: number | null;
-  onChange: (v: number) => void;
-  min?: number;
-  max?: number;
-}) {
-  const buttons: number[] = [];
-  for (let i = min; i <= max; i++) buttons.push(i);
+// Shared label set for the fully-labeled 5-point agreement scale.
+export const AGREEMENT_POINTS = [
+  "Strongly disagree",
+  "Slightly disagree",
+  "Neutral",
+  "Slightly agree",
+  "Strongly agree",
+];
 
-  return (
-    <div className="flex justify-between w-full gap-1">
-      {buttons.map((n) => {
-        const selected = value === n;
-        return (
-          <button
-            key={n}
-            type="button"
-            onClick={() => onChange(n)}
-            className={
-              "w-7 h-7 sm:w-8 sm:h-8 rounded-full border text-[12px] font-medium transition-all flex items-center justify-center " +
-              (selected
-                ? "bg-accent text-white border-accent shadow-[0_0_0_3px_rgba(217,79,48,0.18)] scale-110"
-                : "bg-white text-text border-black/25 hover:border-black/60 hover:scale-105")
-            }
-          >
-            {n}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
+// Reusable single-question scale: a row of labelled cells (the label lives
+// inside each clickable cell). One grid per question. `points` gives the cell
+// labels; without it, falls back to plain numbered buttons.
 export function RatingScale({
   name,
   label,
@@ -49,7 +22,8 @@ export function RatingScale({
   value,
   onChange,
   min = 1,
-  max = 10,
+  max = 5,
+  points,
   lowLabel,
   highLabel,
 }: {
@@ -61,73 +35,74 @@ export function RatingScale({
   onChange: (v: number) => void;
   min?: number;
   max?: number;
+  points?: string[];
   lowLabel?: string;
   highLabel?: string;
 }) {
+  const values: number[] = [];
+  for (let i = min; i <= max; i++) values.push(i);
+  const labels = points && points.length === values.length ? points : null;
+
   return (
     <FormField label={label} hint={hint} required={required}>
       <input type="hidden" name={name} value={value ?? ""} />
-      {(lowLabel || highLabel) && (
-        <div className="mb-2 text-[12px] text-text-secondary leading-[1.5]">
-          {lowLabel && <div>{lowLabel}</div>}
-          {highLabel && <div>{highLabel}</div>}
+      {labels ? (
+        <div
+          className="grid gap-1.5"
+          style={{ gridTemplateColumns: `repeat(${values.length}, minmax(0, 1fr))` }}
+        >
+          {values.map((n, idx) => {
+            const selected = value === n;
+            return (
+              <button
+                key={n}
+                type="button"
+                onClick={() => onChange(n)}
+                aria-pressed={selected}
+                className={
+                  "border px-1.5 py-2.5 min-h-[52px] flex items-center justify-center text-center text-[12px] sm:text-[13px] leading-[1.2] break-words transition-colors " +
+                  (selected
+                    ? "bg-accent text-white border-accent font-medium"
+                    : "bg-white text-text border-black/25 hover:border-black/55 hover:bg-black/[0.02]")
+                }
+              >
+                {labels[idx]}
+              </button>
+            );
+          })}
         </div>
+      ) : (
+        <>
+          {(lowLabel || highLabel) && (
+            <div className="mb-2 text-[12px] text-text-secondary leading-[1.5]">
+              {lowLabel && <div>{lowLabel}</div>}
+              {highLabel && <div>{highLabel}</div>}
+            </div>
+          )}
+          <div className="flex justify-between w-full gap-1">
+            {values.map((n) => {
+              const selected = value === n;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => onChange(n)}
+                  aria-label={String(n)}
+                  aria-pressed={selected}
+                  className={
+                    "w-8 h-8 rounded-full border text-[12px] font-medium flex items-center justify-center " +
+                    (selected
+                      ? "bg-accent text-white border-accent"
+                      : "bg-white text-text border-black/25 hover:border-black/60")
+                  }
+                >
+                  {n}
+                </button>
+              );
+            })}
+          </div>
+        </>
       )}
-      <RatingButtons value={value} onChange={onChange} min={min} max={max} />
     </FormField>
-  );
-}
-
-// Compact row used inside RatingGroup (no per-row label/hint/lowHigh).
-export function RatingRow({
-  rowLabel,
-  value,
-  onChange,
-  min = 1,
-  max = 10,
-}: {
-  rowLabel: string;
-  value: number | null;
-  onChange: (v: number) => void;
-  min?: number;
-  max?: number;
-}) {
-  return (
-    <div className="space-y-2">
-      <div className="text-[15px] font-medium text-text">{rowLabel}</div>
-      <RatingButtons value={value} onChange={onChange} min={min} max={max} />
-    </div>
-  );
-}
-
-export function RatingGroup({
-  label,
-  required,
-  lowLabel,
-  highLabel,
-  children,
-}: {
-  label: string;
-  required?: boolean;
-  lowLabel?: string;
-  highLabel?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label className="block mb-1.5">
-        <span className="text-[15px] font-medium text-text">
-          {label}
-          {required && <span className="text-accent ml-0.5">*</span>}
-        </span>
-      </label>
-      {(lowLabel || highLabel) && (
-        <div className="mb-4 text-[12px] text-text-secondary leading-[1.5]">
-          {lowLabel && <div>{lowLabel}</div>}
-          {highLabel && <div>{highLabel}</div>}
-        </div>
-      )}
-      <div className="space-y-6">{children}</div>
-    </div>
   );
 }

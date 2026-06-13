@@ -4,6 +4,7 @@ import {
   buildSubmissionId,
   createAirtableRecord,
   fetchConfirmedParticipants,
+  toAgreementLabel,
 } from "@/lib/survey";
 
 export async function POST(req: NextRequest) {
@@ -29,10 +30,11 @@ export async function POST(req: NextRequest) {
       [f.submittedAt]: new Date().toISOString(),
     };
 
-    const num = (v: unknown) => (typeof v === "number" ? v : undefined);
     const str = (v: unknown) => (typeof v === "string" && v.trim() ? v : undefined);
     const arr = (v: unknown) =>
       Array.isArray(v) && v.every((x) => typeof x === "string") ? (v as string[]) : undefined;
+    const agree = (v: unknown) =>
+      toAgreementLabel(typeof v === "number" ? v : null) ?? undefined;
     const set = (key: string, v: unknown) => {
       if (v !== undefined) fields[key] = v;
     };
@@ -40,10 +42,10 @@ export async function POST(req: NextRequest) {
     set(f.hoursPerWeek, str(body.hoursPerWeek));
     set(f.involvement, arr(body.involvement));
     set(f.fellowshipOrJob, str(body.fellowshipOrJob));
-    set(f.fieldFit, num(body.fieldFit));
-    set(f.careerClarity, num(body.careerClarity));
-    set(f.belonging, num(body.belonging));
-    set(f.selfEfficacy, num(body.selfEfficacy));
+    set(f.fieldFit, agree(body.fieldFit));
+    set(f.careerClarity, agree(body.careerClarity));
+    set(f.belonging, agree(body.belonging));
+    set(f.selfEfficacy, agree(body.selfEfficacy));
     set(f.canNameOrgs, str(body.canNameOrgs));
     set(f.orgsList, str(body.orgsList));
     set(f.barriers, arr(body.barriers));
