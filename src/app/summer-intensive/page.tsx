@@ -17,7 +17,7 @@ export default function SummerIntensive() {
           <hr className="border-t border-gray-200 !my-8" />
 
           <p>
-            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AIS research skills. Compute and API credits covered.
+            Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AI Safety research skills. Compute and API credits covered.
           </p>
           <ul className="space-y-2 pl-0 list-none">
             <li className="flex gap-2.5">
