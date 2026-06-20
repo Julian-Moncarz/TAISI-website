@@ -49,7 +49,15 @@ const WEEK_ACTIVITIES: Record<string, string[]> = {
     ...WEEK_1_ACTIVITIES.filter((a) => a !== "Anson's talk"),
     NOTEBOOK_LEARNING_ACTIVITY,
   ],
-  "Week 3: Mech interp": [],
+  "Week 3: Mech interp": [
+    "Facilitation: discussions, debate, etc.",
+    "Facilitation: threat model creation",
+    "Lunch",
+    "Walk",
+    "Notebooks",
+    "Capstone project presentation",
+    "Capstone project prep",
+  ],
 };
 
 const READINGS_OPTIONS = ["Yes", "Some of them", "No"];
