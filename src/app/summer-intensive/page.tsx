@@ -26,7 +26,7 @@ export default function SummerIntensive() {
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Held in person at Trajectory Labs, an off-campus AI safety lab in downtown Toronto near King Station</span>
+              <span>Held in person at Trajectory Labs, an AI safety lab in downtown Toronto</span>
             </li>
             <li className="flex gap-2.5">
               <span className="text-accent font-bold shrink-0">&#8594;</span>
