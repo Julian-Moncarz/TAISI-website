@@ -165,7 +165,7 @@ function HomeInner() {
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
           <h1 className="hero-title text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-            We train exceptional students to become AI safety{" "}
+            We train exceptional people to become AI safety{" "}
             <RotatingText />
           </h1>
 
@@ -232,7 +232,7 @@ function HomeInner() {
           <p>
             AI safety needs more researchers. People are pouring money into finding talent for the field.
             <br /><br />
-            <strong>That&rsquo;s why we exist:</strong> we have funding to find exceptional students like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
+            <strong>That&rsquo;s why we exist:</strong> we have funding to find exceptional people like you, introduce you to AI safety, and train you into the cracked researchers that the field desperately needs.
           </p>
           <p>
             If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.

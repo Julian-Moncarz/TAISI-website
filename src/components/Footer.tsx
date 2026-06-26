@@ -83,7 +83,7 @@ export default function Footer() {
               <span className="text-[15px] text-text">Toronto AI Safety Initiative</span>
             </div>
             <p className="text-[13px] text-text-secondary leading-[1.6]">
-              We train exceptional students to become AI safety researchers.
+              We train exceptional people to become AI safety researchers.
             </p>
             <a
               href="mailto:julian@taisi.ca"
