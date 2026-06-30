@@ -2,10 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { FormPage } from "@/components/FormPage";
-import {
-  FileInput,
-  FormField,
-} from "@/components/FormControls";
+import { FormField } from "@/components/FormControls";
 import {
   CohortAndNamePicker,
   useParticipants,
@@ -33,8 +30,6 @@ export default function IntakeSurveyPage() {
   const [error, setError] = useState("");
 
   // Step 1 - logistics
-  const [bio, setBio] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
   const [pronouns, setPronouns] = useState("");
   const [dietaryRestrictions, setDietaryRestrictions] = useState("");
   const [photoConsent, setPhotoConsent] = useState(false);
@@ -59,7 +54,6 @@ export default function IntakeSurveyPage() {
     {
       step,
       counterfactual,
-      bio,
       knowledgeAis,
       knowledgeEvals,
       knowledgeFt,
@@ -77,7 +71,6 @@ export default function IntakeSurveyPage() {
     },
     (saved) => {
       if (typeof saved.counterfactual === "string") setCounterfactual(saved.counterfactual);
-      if (typeof saved.bio === "string") setBio(saved.bio);
       if (typeof saved.knowledgeAis === "number") setKnowledgeAis(saved.knowledgeAis);
       if (typeof saved.knowledgeEvals === "number") setKnowledgeEvals(saved.knowledgeEvals);
       if (typeof saved.knowledgeFt === "number") setKnowledgeFt(saved.knowledgeFt);
@@ -103,8 +96,6 @@ export default function IntakeSurveyPage() {
     event.preventDefault();
     setError("");
     if (!participantId) return setError("Please select your name.");
-    if (!bio.trim()) return setError("Please write a short bio.");
-    if (!photo) return setError("Please upload a photo.");
     if (!shirtSize) return setError("Please select a shirt size.");
     setStep(2);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -127,7 +118,6 @@ export default function IntakeSurveyPage() {
     const fd = new FormData();
     fd.set("participantId", participantId);
     fd.set("counterfactual", counterfactual);
-    fd.set("bio", bio);
     if (knowledgeAis !== null) fd.set("knowledgeAis", String(knowledgeAis));
     if (knowledgeEvals !== null) fd.set("knowledgeEvals", String(knowledgeEvals));
     if (knowledgeFt !== null) fd.set("knowledgeFt", String(knowledgeFt));
@@ -145,7 +135,6 @@ export default function IntakeSurveyPage() {
     fd.set("dietaryRestrictions", dietaryRestrictions);
     fd.set("photoConsent", String(photoConsent));
     fd.set("shirtSize", shirtSize);
-    if (photo) fd.set("photo", photo);
 
     try {
       const res = await fetch("/api/survey/intake", {
@@ -194,33 +183,6 @@ export default function IntakeSurveyPage() {
             participants={participants}
             loading={loading}
           />
-
-          <FormField
-            label="Short bio"
-            hint="2 to 4 sentences. School, year, what you're into, anything you'd want a cohort-mate to know."
-            required
-          >
-            <textarea
-              rows={4}
-              required
-              className="form-input resize-y"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-            />
-          </FormField>
-
-          <FormField
-            label="Photo"
-            hint="A headshot or any clear photo of your face. JPG or PNG."
-            required
-          >
-            <FileInput
-              name="photo"
-              accept="image/jpeg,image/png,image/jpg"
-              required
-              onFile={setPhoto}
-            />
-          </FormField>
 
           <FormField label="Pronouns" hint="Optional. e.g. she/her, he/him, they/them.">
             <input
