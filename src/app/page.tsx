@@ -186,7 +186,7 @@ function HomeInner() {
               href="/summer-intensive"
               className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
             >
-              Express interest in our August cohort
+              Express interest in a future cohort
             </a>
             <HeroEmailCTA location={location} />
           </div>

@@ -42,7 +42,7 @@ export default function SummerIntensive() {
             </li>
           </ul>
           <p>
-            The working professionals cohort runs in person in Toronto this August. No prior ML or AI safety experience required.
+            The working professionals cohort runs in person in Toronto. No prior ML or AI safety experience required.
           </p>
         </div>
 
