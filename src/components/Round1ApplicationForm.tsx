@@ -3,8 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { FileInput, FormField, RequiredFieldsNote, SuccessPanel } from "@/components/FormControls";
 
-// TODO: replace with the real article applicants should read.
-const ARTICLE_URL = "https://example.com/article";
+const ARTICLE_URL = "https://intelligence.org/the-problem/#3_wrong_goals";
 
 export default function Round1ApplicationForm() {
   const [submitting, setSubmitting] = useState(false);
