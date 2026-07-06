@@ -9,13 +9,6 @@ export default function SummerIntensive() {
         </h1>
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
-          <p className="font-semibold">
-            Applications are open for our{" "}
-            <span className="text-accent">working professionals cohort this August</span>.
-          </p>
-
-          <hr className="border-t border-gray-200 !my-8" />
-
           <p>
             Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AI Safety research skills. Compute and API credits covered.
           </p>
