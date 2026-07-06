@@ -56,31 +56,6 @@ const COHORTS = [
       },
     ],
   },
-  {
-    month: "August 2026",
-    pairs: [
-      {
-        id: "aug-sat",
-        label: "Saturdays",
-        dates: [
-          { day: "1",  month: "Aug", field: "Aug1"  },
-          { day: "8",  month: "Aug", field: "Aug8"  },
-          { day: "15", month: "Aug", field: "Aug15" },
-          { day: "22", month: "Aug", field: "Aug22" },
-        ],
-      },
-      {
-        id: "aug-sun",
-        label: "Sundays",
-        dates: [
-          { day: "2",  month: "Aug", field: "Aug2"  },
-          { day: "9",  month: "Aug", field: "Aug9"  },
-          { day: "16", month: "Aug", field: "Aug16" },
-          { day: "23", month: "Aug", field: "Aug23" },
-        ],
-      },
-    ],
-  },
 ];
 
 const ALL_FIELDS = COHORTS.flatMap(m => m.pairs.flatMap(p => p.dates.map(d => d.field)));
