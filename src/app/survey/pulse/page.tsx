@@ -46,7 +46,7 @@ const WEEK_1_ACTIVITIES = [
 const WEEK_ACTIVITIES: Record<string, string[]> = {
   "Week 1: Evals": WEEK_1_ACTIVITIES,
   "Week 2: Fine-tuning / RLHF": [
-    ...WEEK_1_ACTIVITIES.filter((a) => a !== "Anson's talk"),
+    ...WEEK_1_ACTIVITIES.map((a) => (a === "Anson's talk" ? "Thomas' talk" : a)),
     NOTEBOOK_LEARNING_ACTIVITY,
   ],
   "Week 3: Mech interp": [
