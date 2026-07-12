@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const links = [
@@ -17,23 +17,26 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Prevent scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
     <>
-      <nav className="sticky top-0 z-[100] bg-white/60 backdrop-blur-md border-b border-black/10">
-        <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-4">
+      <nav className="sticky top-0 z-[100] border-b border-black/10 bg-white/60 backdrop-blur-md">
+        <div className="flex items-center justify-between px-5 py-4 sm:px-8 md:px-16 lg:px-24">
           <Link href="/" className="flex items-center gap-2.5">
             <Image
               src="/icon.png"
@@ -41,35 +44,51 @@ export default function Nav() {
               width={155}
               height={193}
               priority
-              className="h-[28px] sm:h-[32px] w-auto translate-y-[2px]"
+              className="h-[28px] w-auto translate-y-[2px] sm:h-[32px]"
             />
-            <span className="text-[15px] sm:text-[17px] font-normal tracking-tight text-text">
+
+            <span className="text-[15px] font-normal tracking-tight text-text sm:text-[17px]">
               Toronto AI Safety Initiative
             </span>
           </Link>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 text-[15px] font-medium text-text-secondary">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : ""
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
+          <div className="hidden items-center gap-8 text-[15px] font-medium md:flex">
+            {links.map(({ href, label }) => {
+              const isActive = pathname === href;
+
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`nav-link ${
+                    isActive
+                      ? "nav-link-active"
+                      : "text-text-secondary"
+                  }`}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* Mobile hamburger */}
           <button
-            className="md:hidden relative z-[100] p-2 -mr-2"
-            onClick={() => setOpen(!open)}
+            type="button"
+            className="relative z-[100] -mr-2 p-2 md:hidden"
+            onClick={() => setOpen((current) => !current)}
             aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
               {open ? (
                 <>
                   <line x1="6" y1="6" x2="18" y2="18" />
@@ -87,25 +106,33 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile menu - portaled to body so it escapes nav stacking context */}
-      {open && mounted && createPortal(
-        <div className="md:hidden fixed inset-0 bg-white z-[90] pt-[76px]">
-          <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : "text-text-secondary"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-        </div>,
-        document.body
-      )}
+      {open &&
+        mounted &&
+        createPortal(
+          <div className="fixed inset-0 z-[90] bg-white pt-[76px] md:hidden">
+            <div className="flex flex-col gap-3 px-5 pt-6 text-[17px] font-medium">
+              {links.map(({ href, label }) => {
+                const isActive = pathname === href;
+
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`mobile-nav-link ${
+                      isActive
+                        ? "mobile-nav-link-active"
+                        : "text-text-secondary"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
