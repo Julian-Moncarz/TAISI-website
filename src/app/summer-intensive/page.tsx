@@ -1,11 +1,11 @@
-import Round1ApplicationForm from "@/components/Round1ApplicationForm";
+import WorkingProfessionalsForm from "@/components/WorkingProfessionalsForm";
 
 export default function SummerIntensive() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-4 sm:mb-6 font-semibold">
-          <span className="text-accent">Summer Intensive</span>
+          <span className="text-accent">Intensive</span>
         </h1>
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
@@ -42,11 +42,11 @@ export default function SummerIntensive() {
         <hr className="border-t border-gray-200 !my-8 max-w-[560px] mx-0" />
 
         <div>
-          <h2 className="section-header mb-4">Apply</h2>
+          <h2 className="section-header mb-4">Express interest</h2>
           <p className="text-[16px] sm:text-[17px] leading-[1.7] text-text-secondary mb-6 max-w-[560px]">
-            This is Round 1 of the application. Fill out the form below and we&rsquo;ll follow up with next steps.
+            Fill out the form below and we&rsquo;ll be in touch with dates and next steps.
           </p>
-          <Round1ApplicationForm />
+          <WorkingProfessionalsForm />
         </div>
       </section>
     </main>

@@ -17,7 +17,7 @@ Next.js 16 app (App Router) with Tailwind CSS v4. Deployed on Vercel.
 **API routes** submit to Airtable:
 - `POST /api/qr-signup` - Email capture (writes to Email List table)
 - `POST /api/apply` - Summer intensive application with resume upload
-- `POST /api/working-professionals-eoi` - Working Professionals expression-of-interest (name, email, LinkedIn/portfolio). Writes to the "Working Professionals EOI" table (`tblvuakrOt7JSZPdT`) in the "Summer Intensives" base (`appVfG77MoQbG3bgi`). Surfaced on `/summer-intensive`.
+- `POST /api/working-professionals-eoi` - Working Professionals expression-of-interest (name, email, LinkedIn/portfolio). Writes to the "Working Professionals EOI" table (`tblvuakrOt7JSZPdT`) in the "October Intensive" base (`app798YMmVWgN0Acg`). Surfaced on `/summer-intensive`.
 
 **Environment variables** (set in Vercel): `AIRTABLE_PAT`, `AIRTABLE_BASE_ID`, `AIRTABLE_TABLE_ID`, `AIRTABLE_RESUME_FIELD_ID`
 

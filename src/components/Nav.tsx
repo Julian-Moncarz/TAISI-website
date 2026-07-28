@@ -8,8 +8,8 @@ import { createPortal } from "react-dom";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/summer-intensive", label: "Summer Intensive" },
-  { href: "/fellowships", label: "Fellowships" },
+  { href: "/fellowships", label: "Fellowship" },
+  { href: "/summer-intensive", label: "Intensive" },
 ];
 
 export default function Nav() {
@@ -32,24 +32,24 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="sticky top-0 z-[100] bg-white/60 backdrop-blur-md border-b border-black/10">
-        <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-4">
-          <Link href="/" className="flex items-center gap-2.5">
+      <nav className="sticky top-0 z-[100] bg-white/60 backdrop-blur-md">
+        <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
+          <Link href="/" className="flex items-center gap-3">
             <Image
               src="/icon.png"
               alt="TAISI"
               width={155}
               height={193}
               priority
-              className="h-[28px] sm:h-[32px] w-auto translate-y-[2px]"
+              className="h-[32px] sm:h-[38px] w-auto translate-y-[2px]"
             />
-            <span className="text-[15px] sm:text-[17px] font-normal tracking-tight text-text">
+            <span className="font-title text-[18px] sm:text-[21px] font-semibold text-text">
               Toronto AI Safety Initiative
             </span>
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 text-[15px] font-medium text-text-secondary">
+          <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-text-secondary">
             {links.map(({ href, label }) => (
               <Link
                 key={href}

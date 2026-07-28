@@ -61,8 +61,8 @@ function FooterEmailForm() {
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/summer-intensive", label: "Summer Intensive" },
-  { href: "/fellowships", label: "Fellowships" },
+  { href: "/fellowships", label: "Fellowship" },
+  { href: "/summer-intensive", label: "Intensive" },
 ];
 
 export default function Footer() {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo_Narrow } from "next/font/google";
+import { Archivo, Archivo_Narrow } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -8,8 +8,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const titleFont = Archivo_Narrow({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-title",
+});
+
+const bodyFont = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
 });
 
 export const metadata: Metadata = {
@@ -42,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${titleFont.variable} min-h-screen flex flex-col`}>
+      <body className={`${titleFont.variable} ${bodyFont.variable} min-h-screen flex flex-col`}>
         <Nav />
         <div className="flex-1">{children}</div>
         <Footer />

@@ -5,7 +5,7 @@ export default function Fellowships() {
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
-          <span className="text-accent">Fellowships</span>
+          <span className="text-accent">Fellowship</span>
         </h1>
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">

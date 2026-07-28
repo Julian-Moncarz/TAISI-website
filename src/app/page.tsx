@@ -92,14 +92,21 @@ function ResearchGrid() {
     <div>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-3 text-[17px] sm:text-[19px] text-text-secondary hover:text-navy transition-colors group"
+        className="flex items-center gap-2.5 text-[17px] sm:text-[19px] text-text-secondary hover:text-navy transition-colors group"
       >
-        <span
-          className="text-accent font-bold text-[17px] sm:text-[19px] transition-transform duration-200"
-          style={{ display: "inline-block", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="square"
+          className="text-accent shrink-0 transition-transform duration-200"
+          style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
         >
-          &#8594;
-        </span>
+          <path d="M9 5l7 7-7 7" />
+        </svg>
         <span>Examples of AI safety work</span>
       </button>
       {open && (
@@ -164,8 +171,8 @@ function HomeInner() {
         />
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[2.25rem] sm:text-[3.15rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-            We train exceptional people to become AI safety{" "}
+          <h1 className="hero-title text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
+            AI safety needs more{" "}
             <RotatingText />
           </h1>
 
@@ -233,9 +240,6 @@ function HomeInner() {
             AI safety needs more researchers. People are pouring money into finding talent for the field.
             <br /><br />
             <strong>That&rsquo;s why we exist:</strong> we have funding to find exceptional people like you, introduce you to AI safety, and train you into the cracked researchers that this field desperately needs.
-          </p>
-          <p>
-            If you care about careers, there are exceptional careers to be made in AI safety. If you care about impact, this is a chance to have a critical impact on the world. This is the cutting edge.
           </p>
         </div>
 

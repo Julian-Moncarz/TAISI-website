@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const PAT = process.env.AIRTABLE_PAT!;
-// Summer Intensives base -> "Working Professionals EOI" table
-const BASE_ID = "appVfG77MoQbG3bgi";
+// October Intensive base -> "Working Professionals EOI" table
+const BASE_ID = "app798YMmVWgN0Acg";
 const TABLE_ID = "tblvuakrOt7JSZPdT";
 
 export async function POST(req: NextRequest) {
