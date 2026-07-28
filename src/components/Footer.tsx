@@ -86,10 +86,10 @@ export default function Footer() {
               We train exceptional people to become AI safety researchers.
             </p>
             <a
-              href="mailto:julian@taisi.ca"
+              href="mailto:joseph@taisi.ca"
               className="block mt-3 text-[13px] text-text-secondary hover:text-accent transition-colors"
             >
-              julian@taisi.ca
+              joseph@taisi.ca
             </a>
           </div>
 
