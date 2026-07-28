@@ -179,6 +179,7 @@ function HomeInner() {
           <div className="font-title space-y-1 text-[20px] sm:text-[25px] leading-[1.35] font-medium text-text-secondary max-w-[760px]">
             <p>AI systems are advancing faster than we can make them safe.</p>
             <p>The field needs more people.</p>
+            <p>We are a sister organization to AI safety groups at MIT, Harvard, and Cambridge.</p>
           </div>
 
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
