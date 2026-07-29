@@ -171,8 +171,8 @@ function HomeInner() {
         />
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[2.25rem] sm:text-[3.25rem] md:text-[4.5rem] leading-[0.98] tracking-normal mb-6 sm:mb-7 md:mb-8 font-semibold">
-            We train exceptional people to become AI safety{" "}
+          <h1 className="hero-title text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
+            AI safety needs more{" "}
             <RotatingText />
           </h1>
 
