@@ -176,12 +176,7 @@ function HomeInner() {
             <RotatingText />
           </h1>
 
-          <div className="space-y-1.5 text-[17px] sm:text-[20px] leading-[1.55] text-text-secondary max-w-[640px]">
-            <p>AI systems are advancing faster than we can make them safe.</p>
-            <p>We are a sister organization to AI safety groups at MIT, Harvard, and Cambridge.</p>
-          </div>
-
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <a
               href="/summer-intensive"
               className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
