@@ -34,16 +34,16 @@ export default function Nav() {
     <>
       <nav className="sticky top-0 z-[100] bg-white/60 backdrop-blur-md">
         <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src="/icon.png"
               alt="TAISI"
               width={155}
               height={193}
               priority
-              className="h-[32px] sm:h-[38px] w-auto translate-y-[2px]"
+              className="h-[32px] sm:h-[38px] w-auto translate-y-[3px]"
             />
-            <span className="font-title text-[18px] sm:text-[21px] font-semibold text-text">
+            <span className="font-sans font-semibold text-[17px] text-text">
               Toronto AI Safety Initiative
             </span>
           </Link>
