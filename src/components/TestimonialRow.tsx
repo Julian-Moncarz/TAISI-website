@@ -95,9 +95,9 @@ export default function TestimonialRow({
           {items.map((t, i) => (
             <figure
               key={`${t.name}-${i}`}
-              className="snap-start shrink-0 flex flex-col w-[85vw] sm:w-[480px] bg-white border border-accent/70 rounded-lg p-6 sm:p-7"
+              className="snap-start shrink-0 flex flex-col w-[85vw] sm:w-[520px] bg-white border border-accent/70 rounded-lg p-6 sm:p-7"
             >
-              <blockquote className="flex-1 text-[15px] sm:text-[16px] leading-[1.65] text-text">
+              <blockquote className="flex-1 text-[15px] sm:text-[16px] leading-[1.6] text-text">
                 {t.quote}
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
@@ -105,19 +105,19 @@ export default function TestimonialRow({
                   <Image
                     src={t.image}
                     alt={t.name}
-                    width={96}
-                    height={96}
-                    className="w-12 h-12 rounded-full object-cover shrink-0"
+                    width={88}
+                    height={88}
+                    className="w-11 h-11 rounded-full object-cover shrink-0"
                     style={{ objectPosition: t.imagePosition ?? "top" }}
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-full bg-gray-100 shrink-0" />
+                  <div className="w-11 h-11 rounded-full bg-gray-100 shrink-0" />
                 )}
                 <div>
-                  <span className="block text-[15px] font-semibold text-text">
+                  <span className="block text-[15px] font-semibold text-text leading-tight">
                     {t.name}
                   </span>
-                  <span className="block text-[13px] text-text-secondary">
+                  <span className="block text-[13px] text-text-secondary mt-0.5">
                     {t.role}
                   </span>
                 </div>

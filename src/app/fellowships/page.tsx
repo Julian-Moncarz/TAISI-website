@@ -1,4 +1,5 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
   {
@@ -51,13 +52,10 @@ export default function Fellowships() {
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
-          <span className="text-accent">Fellowship</span>
+          <span className="text-text">Fellowship</span>
         </h1>
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
-          <p className="font-semibold">
-            Applications are currently closed and will reopen late summer.
-          </p>
           <p>
             We offer two parallel introductory fellowships in AI safety:{" "}
             alignment and governance.
@@ -69,22 +67,48 @@ export default function Fellowships() {
             reduce AI risks.
           </p>
           <p>
-            Fellowships run weekly over dinner for 8 sessions in the form of
+            Fellowships run weekly over dinner for 6 sessions in the form of
             paper discussions.
-          </p>
-          <p className="text-text-secondary">
-            Curriculum developed by BlueDot Impact, adapted by TAISI.
           </p>
         </div>
 
+        <a
+          href={NOTIFY_FORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-2 mt-6 sm:mt-7 text-[17px] sm:text-[19px] text-accent hover:underline underline-offset-4"
+        >
+          Notify me when applications open
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="square"
+            className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          >
+            <path d="M7 17L17 7M9 7h8v8" />
+          </svg>
+        </a>
+
+        <div className="mt-8 sm:mt-10">
+          <TestimonialRow items={fellowTestimonials} title="Our fellows" />
+        </div>
+
         <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
+
+        <p className="mt-6 sm:mt-8 text-[14px] leading-[1.6] text-text-secondary">
+          Curriculum adapted from BlueDot Impact.
+        </p>
 
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
           <div>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Governance Fellowship
             </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">8 weeks</p>
+            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
             <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
               <li>Forecasting</li>
@@ -100,7 +124,7 @@ export default function Fellowships() {
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Alignment Fellowship
             </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">8 weeks</p>
+            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
             <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
               <li>Intro to deep learning (first session only)</li>
@@ -113,9 +137,6 @@ export default function Fellowships() {
           </div>
         </div>
 
-        <div className="mt-12 sm:mt-16">
-          <TestimonialRow items={fellowTestimonials} title="What our fellows say" />
-        </div>
         </div>
       </section>
     </main>

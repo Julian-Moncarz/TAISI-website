@@ -1,52 +1,50 @@
-import WorkingProfessionalsForm from "@/components/WorkingProfessionalsForm";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 
 export default function SummerIntensive() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-4 sm:mb-6 font-semibold">
-          <span className="text-accent">Intensive</span>
+          <span className="text-text">Intensive</span>
         </h1>
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-8 space-y-4">
           <p>
             Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AI Safety research skills. Compute and API credits covered.
           </p>
-          <ul className="space-y-2 pl-0 list-none">
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>One day/week (Sat or Sun), <strong>built to fit around a full-time job</strong></span>
-            </li>
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Held in person at Trajectory Labs, an AI safety lab in downtown Toronto</span>
-            </li>
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Free lunch with AI safety researchers</span>
-            </li>
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Leave with finished projects for your portfolio</span>
-            </li>
-            <li className="flex gap-2.5">
-              <span className="text-accent font-bold shrink-0">&#8594;</span>
-              <span>Top participants get research opportunities after</span>
-            </li>
+          <ul className="space-y-3 pl-5 sm:pl-6 list-none border-l border-accent max-w-[760px]">
+            <li>One day/week (Sat or Sun), <strong>built to fit around a full-time job</strong></li>
+            <li>Held in person at Trajectory Labs, an AI safety lab in downtown Toronto</li>
+            <li>Free lunch with AI safety researchers</li>
+            <li>Leave with finished projects for your portfolio</li>
+            <li>Top participants get research opportunities after</li>
           </ul>
           <p>
             The working professionals cohort runs in person in Toronto. No prior ML or AI safety experience required.
           </p>
         </div>
 
-        <hr className="border-t border-gray-200 !my-8 max-w-[560px] mx-0" />
-
-        <div>
-          <h2 className="section-header mb-4">Express interest</h2>
-          <p className="text-[16px] sm:text-[17px] leading-[1.7] text-text-secondary mb-6 max-w-[560px]">
-            Fill out the form below and we&rsquo;ll be in touch with dates and next steps.
-          </p>
-          <WorkingProfessionalsForm />
+        <div className="mt-7">
+          <a
+            href={NOTIFY_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 text-[17px] sm:text-[19px] text-accent hover:underline underline-offset-4"
+          >
+            Notify me when applications open
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="square"
+              className="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            >
+              <path d="M7 17L17 7M9 7h8v8" />
+            </svg>
+          </a>
         </div>
       </section>
     </main>

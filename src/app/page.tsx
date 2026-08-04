@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 
 function HeroEmailCTA({ location }: { location: string | null }) {
   const [open, setOpen] = useState(false);
@@ -220,7 +221,9 @@ function HomeInner() {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <a
-              href="/summer-intensive"
+              href={NOTIFY_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
             >
               Express interest in a future cohort
