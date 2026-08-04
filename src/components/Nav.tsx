@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 const links = [
   { href: "/", label: "Home" },
   { href: "/fellowships", label: "Fellowship" },
-  { href: "/summer-intensive", label: "Intensive" },
+  { href: "/intensive", label: "Intensive" },
 ];
 
 export default function Nav() {

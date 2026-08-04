@@ -4,7 +4,7 @@ import { Resend } from "resend";
 const PAT = process.env.AIRTABLE_PAT!;
 const BASE_ID = process.env.AIRTABLE_BASE_ID!;
 const EMAIL_TABLE_ID = "tblVh25vVyhH3aHOe";
-const APPLY_URL = "https://taisi.ca/summer-intensive";
+const APPLY_URL = "https://taisi.ca/intensive";
 
 export async function GET(req: NextRequest) {
   // Verify this is called by Vercel Cron

@@ -358,7 +358,7 @@ function HomeInner() {
             <a href="/fellowships" className="text-accent hover:underline">Fellowship</a> applications reopen late summer.
           </p>
           <p>
-            <a href="/summer-intensive" className="text-accent hover:underline">Intensive</a> expressions of interest are open for our working professionals cohort.
+            <a href="/intensive" className="text-accent hover:underline">Intensive</a> expressions of interest are open for our working professionals cohort.
           </p>
         </div>
       </section>

@@ -12,12 +12,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js 16 app (App Router) with Tailwind CSS v4. Deployed on Vercel.
 
-**Pages:** Home (`/`), Fellowships (`/fellowships`), Summer Intensive (`/summer-intensive`), QR redirect (`/qr`)
+**Pages:** Home (`/`), Fellowships (`/fellowships`), Intensive (`/intensive`, with `/summer-intensive` redirecting to it), QR redirect (`/qr`)
 
 **API routes** submit to Airtable:
 - `POST /api/qr-signup` - Email capture (writes to Email List table)
 - `POST /api/apply` - Summer intensive application with resume upload
-- `POST /api/working-professionals-eoi` - Working Professionals expression-of-interest (name, email, LinkedIn/portfolio). Writes to the "Working Professionals EOI" table (`tblvuakrOt7JSZPdT`) in the "October Intensive" base (`app798YMmVWgN0Acg`). Surfaced on `/summer-intensive`.
+- `POST /api/working-professionals-eoi` - Working Professionals expression-of-interest (name, email, LinkedIn/portfolio). Writes to the "Working Professionals EOI" table (`tblvuakrOt7JSZPdT`) in the "October Intensive" base (`app798YMmVWgN0Acg`). No longer surfaced on the site: `/intensive` now links out to an Airtable form instead.
 
 **Environment variables** (set in Vercel): `AIRTABLE_PAT`, `AIRTABLE_BASE_ID`, `AIRTABLE_TABLE_ID`, `AIRTABLE_RESUME_FIELD_ID`
 
