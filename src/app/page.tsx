@@ -6,6 +6,10 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
+// Pill-shaped hero buttons: compact padding, accent fill for the primary
+// action and an accent outline for the alternative.
+const HERO_CTA = "cta-base rounded-full px-5 py-[9px] text-[15px]";
+
 function HeroEmailCTA({ location }: { location: string | null }) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -41,7 +45,7 @@ function HeroEmailCTA({ location }: { location: string | null }) {
 
   if (done) {
     return (
-      <div className="secondary-cta px-7 py-3.5 text-[15px] sm:text-[16px] cursor-default">
+      <div className={`${HERO_CTA} cta-outline cursor-default`}>
         You&rsquo;re on the list.
       </div>
     );
@@ -52,7 +56,7 @@ function HeroEmailCTA({ location }: { location: string | null }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="secondary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
+        className={`${HERO_CTA} cta-outline`}
       >
         Join our mailing list
       </button>
@@ -76,7 +80,7 @@ function HeroEmailCTA({ location }: { location: string | null }) {
       <button
         type="submit"
         disabled={submitting}
-        className="secondary-cta shrink-0 px-7 py-3.5 text-[15px] sm:text-[16px]"
+        className={`${HERO_CTA} cta-outline shrink-0`}
       >
         {submitting ? "..." : "Sign up"}
       </button>
@@ -219,12 +223,12 @@ function HomeInner() {
             <RotatingText />
           </h1>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <a
               href={NOTIFY_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="primary-cta px-7 py-3.5 text-[15px] sm:text-[16px]"
+              className={`${HERO_CTA} cta-solid`}
             >
               Express interest in a future cohort
             </a>
