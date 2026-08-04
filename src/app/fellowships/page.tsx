@@ -3,27 +3,33 @@ import Image from "next/image";
 export default function Fellowships() {
   return (
     <main>
-      <section className="relative overflow-hidden max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
-        {/* Page background */}
+      <section className="relative overflow-hidden">
+        {/* Observatory drawing, anchored to the right edge of the viewport */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-no-repeat bg-cover bg-[#FDFDFE]"
+          className="pointer-events-none absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
           style={{
             backgroundImage: "url('/hero-observatory.webp')",
-            backgroundPosition: "right center",
+            backgroundPosition: "right -300px",
+            backgroundSize: "auto 115%",
           }}
+        />
+        {/* Fades the drawing into the page on every edge */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white from-40% via-white/75 via-70% to-white/40"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FDFDFE] from-25% via-[#FDFDFE]/60 via-65% to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white"
         />
 
-        <div className="relative z-10">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
           <span className="text-accent">Fellowship</span>
         </h1>
 
-        <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+        <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
           <p className="font-semibold">
             Applications are currently closed and will reopen late summer.
           </p>
@@ -46,7 +52,7 @@ export default function Fellowships() {
           </p>
         </div>
 
-        <blockquote className="mt-8 sm:mt-10 border-l border-accent pl-5">
+        <blockquote className="mt-8 sm:mt-10 border-l border-accent pl-5 max-w-[820px]">
           <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-4">
             Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.
           </p>

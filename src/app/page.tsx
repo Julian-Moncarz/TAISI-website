@@ -172,7 +172,7 @@ function HomeInner() {
           className="sailboat pointer-events-none z-[5]"
           style={{
             bottom: "2.2%",
-            "--sail-start": "103vw",
+            "--sail-start": "97vw",
             "--sail-end": "29.5vw",
             animationDuration: "95s",
           } as React.CSSProperties}
