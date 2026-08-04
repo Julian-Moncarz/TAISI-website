@@ -360,37 +360,6 @@ function HomeInner() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-3 md:pt-5 pb-8 md:pb-10">
-        <h2 className="section-header mb-6 sm:mb-8">
-          What our fellows say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {testimonials.map((t, i) => (
-            <blockquote key={i} className="border-l border-accent pl-5">
-              <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text mb-4">
-                {t.quote}
-              </p>
-              <footer className="flex items-center gap-3">
-                {t.image ? (
-                  <Image src={t.image} alt={t.name} width={64} height={64} className="w-16 h-16 object-cover shrink-0" style={t.imagePosition ? { objectPosition: t.imagePosition } : { objectPosition: "top" }} />
-                ) : (
-                  <div className="w-16 h-16 bg-gray-200 shrink-0" />
-                )}
-                <div>
-                  <span className="block text-[15px] font-semibold text-text">
-                    {t.name}
-                  </span>
-                  <span className="block text-[13px] text-text-secondary">
-                    {t.role}
-                  </span>
-                </div>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </section>
-
     </main>
   );
 }
@@ -498,24 +467,6 @@ const researchLinks = [
       { title: "Gradual Disempowerment (Kulveit et al.)", url: "https://gradual-disempowerment.ai" },
       { title: "Explosive Growth from AI Automation (Epoch AI)", url: "https://epoch.ai/blog/explosive-growth-from-ai-a-review-of-the-arguments" },
     ],
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
-    name: "Pera",
-    role: "Fellow '25 and '26",
-    image: "/pera.webp",
-  },
-  {
-    quote:
-      "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
-    name: "Boyan",
-    role: "Fellow '25",
-    image: "/boyan.png",
-    imagePosition: "center 20%",
   },
 ];
 

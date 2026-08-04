@@ -1,4 +1,29 @@
-import Image from "next/image";
+import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
+
+const fellowTestimonials: Testimonial[] = [
+  {
+    quote:
+      "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
+    name: "Boyan",
+    role: "Fellow '25",
+    image: "/boyan.png",
+    imagePosition: "center 20%",
+  },
+  {
+    quote:
+      "Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.",
+    name: "Divy",
+    role: "Fellow '25",
+    image: "/divy.webp",
+  },
+  {
+    quote:
+      "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
+    name: "Pera",
+    role: "Fellow '25 and '26",
+    image: "/pera.webp",
+  },
+];
 
 export default function Fellowships() {
   return (
@@ -52,19 +77,6 @@ export default function Fellowships() {
           </p>
         </div>
 
-        <blockquote className="mt-8 sm:mt-10 border-l border-accent pl-5 max-w-[820px]">
-          <p className="text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary mb-4">
-            Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.
-          </p>
-          <footer className="flex items-center gap-3">
-            <Image src="/divy.webp" alt="Divy" width={64} height={64} className="w-16 h-16 object-cover object-top shrink-0" />
-            <div>
-              <span className="block text-[15px] font-semibold text-text">Divy</span>
-              <span className="block text-[13px] text-text-secondary">Fellow &rsquo;25</span>
-            </div>
-          </footer>
-        </blockquote>
-
         <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
 
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
@@ -99,6 +111,10 @@ export default function Fellowships() {
               <li>Contributing to technical AI safety</li>
             </ul>
           </div>
+        </div>
+
+        <div className="mt-12 sm:mt-16">
+          <TestimonialRow items={fellowTestimonials} title="What our fellows say" />
         </div>
         </div>
       </section>
