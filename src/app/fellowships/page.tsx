@@ -3,7 +3,22 @@ import Image from "next/image";
 export default function Fellowships() {
   return (
     <main>
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
+      <section className="relative overflow-hidden max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
+        {/* Page background */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-no-repeat bg-cover bg-[#FDFDFE]"
+          style={{
+            backgroundImage: "url('/hero-observatory.webp')",
+            backgroundPosition: "right center",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FDFDFE] from-25% via-[#FDFDFE]/60 via-65% to-transparent"
+        />
+
+        <div className="relative z-10">
         <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
           <span className="text-accent">Fellowship</span>
         </h1>
@@ -78,6 +93,7 @@ export default function Fellowships() {
               <li>Contributing to technical AI safety</li>
             </ul>
           </div>
+        </div>
         </div>
       </section>
     </main>

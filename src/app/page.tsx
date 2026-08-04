@@ -159,15 +159,57 @@ function HomeInner() {
         {/* Hero background */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-no-repeat bg-cover bg-[#FDFDFE]"
+          className="pointer-events-none absolute inset-[-8%] bg-no-repeat bg-cover bg-center bg-[#FDFDFE]"
           style={{
-            backgroundImage: "url('/hero-observatory.webp')",
-            backgroundPosition: "right center",
+            backgroundImage: "url('/hero-skyline-1.png')",
+            transform: "translate(-3.5%, 3.5%) scale(0.92)",
           }}
         />
+
+        {/* Sailboat drifting right to left across the water */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FDFDFE] from-25% via-[#FDFDFE]/60 via-65% to-transparent"
+          className="sailboat pointer-events-none z-[5]"
+          style={{
+            bottom: "2.2%",
+            "--sail-start": "103vw",
+            "--sail-end": "29.5vw",
+            animationDuration: "95s",
+          } as React.CSSProperties}
+        >
+          <Image
+            src="/sailboat-drift-v1.png"
+            alt=""
+            width={62}
+            height={80}
+            className="h-auto w-[67px]"
+          />
+        </div>
+
+        {/* Copy of the big sailboat pinned over the one drawn in the image,
+            so the drifting boat passes behind it */}
+        <div
+          aria-hidden
+          className="sailboat-overlay pointer-events-none z-[6]"
+          style={{ left: "64.5%", bottom: "0.6%" }}
+        >
+          <Image
+            src="/sailboat-cut-big-v2.png"
+            alt=""
+            width={76}
+            height={105}
+            className="h-auto w-[84px]"
+          />
+        </div>
+
+        {/* White fade layer above the boats; matches the drawing's blank
+            left side so the drifter dissolves with the image itself */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-[7]"
+          style={{
+            background: "linear-gradient(to right, #FDFDFE 30vw, rgba(253, 253, 254, 0) 48vw)",
+          }}
         />
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">

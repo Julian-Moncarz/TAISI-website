@@ -15,7 +15,7 @@ export default function RotatingText() {
       setTimeout(() => {
         setIndex((i) => (i + 1) % words.length);
         setFading(false);
-      }, 300);
+      }, 700);
     };
     const initial = setTimeout(() => {
       rotate();
@@ -37,7 +37,7 @@ export default function RotatingText() {
       ))}
       {/* Visible rotating word */}
       <span
-        className="col-start-1 row-start-1 text-accent transition-opacity duration-300"
+        className="col-start-1 row-start-1 text-accent transition-opacity duration-700 ease-in-out"
         style={{ opacity: fading ? 0 : 1 }}
       >
         {words[index]}

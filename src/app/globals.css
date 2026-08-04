@@ -39,6 +39,49 @@
   animation: intro-fade 500ms ease-out forwards;
 }
 
+@keyframes sail-across {
+  from { transform: translateX(var(--sail-start, 103vw)); }
+  to { transform: translateX(var(--sail-end, 29.5vw)); }
+}
+
+@keyframes sail-bob {
+  0%, 100% { transform: translateY(0) rotate(-1.25deg); }
+  50% { transform: translateY(4px) rotate(1.25deg); }
+}
+
+.sailboat {
+  position: absolute;
+  left: 0;
+  bottom: 12.5%;
+  animation: sail-across 110s linear infinite;
+}
+
+.sailboat > img {
+  /* White paper background disappears into the sketch's water */
+  mix-blend-mode: multiply;
+  animation: sail-bob 7s ease-in-out infinite;
+}
+
+/* Copy of the big sailboat pinned over the one drawn in the hero image,
+   layered above the drifting boat so it passes behind. */
+.sailboat-overlay {
+  position: absolute;
+  left: 60.3%;
+  bottom: 12.3%;
+  transform: translateX(-50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sailboat,
+  .sailboat > img {
+    animation: none;
+  }
+  .sailboat,
+  .sailboat-overlay {
+    display: none;
+  }
+}
+
 .form-input {
   display: block;
   width: 100%;
