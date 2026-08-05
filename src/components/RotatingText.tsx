@@ -17,10 +17,11 @@ export default function RotatingText() {
         setFading(false);
       }, 700);
     };
+    // Short first hold so the cycling is obvious before anyone scrolls past.
     const initial = setTimeout(() => {
       rotate();
       interval = setInterval(rotate, 3500);
-    }, 4500);
+    }, 1800);
     return () => {
       clearTimeout(initial);
       if (interval) clearInterval(interval);

@@ -219,11 +219,24 @@ function HomeInner() {
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
           <h1 className="hero-title text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-            AI safety needs more{" "}
-            <RotatingText />
+            {["AI", "safety", "needs", "more"].map((word, i) => (
+              <span
+                key={word}
+                className="intro-word mr-[0.25em]"
+                style={{ animationDelay: `${i * 90}ms` }}
+              >
+                {word}
+              </span>
+            ))}
+            <span className="intro-word" style={{ animationDelay: "360ms" }}>
+              <RotatingText />
+            </span>
           </h1>
 
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+          <div
+            className="intro-rise mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+            style={{ animationDelay: "560ms" }}
+          >
             <a
               href={NOTIFY_FORM_URL}
               target="_blank"
