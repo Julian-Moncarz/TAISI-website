@@ -75,7 +75,7 @@ function HeroEmailCTA({ location }: { location: string | null }) {
         onChange={(e) => setEmail(e.target.value)}
         required
         placeholder="you@gmail.com"
-        className="form-input sm:w-64 self-stretch"
+        className="field-pill sm:w-64 self-stretch"
       />
       <button
         type="submit"
@@ -88,6 +88,347 @@ function HeroEmailCTA({ location }: { location: string | null }) {
         <p className="text-accent text-[14px] font-medium">{error}</p>
       )}
     </form>
+  );
+}
+
+type Program = {
+  title: string;
+  body: string;
+  cta: string;
+  style: CardStyle;
+  color: keyof typeof COLORS;
+  href?: string;
+  art?: string;
+  tag?: string;
+};
+
+const programs: Program[] = [
+  {
+    title: "Fellowship",
+    body: "Six weekly sessions over dinner, reading and arguing about the core work in alignment or governance. For students, no ML background needed.",
+    cta: "Learn more",
+    style: "filled",
+    color: "accent",
+    href: "/fellowships",
+    art: "/hero-observatory.webp",
+    tag: "Students",
+  },
+  {
+    title: "Intensive",
+    body: "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. You leave with finished projects.",
+    cta: "Learn more",
+    style: "outline",
+    color: "navy",
+    href: "/intensive",
+    art: "/hero-skyline-1.png",
+    tag: "Working professionals",
+  },
+  {
+    title: "Coming soon",
+    body: "",
+    cta: "",
+    style: "neutral",
+    color: "accent",
+  },
+];
+
+// Locked-in card proportions.
+const CARD_WIDTH = 440;
+const CARD_RATIO = "5 / 4";
+const CARD_FONT = { title: 21, body: 16 };
+const ART_OPACITY = 0.55;
+const ART_SIZE = { w: "100%", h: "88%" };
+
+const COLORS = {
+  accent: { hex: "#D94F30", rgb: "217, 79, 48" },
+  navy: { hex: "#1A3355", rgb: "26, 51, 85" },
+  stone: { hex: "#8C8781", rgb: "140, 135, 129" },
+} as const;
+
+const CARD_STYLES = ["outline", "filled", "tinted", "neutral"] as const;
+type CardStyle = (typeof CARD_STYLES)[number];
+
+function cardLook(style: CardStyle, key: keyof typeof COLORS) {
+  const c = COLORS[key];
+  // On a filled card the button inverts to white; on light cards it fills
+  // with the card colour and the label turns white.
+  const filled = {
+    box: { backgroundColor: c.hex, borderColor: c.hex },
+    title: "#FFFFFF",
+    body: "rgba(255, 255, 255, 0.85)",
+    tag: "rgba(255, 255, 255, 0.75)",
+    cta: "#FFFFFF",
+    ctaHoverBg: "#FFFFFF",
+    ctaHoverFg: c.hex,
+  };
+  const onLight = (cta: string, ctaRgb: string) => ({
+    tag: `rgba(${ctaRgb}, 0.75)`,
+    cta,
+    ctaHoverBg: cta,
+    ctaHoverFg: "#FFFFFF",
+  });
+  switch (style) {
+    case "filled":
+      return filled;
+    case "tinted":
+      return {
+        box: {
+          backgroundColor: `rgba(${c.rgb}, 0.1)`,
+          borderColor: `rgba(${c.rgb}, 0.35)`,
+        },
+        title: "#1A1A1A",
+        body: "#4A4A4A",
+        ...onLight(c.hex, c.rgb),
+      };
+    case "neutral":
+      return {
+        box: { backgroundColor: "#FFFFFF", borderColor: "rgba(0, 0, 0, 0.15)" },
+        // Softer than the live cards, so it reads as a placeholder.
+        title: "#8C8781",
+        body: "#8C8781",
+        ...onLight(COLORS.accent.hex, COLORS.accent.rgb),
+      };
+    default:
+      return {
+        box: { backgroundColor: "#FFFFFF", borderColor: c.hex },
+        title: "#1A1A1A",
+        body: "#4A4A4A",
+        ...onLight(c.hex, c.rgb),
+      };
+  }
+}
+
+function ProgramRow() {
+  const scroller = useRef<HTMLDivElement>(null);
+  const section = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+  const [shown, setShown] = useState(false);
+
+  // Reveal the row the first time it scrolls into view.
+  useEffect(() => {
+    const el = section.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const reveal = (delay: number) => ({
+    className: `transition-all duration-700 ease-out ${
+      shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+    }`,
+    style: { transitionDelay: `${delay}ms` },
+  });
+
+  function sync() {
+    const el = scroller.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 2);
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
+  }
+
+  useEffect(() => {
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
+  function step(direction: 1 | -1) {
+    const el = scroller.current;
+    if (!el) return;
+    const card = el.querySelector("[data-card]");
+    const distance = card ? card.clientWidth + 24 : el.clientWidth * 0.8;
+    el.scrollBy({ left: direction * distance, behavior: "smooth" });
+  }
+
+  const arrow =
+    "flex items-center justify-center w-10 h-10 rounded-full border border-accent text-accent transition-colors hover:bg-accent hover:text-white disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:text-accent";
+
+  return (
+    <div ref={section}>
+      <div
+        className={`flex items-center justify-between gap-4 mb-8 sm:mb-10 ${reveal(0).className}`}
+        style={reveal(0).style}
+      >
+        <h2 className="hero-title text-[2rem] sm:text-[2.75rem] leading-[1] font-semibold">
+          Programs
+        </h2>
+        <div className="flex gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            disabled={atStart}
+            aria-label="Previous programs"
+            className={arrow}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => step(1)}
+            disabled={atEnd}
+            aria-label="More programs"
+            className={arrow}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={scroller}
+        onScroll={sync}
+        className="-mx-5 sm:-mx-8 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <div className="flex gap-6 px-5 sm:px-8 snap-x snap-mandatory">
+          {programs.map((p, i) => {
+            const look = cardLook(p.style, p.color);
+            const entrance = reveal(120 + i * 110);
+            const shell =
+              "group relative overflow-hidden snap-start shrink-0 flex flex-col justify-between rounded-lg p-8 border";
+            const art = p.art && (
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-[6%] -bottom-[4%] bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
+                style={{
+                  backgroundImage: `url('${p.art}')`,
+                  width: ART_SIZE.w,
+                  height: ART_SIZE.h,
+                  opacity: ART_OPACITY,
+                  // Dark cards need the sketch inverted, otherwise dark pencil
+                  // lines vanish into the fill.
+                  mixBlendMode: p.style === "filled" ? "screen" : "multiply",
+                  filter: p.style === "filled" ? "invert(1)" : undefined,
+                }}
+              />
+            );
+            const box: React.CSSProperties = {
+              ...look.box,
+              width: `min(${CARD_WIDTH}px, 80vw)`,
+              aspectRatio: CARD_RATIO,
+            };
+            const inner = (
+              <>
+                {art}
+                {p.tag && (
+                  <span
+                    className="absolute top-9 right-8 z-[1] text-[11px] font-semibold uppercase tracking-[0.1em]"
+                    style={{ color: look.tag }}
+                  >
+                    {p.tag}
+                  </span>
+                )}
+                <ProgramBody
+                  program={p}
+                  title={look.title}
+                  body={look.body}
+                  fontTitle={CARD_FONT.title}
+                  fontBody={CARD_FONT.body}
+                />
+                {p.cta && (
+                  <span
+                    className="card-cta relative z-[1] self-start"
+                    style={
+                      {
+                        "--cta-fg": look.cta,
+                        "--cta-hover-bg": look.ctaHoverBg,
+                        "--cta-hover-fg": look.ctaHoverFg,
+                      } as React.CSSProperties
+                    }
+                  >
+                    {p.cta}
+                    <span aria-hidden className="card-cta-arrow">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="square"
+                        className="shrink-0"
+                      >
+                        <path d="M5 12h13M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </span>
+                )}
+              </>
+            );
+            return p.href ? (
+              <a
+                key={p.title}
+                data-card
+                href={p.href}
+                className={`${shell} ${entrance.className}`}
+                style={{ ...box, ...entrance.style }}
+              >
+                {inner}
+              </a>
+            ) : (
+              <div
+                key={p.title}
+                data-card
+                className={`${shell} ${entrance.className}`}
+                style={{ ...box, ...entrance.style }}
+              >
+                {inner}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgramBody({
+  program,
+  title,
+  body,
+  fontTitle,
+  fontBody,
+}: {
+  program: Program;
+  title: string;
+  body: string;
+  fontTitle: number;
+  fontBody: number;
+}) {
+  return (
+    <div className="relative z-[1]">
+      <h3
+        className="font-semibold mb-3 pr-32"
+        style={{ color: title, fontSize: `${fontTitle}px` }}
+      >
+        {program.title}
+      </h3>
+      {program.body && (
+        <p
+          className="leading-[1.65]"
+          style={{ color: body, fontSize: `${fontBody}px` }}
+        >
+          {program.body}
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -219,23 +560,14 @@ function HomeInner() {
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
           <h1 className="hero-title text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-            {["AI", "safety", "needs", "more"].map((word, i) => (
-              <span
-                key={word}
-                className="intro-word mr-[0.25em]"
-                style={{ animationDelay: `${i * 90}ms` }}
-              >
-                {word}
-              </span>
-            ))}
-            <span className="intro-word" style={{ animationDelay: "360ms" }}>
-              <RotatingText />
+            <span className="intro-word">
+              AI safety needs more <RotatingText />
             </span>
           </h1>
 
           <div
             className="intro-rise mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
-            style={{ animationDelay: "560ms" }}
+            style={{ animationDelay: "260ms" }}
           >
             <a
               href={NOTIFY_FORM_URL}
@@ -244,6 +576,20 @@ function HomeInner() {
               className={`${HERO_CTA} cta-solid`}
             >
               Express interest in a future cohort
+              <span aria-hidden className="cta-arrow">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="square"
+                  className="shrink-0"
+                >
+                  <path d="M7 17L17 7M9 7h8v8" />
+                </svg>
+              </span>
             </a>
             <HeroEmailCTA location={location} />
           </div>
@@ -293,6 +639,14 @@ function HomeInner() {
           </p>
         </div>
 
+      </section>
+
+      {/* Programs */}
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-10 md:pb-16">
+        <ProgramRow />
+      </section>
+
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-10">
         {/* Where AI safety work happens */}
         <div className="mt-11 space-y-5 text-text">
           <h2 className="section-header">
@@ -367,18 +721,8 @@ function HomeInner() {
 
       </section>
 
-      {/* What do we run? */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-3 md:pt-5 pb-8 md:pb-10">
-        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="section-header">What do we run?</h2>
-          <p>
-            <a href="/fellowships" className="text-accent hover:underline">Fellowship</a> applications reopen late summer.
-          </p>
-          <p>
-            <a href="/intensive" className="text-accent hover:underline">Intensive</a> expressions of interest are open for our working professionals cohort.
-          </p>
-        </div>
-      </section>
+
+
 
     </main>
   );

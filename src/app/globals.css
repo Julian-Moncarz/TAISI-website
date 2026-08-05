@@ -132,6 +132,28 @@
 .form-input::placeholder {
   color: #9ca3af;
 }
+/* Rounded field that matches the pill buttons. */
+.field-pill {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1.1rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: white;
+  border: 1px solid rgba(26, 26, 26, 0.18);
+  border-radius: 999px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field-pill:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(217, 79, 48, 0.15);
+}
+.field-pill::placeholder {
+  color: #9ca3af;
+}
+
 .form-select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -170,12 +192,15 @@
   transition: background-color 0.18s ease, border-color 0.18s ease,
     color 0.18s ease;
 }
+/* Both hero buttons invert on hover, matching the program cards. */
 .cta-solid {
   background-color: var(--color-accent);
+  border-color: var(--color-accent);
   color: white;
 }
 .cta-solid:hover {
-  background-color: var(--color-accent-hover);
+  background-color: white;
+  color: var(--color-accent);
 }
 .cta-outline {
   background-color: transparent;
@@ -183,10 +208,74 @@
   border-color: var(--color-accent);
 }
 .cta-outline:hover {
-  background-color: rgba(217, 79, 48, 0.08);
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* Arrow appears on hover, as on the program cards. */
+.cta-arrow {
+  display: inline-flex;
+  overflow: hidden;
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+  transition: width 0.2s ease, margin-left 0.2s ease, opacity 0.2s ease;
+}
+.cta-base:hover .cta-arrow {
+  width: 14px;
+  margin-left: 0.5rem;
+  opacity: 1;
 }
 .cta-base:disabled {
   opacity: 0.5;
+}
+
+/* Program card button: fills in on card hover. Colours come from custom
+   properties rather than inline styles so the hover rule can win. */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cta-fg);
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+.group:hover .card-cta {
+  background-color: var(--cta-hover-bg);
+  border-color: var(--cta-hover-bg);
+  color: var(--cta-hover-fg);
+}
+
+/* Same button, hovered directly rather than through a parent card. */
+.card-cta:hover {
+  background-color: var(--cta-hover-bg);
+  border-color: var(--cta-hover-bg);
+  color: var(--cta-hover-fg);
+}
+.card-cta:hover .card-cta-arrow {
+  width: 14px;
+  margin-left: 0.5rem;
+  opacity: 1;
+}
+
+/* Arrow stays hidden until the card is hovered. */
+.card-cta-arrow {
+  display: inline-flex;
+  overflow: hidden;
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+  transition: width 0.2s ease, margin-left 0.2s ease, opacity 0.2s ease;
+}
+.group:hover .card-cta-arrow {
+  width: 14px;
+  margin-left: 0.5rem;
+  opacity: 1;
 }
 
 .secondary-cta {
