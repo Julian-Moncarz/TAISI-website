@@ -7,7 +7,7 @@ const fellowTestimonials: Testimonial[] = [
       "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
     name: "Boyan",
     role: "Fellow '25",
-    image: "/boyan.png",
+    image: "/boyan.webp",
     imagePosition: "center 20%",
   },
   {

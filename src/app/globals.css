@@ -10,6 +10,7 @@
   --color-bg: #FFFFFF;
 
   --font-sans: var(--font-body), "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-title: var(--font-body);
 
   --animate-blink: blink 0.8s step-end infinite;
 }
@@ -94,7 +95,7 @@
 /* The skyline is cropped wide on desktop and anchored to the bottom on
    phones, where a cover crop would show only a sliver of the middle. */
 .hero-art {
-  background-image: url("/hero-skyline-1.png");
+  background-image: url("/hero-skyline-1.webp");
   background-repeat: no-repeat;
   /* Pulled towards the dense right-hand end of the drawing and scaled up so
      the skyline reaches further up the screen. */
@@ -125,9 +126,15 @@
 }
 
 .sailboat > img {
-  /* White paper background disappears into the sketch's water */
+  /* White paper background disappears into the sketch's water; the colour
+     matrix warms the pencil lines towards the accent. */
   mix-blend-mode: multiply;
+  filter: url(#accent-tint);
   animation: sail-bob 7s ease-in-out infinite;
+}
+
+.sailboat-overlay > img {
+  filter: url(#accent-tint);
 }
 
 /* Copy of the big sailboat pinned over the one drawn in the hero image,
@@ -353,6 +360,17 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Form controls do not inherit type by default, so buttons, inputs and
+   selects would keep the browser UI font while everything else changed. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 body {

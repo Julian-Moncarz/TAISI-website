@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Narrow } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const titleFont = Archivo_Narrow({
+// One family for headings and body, loaded once.
+const siteFont = Libre_Franklin({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-title",
-});
-
-const bodyFont = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -47,8 +42,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${titleFont.variable} ${bodyFont.variable} min-h-screen flex flex-col`}>
+    // Font variables live on <html> so :root can resolve them. The --font-sans
+    // theme token is declared at :root and points at --font-body, so defining
+    // them lower down leaves that token falling back to the system font.
+    <html lang="en" className={siteFont.variable}>
+      <body className="min-h-screen flex flex-col">
         <Nav />
         <div className="flex-1">{children}</div>
         <Footer />

@@ -4,11 +4,13 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
+import Reveal from "@/components/Reveal";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
 // Pill-shaped hero buttons: compact padding, accent fill for the primary
 // action and an accent outline for the alternative.
-const HERO_CTA = "cta-base rounded-full px-5 py-[9px] text-[15px]";
+const HERO_CTA = "cta-base rounded-full px-6 py-[11px] text-[16px]";
 
 function HeroEmailCTA({ location }: { location: string | null }) {
   const [open, setOpen] = useState(false);
@@ -105,7 +107,7 @@ type Program = {
 const programs: Program[] = [
   {
     title: "Fellowship",
-    body: "Six weekly sessions over dinner, reading and arguing about the core work in alignment or governance. For students, no ML background needed.",
+    body: "6 weekly sessions over dinner at Trajectory Labs. Explore core material in alignment or governance with other students and an experienced facilitator. No ML background needed.",
     cta: "Learn more",
     style: "filled",
     color: "accent",
@@ -115,12 +117,12 @@ const programs: Program[] = [
   },
   {
     title: "Intensive",
-    body: "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. You leave with finished projects.",
+    body: "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. Leave with next steps and a plan for how to contribute.",
     cta: "Learn more",
     style: "outline",
     color: "navy",
     href: "/intensive",
-    art: "/hero-skyline-1.png",
+    art: "/hero-skyline-1.webp",
     tag: "Working professionals",
   },
   {
@@ -500,13 +502,21 @@ function HomeInner() {
 
   return (
     <main className="md:overflow-hidden">
-      <section className="relative overflow-hidden bg-[#FDFDFE] -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
+      <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
+        <HeroBackdrop>
         {/* Hero background */}
         <div
           aria-hidden
-          className="hero-art pointer-events-none absolute inset-[-8%] bg-[#FDFDFE]"
+          className="hero-art intro-fade pointer-events-none absolute inset-[-8%] bg-[#FDFDFE]"
+          style={{ animationDuration: "1600ms" }}
         />
 
+        {/* Boats share a fading wrapper so their own animations are untouched */}
+        <div
+          aria-hidden
+          className="intro-fade"
+          style={{ animationDuration: "1600ms", animationDelay: "300ms" }}
+        >
         {/* Sailboat drifting right to left across the water */}
         <div
           aria-hidden
@@ -543,6 +553,22 @@ function HomeInner() {
           />
         </div>
 
+        {/* The smaller boat further out, pinned over its drawn twin */}
+        <div
+          aria-hidden
+          className="sailboat-overlay pointer-events-none z-[6]"
+          style={{ left: "79.2%", bottom: "2.4%" }}
+        >
+          <Image
+            src="/sailboat-drift-v1.png"
+            alt=""
+            width={62}
+            height={80}
+            className="h-auto w-[71px]"
+          />
+        </div>
+        </div>
+
         {/* White fade layer above the boats; matches the drawing's blank
             left side so the drifter dissolves with the image itself */}
         <div
@@ -550,6 +576,15 @@ function HomeInner() {
           className="hidden sm:block pointer-events-none absolute inset-0 z-[7]"
           style={{
             background: "linear-gradient(to right, #FDFDFE 30vw, rgba(253, 253, 254, 0) 48vw)",
+          }}
+        />
+        {/* Settles the bottom of the drawing into the page */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[8%] z-[7]"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(253, 253, 254, 0) 0%, rgba(253, 253, 254, 0.4) 55%, #FDFDFE 100%)",
           }}
         />
         {/* On phones the drawing sits under the text, so it fades downward */}
@@ -561,6 +596,7 @@ function HomeInner() {
               "linear-gradient(to bottom, #FDFDFE 0%, #FDFDFE 34%, rgba(253, 253, 254, 0.55) 54%, rgba(253, 253, 254, 0) 72%)",
           }}
         />
+        </HeroBackdrop>
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
           <h1 className="hero-title text-[3.35rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
@@ -570,8 +606,8 @@ function HomeInner() {
           </h1>
 
           <div
-            className="intro-rise mt-10 flex flex-col items-start sm:flex-row sm:items-center gap-3 sm:gap-4"
-            style={{ animationDelay: "260ms" }}
+            className="intro-rise flex flex-col items-start sm:flex-row sm:items-center gap-3 sm:gap-4"
+            style={{ animationDelay: "260ms", marginTop: "var(--hero-gap, 2.5rem)" }}
           >
             <a
               href={NOTIFY_FORM_URL}
@@ -613,35 +649,23 @@ function HomeInner() {
       </section>
 
       {/* What is AI safety? */}
-      <section id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-8 md:pb-10">
-        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
+      <section id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
+        <Reveal className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
           <h2 className="section-header">
             What is AI safety?
           </h2>
           <p>
-            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons.
+            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. AI systems regularly hack external infrastructure during testing.
             <br /><br />
             These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with dangerous consequences. And this is the stupidest that the models will ever be.
           </p>
           <p>
-            AI safety asks the question: <strong>&ldquo;how can we make sure that advanced AI systems don&rsquo;t do bad things?&rdquo;</strong>
+            AI safety asks the question:{" "}
+            <span className="text-accent font-medium">
+              &ldquo;how can we make sure that advanced AI systems don&rsquo;t do bad things?&rdquo;
+            </span>
           </p>
-        </div>
-
-        <div className="mt-6">
-          <ResearchGrid />
-        </div>
-
-        <div className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text mt-6">
-          <h2 className="section-header pt-5">
-            What&rsquo;s in it for you?
-          </h2>
-          <p>
-            AI safety needs more researchers. People are pouring money into finding talent for the field.
-            <br /><br />
-            <strong>That&rsquo;s why we exist:</strong> we have funding to find exceptional people like you, introduce you to AI safety, and train you into the cracked researchers that this field desperately needs.
-          </p>
-        </div>
+        </Reveal>
 
       </section>
 
@@ -652,7 +676,7 @@ function HomeInner() {
 
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
         {/* Where AI safety work happens */}
-        <div className="space-y-5 text-text">
+        <Reveal className="space-y-5 text-text">
           <h2 className="section-header">
             Where does AI safety work happen?
           </h2>
@@ -721,7 +745,11 @@ function HomeInner() {
               AI safety map
             </a>.
           </p>
-        </div>
+        </Reveal>
+
+        <Reveal className="mt-10 md:mt-12">
+          <ResearchGrid />
+        </Reveal>
 
       </section>
 
