@@ -43,12 +43,12 @@ function FooterEmailForm() {
         onChange={(e) => setEmail(e.target.value)}
         required
         placeholder="you@mail.utoronto.ca"
-        className="field-pill flex-1 text-[14px]"
+        className="field-pill flex-1 !text-[13px] !py-1.5"
       />
       <button
         type="submit"
         disabled={submitting}
-        className="cta-base cta-solid rounded-full px-5 py-2 text-[14px] shrink-0"
+        className="cta-base cta-solid rounded-full px-4 py-1.5 text-[13px] shrink-0"
       >
         {submitting ? "..." : "Join our mailing list"}
       </button>

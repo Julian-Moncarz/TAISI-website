@@ -12,7 +12,7 @@ export default function SummerIntensive() {
           <p>
             Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AI Safety research skills. Compute and API credits covered.
           </p>
-          <ul className="space-y-3 pl-5 sm:pl-6 list-none border-l border-accent max-w-[760px]">
+          <ul className="space-y-3 pl-0 list-none max-w-[760px]">
             <li>One day/week (Sat or Sun), <strong>built to fit around a full-time job</strong></li>
             <li>Held in person at Trajectory Labs, an AI safety lab in downtown Toronto</li>
             <li>Free lunch with AI safety researchers</li>

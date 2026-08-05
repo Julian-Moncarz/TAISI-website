@@ -662,7 +662,7 @@ function HomeInner() {
           <p>
             AI safety asks the question:{" "}
             <span className="text-accent font-medium">
-              &ldquo;how can we make sure that advanced AI systems don&rsquo;t do bad things?&rdquo;
+              how can we make sure that advanced AI systems don&rsquo;t do bad things?
             </span>
           </p>
         </Reveal>
