@@ -302,7 +302,7 @@ function ProgramRow() {
             const look = cardLook(p.style, p.color);
             const entrance = reveal(120 + i * 110);
             const shell =
-              "group relative overflow-hidden snap-start shrink-0 flex flex-col justify-between rounded-lg p-8 border";
+              "program-card group relative overflow-hidden snap-start shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border";
             const art = p.art && (
               <div
                 aria-hidden
@@ -321,15 +321,14 @@ function ProgramRow() {
             );
             const box: React.CSSProperties = {
               ...look.box,
-              width: `min(${CARD_WIDTH}px, 80vw)`,
-              aspectRatio: CARD_RATIO,
+              width: `min(${CARD_WIDTH}px, 86vw)`,
             };
             const inner = (
               <>
                 {art}
                 {p.tag && (
                   <span
-                    className="absolute top-9 right-8 z-[1] text-[11px] font-semibold uppercase tracking-[0.1em]"
+                    className="absolute top-7 right-6 sm:top-9 sm:right-8 z-[1] text-[11px] font-semibold uppercase tracking-[0.1em]"
                     style={{ color: look.tag }}
                   >
                     {p.tag}
@@ -505,11 +504,7 @@ function HomeInner() {
         {/* Hero background */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-[-8%] bg-no-repeat bg-cover bg-center bg-[#FDFDFE]"
-          style={{
-            backgroundImage: "url('/hero-skyline-1.png')",
-            transform: "translate(-3.5%, 3.5%) scale(0.92)",
-          }}
+          className="hero-art pointer-events-none absolute inset-[-8%] bg-[#FDFDFE]"
         />
 
         {/* Sailboat drifting right to left across the water */}
@@ -552,21 +547,30 @@ function HomeInner() {
             left side so the drifter dissolves with the image itself */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-[7]"
+          className="hidden sm:block pointer-events-none absolute inset-0 z-[7]"
           style={{
             background: "linear-gradient(to right, #FDFDFE 30vw, rgba(253, 253, 254, 0) 48vw)",
           }}
         />
+        {/* On phones the drawing sits under the text, so it fades downward */}
+        <div
+          aria-hidden
+          className="sm:hidden pointer-events-none absolute inset-0 z-[7]"
+          style={{
+            background:
+              "linear-gradient(to bottom, #FDFDFE 0%, #FDFDFE 34%, rgba(253, 253, 254, 0.55) 54%, rgba(253, 253, 254, 0) 72%)",
+          }}
+        />
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
+          <h1 className="hero-title text-[3.35rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
             <span className="intro-word">
               AI safety needs more <RotatingText />
             </span>
           </h1>
 
           <div
-            className="intro-rise mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
+            className="intro-rise mt-10 flex flex-col items-start sm:flex-row sm:items-center gap-3 sm:gap-4"
             style={{ animationDelay: "260ms" }}
           >
             <a

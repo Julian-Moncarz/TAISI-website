@@ -79,11 +79,49 @@
   50% { transform: translateY(4px) rotate(1.25deg); }
 }
 
+/* Program cards hold a fixed proportion on desktop, but on phones the height
+   follows the copy so nothing is clipped. */
+.program-card {
+  min-height: 300px;
+}
+@media (min-width: 640px) {
+  .program-card {
+    aspect-ratio: 5 / 4;
+    min-height: 0;
+  }
+}
+
+/* The skyline is cropped wide on desktop and anchored to the bottom on
+   phones, where a cover crop would show only a sliver of the middle. */
+.hero-art {
+  background-image: url("/hero-skyline-1.png");
+  background-repeat: no-repeat;
+  /* Pulled towards the dense right-hand end of the drawing and scaled up so
+     the skyline reaches further up the screen. */
+  background-position: 95% 100%;
+  background-size: 300% auto;
+}
+@media (min-width: 640px) {
+  .hero-art {
+    background-size: cover;
+    background-position: center;
+    transform: translate(-3.5%, 3.5%) scale(0.92);
+  }
+}
+
 .sailboat {
   position: absolute;
   left: 0;
   bottom: 12.5%;
   animation: sail-across 110s linear infinite;
+}
+
+/* The boats are positioned against the desktop framing of the drawing. */
+@media (max-width: 639px) {
+  .sailboat,
+  .sailboat-overlay {
+    display: none;
+  }
 }
 
 .sailboat > img {
