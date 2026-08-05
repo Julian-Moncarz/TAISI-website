@@ -15,13 +15,13 @@ export default function RotatingText() {
       setTimeout(() => {
         setIndex((i) => (i + 1) % words.length);
         setFading(false);
-      }, 700);
+      }, 450);
     };
     // Short first hold so the cycling is obvious before anyone scrolls past.
     const initial = setTimeout(() => {
       rotate();
-      interval = setInterval(rotate, 3500);
-    }, 1800);
+      interval = setInterval(rotate, 2800);
+    }, 1600);
     return () => {
       clearTimeout(initial);
       if (interval) clearInterval(interval);
@@ -38,7 +38,7 @@ export default function RotatingText() {
       ))}
       {/* Visible rotating word */}
       <span
-        className="col-start-1 row-start-1 text-accent transition-opacity duration-700 ease-in-out"
+        className="col-start-1 row-start-1 text-accent transition-opacity duration-[450ms] ease-in-out"
         style={{ opacity: fading ? 0 : 1 }}
       >
         {words[index]}
