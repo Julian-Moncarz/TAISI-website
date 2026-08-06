@@ -266,7 +266,7 @@ function ProgramRow() {
         style={reveal(0).style}
       >
         <h2 className="hero-title text-[2rem] sm:text-[2.75rem] leading-[1] font-semibold">
-          Programs
+          Programming
         </h2>
         <div className="flex gap-2 shrink-0">
           <button
