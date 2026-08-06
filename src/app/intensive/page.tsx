@@ -25,16 +25,18 @@ export default function SummerIntensive() {
               page instead of leaving a straight cut through the trees. */}
           <div
             aria-hidden
-            className="hidden sm:block absolute inset-y-0 right-0 w-[55%] bg-no-repeat"
-            style={{
-              backgroundImage: "url('/hero-intensive.webp')",
-              backgroundPosition: "right center",
-              backgroundSize: "auto 96%",
-              opacity: 0.85,
-              transform: "translateY(45px)",
-              maskImage: EDGE_MASK,
-              WebkitMaskImage: EDGE_MASK,
-            }}
+            className="art-fade hidden sm:block absolute inset-y-0 right-0 w-[55%] bg-no-repeat"
+            style={
+              {
+                backgroundImage: "url('/hero-intensive.webp')",
+                backgroundPosition: "right center",
+                backgroundSize: "auto 96%",
+                "--art-opacity": 0.85,
+                transform: "translateY(45px)",
+                maskImage: EDGE_MASK,
+                WebkitMaskImage: EDGE_MASK,
+              } as React.CSSProperties
+            }
           />
           {/* Fades the drawing into the page. A two-stop ramp leaves a visible
               kink where the solid white ends, so the falloff is spread over

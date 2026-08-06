@@ -831,7 +831,10 @@ function HomeInner() {
       </section>
 
       {/* Programs */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-12">
+      <section
+        id="programming"
+        className="scroll-mt-24 max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-12"
+      >
         <ProgramRow />
       </section>
 

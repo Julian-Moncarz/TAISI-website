@@ -40,7 +40,7 @@ export default function Fellowships() {
               the right-hand part of the sketch. */}
           <div
             aria-hidden
-            className="hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
+            className="art-fade hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
             style={{
               backgroundImage: "url('/hero-observatory.webp')",
               backgroundPosition: "right center",

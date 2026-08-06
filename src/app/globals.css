@@ -40,6 +40,26 @@
   animation: intro-fade 500ms ease-out forwards;
 }
 
+/* Page artwork eases up on load rather than appearing with the first paint.
+   The end value comes from a custom property, so drawings that sit at a
+   reduced strength fade to that rather than to full. */
+@keyframes art-fade {
+  from { opacity: 0; }
+  to { opacity: var(--art-opacity, 1); }
+}
+
+.art-fade {
+  opacity: 0;
+  animation: art-fade 1200ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-fade {
+    opacity: var(--art-opacity, 1);
+    animation: none;
+  }
+}
+
 /* Headline words: a longer travel and a slight overshoot so the type
    arrives with more weight than the buttons. */
 @keyframes intro-word {

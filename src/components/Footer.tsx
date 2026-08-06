@@ -62,11 +62,12 @@ function FooterEmailForm() {
 const links = [
   { href: "/fellowships", label: "Fellowship" },
   { href: "/intensive", label: "Intensive" },
+  { href: "/reach-out", label: "Reach out" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/10 mt-20 py-10">
+    <footer className="mt-20 py-10">
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-10">
           {/* Brand */}
