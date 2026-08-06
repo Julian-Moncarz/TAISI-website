@@ -17,6 +17,17 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // The logo and Home always reload the homepage from the top, even when you
+  // are already on it and scrolled down.
+  function goHome(e: React.MouseEvent) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    try {
+      history.scrollRestoration = "manual";
+    } catch {}
+    window.location.href = "/";
+  }
+
   useEffect(() => { setMounted(true); }, []);
 
   // Close mobile menu on route change
@@ -34,7 +45,7 @@ export default function Nav() {
     <>
       <nav className="sticky top-0 z-[100] bg-white/60 backdrop-blur-md">
         <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
-          <Link href="/" className="flex items-center gap-2">
+          <a href="/" onClick={goHome} className="flex items-center gap-2">
             <Image
               src="/icon.png"
               alt="TAISI"
@@ -46,21 +57,24 @@ export default function Nav() {
             <span className="font-sans font-semibold text-[17px] text-text">
               Toronto AI Safety Initiative
             </span>
-          </Link>
+          </a>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-text-secondary">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : ""
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map(({ href, label }) => {
+              const style = `hover:text-accent transition-colors ${
+                pathname === href ? "text-text" : ""
+              }`;
+              return href === "/" ? (
+                <a key={href} href={href} onClick={goHome} className={style}>
+                  {label}
+                </a>
+              ) : (
+                <Link key={href} href={href} className={style}>
+                  {label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Mobile hamburger */}
@@ -91,17 +105,20 @@ export default function Nav() {
       {open && mounted && createPortal(
         <div className="md:hidden fixed inset-0 bg-white z-[90] pt-[76px]">
           <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : "text-text-secondary"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map(({ href, label }) => {
+              const style = `hover:text-accent transition-colors ${
+                pathname === href ? "text-text" : "text-text-secondary"
+              }`;
+              return href === "/" ? (
+                <a key={href} href={href} onClick={goHome} className={style}>
+                  {label}
+                </a>
+              ) : (
+                <Link key={href} href={href} className={style}>
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </div>,
         document.body
