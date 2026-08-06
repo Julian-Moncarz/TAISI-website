@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -11,23 +10,55 @@ const links = [
   { href: "/intensive", label: "Intensive" },
 ];
 
+// The bar sits light over the hero and firms up once the page is scrolled.
+const WEIGHT_TOP = 400;
+const WEIGHT_SCROLLED = 500;
+
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // The logo and Home always reload the homepage from the top, even when you
-  // are already on it and scrolled down.
-  function goHome(e: React.MouseEvent) {
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    e.preventDefault();
-    try {
-      history.scrollRestoration = "manual";
-    } catch {}
-    window.location.href = "/";
+  // Nav links reload the page rather than navigating client side, so every
+  // page opens at the top with its entrance animations running from the
+  // start. Modified clicks are left alone so new-tab still works.
+  function hardNav(href: string) {
+    return (e: React.MouseEvent) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      try {
+        history.scrollRestoration = "manual";
+      } catch {}
+      window.location.href = href;
+    };
   }
 
+  const goHome = hardNav("/");
+
   useEffect(() => { setMounted(true); }, []);
+
+  // Weight follows the scroll position, throttled to a frame so the listener
+  // never runs work per scroll event.
+  useEffect(() => {
+    let queued = false;
+    function onScroll() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        setScrolled(window.scrollY > 24);
+      });
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Only the homepage has artwork for the bar to sit lightly over, so every
+  // other page keeps the heavier weight throughout.
+  const weight =
+    pathname === "/" && !scrolled ? WEIGHT_TOP : WEIGHT_SCROLLED;
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -53,27 +84,28 @@ export default function Nav() {
               priority
               className="h-[32px] sm:h-[38px] w-auto translate-y-[3px]"
             />
-            <span className="font-sans font-semibold text-[17px] text-text">
+            <span className="nav-weight font-sans text-[17px] text-text" style={{ fontWeight: weight }}>
               Toronto AI Safety Initiative
             </span>
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 text-[17px] font-semibold text-text-secondary">
-            {links.map(({ href, label }) => {
-              const style = `hover:text-accent transition-colors ${
-                pathname === href ? "text-text" : ""
-              }`;
-              return href === "/" ? (
-                <a key={href} href={href} onClick={goHome} className={style}>
-                  {label}
-                </a>
-              ) : (
-                <Link key={href} href={href} className={style}>
-                  {label}
-                </Link>
-              );
-            })}
+          <div
+            className="nav-weight hidden md:flex items-center gap-8 text-[17px] text-text-secondary"
+            style={{ fontWeight: weight }}
+          >
+            {links.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={hardNav(href)}
+                className={`hover:text-accent transition-colors ${
+                  pathname === href ? "text-text" : ""
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </div>
 
           {/* Mobile hamburger */}
@@ -104,20 +136,18 @@ export default function Nav() {
       {open && mounted && createPortal(
         <div className="md:hidden fixed inset-0 bg-white z-[90] pt-[76px]">
           <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
-            {links.map(({ href, label }) => {
-              const style = `hover:text-accent transition-colors ${
-                pathname === href ? "text-text" : "text-text-secondary"
-              }`;
-              return href === "/" ? (
-                <a key={href} href={href} onClick={goHome} className={style}>
-                  {label}
-                </a>
-              ) : (
-                <Link key={href} href={href} className={style}>
-                  {label}
-                </Link>
-              );
-            })}
+            {links.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={hardNav(href)}
+                className={`hover:text-accent transition-colors ${
+                  pathname === href ? "text-text" : "text-text-secondary"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </div>
         </div>,
         document.body

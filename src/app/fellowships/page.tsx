@@ -1,4 +1,6 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
+import HeroBackdrop from "@/components/HeroBackdrop";
+import Reveal from "@/components/Reveal";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
@@ -29,54 +31,69 @@ const fellowTestimonials: Testimonial[] = [
 export default function Fellowships() {
   return (
     <main>
-      <section className="relative overflow-hidden">
-        {/* Observatory drawing, anchored to the right edge of the viewport */}
-        <div
-          aria-hidden
-          className="hidden sm:block pointer-events-none absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
-          style={{
-            backgroundImage: "url('/hero-observatory.webp')",
-            backgroundPosition: "right -70px",
-            backgroundSize: "auto 72%",
-          }}
-        />
-        {/* Fades the drawing into the page on every edge */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white from-40% via-white/75 via-70% to-white/40"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white"
-        />
+      <section className="relative">
+        {/* The drawing is pinned to the viewport and fades out as the page
+            scrolls, the same treatment as the skyline on the homepage. */}
+        <HeroBackdrop fadeOverScreens={0.75}>
+          {/* Observatory drawing, anchored to the right edge of the screen.
+              It is drawn taller than the viewport, so the band crops it to
+              the right-hand part of the sketch. */}
+          <div
+            aria-hidden
+            className="hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
+            style={{
+              backgroundImage: "url('/hero-observatory.webp')",
+              backgroundPosition: "right center",
+              backgroundSize: "auto 114%",
+            }}
+          />
+          {/* Fades the drawing into the page on every edge */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-white from-40% via-white/75 via-70% to-white/40"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white"
+          />
+        </HeroBackdrop>
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
-        <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
-          <span className="text-text">Fellowship</span>
-        </h1>
+        <Reveal>
+          <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
+            <span className="text-text">Fellowship</span>
+          </h1>
+        </Reveal>
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
-          <p>
-            We offer two parallel introductory fellowships in AI safety:{" "}
-            alignment and governance.
-          </p>
-          <p>
-            The alignment track introduces the technical challenge of making AI
-            systems reliably follow human intentions, while the governance track
-            examines the role of policy, institutions, and global coordination to
-            reduce AI risks.
-          </p>
-          <p>
-            Fellowships run weekly over dinner for 6 sessions in the form of
-            paper discussions.
-          </p>
+          <Reveal delay={120}>
+            <p>
+              We offer two parallel introductory fellowships in AI safety:{" "}
+              alignment and governance.
+            </p>
+          </Reveal>
+          <Reveal delay={240}>
+            <p>
+              The alignment track introduces the technical challenge of making AI
+              systems reliably follow human intentions, while the governance track
+              examines the role of policy, institutions, and global coordination to
+              reduce AI risks.
+            </p>
+          </Reveal>
+          <Reveal delay={360}>
+            <p>
+              Fellowships run weekly over dinner for 6 sessions in the form of
+              paper discussions.
+            </p>
+          </Reveal>
         </div>
 
+        <Reveal delay={480} className="mt-6 sm:mt-7">
         <a
           href={NOTIFY_FORM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-cta mt-6 sm:mt-7"
+          className="card-cta"
           style={
             {
               "--cta-fg": "#D94F30",
@@ -101,19 +118,22 @@ export default function Fellowships() {
             </svg>
           </span>
         </a>
+        </Reveal>
 
-        <div className="mt-8 sm:mt-10">
+        <Reveal className="mt-8 sm:mt-10">
           <TestimonialRow items={fellowTestimonials} title="Our fellows" />
-        </div>
+        </Reveal>
 
         <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
 
-        <p className="mt-6 sm:mt-8 text-[14px] leading-[1.6] text-text-secondary">
-          Curriculum adapted from BlueDot Impact.
-        </p>
+        <Reveal>
+          <p className="mt-6 sm:mt-8 text-[14px] leading-[1.6] text-text-secondary">
+            Curriculum adapted from BlueDot Impact.
+          </p>
+        </Reveal>
 
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
-          <div>
+          <Reveal>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Governance Fellowship
             </h2>
@@ -127,9 +147,9 @@ export default function Fellowships() {
               <li>Canada&rsquo;s role in international cooperation</li>
               <li>Contributing to AI governance</li>
             </ul>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={140}>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Alignment Fellowship
             </h2>
@@ -143,7 +163,7 @@ export default function Fellowships() {
               <li>Technical governance</li>
               <li>Contributing to technical AI safety</li>
             </ul>
-          </div>
+          </Reveal>
         </div>
 
         </div>

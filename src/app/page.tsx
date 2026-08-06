@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
-import Reveal from "@/components/Reveal";
+import Reveal, { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
@@ -202,36 +202,12 @@ function cardLook(style: CardStyle, key: keyof typeof COLORS) {
 
 function ProgramRow() {
   const scroller = useRef<HTMLDivElement>(null);
-  const section = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
-  const [shown, setShown] = useState(false);
-
-  // Reveal the row the first time it scrolls into view.
-  useEffect(() => {
-    const el = section.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setShown(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: section, shown } = useReveal<HTMLDivElement>();
 
   const reveal = (delay: number) => ({
-    className: `transition-all duration-700 ease-out ${
-      shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-    }`,
+    className: `reveal ${shown ? "reveal-in" : ""}`,
     style: { transitionDelay: `${delay}ms` },
   });
 
@@ -302,7 +278,7 @@ function ProgramRow() {
         <div className="flex gap-6 px-5 sm:px-8 snap-x snap-mandatory">
           {programs.map((p, i) => {
             const look = cardLook(p.style, p.color);
-            const entrance = reveal(120 + i * 110);
+            const entrance = reveal(160 + i * 150);
             const shell =
               "program-card group relative overflow-hidden snap-start shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border";
             const art = p.art && (
@@ -453,7 +429,7 @@ function UniversityNote() {
       <a href="https://www.cser.ac.uk/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Cambridge</a>,{" "}
       <a href="https://xrisk.uchicago.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UChicago</a>{" "}
       and most top universities have at least one professor or lab working on
-      this. At UofT,{" "}
+      this. At the University of Toronto,{" "}
       <a href="https://www.cs.toronto.edu/~duvenaud/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">David Duvenaud</a>,{" "}
       <a href="https://www.cs.toronto.edu/~rgrosse/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Roger Grosse</a>,{" "}
       <a href="https://zhijing-jin.com/home" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Zhijing Jin</a>{" "}
@@ -495,32 +471,14 @@ const ORG_GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6
 
 function OrgDirectory() {
   const [expanded, setExpanded] = useState(false);
-  const [shown, setShown] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const { ref: gridRef, shown } = useReveal<HTMLDivElement>();
 
   // Scatter the entrance so the logos arrive in no particular order. The
   // offsets are derived from the index, so server and client agree.
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setShown(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const scatter = (i: number) => ((i * 73) % 11) * 70;
 
-  const scatter = (i: number) => ((i * 73) % 11) * 55;
+  // Cards are small, so they travel a shorter distance than a full section.
+  const cardRise = { "--reveal-y": "34px" } as React.CSSProperties;
 
   return (
     <div className="pt-4">
@@ -528,10 +486,8 @@ function OrgDirectory() {
         {safetyOrgs.map((org, i) => (
           <div
             key={org.name}
-            className={`transition-all duration-500 ease-out ${
-              shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: `${scatter(i)}ms` }}
+            className={`reveal ${shown ? "reveal-in" : ""}`}
+            style={{ ...cardRise, transitionDelay: `${scatter(i)}ms` }}
           >
             <OrgCard org={org} />
           </div>
@@ -555,10 +511,11 @@ function OrgDirectory() {
             {moreOrgs.map((org, i) => (
               <div
                 key={org.name}
-                className={`transition-all duration-500 ease-out ${
-                  expanded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-                style={{ transitionDelay: `${expanded ? scatter(i) : 0}ms` }}
+                className={`reveal ${expanded ? "reveal-in" : ""}`}
+                style={{
+                  ...cardRise,
+                  transitionDelay: `${expanded ? scatter(i) : 0}ms`,
+                }}
               >
                 <OrgCard org={org} />
               </div>
@@ -615,10 +572,20 @@ const TILE_LOOKS = [
 ];
 
 function ResearchGrid() {
+  const { ref: gridRef, shown } = useReveal<HTMLDivElement>();
+
+  // Tiles come in row by row rather than all at once.
+  const tileRise = { "--reveal-y": "30px" } as React.CSSProperties;
+
   return (
         <div>
-          <h2 className="section-header mb-6">Examples of AI safety work</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5">
+          <Reveal>
+            <h2 className="section-header mb-6">Examples of AI safety work</h2>
+          </Reveal>
+          <div
+            ref={gridRef}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5"
+          >
             {researchLinks
               .flatMap((c) => c.links)
               .map((link, i) => {
@@ -626,12 +593,16 @@ function ResearchGrid() {
                 const look = TILE_LOOKS[i % TILE_LOOKS.length];
                 const filled = look.bg !== "transparent";
                 return (
-                  <a
+                  <div
                     key={link.url}
+                    className={`reveal ${shown ? "reveal-in" : ""} flex`}
+                    style={{ ...tileRise, transitionDelay: `${90 + i * 35}ms` }}
+                  >
+                  <a
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="article-tile rounded-lg px-3.5 py-3 border flex flex-col justify-between min-h-[86px] hover:-translate-y-0.5"
+                    className="article-tile w-full rounded-lg px-3.5 py-3 border flex flex-col justify-between min-h-[86px] hover:-translate-y-0.5"
                     style={
                       {
                         "--tile-border": look.border,
@@ -655,6 +626,7 @@ function ResearchGrid() {
                       <span className="tile-source text-[11px] mt-2">{source}</span>
                     )}
                   </a>
+                  </div>
                 );
               })}
           </div>
@@ -680,7 +652,7 @@ function HomeInner() {
   return (
     <main className="md:overflow-hidden">
       <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
-        <HeroBackdrop>
+        <HeroBackdrop withTint>
         {/* Hero background */}
         <div
           aria-hidden
@@ -828,22 +800,33 @@ function HomeInner() {
 
       {/* What is AI safety? */}
       <section id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
-        <Reveal className="space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="section-header">
-            What is AI safety?
-          </h2>
-          <p>
-            AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. AI systems regularly hack external infrastructure during testing.
-            <br /><br />
-            These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with dangerous consequences. And this is the stupidest that the models will ever be.
-          </p>
-          <p>
-            AI safety asks the question:{" "}
-            <span className="text-accent font-medium">
-              how can we make sure that advanced AI systems don&rsquo;t do bad things?
-            </span>
-          </p>
-        </Reveal>
+        {/* Each block gets its own entrance so the copy arrives in sequence
+            rather than as one slab. */}
+        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
+          <Reveal>
+            <h2 className="section-header">
+              What is AI safety?
+            </h2>
+          </Reveal>
+          <Reveal delay={130} className="mt-5">
+            <p>
+              AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. AI systems regularly hack external infrastructure during testing.
+            </p>
+          </Reveal>
+          <Reveal delay={260} className="mt-8">
+            <p>
+              These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with dangerous consequences. And this is the stupidest that the models will ever be.
+            </p>
+          </Reveal>
+          <Reveal delay={390} className="mt-5">
+            <p>
+              AI safety asks the question:{" "}
+              <span className="text-accent font-medium">
+                how can we make sure that advanced AI systems don&rsquo;t do bad things?
+              </span>
+            </p>
+          </Reveal>
+        </div>
 
       </section>
 
@@ -862,22 +845,24 @@ function HomeInner() {
           </Reveal>
           <OrgDirectory />
 
-          <p className="text-[14px] text-text-secondary">
-            These are just a few. Explore many more organizations on the{" "}
-            <a
-              href="https://www.aisafety.com/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              AI safety map
-            </a>.
-          </p>
+          <Reveal>
+            <p className="text-[14px] text-text-secondary">
+              These are just a few. Explore many more organizations on the{" "}
+              <a
+                href="https://www.aisafety.com/map"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                AI safety map
+              </a>.
+            </p>
+          </Reveal>
         </div>
 
-        <Reveal className="mt-10 md:mt-12">
+        <div className="mt-10 md:mt-12">
           <ResearchGrid />
-        </Reveal>
+        </div>
 
       </section>
 
