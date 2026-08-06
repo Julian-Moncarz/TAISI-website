@@ -60,7 +60,6 @@ function FooterEmailForm() {
 }
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/fellowships", label: "Fellowship" },
   { href: "/intensive", label: "Intensive" },
 ];
