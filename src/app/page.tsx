@@ -433,52 +433,440 @@ function ProgramBody({
   );
 }
 
-function ResearchGrid() {
-  const [open, setOpen] = useState(false);
+const ORG_GROUPS = [
+  { label: "Frontier labs", names: ["Anthropic"] },
+  {
+    label: "Research organizations",
+    names: ["Redwood Research", "METR", "Geodesic Research", "Epoch AI", "GovAI"],
+  },
+  {
+    label: "Fellowships, funding and careers",
+    names: ["MATS", "Center for AI Safety", "80,000 Hours"],
+  },
+];
+
+function OrgLogo({ src, size = "w-7 h-7" }: { src: string; size?: string }) {
   return (
-    <div>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2.5 text-[17px] sm:text-[19px] text-text-secondary hover:text-navy transition-colors group"
+    <Image
+      src={src}
+      alt=""
+      width={40}
+      height={40}
+      className={`${size} object-contain shrink-0 transition-transform duration-200 group-hover:scale-110`}
+    />
+  );
+}
+
+function UniversityNote() {
+  return (
+    <p className="text-[15px] sm:text-[16px] leading-[1.6] text-text-secondary max-w-[720px]">
+      <span className="font-semibold text-navy">University labs. </span>
+      <a href="https://algorithmicalignment.csail.mit.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">MIT</a>,{" "}
+      <a href="https://www.cser.ac.uk/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Cambridge</a>,{" "}
+      <a href="https://xrisk.uchicago.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UChicago</a>{" "}
+      and most top universities have at least one professor or lab working on
+      this. At UofT,{" "}
+      <a href="https://www.cs.toronto.edu/~duvenaud/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">David Duvenaud</a>,{" "}
+      <a href="https://www.cs.toronto.edu/~rgrosse/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Roger Grosse</a>,{" "}
+      <a href="https://zhijing-jin.com/home" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Zhijing Jin</a>{" "}
+      and{" "}
+      <a href="https://www.cs.toronto.edu/~sheila/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Sheila McIlraith</a>{" "}
+      do AI safety work.
+    </p>
+  );
+}
+
+function OrgCard({ org }: { org: Org }) {
+  return (
+    <a
+      href={org.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex items-start gap-3"
+    >
+      {org.logo ? (
+        <OrgLogo src={org.logo} size="w-6 h-6" />
+      ) : (
+        <span className="w-6 h-6 shrink-0 mt-0.5 grid place-items-center rounded-sm bg-black/[0.06] text-[10px] font-semibold text-text-secondary group-hover:text-accent transition-colors">
+          {org.name.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase()}
+        </span>
+      )}
+      <span>
+        <span className="block text-[16px] font-semibold text-navy group-hover:text-accent transition-colors">
+          {org.name}
+        </span>
+        <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
+          {org.description}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+const ORG_GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6";
+
+function OrgDirectory() {
+  const [expanded, setExpanded] = useState(false);
+  const [shown, setShown] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Scatter the entrance so the logos arrive in no particular order. The
+  // offsets are derived from the index, so server and client agree.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShown(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const scatter = (i: number) => ((i * 73) % 11) * 55;
+
+  return (
+    <div className="pt-4">
+      <div ref={gridRef} className={ORG_GRID}>
+        {safetyOrgs.map((org, i) => (
+          <div
+            key={org.name}
+            className={`transition-all duration-500 ease-out ${
+              shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: `${scatter(i)}ms` }}
+          >
+            <OrgCard org={org} />
+          </div>
+        ))}
+      </div>
+
+      {/* Animating grid-template-rows lets the panel open to its own height.
+          The inner padding matches the grid row gap so the extra entries read
+          as more rows of the same grid, not a separate block. */}
+      <div
+        className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+          expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
       >
+        <div className="overflow-hidden">
+          <div
+            className={`${ORG_GRID} pt-6 transition-opacity duration-500 ${
+              expanded ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {moreOrgs.map((org, i) => (
+              <div
+                key={org.name}
+                className={`transition-all duration-500 ease-out ${
+                  expanded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+                style={{ transitionDelay: `${expanded ? scatter(i) : 0}ms` }}
+              >
+                <OrgCard org={org} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-accent hover:underline underline-offset-4"
+      >
+        {expanded ? "Collapse" : "Expand"}
         <svg
-          width="18"
-          height="18"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
           strokeLinecap="square"
-          className="text-accent shrink-0 transition-transform duration-200"
-          style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+          className="transition-transform duration-200"
+          style={{ transform: expanded ? "rotate(180deg)" : "none" }}
         >
-          <path d="M9 5l7 7-7 7" />
+          <path d="M6 9l6 6 6-6" />
         </svg>
-        <span>Examples of AI safety work</span>
       </button>
-      {open && (
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px border border-black/10 bg-black/10">
-          {researchLinks.map((category) => (
-            <div key={category.category} className="bg-white p-5 sm:p-6">
-              <p className="text-[11px] font-semibold tracking-widest uppercase text-accent mb-3">
-                {category.category}
-              </p>
-              <ul className="space-y-2">
-                {category.links.map((link) => (
-                  <li key={link.url}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[14px] sm:text-[15px] leading-[1.5] text-navy hover:text-accent transition-colors"
-                    >
-                      {link.title}
-                    </a>
-                  </li>
+
+      <div className="mt-8">
+        <UniversityNote />
+      </div>
+    </div>
+  );
+}
+
+// Titles carry their source in trailing parentheses; split it out so the
+// source can sit quietly beside the title.
+function splitSource(title: string) {
+  const m = title.match(/^(.*)\s\(([^()]+)\)$/);
+  return m ? { title: m[1], source: m[2] } : { title, source: "" };
+}
+
+// Bold two-colour set: most tiles are outlined, a couple are filled so the
+// grid has some weight in it.
+const ACCENT = "#D94F30";
+const NAVY = "#1A3355";
+const TILE_LOOKS = [
+  { border: ACCENT, bg: "transparent", title: NAVY, link: "#3C3C3C" },
+  { border: NAVY, bg: NAVY, title: "#FFFFFF", link: "rgba(255,255,255,0.85)" },
+  { border: NAVY, bg: "transparent", title: NAVY, link: "#3C3C3C" },
+  { border: ACCENT, bg: ACCENT, title: "#FFFFFF", link: "rgba(255,255,255,0.9)" },
+  { border: NAVY, bg: "transparent", title: NAVY, link: "#3C3C3C" },
+  { border: ACCENT, bg: "transparent", title: NAVY, link: "#3C3C3C" },
+];
+
+function ExampleTile({
+  category,
+  links,
+  look,
+}: {
+  category: string;
+  links: { title: string; url: string }[];
+  look: (typeof TILE_LOOKS)[number];
+}) {
+  return (
+    <div
+      className="rounded-lg p-4 border transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ borderColor: look.border, backgroundColor: look.bg }}
+    >
+      <p
+        className="text-[15px] font-semibold leading-[1.2] mb-2.5"
+        style={{ color: look.title }}
+      >
+        {category.replace(/\s*\[.*\]$/, "")}
+      </p>
+      <div className="space-y-1.5">
+        {links.map((link) => {
+          const { title, source } = splitSource(link.title);
+          return (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-[13px] leading-[1.4] hover:underline underline-offset-2"
+              style={{ color: look.link }}
+            >
+              {title}
+              {source && <span className="opacity-60"> {source}</span>}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ExampleLink({ href, label }: { href: string; label: string }) {
+  const { title, source } = splitSource(label);
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block py-1.5"
+    >
+      <span className="text-[15px] sm:text-[16px] leading-[1.5] text-navy group-hover:text-accent transition-colors">
+        {title}
+      </span>
+      {source && (
+        <span className="text-[14px] text-text-secondary"> {source}</span>
+      )}
+    </a>
+  );
+}
+
+const EXAMPLE_VARIANTS = ["articles", "list", "tiles", "tabs", "columns"] as const;
+type ExampleVariant = (typeof EXAMPLE_VARIANTS)[number];
+
+function ResearchGrid() {
+  const [variant, setVariant] = useState<ExampleVariant>("articles");
+  const [tab, setTab] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      {/* EXPERIMENT: variant switcher */}
+      <div className="flex flex-wrap gap-1 mb-6">
+        {EXAMPLE_VARIANTS.map((v) => (
+          <button
+            key={v}
+            onClick={() => setVariant(v)}
+            className={`px-2 py-1 text-[11px] font-semibold ${
+              variant === v ? "bg-navy text-white" : "bg-black/5 hover:bg-black/10"
+            }`}
+          >
+            {v}
+          </button>
+        ))}
+      </div>
+
+      {variant === "list" && (
+        <div>
+          <h2 className="section-header mb-6">Examples of AI safety work</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+            {researchLinks.map((category) => (
+              <div key={category.category}>
+                <p className="text-[13px] font-semibold text-text-secondary mb-2">
+                  {category.category}
+                </p>
+                <div className="-mt-1">
+                  {category.links.map((link) => (
+                    <ExampleLink key={link.url} href={link.url} label={link.title} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {variant === "articles" && (
+        <div>
+          <h2 className="section-header mb-6">Examples of AI safety work</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5">
+            {researchLinks
+              .flatMap((c) => c.links)
+              .map((link, i) => {
+                const { title, source } = splitSource(link.title);
+                const look = TILE_LOOKS[i % TILE_LOOKS.length];
+                const filled = look.bg !== "transparent";
+                return (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="article-tile rounded-lg px-3.5 py-3 border flex flex-col justify-between min-h-[86px] hover:-translate-y-0.5"
+                    style={
+                      {
+                        "--tile-border": look.border,
+                        "--tile-bg": look.bg,
+                        // The two states swap: outlined tiles fill with their
+                        // colour, filled ones empty out to white.
+                        "--tile-hover-bg": filled ? "#FFFFFF" : look.border,
+                        "--tile-fg": filled ? "#FFFFFF" : NAVY,
+                        "--tile-sub": filled ? "rgba(255,255,255,0.75)" : "#6B6B6B",
+                        "--tile-hover-fg": filled ? look.border : "#FFFFFF",
+                        "--tile-hover-sub": filled
+                          ? "#6B6B6B"
+                          : "rgba(255,255,255,0.75)",
+                      } as React.CSSProperties
+                    }
+                  >
+                    <span className="tile-title text-[13px] font-semibold leading-[1.3]">
+                      {title}
+                    </span>
+                    {source && (
+                      <span className="tile-source text-[11px] mt-2">{source}</span>
+                    )}
+                  </a>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
+      {variant === "tiles" && (
+        <div>
+          <h2 className="section-header mb-6">Examples of AI safety work</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            {researchLinks.map((category, i) => (
+              <ExampleTile
+                key={category.category}
+                category={category.category}
+                links={category.links}
+                look={TILE_LOOKS[i % TILE_LOOKS.length]}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {variant === "tabs" && (
+        <div>
+          <h2 className="section-header mb-5">Examples of AI safety work</h2>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-4">
+            {researchLinks.map((category, i) => (
+              <button
+                key={category.category}
+                onClick={() => setTab(i)}
+                className={`text-[15px] font-semibold transition-colors ${
+                  tab === i
+                    ? "text-accent"
+                    : "text-text-secondary hover:text-navy"
+                }`}
+              >
+                {category.category.replace(/\s*\[.*\]$/, "")}
+              </button>
+            ))}
+          </div>
+          <div className="min-h-[120px]">
+            {researchLinks[tab].links.map((link) => (
+              <ExampleLink key={link.url} href={link.url} label={link.title} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {variant === "columns" && (
+        <div>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="flex items-center gap-2.5 group"
+          >
+            <span className="section-header">Examples of AI safety work</span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="square"
+              className="text-accent shrink-0 transition-transform duration-200"
+              style={{ transform: open ? "rotate(180deg)" : "none" }}
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          <div
+            className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+              open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <div
+                className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8 pt-6 transition-opacity duration-500 ${
+                  open ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {researchLinks.map((category) => (
+                  <div key={category.category}>
+                    <p className="text-[13px] font-semibold text-text-secondary mb-2">
+                      {category.category}
+                    </p>
+                    <div className="-mt-1">
+                      {category.links.map((link) => (
+                        <ExampleLink key={link.url} href={link.url} label={link.title} />
+                      ))}
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       )}
     </div>
@@ -553,10 +941,11 @@ function HomeInner() {
           />
         </div>
 
-        {/* The smaller boat further out, pinned over its drawn twin */}
+        {/* The smaller boat further out, pinned over its drawn twin. It sits
+            below the drifter so the moving boat passes in front of it. */}
         <div
           aria-hidden
-          className="sailboat-overlay pointer-events-none z-[6]"
+          className="sailboat-overlay pointer-events-none z-[4]"
           style={{ left: "79.2%", bottom: "2.4%" }}
         >
           <Image
@@ -676,63 +1065,13 @@ function HomeInner() {
 
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
         {/* Where AI safety work happens */}
-        <Reveal className="space-y-5 text-text">
-          <h2 className="section-header">
-            Where does AI safety work happen?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px border border-black/10 bg-black/10 mt-2">
-            {safetyOrgs.map((org) => (
-              <a
-                key={org.name}
-                href={org.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white p-5 flex items-start gap-4 hover:bg-gray-50 transition-colors group"
-              >
-                <Image
-                  src={org.logo}
-                  alt={org.name}
-                  width={40}
-                  height={40}
-                  className="w-[1.8rem] h-[1.8rem] object-contain shrink-0"
-                />
-                <div>
-                  <span className="block text-[15px] sm:text-[16px] font-semibold text-navy group-hover:text-accent transition-colors">
-                    {org.name}
-                  </span>
-                  <span className="block text-[14px] sm:text-[15px] leading-[1.5] text-text-secondary mt-0.5">
-                    {org.description}
-                  </span>
-                </div>
-              </a>
-            ))}
-            <div className="bg-white p-5 flex items-start gap-4">
-              <Image
-                src="/logos/university.svg"
-                alt="University labs"
-                width={40}
-                height={40}
-                className="w-[1.8rem] h-[1.8rem] object-contain shrink-0"
-              />
-              <div>
-                <span className="block text-[15px] sm:text-[16px] font-semibold text-navy">
-                  University labs
-                </span>
-                <span className="block text-[14px] sm:text-[15px] leading-[1.5] text-text-secondary mt-0.5">
-                  <a href="https://algorithmicalignment.csail.mit.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">MIT</a>,{" "}
-                  <a href="https://www.cser.ac.uk/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Cambridge</a>,{" "}
-                  <a href="https://xrisk.uchicago.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UChicago</a>, etc. Most top universities have at least one professor or lab working on this.
-                </span>
-                <span className="block text-[14px] sm:text-[15px] leading-[1.5] text-text-secondary mt-2">
-                  At UofT,{" "}
-                  <a href="https://www.cs.toronto.edu/~duvenaud/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">David Duvenaud</a>,{" "}
-                  <a href="https://www.cs.toronto.edu/~rgrosse/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Roger Grosse</a>,{" "}
-                  <a href="https://zhijing-jin.com/home" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Zhijing Jin</a>, and{" "}
-                  <a href="https://www.cs.toronto.edu/~sheila/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Sheila McIlraith</a> do AI safety work.
-                </span>
-              </div>
-            </div>
-          </div>
+        <div className="space-y-5 text-text">
+          <Reveal>
+            <h2 className="section-header">
+              Where does AI safety work happen?
+            </h2>
+          </Reveal>
+          <OrgDirectory />
 
           <p className="text-[14px] text-text-secondary">
             These are just a few. Explore many more organizations on the{" "}
@@ -745,7 +1084,7 @@ function HomeInner() {
               AI safety map
             </a>.
           </p>
-        </Reveal>
+        </div>
 
         <Reveal className="mt-10 md:mt-12">
           <ResearchGrid />
@@ -760,7 +1099,97 @@ function HomeInner() {
   );
 }
 
-const safetyOrgs = [
+type Org = {
+  name: string;
+  description: string;
+  url: string;
+  logo?: string;
+};
+
+// Shown behind the "show more" toggle. No marks for these, so they fall back
+// to a monogram.
+const moreOrgs: Org[] = [
+  {
+    name: "ARC",
+    description: "Theoretical alignment research",
+    url: "https://www.alignment.org",
+    logo: "/logos/arc.png",
+  },
+  {
+    name: "MIRI",
+    description: "Long-running alignment research nonprofit",
+    url: "https://intelligence.org",
+    logo: "/logos/miri.png",
+  },
+  {
+    name: "FAR.AI",
+    description: "Research nonprofit and a Berkeley research space",
+    url: "https://www.far.ai",
+    logo: "/logos/farai.svg",
+  },
+  {
+    name: "Constellation",
+    description: "Home to the Astra and Visiting fellowships, and a Berkeley coworking space",
+    url: "https://constellation.org",
+    logo: "/logos/constellation.png",
+  },
+  {
+    name: "Timaeus",
+    description: "Developmental interpretability research",
+    url: "https://timaeus.co",
+    logo: "/logos/timaeus.png",
+  },
+  {
+    name: "Palisade Research",
+    description: "Demonstrates the offensive capabilities of AI systems",
+    url: "https://palisaderesearch.org",
+    logo: "/logos/palisade.png",
+  },
+  {
+    name: "IAPS",
+    description: "AI policy think tank focused on security and governance",
+    url: "https://www.iaps.ai",
+    logo: "/logos/iaps.png",
+  },
+  {
+    name: "LISA",
+    description: "London research centre hosting safety orgs and fellows",
+    url: "https://www.safeai.org.uk",
+    logo: "/logos/lisa.png",
+  },
+  {
+    name: "BlueDot Impact",
+    description: "Runs the courses our fellowship curriculum adapts",
+    url: "https://bluedot.org",
+    logo: "/logos/bluedot.png",
+  },
+  {
+    name: "Pivotal",
+    description: "Research fellowships in AI safety and governance",
+    url: "https://www.pivotal-research.org",
+    logo: "/logos/pivotal.png",
+  },
+  {
+    name: "Kairos",
+    description: "Field building, runs SPAR and the Pathfinder fellowship",
+    url: "https://kairos-project.org",
+    logo: "/logos/kairos.png",
+  },
+  {
+    name: "ILIAD",
+    description: "Conference on mathematical approaches to alignment",
+    url: "https://www.iliadconference.com",
+    logo: "/logos/iliad.png",
+  },
+  {
+    name: "AISST",
+    description: "Harvard's AI safety student team",
+    url: "https://aisst.ai",
+    logo: "/logos/aisst.png",
+  },
+];
+
+const safetyOrgs: Org[] = [
   {
     name: "Anthropic",
     description: "Frontier lab, does a lot of safety work",
