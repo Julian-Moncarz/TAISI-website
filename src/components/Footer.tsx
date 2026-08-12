@@ -43,7 +43,7 @@ function FooterEmailForm() {
         onChange={(e) => setEmail(e.target.value)}
         required
         placeholder="you@mail.utoronto.ca"
-        className="field-pill flex-1 !text-[14px] !py-2"
+        className="field-pill flex-1 sm:!text-[14px] !py-2"
       />
       <button
         type="submit"
@@ -83,7 +83,7 @@ export default function Footer() {
               <span className="text-[15px] text-text">Toronto AI Safety Initiative</span>
             </div>
             <p className="text-[13px] text-text-secondary leading-[1.6]">
-              We train exceptional people to become AI safety researchers.
+              AI safety needs more talent. Looking for it in Toronto.
             </p>
             <a
               href="mailto:joseph@taisi.ca"

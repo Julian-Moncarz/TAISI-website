@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 // Jumps to the programs section of the homepage rather than to a page of
@@ -36,6 +36,10 @@ export default function Nav() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [programsOpen, setProgramsOpen] = useState(false);
+  // The banner sits above the bar in the same sticky wrapper, so the mobile
+  // menu has to clear whatever the two of them add up to.
+  const barRef = useRef<HTMLElement>(null);
+  const [headerH, setHeaderH] = useState(76);
 
   const onProgramsPage = programLinks.some((l) => l.href === pathname);
 
@@ -90,10 +94,19 @@ export default function Nav() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Measure once the menu opens: the sticky wrapper is pinned to the top by
+  // then, so the bar's bottom edge is the full header height.
+  useEffect(() => {
+    if (!open) return;
+    const el = barRef.current;
+    if (el) setHeaderH(Math.round(el.getBoundingClientRect().bottom));
+  }, [open]);
+
   return (
     <>
       <nav
-        className={`sticky top-0 z-[100] backdrop-blur-md transition-colors duration-200 ${
+        ref={barRef}
+        className={`relative z-[100] backdrop-blur-md transition-colors duration-200 ${
           programsOpen ? "bg-white" : "bg-white/60"
         }`}
         onMouseLeave={() => setProgramsOpen(false)}
@@ -227,7 +240,10 @@ export default function Nav() {
 
       {/* Mobile menu - portaled to body so it escapes nav stacking context */}
       {open && mounted && createPortal(
-        <div className="md:hidden fixed inset-0 bg-white z-[90] pt-[76px]">
+        <div
+          className="md:hidden fixed inset-0 bg-white z-[90]"
+          style={{ paddingTop: headerH }}
+        >
           <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
             {/* No hover on touch, so the programs sit open beneath the link. */}
             <a

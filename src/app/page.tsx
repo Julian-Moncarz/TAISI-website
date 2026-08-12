@@ -6,6 +6,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import RotatingText from "@/components/RotatingText";
 import Reveal, { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
+import HeroBoats from "@/components/HeroBoats";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
 // Pill-shaped hero buttons: compact padding, accent fill for the primary
@@ -582,9 +583,11 @@ function ResearchGrid() {
           <Reveal>
             <h2 className="section-header mb-6">Examples of AI safety work</h2>
           </Reveal>
+          {/* Fewer, wider columns: at five across the titles wrapped to three
+              lines in a narrow box, which read as cramped rather than dense. */}
           <div
             ref={gridRef}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5"
+            className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3"
           >
             {researchLinks
               .flatMap((c) => c.links)
@@ -602,7 +605,7 @@ function ResearchGrid() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="article-tile w-full rounded-lg px-3.5 py-3 border flex flex-col justify-between min-h-[86px] hover:-translate-y-0.5"
+                    className="article-tile w-full rounded-lg px-4 py-4 sm:px-5 sm:py-[18px] border flex flex-col justify-between min-h-[104px] sm:min-h-[118px] hover:-translate-y-0.5"
                     style={
                       {
                         "--tile-border": look.border,
@@ -619,11 +622,13 @@ function ResearchGrid() {
                       } as React.CSSProperties
                     }
                   >
-                    <span className="tile-title text-[13px] font-semibold leading-[1.3]">
+                    <span className="tile-title text-[14px] sm:text-[16px] font-semibold leading-[1.35]">
                       {title}
                     </span>
                     {source && (
-                      <span className="tile-source text-[11px] mt-2">{source}</span>
+                      <span className="tile-source text-[12px] sm:text-[13px] mt-2.5">
+                        {source}
+                      </span>
                     )}
                   </a>
                   </div>
@@ -660,64 +665,9 @@ function HomeInner() {
           style={{ animationDuration: "1600ms" }}
         />
 
-        {/* Boats share a fading wrapper so their own animations are untouched */}
-        <div
-          aria-hidden
-          className="intro-fade"
-          style={{ animationDuration: "1600ms", animationDelay: "300ms" }}
-        >
-        {/* Sailboat drifting right to left across the water */}
-        <div
-          aria-hidden
-          className="sailboat pointer-events-none z-[5]"
-          style={{
-            bottom: "2.2%",
-            "--sail-start": "97vw",
-            "--sail-end": "29.5vw",
-            animationDuration: "95s",
-          } as React.CSSProperties}
-        >
-          <Image
-            src="/sailboat-drift-v1.png"
-            alt=""
-            width={62}
-            height={80}
-            className="h-auto w-[67px]"
-          />
-        </div>
-
-        {/* Copy of the big sailboat pinned over the one drawn in the image,
-            so the drifting boat passes behind it */}
-        <div
-          aria-hidden
-          className="sailboat-overlay pointer-events-none z-[6]"
-          style={{ left: "64.5%", bottom: "0.6%" }}
-        >
-          <Image
-            src="/sailboat-cut-big-v2.png"
-            alt=""
-            width={76}
-            height={105}
-            className="h-auto w-[84px]"
-          />
-        </div>
-
-        {/* The smaller boat further out, pinned over its drawn twin. It sits
-            below the drifter so the moving boat passes in front of it. */}
-        <div
-          aria-hidden
-          className="sailboat-overlay pointer-events-none z-[4]"
-          style={{ left: "79.2%", bottom: "2.4%" }}
-        >
-          <Image
-            src="/sailboat-drift-v1.png"
-            alt=""
-            width={62}
-            height={80}
-            className="h-auto w-[71px]"
-          />
-        </div>
-        </div>
+        {/* Boats are placed against the drawing, so they stay on their
+            painted twins when the window changes shape */}
+        <HeroBoats />
 
         {/* White fade layer above the boats; matches the drawing's blank
             left side so the drifter dissolves with the image itself */}
@@ -810,12 +760,30 @@ function HomeInner() {
           </Reveal>
           <Reveal delay={130} className="mt-5">
             <p>
-              AI systems are getting powerful. The US government uses AI for military planning, and wants the ability to have AIs piloting autonomous lethal weapons. AI systems regularly hack external infrastructure during testing.
+              <strong className="font-semibold">AI systems are getting powerful.</strong> The{" "}
+              <a
+                href="https://www.defenseone.com/policy/2026/01/grok-ethics-are-out-pentagons-new-ai-acceleration-strategy/410649/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                US government uses AI for military planning
+              </a>
+              , and wants the ability to have AIs piloting autonomous lethal weapons.{" "}
+              <a
+                href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                AI systems regularly hack external infrastructure during testing
+              </a>
+              .
             </p>
           </Reveal>
           <Reveal delay={260} className="mt-8">
             <p>
-              These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with dangerous consequences. And this is the stupidest that the models will ever be.
+              These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with <strong className="font-semibold">dangerous consequences</strong>. And this is the stupidest that the models will ever be.
             </p>
           </Reveal>
           <Reveal delay={390} className="mt-5">

@@ -138,10 +138,15 @@
   background-position: 95% 100%;
   background-size: 300% auto;
 }
+/* The boat frame shares the drawing's box and transform, so boats can be
+   placed against the artwork rather than against the window. */
 @media (min-width: 640px) {
   .hero-art {
     background-size: cover;
     background-position: center;
+  }
+  .hero-art,
+  .hero-frame {
     transform: translate(-3.5%, 3.5%) scale(0.92);
   }
 }
@@ -149,55 +154,45 @@
 .sailboat {
   position: absolute;
   left: 0;
-  bottom: 12.5%;
   animation: sail-across 110s linear infinite;
+}
+
+.boat-pinned {
+  position: absolute;
+}
+
+/* The colour matrix warms the pencil lines towards the accent. */
+.sailboat > img,
+.boat-pinned > img {
+  filter: url(#accent-tint);
+}
+
+.sailboat > img {
+  /* White paper background disappears into the sketch's water. */
+  mix-blend-mode: multiply;
+  animation: sail-bob 7s ease-in-out infinite;
 }
 
 /* The boats are positioned against the desktop framing of the drawing. */
 @media (max-width: 639px) {
-  .sailboat,
-  .sailboat-overlay {
+  .hero-frame {
     display: none;
   }
-}
-
-.sailboat > img {
-  /* White paper background disappears into the sketch's water; the colour
-     matrix warms the pencil lines towards the accent. */
-  mix-blend-mode: multiply;
-  filter: url(#accent-tint);
-  animation: sail-bob 7s ease-in-out infinite;
-}
-
-.sailboat-overlay > img {
-  filter: url(#accent-tint);
-}
-
-/* Copy of the big sailboat pinned over the one drawn in the hero image,
-   layered above the drifting boat so it passes behind. */
-.sailboat-overlay {
-  position: absolute;
-  left: 60.3%;
-  bottom: 12.3%;
-  transform: translateX(-50%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sailboat,
-  .sailboat > img {
-    animation: none;
-  }
-  .sailboat,
-  .sailboat-overlay {
+  .hero-frame {
     display: none;
   }
 }
 
+/* iOS Safari zooms the page when a field smaller than 16px takes focus, so
+   form controls hold 16px on phones and drop to 15px from tablets up. */
 .form-input {
   display: block;
   width: 100%;
   padding: 0.625rem 0.75rem;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--color-text);
   background-color: white;
@@ -218,7 +213,7 @@
   display: block;
   width: 100%;
   padding: 0.5rem 1.1rem;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--color-text);
   background-color: white;
@@ -233,6 +228,13 @@
 }
 .field-pill::placeholder {
   color: #9ca3af;
+}
+
+@media (min-width: 640px) {
+  .form-input,
+  .field-pill {
+    font-size: 15px;
+  }
 }
 
 .form-select {
