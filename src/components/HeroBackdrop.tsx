@@ -4,22 +4,27 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 /**
  * Pins the hero artwork to the viewport so it stays put while the page
- * scrolls, fading it out over the first screen.
+ * scrolls, fading it out over the first screen. With `pinned` off it sits
+ * inside the hero section instead and scrolls away with the page.
  */
 export default function HeroBackdrop({
   children,
   withTint = false,
   fadeOverScreens = 0.6,
+  pinned = true,
 }: {
   children: ReactNode;
   /** Adds the accent colour filter the homepage sailboats reference. */
   withTint?: boolean;
   /** Fraction of a screen height the artwork takes to fade away. */
   fadeOverScreens?: number;
+  /** Fix the artwork to the viewport and fade it out on scroll. */
+  pinned?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!pinned) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -42,10 +47,14 @@ export default function HeroBackdrop({
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [fadeOverScreens]);
+  }, [fadeOverScreens, pinned]);
 
   return (
-    <div ref={ref} aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
+    <div
+      ref={ref}
+      aria-hidden
+      className={`${pinned ? "fixed" : "absolute"} inset-0 -z-10 pointer-events-none`}
+    >
       {/* Nudges the pencil greys halfway towards the accent: white stays
           white, the lines pick up a warm tint rather than turning orange. */}
       {withTint && (
