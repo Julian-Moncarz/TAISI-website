@@ -397,32 +397,13 @@ function OrgLogo({ src, size = "w-7 h-7" }: { src: string; size?: string }) {
   );
 }
 
-function UniversityNote() {
-  return (
-    <p className="text-[15px] sm:text-[16px] leading-[1.6] text-text-secondary max-w-[720px]">
-      <span className="font-semibold text-navy">University labs. </span>
-      <a href="https://algorithmicalignment.csail.mit.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">MIT</a>,{" "}
-      <a href="https://www.cser.ac.uk/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Cambridge</a>,{" "}
-      <a href="https://xrisk.uchicago.edu/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">UChicago</a>{" "}
-      and most top universities have at least one professor or lab working on
-      this. At the University of Toronto,{" "}
-      <a href="https://www.cs.toronto.edu/~duvenaud/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">David Duvenaud</a>,{" "}
-      <a href="https://www.cs.toronto.edu/~rgrosse/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Roger Grosse</a>,{" "}
-      <a href="https://zhijing-jin.com/home" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Zhijing Jin</a>{" "}
-      and{" "}
-      <a href="https://www.cs.toronto.edu/~sheila/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Sheila McIlraith</a>{" "}
-      do AI safety work.
-    </p>
-  );
-}
-
 function OrgCard({ org }: { org: Org }) {
   return (
     <a
       href={org.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-start gap-3"
+      className="group flex items-start gap-3 rounded-lg border border-navy bg-white px-4 py-4 sm:px-5 sm:py-[18px] transition-transform duration-200 hover:-translate-y-0.5"
     >
       {org.logo ? (
         <OrgLogo src={org.logo} size="w-6 h-6" />
@@ -443,7 +424,7 @@ function OrgCard({ org }: { org: Org }) {
   );
 }
 
-const ORG_GRID = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6";
+const ORG_GRID = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3";
 
 function OrgDirectory() {
   const [expanded, setExpanded] = useState(false);
@@ -496,10 +477,6 @@ function OrgDirectory() {
           <path d="M6 9l6 6 6-6" />
         </svg>
       </button>
-
-      <div className="mt-8">
-        <UniversityNote />
-      </div>
     </div>
   );
 }
@@ -706,18 +683,6 @@ export default function Home() {
             Where does AI safety work happen?
           </h2>
           <OrgDirectory />
-
-          <p className="text-[14px] text-text-secondary">
-            These are just a few. Explore many more organizations on the{" "}
-            <a
-              href="https://www.aisafety.com/map"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              AI safety map
-            </a>.
-          </p>
         </div>
 
         <div className="mt-10 md:mt-12">
@@ -744,6 +709,12 @@ type Org = {
 // to a monogram.
 const moreOrgs: Org[] = [
   {
+    name: "Geodesic Research",
+    description: "AI safety research lab working on scalable alignment",
+    logo: "/logos/geodesic.png",
+    url: "https://geodesicresearch.ai",
+  },
+  {
     name: "ARC",
     description: "Theoretical alignment research",
     url: "https://www.alignment.org",
@@ -766,12 +737,6 @@ const moreOrgs: Org[] = [
     description: "Home to the Astra and Visiting fellowships, and a Berkeley coworking space",
     url: "https://constellation.org",
     logo: "/logos/constellation.png",
-  },
-  {
-    name: "Timaeus",
-    description: "Developmental interpretability research",
-    url: "https://timaeus.co",
-    logo: "/logos/timaeus.png",
   },
   {
     name: "Palisade Research",
@@ -815,12 +780,6 @@ const moreOrgs: Org[] = [
     url: "https://www.iliadconference.com",
     logo: "/logos/iliad.png",
   },
-  {
-    name: "AISST",
-    description: "Harvard's AI safety student team",
-    url: "https://aisst.ai",
-    logo: "/logos/aisst.png",
-  },
 ];
 
 const safetyOrgs: Org[] = [
@@ -854,13 +813,6 @@ const safetyOrgs: Org[] = [
     logo: "/logos/cais-icon.png",
     url: "https://www.safe.ai",
   },
-  {
-    name: "Geodesic Research",
-    description: "AI safety research lab working on scalable alignment",
-    logo: "/logos/geodesic.png",
-    url: "https://geodesicresearch.ai",
-  },
-
   {
     name: "Epoch AI",
     description: "AI trends and forecasting",
