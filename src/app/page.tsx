@@ -592,15 +592,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Programs */}
-      <section
-        id="programming"
-        className="scroll-mt-24 max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-12"
-      >
-        <ProgramRow />
-      </section>
-
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-2 md:pt-4 pb-8 md:pb-10">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-2 md:pb-4">
         {/* Where AI safety work happens */}
         <div className="space-y-5 text-text">
           <h2 className="section-header">
@@ -608,6 +600,14 @@ export default function Home() {
           </h2>
           <OrgDirectory />
         </div>
+      </section>
+
+      {/* Programs */}
+      <section
+        id="programming"
+        className="scroll-mt-24 max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-12"
+      >
+        <ProgramRow />
       </section>
 
 
