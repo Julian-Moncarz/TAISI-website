@@ -610,6 +610,31 @@ export default function Home() {
         <ProgramRow />
       </section>
 
+      {/* Statement on AI Risk */}
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-10 md:pb-16">
+        <figure className="max-w-[820px] mx-auto text-center">
+          <blockquote className="text-[1.35rem] sm:text-[1.6rem] md:text-[1.9rem] leading-[1.3] font-semibold text-text">
+            &ldquo;Mitigating the risk of extinction from AI should be a global
+            priority alongside other societal-scale risks such as pandemics and
+            nuclear war.&rdquo;
+          </blockquote>
+          <figcaption className="mt-5 text-[15px] sm:text-[16px] leading-[1.6] text-text-secondary">
+            The{" "}
+            <a
+              href="https://safe.ai/work/statement-on-ai-risk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              Statement on AI Risk
+            </a>
+            , signed by U of T&rsquo;s Geoffrey Hinton (Nobel laureate, godfather
+            of AI, and one of the most cited scientists alive) and hundreds of
+            others: lab CEOs, leading researchers, and policymakers.
+          </figcaption>
+        </figure>
+      </section>
+
 
 
 
