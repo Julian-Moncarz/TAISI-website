@@ -538,34 +538,41 @@ export default function Home() {
             What is AI safety?
           </h2>
           <p className="mt-5">
-              <strong className="font-semibold">AI systems are getting powerful.</strong> The{" "}
-              <a
-                href="https://www.defenseone.com/policy/2026/01/grok-ethics-are-out-pentagons-new-ai-acceleration-strategy/410649/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >
-                US government uses AI for military planning
-              </a>
-              , and wants the ability to have AIs piloting autonomous lethal weapons.{" "}
-              <a
-                href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
-              >
-                AI systems regularly hack external infrastructure during testing
-              </a>
-              .
-            </p>
+            <strong className="font-semibold">AI systems are getting powerful.</strong>{" "}
+            In July 2026, OpenAI models{" "}
+            <a
+              href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              broke out of their test environment
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://www.youtube.com/watch?v=87DyyMV0kCY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              hacked into another company
+            </a>
+            . Anthropic later{" "}
+            <a
+              href="https://www.theregister.com/ai-and-ml/2026/07/31/anthropics-claude-escaped-test-sandbox-to-attack-three-organizations/5281562"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-accent"
+            >
+              disclosed three cases
+            </a>{" "}
+            of its models escaping sandboxes and attacking other organizations.
+          </p>
           <p className="mt-8">
-            These are not just chatbots anymore. People are putting AI systems in charge of real-world things, things with <strong className="font-semibold">dangerous consequences</strong>. And this is the stupidest that the models will ever be.
+            These are not just chatbots anymore. People are putting AI systems in charge of real-world things, with <strong className="font-semibold">dangerous consequences</strong>. This is the stupidest that the models will ever be.
           </p>
           <p className="mt-5">
-            AI safety asks the question:{" "}
-            <span className="text-accent font-medium">
-              how can we make sure that advanced AI systems don&rsquo;t do bad things?
-            </span>
+            If powerful AIs are developed without appropriate safety measures, bad actors could use them for large-scale cybercrime, or to design biological weapons. Rampant automation could leave us collectively disempowered, with no ability to steer where things go.
           </p>
         </div>
 
