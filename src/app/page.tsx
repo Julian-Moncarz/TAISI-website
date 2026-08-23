@@ -242,7 +242,7 @@ function ProgramRow() {
         className={`flex items-center justify-between gap-4 mb-8 sm:mb-10 ${reveal(0).className}`}
         style={reveal(0).style}
       >
-        <h2 className="hero-title text-[2rem] sm:text-[2.75rem] leading-[1] font-semibold">
+        <h2 className="section-header">
           Programming
         </h2>
         <div className="flex gap-2 shrink-0">
