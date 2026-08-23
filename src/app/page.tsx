@@ -735,17 +735,6 @@ function HomeInner() {
           </div>
         </div>
 
-        <div className="absolute z-10 bottom-8 left-0 right-0 flex justify-center">
-          <a
-            href="#what-is-ai-safety"
-            aria-label="Scroll to next section"
-            className="text-text-secondary/40 hover:text-text-secondary transition-colors"
-          >
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
-          </a>
-        </div>
       </section>
 
       {/* What is AI safety? */}
