@@ -657,7 +657,7 @@ function HomeInner() {
   return (
     <main className="md:overflow-hidden">
       <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
-        <HeroBackdrop withTint pinned={false}>
+        <HeroBackdrop pinned={false}>
         {/* Hero background */}
         <div
           aria-hidden

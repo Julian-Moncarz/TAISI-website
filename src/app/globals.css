@@ -161,12 +161,6 @@
   position: absolute;
 }
 
-/* The colour matrix warms the pencil lines towards the accent. */
-.sailboat > img,
-.boat-pinned > img {
-  filter: url(#accent-tint);
-}
-
 .sailboat > img {
   /* White paper background disappears into the sketch's water. */
   mix-blend-mode: multiply;
