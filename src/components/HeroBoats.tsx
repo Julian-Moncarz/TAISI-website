@@ -81,8 +81,7 @@ export default function HeroBoats() {
     <div
       ref={frame}
       aria-hidden
-      className="hero-frame intro-fade pointer-events-none absolute inset-[-8%]"
-      style={{ animationDuration: "1600ms", animationDelay: "300ms" }}
+      className="hero-frame pointer-events-none absolute inset-[-8%]"
     >
       {art &&
         PINNED.map((b) => (

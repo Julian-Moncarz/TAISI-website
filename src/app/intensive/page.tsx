@@ -1,5 +1,4 @@
 import HeroBackdrop from "@/components/HeroBackdrop";
-import Reveal from "@/components/Reveal";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
 // Dissolves the clipped left edge of the drawing. It reaches full strength
@@ -25,13 +24,13 @@ export default function SummerIntensive() {
               page instead of leaving a straight cut through the trees. */}
           <div
             aria-hidden
-            className="art-fade hidden sm:block absolute inset-y-0 right-0 w-[55%] bg-no-repeat"
+            className="hidden sm:block absolute inset-y-0 right-0 w-[55%] bg-no-repeat"
             style={
               {
                 backgroundImage: "url('/hero-intensive.webp')",
                 backgroundPosition: "right center",
                 backgroundSize: "auto 96%",
-                "--art-opacity": 0.85,
+                opacity: 0.85,
                 transform: "translateY(45px)",
                 maskImage: EDGE_MASK,
                 WebkitMaskImage: EDGE_MASK,
@@ -49,26 +48,26 @@ export default function SummerIntensive() {
         </HeroBackdrop>
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <Reveal>
+        <div>
           <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-4 sm:mb-6 font-semibold">
             <span className="text-text">Intensive</span>
           </h1>
-        </Reveal>
+        </div>
 
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text space-y-4 max-w-[820px]">
-          <Reveal delay={120}>
+          <div>
             <p>
               Mornings are discussions on threat models, mechanistic interpretability, RLHF, scalable oversight, and more. Afternoons are technical sessions where you learn critical AI Safety research skills. Compute and API credits covered.
             </p>
-          </Reveal>
-          <Reveal delay={240}>
+          </div>
+          <div>
             <p>
               The working professionals cohort runs in person in Toronto. No prior ML or AI safety experience required.
             </p>
-          </Reveal>
+          </div>
         </div>
 
-        <Reveal delay={360} className="mt-7">
+        <div className="mt-7">
           <a
             href={NOTIFY_FORM_URL}
             target="_blank"
@@ -98,13 +97,13 @@ export default function SummerIntensive() {
               </svg>
             </span>
           </a>
-        </Reveal>
+        </div>
 
-        <Reveal>
+        <div>
           <h2 className="section-header mt-9 sm:mt-11 mb-4">Program details</h2>
-        </Reveal>
+        </div>
 
-        <Reveal delay={120}>
+        <div>
           <ul className="text-[17px] sm:text-[19px] leading-[1.7] text-text space-y-3 pl-0 list-none max-w-[820px]">
             <li>One day/week (Sat or Sun), <strong>built to fit around a full-time job</strong></li>
             <li>Held in person at Trajectory Labs, an AI safety lab in downtown Toronto</li>
@@ -112,7 +111,7 @@ export default function SummerIntensive() {
             <li>Leave with finished projects for your portfolio</li>
             <li>Top participants get research opportunities after</li>
           </ul>
-        </Reveal>
+        </div>
         </div>
       </section>
     </main>

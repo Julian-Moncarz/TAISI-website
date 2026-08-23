@@ -1,6 +1,5 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import Reveal from "@/components/Reveal";
 import { NOTIFY_FORM_URL } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
@@ -40,7 +39,7 @@ export default function Fellowships() {
               the right-hand part of the sketch. */}
           <div
             aria-hidden
-            className="art-fade hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
+            className="hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
             style={{
               backgroundImage: "url('/hero-observatory.webp')",
               backgroundPosition: "right center",
@@ -59,36 +58,36 @@ export default function Fellowships() {
         </HeroBackdrop>
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
-        <Reveal>
+        <div>
           <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
             <span className="text-text">Fellowship</span>
           </h1>
-        </Reveal>
+        </div>
 
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
-          <Reveal delay={120}>
+          <div>
             <p>
               We offer two parallel introductory fellowships in AI safety:{" "}
               alignment and governance.
             </p>
-          </Reveal>
-          <Reveal delay={240}>
+          </div>
+          <div>
             <p>
               The alignment track introduces the technical challenge of making AI
               systems reliably follow human intentions, while the governance track
               examines the role of policy, institutions, and global coordination to
               reduce AI risks.
             </p>
-          </Reveal>
-          <Reveal delay={360}>
+          </div>
+          <div>
             <p>
               Fellowships run weekly over dinner for 6 sessions in the form of
               paper discussions.
             </p>
-          </Reveal>
+          </div>
         </div>
 
-        <Reveal delay={480} className="mt-6 sm:mt-7">
+        <div className="mt-6 sm:mt-7">
         <a
           href={NOTIFY_FORM_URL}
           target="_blank"
@@ -118,22 +117,22 @@ export default function Fellowships() {
             </svg>
           </span>
         </a>
-        </Reveal>
+        </div>
 
-        <Reveal className="mt-8 sm:mt-10">
+        <div className="mt-8 sm:mt-10">
           <TestimonialRow items={fellowTestimonials} title="Our fellows" />
-        </Reveal>
+        </div>
 
         <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
 
-        <Reveal>
+        <div>
           <p className="mt-6 sm:mt-8 text-[14px] leading-[1.6] text-text-secondary">
             Curriculum adapted from BlueDot Impact.
           </p>
-        </Reveal>
+        </div>
 
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
-          <Reveal>
+          <div>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Governance Fellowship
             </h2>
@@ -147,9 +146,9 @@ export default function Fellowships() {
               <li>Canada&rsquo;s role in international cooperation</li>
               <li>Contributing to AI governance</li>
             </ul>
-          </Reveal>
+          </div>
 
-          <Reveal delay={140}>
+          <div>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
               Alignment Fellowship
             </h2>
@@ -163,7 +162,7 @@ export default function Fellowships() {
               <li>Technical governance</li>
               <li>Contributing to technical AI safety</li>
             </ul>
-          </Reveal>
+          </div>
         </div>
 
         </div>
