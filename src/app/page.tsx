@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import RotatingText from "@/components/RotatingText";
 import Reveal, { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
@@ -13,7 +12,7 @@ import { NOTIFY_FORM_URL } from "@/lib/links";
 // action and an accent outline for the alternative.
 const HERO_CTA = "cta-base rounded-full px-6 py-[11px] text-[16px]";
 
-function HeroEmailCTA({ location }: { location: string | null }) {
+function HeroEmailCTA() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -31,11 +30,10 @@ function HeroEmailCTA({ location }: { location: string | null }) {
     setSubmitting(true);
 
     try {
-      const source = location ? `poster-${location}` : "website";
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({ email, source: "website" }),
       });
       if (!res.ok) throw new Error("Failed");
       setDone(true);
@@ -110,8 +108,8 @@ const programs: Program[] = [
     title: "Fellowship",
     body: "6 weekly sessions over dinner at Trajectory Labs. Explore core material in alignment or governance with other students and an experienced facilitator. No ML background needed.",
     cta: "Learn more",
-    style: "filled",
-    color: "accent",
+    style: "outline",
+    color: "navy",
     href: "/fellowships",
     art: "/hero-observatory.webp",
     tag: "Students",
@@ -639,21 +637,7 @@ function ResearchGrid() {
   );
 }
 
-function HomeInner() {
-  const params = useSearchParams();
-  const location = params.get("loc") || null;
-  const tracked = useRef(false);
-
-  useEffect(() => {
-    if (!location || tracked.current) return;
-    tracked.current = true;
-    fetch("/api/qr-visit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ location }),
-    }).catch(() => {});
-  }, [location]);
-
+export default function Home() {
   return (
     <main className="md:overflow-hidden">
       <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
@@ -731,7 +715,7 @@ function HomeInner() {
                 </svg>
               </span>
             </a>
-            <HeroEmailCTA location={location} />
+            <HeroEmailCTA />
           </div>
         </div>
 
@@ -1028,11 +1012,3 @@ const researchLinks = [
     ],
   },
 ];
-
-export default function Home() {
-  return (
-    <Suspense>
-      <HomeInner />
-    </Suspense>
-  );
-}
