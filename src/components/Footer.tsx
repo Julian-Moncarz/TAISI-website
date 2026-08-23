@@ -82,9 +82,6 @@ export default function Footer() {
               />
               <span className="text-[15px] text-text">Toronto AI Safety Initiative</span>
             </div>
-            <p className="text-[13px] text-text-secondary leading-[1.6]">
-              AI safety needs more talent. Looking for it in Toronto.
-            </p>
             <a
               href="mailto:joseph@taisi.ca"
               className="block mt-3 text-[13px] text-text-secondary hover:text-accent transition-colors"
