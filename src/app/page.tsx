@@ -511,17 +511,10 @@ function splitSource(title: string) {
   return m ? { title: m[1], source: m[2] } : { title, source: "" };
 }
 
-// Bold two-colour set: most tiles are outlined, a couple are filled so the
-// grid has some weight in it.
-const ACCENT = "#D94F30";
+// Outlined tiles only, all navy.
 const NAVY = "#1A3355";
 const TILE_LOOKS = [
-  { border: ACCENT, bg: "transparent", title: NAVY, link: "#3C3C3C" },
-  { border: NAVY, bg: NAVY, title: "#FFFFFF", link: "rgba(255,255,255,0.85)" },
   { border: NAVY, bg: "transparent", title: NAVY, link: "#3C3C3C" },
-  { border: ACCENT, bg: ACCENT, title: "#FFFFFF", link: "rgba(255,255,255,0.9)" },
-  { border: NAVY, bg: "transparent", title: NAVY, link: "#3C3C3C" },
-  { border: ACCENT, bg: "transparent", title: NAVY, link: "#3C3C3C" },
 ];
 
 function ResearchGrid() {
@@ -931,7 +924,6 @@ const researchLinks = [
     category: "Economics of AI",
     links: [
       { title: "Gradual Disempowerment (Kulveit et al.)", url: "https://gradual-disempowerment.ai" },
-      { title: "Explosive Growth from AI Automation (Epoch AI)", url: "https://epoch.ai/blog/explosive-growth-from-ai-a-review-of-the-arguments" },
     ],
   },
 ];
