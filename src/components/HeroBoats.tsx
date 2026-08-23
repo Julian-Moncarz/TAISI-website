@@ -21,15 +21,14 @@ type Pinned = {
 // window changes shape, and anything pinned to a percentage of the viewport
 // slides off its twin.
 const PINNED: Pinned[] = [
-  // Big boat, with the drifter passing behind it.
+  // Big boat.
   {
     src: "/sailboat-cut-big-v2.png",
     nat: { w: 76, h: 105 },
     at: { x: 1088, y: 740 },
     z: "z-[6]",
   },
-  // Smaller boat further out. It sits below the drifter, so the moving boat
-  // passes in front of it.
+  // Smaller boat further out.
   {
     src: "/sailboat-drift-v1.png",
     nat: { w: 62, h: 80 },
@@ -37,10 +36,6 @@ const PINNED: Pinned[] = [
     z: "z-[4]",
   },
 ];
-
-// The boat that drifts across, on the same waterline. Only its height is tied
-// to the artwork; the crossing itself stays in viewport units.
-const DRIFTER = { src: "/sailboat-drift-v1.png", nat: { w: 62, h: 80 }, y: 750 };
 
 type Rect = { x: number; y: number; w: number; h: number };
 
@@ -89,51 +84,26 @@ export default function HeroBoats() {
       className="hero-frame intro-fade pointer-events-none absolute inset-[-8%]"
       style={{ animationDuration: "1600ms", animationDelay: "300ms" }}
     >
-      {art && (
-        <>
-          {PINNED.map((b) => (
-            <div
-              key={b.at.x}
-              className={`boat-pinned ${b.z}`}
-              style={{
-                left: art.x + b.at.x * scale,
-                top: art.y + b.at.y * scale,
-                width: b.nat.w * scale,
-              }}
-            >
-              <Image
-                src={b.src}
-                alt=""
-                width={b.nat.w}
-                height={b.nat.h}
-                className="w-full h-auto"
-              />
-            </div>
-          ))}
-
-          {/* Drifting right to left across the water */}
+      {art &&
+        PINNED.map((b) => (
           <div
-            className="sailboat z-[5]"
-            style={
-              {
-                top: art.y + DRIFTER.y * scale,
-                width: DRIFTER.nat.w * scale,
-                "--sail-start": "97vw",
-                "--sail-end": "29.5vw",
-                animationDuration: "95s",
-              } as React.CSSProperties
-            }
+            key={b.at.x}
+            className={`boat-pinned ${b.z}`}
+            style={{
+              left: art.x + b.at.x * scale,
+              top: art.y + b.at.y * scale,
+              width: b.nat.w * scale,
+            }}
           >
             <Image
-              src={DRIFTER.src}
+              src={b.src}
               alt=""
-              width={DRIFTER.nat.w}
-              height={DRIFTER.nat.h}
+              width={b.nat.w}
+              height={b.nat.h}
               className="w-full h-auto"
             />
           </div>
-        </>
-      )}
+        ))}
     </div>
   );
 }
