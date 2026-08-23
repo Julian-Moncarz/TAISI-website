@@ -574,6 +574,9 @@ export default function Home() {
           <p className="mt-5">
             If powerful AIs are developed without appropriate safety measures, bad actors could use them for large-scale cybercrime, or to design biological weapons. Rampant automation could leave us collectively disempowered, with no ability to steer where things go.
           </p>
+          <p className="mt-8">
+            <strong className="font-semibold">AI safety is the field working to make this go well.</strong> We seek to reduce risks from advanced AI through technical research, policy, and field building.
+          </p>
         </div>
 
       </section>
