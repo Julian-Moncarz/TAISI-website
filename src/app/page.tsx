@@ -403,7 +403,7 @@ function OrgCard({ org }: { org: Org }) {
       href={org.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-start gap-3 rounded-lg border border-navy bg-white px-4 py-4 sm:px-5 sm:py-[18px] transition-transform duration-200 hover:-translate-y-0.5"
+      className="group flex items-start gap-3"
     >
       {org.logo ? (
         <OrgLogo src={org.logo} size="w-6 h-6" />
@@ -424,11 +424,9 @@ function OrgCard({ org }: { org: Org }) {
   );
 }
 
-const ORG_GRID = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3";
+const ORG_GRID = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-6";
 
 function OrgDirectory() {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <div className="pt-4">
       <div className={ORG_GRID}>
@@ -437,46 +435,17 @@ function OrgDirectory() {
         ))}
       </div>
 
-      {/* Animating grid-template-rows lets the panel open to its own height.
-          The inner padding matches the grid row gap so the extra entries read
-          as more rows of the same grid, not a separate block. */}
-      <div
-        className={`grid transition-[grid-template-rows] duration-500 ease-out ${
-          expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div
-            className={`${ORG_GRID} pt-6 transition-opacity duration-500 ${
-              expanded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {moreOrgs.map((org) => (
-              <OrgCard key={org.name} org={org} />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <button
-        onClick={() => setExpanded((v) => !v)}
-        className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-accent hover:underline underline-offset-4"
-      >
-        {expanded ? "Collapse" : "Expand"}
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="square"
-          className="transition-transform duration-200"
-          style={{ transform: expanded ? "rotate(180deg)" : "none" }}
+      <p className="mt-6 text-[14px] text-text-secondary">
+        See more organizations on the{" "}
+        <a
+          href="https://www.aisafety.com/map"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent hover:underline"
         >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
+          AI safety field map
+        </a>.
+      </p>
     </div>
   );
 }
@@ -705,83 +674,6 @@ type Org = {
   logo?: string;
 };
 
-// Shown behind the "show more" toggle. No marks for these, so they fall back
-// to a monogram.
-const moreOrgs: Org[] = [
-  {
-    name: "Geodesic Research",
-    description: "AI safety research lab working on scalable alignment",
-    logo: "/logos/geodesic.png",
-    url: "https://geodesicresearch.ai",
-  },
-  {
-    name: "ARC",
-    description: "Theoretical alignment research",
-    url: "https://www.alignment.org",
-    logo: "/logos/arc.png",
-  },
-  {
-    name: "MIRI",
-    description: "Long-running alignment research nonprofit",
-    url: "https://intelligence.org",
-    logo: "/logos/miri.png",
-  },
-  {
-    name: "FAR.AI",
-    description: "Research nonprofit and a Berkeley research space",
-    url: "https://www.far.ai",
-    logo: "/logos/farai.svg",
-  },
-  {
-    name: "Constellation",
-    description: "Home to the Astra and Visiting fellowships, and a Berkeley coworking space",
-    url: "https://constellation.org",
-    logo: "/logos/constellation.png",
-  },
-  {
-    name: "Palisade Research",
-    description: "Demonstrates the offensive capabilities of AI systems",
-    url: "https://palisaderesearch.org",
-    logo: "/logos/palisade.png",
-  },
-  {
-    name: "IAPS",
-    description: "AI policy think tank focused on security and governance",
-    url: "https://www.iaps.ai",
-    logo: "/logos/iaps.png",
-  },
-  {
-    name: "LISA",
-    description: "London research centre hosting safety orgs and fellows",
-    url: "https://www.safeai.org.uk",
-    logo: "/logos/lisa.png",
-  },
-  {
-    name: "BlueDot Impact",
-    description: "Runs the courses our fellowship curriculum adapts",
-    url: "https://bluedot.org",
-    logo: "/logos/bluedot.png",
-  },
-  {
-    name: "Pivotal",
-    description: "Research fellowships in AI safety and governance",
-    url: "https://www.pivotal-research.org",
-    logo: "/logos/pivotal.png",
-  },
-  {
-    name: "Kairos",
-    description: "Field building, runs SPAR and the Pathfinder fellowship",
-    url: "https://kairos-project.org",
-    logo: "/logos/kairos.png",
-  },
-  {
-    name: "ILIAD",
-    description: "Conference on mathematical approaches to alignment",
-    url: "https://www.iliadconference.com",
-    logo: "/logos/iliad.png",
-  },
-];
-
 const safetyOrgs: Org[] = [
   {
     name: "Anthropic",
@@ -791,45 +683,69 @@ const safetyOrgs: Org[] = [
   },
   {
     name: "MATS",
-    description: "The top advanced AI safety research fellowship",
+    description: "The top AI safety research fellowship",
     logo: "/logos/mats-icon.png",
     url: "https://www.matsprogram.org",
   },
   {
     name: "Redwood Research",
-    description: "AI control research",
+    description: "Pioneered the field of AI control",
     logo: "/logos/redwood-icon.png",
     url: "https://www.redwoodresearch.org",
   },
   {
     name: "METR",
-    description: "Tests whether frontier models are dangerous",
+    description: "Evaluates frontier models for the top labs",
     logo: "/logos/metr-icon.png",
     url: "https://metr.org",
   },
   {
     name: "Center for AI Safety",
-    description: "Provides compute and funding for safety researchers",
+    description: "Compute and funding for the safety field",
     logo: "/logos/cais-icon.png",
     url: "https://www.safe.ai",
   },
   {
     name: "Epoch AI",
-    description: "AI trends and forecasting",
+    description: "Data and forecasts on AI progress",
     logo: "/logos/epoch-icon.svg",
     url: "https://epoch.ai",
   },
   {
     name: "GovAI",
-    description: "Oxford-based AI governance research. Runs competitive fellowships",
+    description: "Oxford's AI governance research hub",
     logo: "/logos/govai-icon.jpg",
     url: "https://www.governance.ai",
   },
   {
     name: "80,000 Hours",
-    description: "Career advice and the main AI safety job board",
+    description: "Career advice and the AI safety job board",
     logo: "/logos/80k-icon.png",
     url: "https://80000hours.org",
+  },
+  {
+    name: "ARC",
+    description: "Foundational theory for AI alignment",
+    url: "https://www.alignment.org",
+    logo: "/logos/arc.png",
+  },
+  {
+    name: "BlueDot Impact",
+    description: "Runs the field's flagship AI safety courses",
+    url: "https://bluedot.org",
+    logo: "/logos/bluedot.png",
+  },
+  {
+    name: "Resolution",
+    description: "Alignment lab backed by a $160M grant",
+    url: "https://resolution.org",
+    logo: "/logos/resolution.png",
+  },
+  {
+    name: "UK AI Security Institute",
+    description: "The UK government's frontier AI evals lab",
+    url: "https://www.aisi.gov.uk",
+    logo: "/logos/uk-aisi.png",
   },
 ];
 
