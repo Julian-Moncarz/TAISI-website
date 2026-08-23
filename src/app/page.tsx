@@ -587,6 +587,9 @@ export default function Home() {
           <p className="mt-5">
             We think AI safety is one of the most pressing problems of our time, and it is in desperate need of more people.
           </p>
+          <p className="mt-5">
+            Only a few thousand people worldwide work on it full-time, compared to hundreds of thousands working on advancing capabilities, and it needs more than computer scientists. The field needs talent from law, policy, economics, philosophy, advocacy, and entrepreneurship.
+          </p>
           <p className="mt-8">
             If you care about <strong className="font-semibold">careers</strong>, there are exceptional careers to be made in AI safety.
           </p>
