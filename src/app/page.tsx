@@ -450,72 +450,6 @@ function OrgDirectory() {
   );
 }
 
-// Titles carry their source in trailing parentheses; split it out so the
-// source can sit quietly beside the title.
-function splitSource(title: string) {
-  const m = title.match(/^(.*)\s\(([^()]+)\)$/);
-  return m ? { title: m[1], source: m[2] } : { title, source: "" };
-}
-
-// Outlined tiles only, all navy.
-const NAVY = "#1A3355";
-const TILE_LOOKS = [
-  { border: NAVY, bg: "transparent", title: NAVY, link: "#3C3C3C" },
-];
-
-function ResearchGrid() {
-  return (
-        <div>
-          <h2 className="section-header mb-6">Examples of AI safety work</h2>
-          {/* Fewer, wider columns: at five across the titles wrapped to three
-              lines in a narrow box, which read as cramped rather than dense. */}
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-            {researchLinks
-              .flatMap((c) => c.links)
-              .map((link, i) => {
-                const { title, source } = splitSource(link.title);
-                const look = TILE_LOOKS[i % TILE_LOOKS.length];
-                const filled = look.bg !== "transparent";
-                return (
-                  <div key={link.url} className="flex">
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="article-tile w-full rounded-lg px-4 py-4 sm:px-5 sm:py-[18px] border flex flex-col justify-between min-h-[104px] sm:min-h-[118px] hover:-translate-y-0.5"
-                    style={
-                      {
-                        "--tile-border": look.border,
-                        "--tile-bg": look.bg,
-                        // The two states swap: outlined tiles fill with their
-                        // colour, filled ones empty out to white.
-                        "--tile-hover-bg": filled ? "#FFFFFF" : look.border,
-                        "--tile-fg": filled ? "#FFFFFF" : NAVY,
-                        "--tile-sub": filled ? "rgba(255,255,255,0.75)" : "#6B6B6B",
-                        "--tile-hover-fg": filled ? look.border : "#FFFFFF",
-                        "--tile-hover-sub": filled
-                          ? "#6B6B6B"
-                          : "rgba(255,255,255,0.75)",
-                      } as React.CSSProperties
-                    }
-                  >
-                    <span className="tile-title text-[14px] sm:text-[16px] font-semibold leading-[1.35]">
-                      {title}
-                    </span>
-                    {source && (
-                      <span className="tile-source text-[12px] sm:text-[13px] mt-2.5">
-                        {source}
-                      </span>
-                    )}
-                  </a>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-  );
-}
-
 export default function Home() {
   return (
     <main className="md:overflow-hidden">
@@ -637,6 +571,27 @@ export default function Home() {
 
       </section>
 
+      {/* Why get involved? */}
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
+        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
+          <h2 className="section-header">
+            Why get involved?
+          </h2>
+          <p className="mt-5">
+            We think AI safety is one of the most pressing problems of our time.
+          </p>
+          <p className="mt-8">
+            If you care about <strong className="font-semibold">careers</strong>, there are exceptional careers to be made in AI safety.
+          </p>
+          <p className="mt-2">
+            If you care about <strong className="font-semibold">impact</strong>, this is a chance to have a critical impact on the world.
+          </p>
+          <p className="mt-2">
+            If you care about <strong className="font-semibold">community</strong> or making friends, we have one of the strongest, kindest communities on campus :)
+          </p>
+        </div>
+      </section>
+
       {/* Programs */}
       <section
         id="programming"
@@ -653,11 +608,6 @@ export default function Home() {
           </h2>
           <OrgDirectory />
         </div>
-
-        <div className="mt-10 md:mt-12">
-          <ResearchGrid />
-        </div>
-
       </section>
 
 
@@ -746,52 +696,5 @@ const safetyOrgs: Org[] = [
     description: "The UK government's frontier AI evals lab",
     url: "https://www.aisi.gov.uk",
     logo: "/logos/uk-aisi.png",
-  },
-];
-
-const researchLinks = [
-  {
-    category: "Accessible Introductions",
-    links: [
-      { title: "A.I. — Humanity's Final Invention? (Kurzgesagt)", url: "https://www.youtube.com/watch?v=fa8k8IQ1_X0" },
-      { title: "If someone builds it, does everyone die? (80,000 Hours)", url: "https://www.youtube.com/watch?v=Nl7-bRFSZBs" },
-      { title: "What Failure Looks Like (Paul Christiano)", url: "https://www.lesswrong.com/posts/HBxe6wdjxK239zajf/what-failure-looks-like" },
-    ],
-  },
-  {
-    category: "Mechanistic Interpretability",
-    links: [
-      { title: "Multimodal Neurons in Artificial Neural Networks", url: "https://distill.pub/2021/multimodal-neurons/" },
-      { title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet", url: "https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html" },
-    ],
-  },
-  {
-    category: "Alignment Failures",
-    links: [
-      { title: "Emergent Misalignment: Narrow Finetuning Can Produce Broadly Misaligned LLMs", url: "https://www.emergent-misalignment.com/" },
-      { title: "Alignment Faking in Large Language Models (Anthropic)", url: "https://www.anthropic.com/research/alignment-faking" },
-
-    ],
-  },
-  {
-    category: "Evals & AI Control",
-    links: [
-      { title: "AI Control: Improving Safety Despite Intentional Subversion (Redwood Research)", url: "https://arxiv.org/abs/2312.06942" },
-      { title: "Model Evaluation for Extreme Risks (DeepMind)", url: "https://arxiv.org/abs/2305.15324" },
-    ],
-  },
-  {
-    category: "Timelines & Forecasting [some content dated]",
-    links: [
-      { title: "Algorithmic Progress in Language Models (Epoch AI)", url: "https://epoch.ai/blog/algorithmic-progress-in-language-models" },
-      { title: "AI 2027 (Kokotajlo et al.)", url: "https://ai-2027.com" },
-
-    ],
-  },
-  {
-    category: "Economics of AI",
-    links: [
-      { title: "Gradual Disempowerment (Kulveit et al.)", url: "https://gradual-disempowerment.ai" },
-    ],
   },
 ];

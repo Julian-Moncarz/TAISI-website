@@ -221,32 +221,6 @@
   opacity: 0.5;
 }
 
-/* Reading tiles fill with their own outline colour on hover. Colours come
-   from custom properties, since an inline background would outrank the
-   hover rule. */
-.article-tile {
-  background-color: var(--tile-bg);
-  border-color: var(--tile-border);
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-.article-tile:hover {
-  background-color: var(--tile-hover-bg);
-}
-.article-tile .tile-title {
-  color: var(--tile-fg);
-  transition: color 0.2s ease;
-}
-.article-tile .tile-source {
-  color: var(--tile-sub);
-  transition: color 0.2s ease;
-}
-.article-tile:hover .tile-title {
-  color: var(--tile-hover-fg);
-}
-.article-tile:hover .tile-source {
-  color: var(--tile-hover-sub);
-}
-
 /* Program card button: fills in on card hover. Colours come from custom
    properties rather than inline styles so the hover rule can win. */
 .card-cta {

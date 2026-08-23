@@ -35,7 +35,5 @@ Next.js 16 app (App Router) with Tailwind CSS v4. Deployed on Vercel.
 
 ## Design Rules
 
-- **No rounded corners** - all buttons, inputs, cards must be sharp/square (`rounded-none` or no border-radius)
 - **No em dashes** - never use `&mdash;` or the `--` character. Restructure sentences instead.
-- **No salesy copy** - plain, direct language. No marketing fluff or exclamation marks.
 - Max-width container: `max-w-[1200px] mx-auto`
