@@ -557,7 +557,7 @@ export default function Home() {
             >
               hacked into another company
             </a>
-            . Anthropic later{" "}
+            . Anthropic{" "}
             <a
               href="https://www.theregister.com/ai-and-ml/2026/07/31/anthropics-claude-escaped-test-sandbox-to-attack-three-organizations/5281562"
               target="_blank"
@@ -569,10 +569,10 @@ export default function Home() {
             of its models escaping sandboxes and attacking other organizations.
           </p>
           <p className="mt-8">
-            These are not just chatbots anymore. People are putting AI systems in charge of real-world things, with <strong className="font-semibold">dangerous consequences</strong>. This is the stupidest that the models will ever be.
+            Without safety measures, bad actors could use AIs for large-scale cybercrime or to design biological weapons. Rampant automation could disempower much of humanity. If models get powerful enough, we could lose control of them entirely: they could copy themselves, resist shutdown, and work against us.
           </p>
           <p className="mt-5">
-            If powerful AIs are developed without appropriate safety measures, bad actors could use them for large-scale cybercrime, or to design biological weapons. Rampant automation could leave us collectively disempowered, with no ability to steer where things go.
+            None of this is guaranteed, but the risk is uncomfortably large.
           </p>
           <p className="mt-8">
             <strong className="font-semibold">AI safety is the field working to make this go well.</strong> We seek to reduce risks from advanced AI through technical research, policy, and field building.
@@ -588,19 +588,16 @@ export default function Home() {
             Why get involved?
           </h2>
           <p className="mt-5">
-            We think AI safety is one of the most pressing problems of our time, and it is in desperate need of more people.
-          </p>
-          <p className="mt-5">
-            Only a few thousand people worldwide work on it full-time, compared to hundreds of thousands working on advancing capabilities, and it needs more than computer scientists. The field needs talent from law, policy, economics, philosophy, advocacy, and entrepreneurship.
+            AI safety is one of the most pressing problems of our time, and only a few thousand people worldwide work on it full-time. The field is in desperate need of more talent, and not just computer scientists: it needs people from math, law, policy, economics, philosophy, advocacy, and entrepreneurship.
           </p>
           <p className="mt-8">
-            If you care about <strong className="font-semibold">careers</strong>, there are exceptional careers to be made in AI safety.
+            If you care about <strong className="font-semibold text-accent">careers</strong>, there are exceptional careers to be made in AI safety.
           </p>
           <p className="mt-2">
-            If you care about <strong className="font-semibold">impact</strong>, this is a chance to have a critical impact on the world.
+            If you care about <strong className="font-semibold text-accent">impact</strong>, this is a chance to have a critical impact on the world.
           </p>
           <p className="mt-2">
-            If you care about <strong className="font-semibold">community</strong> or making friends, we have one of the strongest, kindest communities on campus :)
+            If you care about <strong className="font-semibold text-accent">community</strong> or making friends, we have one of the strongest, kindest communities on campus :)
           </p>
         </div>
       </section>
