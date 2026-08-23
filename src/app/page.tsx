@@ -99,6 +99,10 @@ type Program = {
   color: keyof typeof COLORS;
   href?: string;
   art?: string;
+  /** Overrides the default card-art footprint. */
+  artSize?: { w: string; h: string };
+  /** Overrides the default card-art anchor (negative values bleed off-card). */
+  artOffset?: { right: string; bottom: string };
   tag?: string;
 };
 
@@ -120,8 +124,19 @@ const programs: Program[] = [
     style: "outline",
     color: "navy",
     href: "/intensive",
-    art: "/hero-skyline-1.webp",
+    art: "/hero-intensive.webp",
+    artSize: { w: "85%", h: "72%" },
     tag: "Working professionals",
+  },
+  {
+    title: "Retreats",
+    body: "TAISI sends students to the Harvard/MIT AI safety groups' workshops, and other AI safety retreats.",
+    cta: "",
+    style: "outline",
+    color: "navy",
+    art: "/mit-dome.webp",
+    artSize: { w: "58%", h: "54%" },
+    tag: "Students",
   },
   {
     title: "Coming soon",
@@ -271,11 +286,13 @@ function ProgramRow() {
             const art = p.art && (
               <div
                 aria-hidden
-                className="pointer-events-none absolute -right-[6%] -bottom-[4%] bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
+                className="pointer-events-none absolute bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
                 style={{
                   backgroundImage: `url('${p.art}')`,
-                  width: ART_SIZE.w,
-                  height: ART_SIZE.h,
+                  right: p.artOffset?.right ?? "-6%",
+                  bottom: p.artOffset?.bottom ?? "-4%",
+                  width: p.artSize?.w ?? ART_SIZE.w,
+                  height: p.artSize?.h ?? ART_SIZE.h,
                   opacity: ART_OPACITY,
                   // Dark cards need the sketch inverted, otherwise dark pencil
                   // lines vanish into the fill.
@@ -426,11 +443,53 @@ function OrgCard({ org }: { org: Org }) {
 
 const ORG_GRID = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-6";
 
+const UOFT_PROFS = [
+  { name: "David Duvenaud", url: "https://www.cs.toronto.edu/~duvenaud/" },
+  { name: "Sheila McIlraith", url: "https://www.cs.toronto.edu/~sheila/" },
+  { name: "Zhijing Jin", url: "https://zhijing-jin.com/home" },
+  { name: "Nicolas Papernot", url: "https://www.papernot.fr" },
+];
+
+// Same layout as OrgCard, but the entry has no single home page: each
+// professor's name links out individually instead.
+function UniLabsCard() {
+  return (
+    <div className="flex items-start gap-3">
+      <OrgLogo src="/logos/uoft.png" size="w-6 h-6" />
+      <span>
+        <span className="block text-[16px] font-semibold text-navy">
+          University labs
+        </span>
+        <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
+          {UOFT_PROFS.map((p, i) => (
+            <span key={p.name}>
+              {i > 0 && (i === UOFT_PROFS.length - 1 ? ", and " : ", ")}
+              <a
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-accent"
+              >
+                {p.name}
+              </a>
+            </span>
+          ))}{" "}
+          do AI safety work at U of T
+        </span>
+      </span>
+    </div>
+  );
+}
+
 function OrgDirectory() {
   return (
     <div className="pt-4">
       <div className={ORG_GRID}>
-        {safetyOrgs.map((org) => (
+        {safetyOrgs.slice(0, 3).map((org) => (
+          <OrgCard key={org.name} org={org} />
+        ))}
+        <UniLabsCard />
+        {safetyOrgs.slice(3).map((org) => (
           <OrgCard key={org.name} org={org} />
         ))}
       </div>
@@ -538,7 +597,6 @@ export default function Home() {
             What is AI safety?
           </h2>
           <p className="mt-5">
-            <strong className="font-semibold">AI systems are getting powerful.</strong>{" "}
             In July 2026, OpenAI models{" "}
             <a
               href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
@@ -557,7 +615,7 @@ export default function Home() {
             >
               hacked into another company
             </a>
-            . Anthropic{" "}
+            . Later, Anthropic{" "}
             <a
               href="https://www.theregister.com/ai-and-ml/2026/07/31/anthropics-claude-escaped-test-sandbox-to-attack-three-organizations/5281562"
               target="_blank"
@@ -567,25 +625,38 @@ export default function Home() {
               disclosed three cases
             </a>{" "}
             of its models escaping sandboxes and attacking other organizations.
-          </p>
-          <p className="mt-8">
+            <br />
+            <br />
             AI systems are advancing faster than they are being made safe.
           </p>
           <p className="mt-8">
-            <strong className="font-semibold">AI safety is the field working to change that.</strong> We seek to reduce risks from advanced AI through technical research, policy, and field building.
+            <strong className="font-semibold">AI safety is the field working to change that.</strong> It seeks to reduce risks from advanced AI through technical research, policy, and many other types of work.
           </p>
         </div>
 
       </section>
 
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-4">
+        {/* Where AI safety work happens */}
+        <div className="space-y-5 text-text">
+          <h2 className="section-header">
+            Where can you work on AI safety?
+          </h2>
+          <OrgDirectory />
+        </div>
+      </section>
+
       {/* Why get involved? */}
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-2 md:pb-3">
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
           <h2 className="section-header">
             Why get involved?
           </h2>
           <p className="mt-5">
             AI safety is one of the most pressing problems of our time, and only a few thousand people worldwide work on it full-time. The field is in desperate need of more talent, and not just computer scientists: it needs people from math, law, policy, economics, philosophy, advocacy, and entrepreneurship.
+          </p>
+          <p className="mt-8">
+            <strong className="font-semibold">TAISI exists to find exceptional people like you and introduce you to the field.</strong>
           </p>
           <p className="mt-8">
             If you care about <strong className="font-semibold text-accent">careers</strong>, there are exceptional careers to be made in AI safety.
@@ -596,16 +667,6 @@ export default function Home() {
           <p className="mt-2">
             If you care about <strong className="font-semibold text-accent">community</strong> or making friends, we have one of the strongest, kindest communities on campus :)
           </p>
-        </div>
-      </section>
-
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-2 md:pb-4">
-        {/* Where AI safety work happens */}
-        <div className="space-y-5 text-text">
-          <h2 className="section-header">
-            Where does AI safety work happen?
-          </h2>
-          <OrgDirectory />
         </div>
       </section>
 
@@ -640,10 +701,10 @@ const safetyOrgs: Org[] = [
     url: "https://www.anthropic.com",
   },
   {
-    name: "MATS",
-    description: "The top AI safety research fellowship",
-    logo: "/logos/mats-icon.png",
-    url: "https://www.matsprogram.org",
+    name: "METR",
+    description: "Evaluates frontier models for the top labs",
+    logo: "/logos/metr-icon.png",
+    url: "https://metr.org",
   },
   {
     name: "Redwood Research",
@@ -652,16 +713,10 @@ const safetyOrgs: Org[] = [
     url: "https://www.redwoodresearch.org",
   },
   {
-    name: "METR",
-    description: "Evaluates frontier models for the top labs",
-    logo: "/logos/metr-icon.png",
-    url: "https://metr.org",
-  },
-  {
-    name: "Center for AI Safety",
-    description: "Compute and funding for the safety field",
-    logo: "/logos/cais-icon.png",
-    url: "https://www.safe.ai",
+    name: "MATS",
+    description: "The top AI safety research fellowship",
+    logo: "/logos/mats-icon.png",
+    url: "https://www.matsprogram.org",
   },
   {
     name: "Epoch AI",
