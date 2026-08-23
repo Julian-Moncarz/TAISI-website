@@ -441,7 +441,7 @@ function OrgDirectory() {
           href="https://www.aisafety.com/map"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-accent hover:underline"
+          className="underline underline-offset-2 hover:text-accent"
         >
           AI safety field map
         </a>.
@@ -631,7 +631,7 @@ export default function Home() {
               href="https://safe.ai/work/statement-on-ai-risk"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent hover:underline"
+              className="underline underline-offset-2 hover:text-accent"
             >
               Statement on AI Risk
             </a>
