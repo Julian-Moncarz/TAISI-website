@@ -578,7 +578,7 @@ export default function Home() {
             Why get involved?
           </h2>
           <p className="mt-5">
-            We think AI safety is one of the most pressing problems of our time.
+            We think AI safety is one of the most pressing problems of our time, and it is in desperate need of more people.
           </p>
           <p className="mt-8">
             If you care about <strong className="font-semibold">careers</strong>, there are exceptional careers to be made in AI safety.
