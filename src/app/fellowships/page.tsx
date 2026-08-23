@@ -81,8 +81,9 @@ export default function Fellowships() {
           </div>
           <div>
             <p>
-              Fellowships run weekly over dinner for 6 sessions in the form of
-              paper discussions.
+              Fellowships run weekly for 6 sessions, paper discussions over
+              free, fancy dinner at Trajectory Labs, an off-campus AI safety
+              hub.
             </p>
           </div>
         </div>
