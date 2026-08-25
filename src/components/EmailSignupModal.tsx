@@ -51,15 +51,17 @@ export default function EmailSignupModal({ source }: { source: string }) {
     setToast(null);
     subscribeEmail(address, source).then(
       () => setToast("sent"),
-      () => setToast("error")
+      () => setToast("error"),
     );
   }
 
   return (
     <>
       {open && (
+        // Above the sticky header, which sits at z-100. Anything lower leaves
+        // the bar undimmed and draws a hard edge across the top of the page.
         <div
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[200]"
           role="dialog"
           aria-modal="true"
           aria-label="Join our mailing list"
@@ -70,39 +72,50 @@ export default function EmailSignupModal({ source }: { source: string }) {
             className="intro-fade absolute inset-0 bg-[#1A1A1A]/45"
           />
 
-          <div
-            className="intro-rise relative w-full max-w-[440px] rounded-[12px] bg-white border border-black/10 shadow-[0_20px_60px_rgba(26,26,26,0.22)] px-5 pt-11 pb-5 sm:px-6 sm:pb-6"
-            style={{ animationDuration: "420ms" }}
-          >
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Close"
-              className="absolute top-2 right-2 p-2 text-text-secondary/60 hover:text-text transition-colors"
+          {/* Centred in the viewport the phone is actually showing. Pinning
+              the card to the bottom put it under the browser's own chrome. */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[100dvh] flex items-center justify-center p-4 sm:p-6">
+            <div
+              className="pointer-events-auto intro-rise relative w-full max-w-[440px] rounded-[12px] bg-white border border-black/10 shadow-[0_20px_60px_rgba(26,26,26,0.22)] px-5 pt-11 pb-5 sm:px-6 sm:pb-6"
+              style={{ animationDuration: "420ms" }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <input
-                ref={inputRef}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                autoComplete="email"
-                placeholder="you@gmail.com"
-                className="field-pill"
-              />
               <button
-                type="submit"
-                className="cta-base cta-solid rounded-full px-6 py-[11px] text-[16px]"
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close"
+                className="absolute top-2 right-2 p-2 text-text-secondary/60 hover:text-text transition-colors"
               >
-                Join our mailing list
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
               </button>
-            </form>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                <input
+                  ref={inputRef}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="email"
+                  placeholder="you@gmail.com"
+                  className="field-pill"
+                />
+                <button
+                  type="submit"
+                  className="cta-base cta-solid rounded-full px-6 py-[11px] text-[16px]"
+                >
+                  I&rsquo;m interested
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}
@@ -110,7 +123,7 @@ export default function EmailSignupModal({ source }: { source: string }) {
       {toast && (
         <div
           role="status"
-          className="intro-fade fixed bottom-4 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] rounded-[10px] bg-white border border-black/10 shadow-[0_10px_30px_rgba(26,26,26,0.18)] px-4 py-3 flex items-center gap-3"
+          className="intro-fade fixed bottom-4 left-1/2 -translate-x-1/2 z-[150] max-w-[calc(100vw-2rem)] rounded-[10px] bg-white border border-black/10 shadow-[0_10px_30px_rgba(26,26,26,0.18)] px-4 py-3 flex items-center gap-3"
         >
           {toast === "sent" ? (
             <p className="text-navy text-[15px] font-medium">

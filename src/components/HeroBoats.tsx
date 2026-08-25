@@ -86,7 +86,7 @@ export default function HeroBoats() {
     <div
       ref={frame}
       aria-hidden
-      className="hero-frame intro-fade pointer-events-none absolute inset-[-8%]"
+      className="hero-frame intro-fade pointer-events-none absolute inset-[-10%]"
       style={{ animationDuration: "1600ms", animationDelay: "300ms" }}
     >
       {art && (

@@ -12,10 +12,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js 16 app (App Router) with Tailwind CSS v4. Deployed on Vercel.
 
-**Pages:** Home (`/`), Fellowships (`/fellowships`), Intensive (`/intensive`, with `/summer-intensive` redirecting to it), Reach out (`/reach-out`), QR redirect (`/qr`)
+**Pages:** Home (`/`), Fellowships (`/fellowships`), Intensive (`/intensive`, with `/summer-intensive` redirecting to it), Reach out (`/reach-out`)
+
+**Printed QR codes** point at `/qr`, a temporary redirect defined in `next.config.ts`. It lands on the home page with `?signup=1`, which opens the mailing list dialog, and `?loc=<event>`, which is recorded as the Source on the Email List row. Repoint `loc` when the code is reused for a different event. `qr.png` at the repo root is the generated code; `/qr-club-fair` is an older path kept alive for anything already printed.
 
 **API routes** submit to Airtable:
-- `POST /api/qr-signup` - Email capture (writes to Email List table)
+- `POST /api/subscribe` - Mailing list signup (writes email, submission time, and Source to the Email List table)
 - `POST /api/apply` - Summer intensive application with resume upload
 - `POST /api/contact` - Reach out form (name, email, message). Writes to the "Contact us" table (`tbl3HQU5rwtitOSNr`) in the "Master Table" base (`appXooH0bbhwJh3QT`). The `Email` and `Message` fields were added to that table for this form. Includes a `company` honeypot field: if filled, the submission is dropped and reports success.
 - `POST /api/working-professionals-eoi` - Working Professionals expression-of-interest (name, email, LinkedIn/portfolio). Writes to the "Working Professionals EOI" table (`tblvuakrOt7JSZPdT`) in the "October Intensive" base (`app798YMmVWgN0Acg`). No longer surfaced on the site: `/intensive` now links out to an Airtable form instead.

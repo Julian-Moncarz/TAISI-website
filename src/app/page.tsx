@@ -241,7 +241,7 @@ function ProgramRow() {
         <h2 className="hero-title text-[2rem] sm:text-[2.75rem] leading-[1] font-semibold">
           Programming
         </h2>
-        <div className="flex gap-2 shrink-0">
+        <div className="hidden sm:flex gap-2 shrink-0">
           <button
             type="button"
             onClick={() => step(-1)}
@@ -267,108 +267,106 @@ function ProgramRow() {
         </div>
       </div>
 
+      {/* One row you swipe on a wide screen; on a phone the cards stack and
+          arrive one at a time as you come down the page. */}
       <div
         ref={scroller}
         onScroll={sync}
-        className="-mx-5 sm:-mx-8 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="sm:-mx-8 sm:overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        <div className="flex gap-6 px-5 sm:px-8 snap-x snap-mandatory">
-          {programs.map((p, i) => {
-            const look = cardLook(p.style, p.color);
-            const entrance = reveal(160 + i * 150);
-            const shell =
-              "program-card group relative overflow-hidden snap-start shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border";
-            const art = p.art && (
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-[6%] -bottom-[4%] bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
-                style={{
-                  backgroundImage: `url('${p.art}')`,
-                  width: ART_SIZE.w,
-                  height: ART_SIZE.h,
-                  opacity: ART_OPACITY,
-                  // Dark cards need the sketch inverted, otherwise dark pencil
-                  // lines vanish into the fill.
-                  mixBlendMode: p.style === "filled" ? "screen" : "multiply",
-                  filter: p.style === "filled" ? "invert(1)" : undefined,
-                }}
-              />
-            );
-            const box: React.CSSProperties = {
-              ...look.box,
-              width: `min(${CARD_WIDTH}px, 86vw)`,
-            };
-            const inner = (
-              <>
-                {art}
-                {p.tag && (
-                  <span
-                    className="absolute top-7 right-6 sm:top-9 sm:right-8 z-[1] text-[11px] font-semibold uppercase tracking-[0.1em]"
-                    style={{ color: look.tag }}
-                  >
-                    {p.tag}
-                  </span>
-                )}
-                <ProgramBody
-                  program={p}
-                  title={look.title}
-                  body={look.body}
-                  fontTitle={CARD_FONT.title}
-                  fontBody={CARD_FONT.body}
-                />
-                {p.cta && (
-                  <span
-                    className="card-cta relative z-[1] self-start"
-                    style={
-                      {
-                        "--cta-fg": look.cta,
-                        "--cta-hover-bg": look.ctaHoverBg,
-                        "--cta-hover-fg": look.ctaHoverFg,
-                      } as React.CSSProperties
-                    }
-                  >
-                    {p.cta}
-                    <span aria-hidden className="card-cta-arrow">
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="square"
-                        className="shrink-0"
-                      >
-                        <path d="M5 12h13M12 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </span>
-                )}
-              </>
-            );
-            return p.href ? (
-              <a
-                key={p.title}
-                data-card
-                href={p.href}
-                className={`${shell} ${entrance.className}`}
-                style={{ ...box, ...entrance.style }}
-              >
-                {inner}
-              </a>
-            ) : (
-              <div
-                key={p.title}
-                data-card
-                className={`${shell} ${entrance.className}`}
-                style={{ ...box, ...entrance.style }}
-              >
-                {inner}
-              </div>
-            );
-          })}
+        <div className="flex flex-col sm:flex-row gap-6 sm:px-8 sm:snap-x sm:snap-mandatory">
+          {programs.map((p, i) => (
+            <ProgramCard key={p.title} program={p} index={i} />
+          ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function ProgramCard({ program: p, index }: { program: Program; index: number }) {
+  const { ref, shown } = useReveal<HTMLElement>();
+  const look = cardLook(p.style, p.color);
+  const shell =
+    "program-card group relative overflow-hidden sm:snap-start sm:shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border w-full sm:w-[var(--card-w)]";
+  const art = p.art && (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-[6%] -bottom-[4%] bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
+      style={{
+        backgroundImage: `url('${p.art}')`,
+        width: ART_SIZE.w,
+        height: ART_SIZE.h,
+        opacity: ART_OPACITY,
+        // Dark cards need the sketch inverted, otherwise dark pencil
+        // lines vanish into the fill.
+        mixBlendMode: p.style === "filled" ? "screen" : "multiply",
+        filter: p.style === "filled" ? "invert(1)" : undefined,
+      }}
+    />
+  );
+  const box = {
+    ...look.box,
+    "--card-w": `min(${CARD_WIDTH}px, 86vw)`,
+    transitionDelay: `${index * 120}ms`,
+  } as React.CSSProperties;
+  const className = `${shell} reveal ${shown ? "reveal-in" : ""}`;
+  const inner = (
+    <>
+      {art}
+      {p.tag && (
+        <span
+          className="relative z-[1] block mb-2 sm:absolute sm:top-9 sm:right-8 sm:mb-0 text-[11px] font-semibold uppercase tracking-[0.1em]"
+          style={{ color: look.tag }}
+        >
+          {p.tag}
+        </span>
+      )}
+      <ProgramBody
+        program={p}
+        title={look.title}
+        body={look.body}
+        fontTitle={CARD_FONT.title}
+        fontBody={CARD_FONT.body}
+      />
+      {p.cta && (
+        <span
+          className="card-cta relative z-[1] self-start"
+          style={
+            {
+              "--cta-fg": look.cta,
+              "--cta-hover-bg": look.ctaHoverBg,
+              "--cta-hover-fg": look.ctaHoverFg,
+            } as React.CSSProperties
+          }
+        >
+          {p.cta}
+          <span aria-hidden className="card-cta-arrow">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="square"
+              className="shrink-0"
+            >
+              <path d="M5 12h13M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </span>
+      )}
+    </>
+  );
+
+  return p.href ? (
+    <a ref={ref as React.RefObject<HTMLAnchorElement>} data-card href={p.href} className={className} style={box}>
+      {inner}
+    </a>
+  ) : (
+    <div ref={ref as React.RefObject<HTMLDivElement>} data-card className={className} style={box}>
+      {inner}
     </div>
   );
 }
@@ -389,7 +387,7 @@ function ProgramBody({
   return (
     <div className="relative z-[1]">
       <h3
-        className="font-semibold mb-3 pr-32"
+        className="font-semibold mb-3 sm:pr-32"
         style={{ color: title, fontSize: `${fontTitle}px` }}
       >
         {program.title}
@@ -660,7 +658,7 @@ function HomeInner() {
         {/* Hero background */}
         <div
           aria-hidden
-          className="hero-art intro-fade pointer-events-none absolute inset-[-8%] bg-[#FDFDFE]"
+          className="hero-art intro-fade pointer-events-none absolute inset-[-10%] bg-[#FDFDFE]"
           style={{ animationDuration: "1600ms" }}
         />
 
@@ -698,7 +696,7 @@ function HomeInner() {
         </HeroBackdrop>
 
         <div className="relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[3.35rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
+          <h1 className="hero-title text-[clamp(2.4rem,13vw,3.35rem)] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
             <span className="intro-word">
               AI safety needs more <RotatingText />
             </span>
@@ -714,7 +712,10 @@ function HomeInner() {
               rel="noopener noreferrer"
               className={`${HERO_CTA} cta-solid`}
             >
-              Express interest in a future cohort
+              <span className="sm:hidden">Express interest</span>
+              <span className="hidden sm:inline">
+                Express interest in a future cohort
+              </span>
               <span aria-hidden className="cta-arrow">
                 <svg
                   width="14"
