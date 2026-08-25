@@ -8,6 +8,8 @@ import Reveal, { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
 import HeroBoats from "@/components/HeroBoats";
 import { NOTIFY_FORM_URL } from "@/lib/links";
+import { signupSource, subscribeEmail } from "@/lib/subscribe";
+import EmailSignupModal from "@/components/EmailSignupModal";
 
 // Pill-shaped hero buttons: compact padding, accent fill for the primary
 // action and an accent outline for the alternative.
@@ -31,13 +33,7 @@ function HeroEmailCTA({ location }: { location: string | null }) {
     setSubmitting(true);
 
     try {
-      const source = location ? `poster-${location}` : "website";
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
-      });
-      if (!res.ok) throw new Error("Failed");
+      await subscribeEmail(email, signupSource(location));
       setDone(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -642,6 +638,7 @@ function ResearchGrid() {
 function HomeInner() {
   const params = useSearchParams();
   const location = params.get("loc") || null;
+  const showSignup = params.get("signup") === "1";
   const tracked = useRef(false);
 
   useEffect(() => {
@@ -656,6 +653,8 @@ function HomeInner() {
 
   return (
     <main className="md:overflow-hidden">
+      {showSignup && <EmailSignupModal source={signupSource(location)} />}
+
       <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
         <HeroBackdrop withTint>
         {/* Hero background */}

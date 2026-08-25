@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         destination: "/intensive/:path*",
         permanent: true,
       },
+      // Printed QR codes point at a short path rather than the home page, so
+      // the destination can change later without reprinting anything. Kept
+      // temporary on purpose: a permanent redirect sticks in browser caches.
+      // The signup flag opens the mailing list dialog on arrival, and loc
+      // records where the scan came from.
+      {
+        source: "/qr-club-fair",
+        destination: "/?loc=club-fair&signup=1",
+        permanent: false,
+      },
     ];
   },
 };

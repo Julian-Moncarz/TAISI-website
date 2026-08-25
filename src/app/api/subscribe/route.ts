@@ -16,6 +16,9 @@ export async function POST(req: NextRequest) {
     const fields: Record<string, string> = {
       email: email,
       "Submission time": new Date().toISOString(),
+      // Posters and QR codes carry a ?loc= value that reaches us here, so a
+      // run of signups can be traced back to where it was printed.
+      Source: typeof source === "string" && source ? source : "website",
     };
 
     const res = await fetch(
