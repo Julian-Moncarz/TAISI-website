@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, Suspense, type ReactNode } from "react";
 import RotatingText from "@/components/RotatingText";
 import { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { NOTIFY_FORM_URL } from "@/lib/links";
+import { FELLOWSHIP_APPLY_URL, FELLOWSHIP_DEADLINE } from "@/lib/links";
 import { signupSource, subscribeEmail } from "@/lib/subscribe";
 import EmailSignupModal from "@/components/EmailSignupModal";
 
@@ -96,6 +96,10 @@ type Program = {
   style: CardStyle;
   color: keyof typeof COLORS;
   href?: string;
+  /** Second action, sitting ahead of the cta. Adding one splits the card
+   *  into two buttons rather than one link over the whole thing. */
+  applyHref?: string;
+  applyLabel?: string;
   art?: string;
   /** Overrides the default card-art footprint. */
   artSize?: { w: string; h: string };
@@ -112,6 +116,8 @@ const programs: Program[] = [
     style: "outline",
     color: "navy",
     href: "/fellowships",
+    applyHref: FELLOWSHIP_APPLY_URL,
+    applyLabel: `Apply by ${FELLOWSHIP_DEADLINE}`,
     art: "/hero-observatory.webp",
     tag: "Students",
   },
@@ -288,6 +294,8 @@ function ProgramRow() {
 
 function ProgramCard({ program: p }: { program: Program }) {
   const look = cardLook(p.style, p.color);
+  // Two actions on one card, so the card itself stops being the link.
+  const split = Boolean(p.applyHref);
   const shell =
     "program-card group relative overflow-hidden sm:snap-start sm:shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border w-full sm:w-[var(--card-w)]";
   const art = p.art && (
@@ -330,38 +338,42 @@ function ProgramCard({ program: p }: { program: Program }) {
         fontTitle={CARD_FONT.title}
         fontBody={CARD_FONT.body}
       />
-      {p.cta && (
-        <span
-          className="card-cta relative z-[1] self-start"
-          style={
-            {
-              "--cta-fg": look.cta,
-              "--cta-hover-bg": look.ctaHoverBg,
-              "--cta-hover-fg": look.ctaHoverFg,
-            } as React.CSSProperties
-          }
-        >
-          {p.cta}
-          <span aria-hidden className="card-cta-arrow">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="square"
-              className="shrink-0"
+      {(p.applyHref || p.cta) && (
+        <div className="relative z-[1] flex flex-wrap items-center gap-3">
+          {p.applyHref && (
+            <a
+              href={p.applyHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-apply"
             >
-              <path d="M5 12h13M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </span>
+              {p.applyLabel}
+              <span aria-hidden className="card-cta-arrow">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="square"
+                  className="shrink-0"
+                >
+                  <path d="M7 17L17 7M9 7h8v8" />
+                </svg>
+              </span>
+            </a>
+          )}
+          {p.cta && <CardCta program={p} look={look} asLink={split} />}
+        </div>
       )}
     </>
   );
 
-  return p.href ? (
+  // A card with two actions cannot also be one link: an anchor around the
+  // whole thing would swallow the apply button. Those cards become a plain
+  // box and let each button carry its own link.
+  return p.href && !split ? (
     <a data-card href={p.href} className={shell} style={box}>
       {inner}
     </a>
@@ -369,6 +381,51 @@ function ProgramCard({ program: p }: { program: Program }) {
     <div data-card className={shell} style={box}>
       {inner}
     </div>
+  );
+}
+
+function CardCta({
+  program: p,
+  look,
+  asLink,
+}: {
+  program: Program;
+  look: ReturnType<typeof cardLook>;
+  asLink: boolean;
+}) {
+  const style = {
+    "--cta-fg": look.cta,
+    "--cta-hover-bg": look.ctaHoverBg,
+    "--cta-hover-fg": look.ctaHoverFg,
+  } as React.CSSProperties;
+  const content = (
+    <>
+      {p.cta}
+      <span aria-hidden className="card-cta-arrow">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="square"
+          className="shrink-0"
+        >
+          <path d="M5 12h13M12 5l7 7-7 7" />
+        </svg>
+      </span>
+    </>
+  );
+
+  return asLink && p.href ? (
+    <a href={p.href} className="card-cta" style={style}>
+      {content}
+    </a>
+  ) : (
+    <span className="card-cta" style={style}>
+      {content}
+    </span>
   );
 }
 
@@ -604,14 +661,14 @@ function HomeInner() {
             style={{ marginTop: "var(--hero-gap, 2.5rem)" }}
           >
             <a
-              href={NOTIFY_FORM_URL}
+              href={FELLOWSHIP_APPLY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={`${HERO_CTA} cta-solid`}
             >
-              <span className="sm:hidden">Express interest</span>
+              <span className="sm:hidden">Apply now</span>
               <span className="hidden sm:inline">
-                Express interest in a future cohort
+                Apply for our intro fellowships
               </span>
               <span aria-hidden className="cta-arrow">
                 <svg

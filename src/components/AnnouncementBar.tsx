@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const APPLY_URL =
-  "https://airtable.com/appqa2EUC5hPmar8N/pagFl42KCDDQpw0nm/form";
-const DETAILS_URL =
-  "https://docs.google.com/document/d/19etrimeNR91Jd3jUL8Qk4wDTDhW93IQh_KJt2-TfWog/edit";
+import { FELLOWSHIP_APPLY_URL, FELLOWSHIP_DEADLINE_SHORT } from "@/lib/links";
 
 // Sits above the nav in normal flow, so it pushes the bar down at the top of
 // the page and scrolls away once the sticky nav takes over.
@@ -18,20 +14,14 @@ export default function AnnouncementBar() {
     <div className="relative bg-navy text-white">
       <div className="max-w-[1200px] mx-auto px-10 sm:px-14 py-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px] sm:text-[14px] leading-[1.45]">
         <span>
-          <span className="font-medium">TAISI is growing.</span>{" "}
-          <span className="text-white/75">Priority deadline Aug 22.</span>
+          <span className="font-medium">
+            Applications are open for our intro fellowship.
+          </span>{" "}
+          <span className="text-white/75">{FELLOWSHIP_DEADLINE_SHORT} EoD.</span>
         </span>
         <span className="flex items-center gap-x-4">
           <a
-            href={DETAILS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-b border-white/40 hover:border-white transition-colors"
-          >
-            Role details
-          </a>
-          <a
-            href={APPLY_URL}
+            href={FELLOWSHIP_APPLY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="border-b border-white/40 hover:border-white transition-colors"
