@@ -8,12 +8,9 @@ import { useEffect, useRef, type ReactNode } from "react";
  */
 export default function HeroBackdrop({
   children,
-  withTint = false,
   fadeOverScreens = 0.6,
 }: {
   children: ReactNode;
-  /** Adds the accent colour filter the homepage sailboats reference. */
-  withTint?: boolean;
   /** Fraction of a screen height the artwork takes to fade away. */
   fadeOverScreens?: number;
 }) {
@@ -46,21 +43,6 @@ export default function HeroBackdrop({
 
   return (
     <div ref={ref} aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
-      {/* Nudges the pencil greys halfway towards the accent: white stays
-          white, the lines pick up a warm tint rather than turning orange. */}
-      {withTint && (
-        <svg width="0" height="0" className="absolute" aria-hidden focusable="false">
-          <filter id="accent-tint" colorInterpolationFilters="sRGB">
-            <feColorMatrix
-              type="matrix"
-              values="0.1221 0.4109 0.0415 0 0.4255
-                      0.1796 0.6043 0.0610 0 0.1550
-                      0.1926 0.6480 0.0654 0 0.0940
-                      0      0      0      1 0"
-            />
-          </filter>
-        </svg>
-      )}
       {children}
     </div>
   );

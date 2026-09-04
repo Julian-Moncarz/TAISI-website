@@ -23,91 +23,6 @@ export async function sendWelcomeEmail(email: string) {
   }
 }
 
-export async function sendApplicationConfirmation(
-  email: string,
-  name: string
-) {
-  try {
-    await getResend().emails.send({
-      from: FROM,
-      to: email,
-      subject: "We got your application",
-      html: `
-<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
-  <p style="margin: 0 0 16px;">Hey ${name},</p>
-  <p style="margin: 0 0 16px;">We received your application for TAISI's Summer Intensive. We'll review it and get back to you soon.</p>
-  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">Julian Moncarz<br/>TAISI</p>
-</div>`,
-    });
-  } catch (err) {
-    console.error("Failed to send application confirmation:", err);
-  }
-}
-
-export async function sendIntensiveAcceptanceConfirmation({
-  email,
-  name,
-  cohort,
-  dates,
-}: {
-  email: string;
-  name?: string;
-  cohort?: string;
-  dates?: string;
-}) {
-  try {
-    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
-    const cohortLine = cohort
-      ? `<p style="margin: 0 0 16px;">You're confirmed for the ${escapeHtml(cohort)} cohort at Trajectory Labs${dates ? `, meeting on ${escapeHtml(dates)}` : ""}.</p>`
-      : `<p style="margin: 0 0 16px;">You're confirmed for TAISI's summer intensive.</p>`;
-
-    await getResend().emails.send({
-      from: FROM,
-      to: email,
-      subject: "Your TAISI summer intensive spot is confirmed",
-      html: `
-<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
-  <p style="margin: 0 0 16px;">${greeting}</p>
-  <p style="margin: 0 0 16px;">Thanks for confirming your spot! We're excited to have you join us.</p>
-  ${cohortLine}
-  <p style="margin: 0 0 16px;">Please make sure all four sessions are in your calendar. We'll send more details before your cohort begins.</p>
-  <p style="margin: 0 0 16px;">If anything changes, reply to this email as soon as you can.</p>
-  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
-</div>`,
-    });
-  } catch (err) {
-    console.error("Failed to send intensive acceptance confirmation:", err);
-  }
-}
-
-export async function sendIntensiveAcceptanceDecline({
-  email,
-  name,
-}: {
-  email: string;
-  name?: string;
-}) {
-  try {
-    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
-
-    await getResend().emails.send({
-      from: FROM,
-      to: email,
-      subject: "Thanks for letting us know",
-      html: `
-<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
-  <p style="margin: 0 0 16px;">${greeting}</p>
-  <p style="margin: 0 0 16px;">Thanks for letting us know.</p>
-  <p style="margin: 0 0 16px;">We're sorry the timing won't work, and we really appreciated your application.</p>
-  <p style="margin: 0 0 16px;">If your availability changes, or if there's any context we should know, please reply to this email. We'd be glad to hear from you.</p>
-  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
-</div>`,
-    });
-  } catch (err) {
-    console.error("Failed to send intensive decline confirmation:", err);
-  }
-}
-
 export async function sendSeptemberFellowshipConfirmation({
   email,
   name,
@@ -136,46 +51,8 @@ export async function sendSeptemberFellowshipConfirmation({
   }
 }
 
-export async function sendSummerFellowshipAvailabilityConfirmation({
-  email,
-  name,
-  session1Evenings,
-  session2Evenings,
-}: {
-  email: string;
-  name?: string;
-  session1Evenings: string[];
-  session2Evenings: string[];
-}) {
-  try {
-    const greeting = name ? `Hi ${escapeHtml(firstName(name))},` : "Hi,";
-
-    await getResend().emails.send({
-      from: FROM,
-      to: email,
-      subject: "We saved your summer fellowship availability",
-      html: `
-<div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
-  <p style="margin: 0 0 16px;">${greeting}</p>
-  <p style="margin: 0 0 16px;">Thanks for sharing your availability. We've saved it.</p>
-  <p style="margin: 0 0 16px;">Session 1 evenings: ${escapeHtml(formatEvenings(session1Evenings))}</p>
-  <p style="margin: 0 0 16px;">Session 2 evenings: ${escapeHtml(formatEvenings(session2Evenings))}</p>
-  <p style="margin: 0 0 16px;">We'll reach out if we're able to run an evening summer fellowship that matches your availability.</p>
-  <p style="margin: 0 0 16px;">If anything changes, reply to this email and let us know.</p>
-  <p style="margin: 24px 0 0; color: #666; font-size: 14px;">TAISI team</p>
-</div>`,
-    });
-  } catch (err) {
-    console.error("Failed to send summer fellowship availability confirmation:", err);
-  }
-}
-
 function firstName(name: string) {
   return name.trim().split(/\s+/)[0] || name;
-}
-
-function formatEvenings(evenings: string[]) {
-  return evenings.length ? evenings.join(", ") : "None selected";
 }
 
 function escapeHtml(value: string) {

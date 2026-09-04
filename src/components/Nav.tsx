@@ -14,7 +14,7 @@ const programLinks = [
     href: "/fellowships",
     label: "Fellowship",
     blurb:
-      "6 weekly sessions over dinner at Trajectory Labs. Core material in alignment or governance, with other students and an experienced facilitator. No ML background needed.",
+      "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub. Core material in alignment or governance, with other students and an experienced facilitator. No ML background needed.",
   },
   {
     href: "/intensive",

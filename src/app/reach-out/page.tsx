@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Reveal from "@/components/Reveal";
 
 const LABEL = "block text-[14px] font-medium text-text mb-1.5";
 
@@ -48,14 +47,14 @@ export default function ReachOut() {
   return (
     <main>
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <Reveal>
+        <div>
           <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-4 sm:mb-6 font-semibold">
             <span className="text-text">Reach out</span>
           </h1>
-        </Reveal>
+        </div>
 
         {sent ? (
-          <Reveal delay={120}>
+          <div>
             <div className="mt-8 max-w-[560px] border border-accent p-6">
               <p className="text-[17px] font-semibold text-navy">
                 Message sent.
@@ -64,9 +63,9 @@ export default function ReachOut() {
                 Thanks for getting in touch. We will reply to {email}.
               </p>
             </div>
-          </Reveal>
+          </div>
         ) : (
-          <Reveal delay={120}>
+          <div>
             <form onSubmit={handleSubmit} className="mt-2 max-w-[560px]">
               <div className="mb-5">
                 <label htmlFor="contact-name" className={LABEL}>
@@ -137,7 +136,7 @@ export default function ReachOut() {
                 <p className="mt-3 text-[14px] text-accent">{error}</p>
               )}
             </form>
-          </Reveal>
+          </div>
         )}
       </section>
     </main>
