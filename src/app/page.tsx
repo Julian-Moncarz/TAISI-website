@@ -668,7 +668,7 @@ function HomeInner() {
             >
               <span className="sm:hidden">Apply now</span>
               <span className="hidden sm:inline">
-                Apply for our intro fellowships
+                Apply for our intro fellowship
               </span>
               <span aria-hidden className="cta-arrow">
                 <svg

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const words = ["technical researchers", "founders", "policymakers"];
+const words = ["researchers", "founders", "policymakers"];
 
 export default function RotatingText() {
   const [index, setIndex] = useState(0);
@@ -17,11 +17,13 @@ export default function RotatingText() {
         setFading(false);
       }, 450);
     };
-    // Short first hold so the cycling is obvious before anyone scrolls past.
+    // The first word waits out the hero's entrance before its own hold starts,
+    // so the opening line can be read as written. Shorter than a full turn:
+    // holding it the whole way reads as though the cycling has stalled.
     const initial = setTimeout(() => {
       rotate();
       interval = setInterval(rotate, 2800);
-    }, 1600);
+    }, 2400);
     return () => {
       clearTimeout(initial);
       if (interval) clearInterval(interval);

@@ -67,10 +67,9 @@ export default function Fellowships() {
         <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
           <div>
             <p>
-              <strong className="font-semibold">
-                Applications are now open for our intro fellowships.
-              </strong>{" "}
-              Apply by {FELLOWSHIP_DEADLINE}, end of day.
+              <strong className="font-semibold text-accent">
+                Applications are now open for our intro fellowship.
+              </strong>
             </p>
           </div>
           <div>
@@ -110,7 +109,7 @@ export default function Fellowships() {
             } as React.CSSProperties
           }
         >
-          Apply for our intro fellowships
+          Apply by {FELLOWSHIP_DEADLINE}
           <span aria-hidden className="card-cta-arrow">
             <svg
               width="14"
