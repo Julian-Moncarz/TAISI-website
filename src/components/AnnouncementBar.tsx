@@ -22,7 +22,7 @@ const LOOKS = {
   },
 } as const;
 
-// Which colourway the bar opens on.
+// Flip this one word to switch the bar over.
 const COLOURWAY: keyof typeof LOOKS = "purple";
 
 // Sits above the nav in normal flow, so it pushes the bar down at the top of
@@ -30,27 +30,12 @@ const COLOURWAY: keyof typeof LOOKS = "purple";
 export default function AnnouncementBar() {
   // Dismissal is deliberately not stored, so the bar is back on every load.
   const [closed, setClosed] = useState(false);
-  // DEMO ONLY: clicking the bar swaps its colourway, so the two can be
-  // compared on the real page. Once one is chosen, delete this state, the
-  // click handler, and the cursor/title below, and read COLOURWAY directly.
-  const [colourway, setColourway] = useState<keyof typeof LOOKS>(COLOURWAY);
   if (closed) return null;
 
-  const look = LOOKS[colourway];
-
-  // The bar's own link and close button keep their own jobs; only the ground
-  // around them toggles.
-  function swapColourway(e: React.MouseEvent) {
-    if ((e.target as HTMLElement).closest("a, button")) return;
-    setColourway((c) => (c === "purple" ? "gold" : "purple"));
-  }
+  const look = LOOKS[COLOURWAY];
 
   return (
-    <div
-      onClick={swapColourway}
-      title="Demo: click to switch colourway"
-      className={`relative cursor-pointer transition-colors duration-300 ${look.bar}`}
-    >
+    <div className={`relative ${look.bar}`}>
       <div className="max-w-[1200px] mx-auto px-10 sm:px-14 py-3.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[14px] sm:text-[15px] leading-[1.45]">
         <span>
           <span className="font-semibold">
