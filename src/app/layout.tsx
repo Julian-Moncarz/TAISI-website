@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   title: "TAISI | Toronto AI Safety Initiative",
   description:
     "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
-  icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-  },
+  // No icons block: src/app/icon.png and src/app/apple-icon.png are picked up
+  // by file convention instead, which serves them at a content-hashed URL. A
+  // fixed /icon.png path meant browsers kept showing whatever they had cached
+  // long after the file changed.
   openGraph: {
     title: "TAISI | Toronto AI Safety Initiative",
     description:
