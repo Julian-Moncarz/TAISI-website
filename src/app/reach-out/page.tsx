@@ -56,7 +56,7 @@ export default function ReachOut() {
         {sent ? (
           <div>
             <div className="mt-8 max-w-[560px] border border-accent p-6">
-              <p className="text-[17px] font-semibold text-navy">
+              <p className="text-[17px] font-semibold text-plum">
                 Message sent.
               </p>
               <p className="mt-2 text-[15px] leading-[1.6] text-text-secondary">

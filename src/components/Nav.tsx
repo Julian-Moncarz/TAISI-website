@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import TaisiMark from "./TaisiMark";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
@@ -14,7 +14,7 @@ const programLinks = [
     href: "/fellowships",
     label: "Fellowship",
     blurb:
-      "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub. Core material in alignment or governance, with other students and an experienced facilitator. No ML background needed.",
+      "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub. Core material in AI safety fundamentals or AI governance, with other students and an experienced facilitator. No ML background needed.",
   },
   {
     href: "/intensive",
@@ -113,14 +113,7 @@ export default function Nav() {
       >
         <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
           <a href="/" onClick={goHome} className="flex items-center gap-2">
-            <Image
-              src="/icon.png"
-              alt="TAISI"
-              width={155}
-              height={193}
-              priority
-              className="h-[32px] sm:h-[38px] w-auto translate-y-[3px]"
-            />
+            <TaisiMark className="h-[34px] sm:h-[38px] w-auto translate-y-[2px]" />
             <span className="nav-weight font-sans text-[17px] text-text" style={{ fontWeight: weight }}>
               Toronto AI Safety Initiative
             </span>

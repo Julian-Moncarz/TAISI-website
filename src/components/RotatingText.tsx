@@ -34,13 +34,13 @@ export default function RotatingText() {
     <span className="relative inline-grid">
       {/* Hidden words to reserve space for the longest */}
       {words.map((w) => (
-        <span key={w} className="invisible col-start-1 row-start-1 text-accent">
+        <span key={w} className="invisible col-start-1 row-start-1 text-plum-light">
           {w}
         </span>
       ))}
       {/* Visible rotating word */}
       <span
-        className="col-start-1 row-start-1 text-accent transition-opacity duration-[450ms] ease-in-out"
+        className="col-start-1 row-start-1 text-plum-light transition-opacity duration-[450ms] ease-in-out"
         style={{ opacity: fading ? 0 : 1 }}
       >
         {words[index]}

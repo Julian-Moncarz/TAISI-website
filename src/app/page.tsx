@@ -111,10 +111,10 @@ type Program = {
 const programs: Program[] = [
   {
     title: "Fellowship",
-    body: "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub.\n\nExplore core material in alignment or governance with other students and an experienced facilitator. No ML background needed.",
+    body: "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub.\n\nExplore core material in AI safety fundamentals or AI governance with other students and an experienced facilitator. No ML background needed.",
     cta: "Learn more",
     style: "outline",
-    color: "navy",
+    color: "plum",
     href: "/fellowships",
     applyHref: FELLOWSHIP_APPLY_URL,
     applyLabel: `Apply by ${FELLOWSHIP_DEADLINE}`,
@@ -126,7 +126,7 @@ const programs: Program[] = [
     body: "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. Leave with next steps and a plan for how to contribute.",
     cta: "Learn more",
     style: "outline",
-    color: "navy",
+    color: "plum",
     href: "/intensive",
     art: "/hero-skyline-1.webp",
     tag: "Working professionals",
@@ -136,7 +136,7 @@ const programs: Program[] = [
     body: "TAISI members get compute for technical projects, regular coworking access at Trajectory Labs, exclusive semesterly retreats with AI safety researchers, and monthly closed socials.",
     cta: "",
     style: "outline",
-    color: "navy",
+    color: "plum",
     art: "/mit-dome.webp",
     artSize: { w: "58%", h: "54%" },
     tag: "Students",
@@ -158,8 +158,8 @@ const ART_OPACITY = 0.55;
 const ART_SIZE = { w: "100%", h: "88%" };
 
 const COLORS = {
-  accent: { hex: "#D94F30", rgb: "217, 79, 48" },
-  navy: { hex: "#1A3355", rgb: "26, 51, 85" },
+  accent: { hex: "#501684", rgb: "80, 22, 132" },
+  plum: { hex: "#38095F", rgb: "56, 9, 95" },
   stone: { hex: "#8C8781", rgb: "140, 135, 129" },
 } as const;
 
@@ -490,7 +490,7 @@ function OrgCard({ org }: { org: Org }) {
         </span>
       )}
       <span>
-        <span className="block text-[16px] font-semibold text-navy group-hover:text-accent transition-colors">
+        <span className="block text-[16px] font-semibold text-plum group-hover:text-accent transition-colors">
           {org.name}
         </span>
         <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
@@ -517,7 +517,7 @@ function UniLabsCard() {
     <div className="flex items-start gap-3">
       <OrgLogo src="/logos/uoft.png" size="w-6 h-6" />
       <span>
-        <span className="block text-[16px] font-semibold text-navy">
+        <span className="block text-[16px] font-semibold text-plum">
           University labs
         </span>
         <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
@@ -528,7 +528,7 @@ function UniLabsCard() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-accent"
+                className="underline underline-offset-2 hover:text-amber-deep"
               >
                 {p.name}
               </a>
@@ -560,7 +560,7 @@ function OrgDirectory() {
           href="https://www.aisafety.com/map"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-accent"
+          className="underline underline-offset-2 hover:text-amber-deep"
         >
           AI safety field map
         </a>.
@@ -703,7 +703,7 @@ function HomeInner() {
               href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-accent"
+              className="underline underline-offset-2 hover:text-amber-deep"
             >
               broke out of their test environment
             </a>{" "}
@@ -712,7 +712,7 @@ function HomeInner() {
               href="https://www.youtube.com/watch?v=87DyyMV0kCY"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-accent"
+              className="underline underline-offset-2 hover:text-amber-deep"
             >
               hacked into another company
             </a>
@@ -721,7 +721,7 @@ function HomeInner() {
               href="https://www.theregister.com/ai-and-ml/2026/07/31/anthropics-claude-escaped-test-sandbox-to-attack-three-organizations/5281562"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-accent"
+              className="underline underline-offset-2 hover:text-amber-deep"
             >
               disclosed three cases
             </a>{" "}

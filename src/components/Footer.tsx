@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import TaisiMark from "./TaisiMark";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -73,13 +73,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-[320px]">
             <div className="flex items-center gap-2.5 mb-3">
-              <Image
-                src="/icon.png"
-                alt="TAISI"
-                width={155}
-                height={193}
-                className="h-[28px] w-auto"
-              />
+              <TaisiMark className="h-[30px] w-auto" />
               <span className="text-[15px] text-text">Toronto AI Safety Initiative</span>
             </div>
             <a

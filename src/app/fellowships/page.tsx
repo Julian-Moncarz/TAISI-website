@@ -74,16 +74,17 @@ export default function Fellowships() {
           </div>
           <div>
             <p>
-              We offer two parallel introductory fellowships in AI safety:{" "}
-              alignment and governance.
+              We offer two parallel introductory fellowships:{" "}
+              AI Safety Fundamentals and AI Governance.
             </p>
           </div>
           <div>
             <p>
-              The alignment track introduces the technical challenge of making AI
-              systems reliably follow human intentions, while the governance track
-              examines the role of policy, institutions, and global coordination to
-              reduce AI risks.
+              The fundamentals track introduces the technical challenge of making
+              AI systems reliably follow human intentions, while the governance
+              track examines the role of policy, institutions, and global
+              coordination to reduce AI risks. Both cover forecasting how the
+              technology develops.
             </p>
           </div>
           <div>
@@ -103,8 +104,8 @@ export default function Fellowships() {
           className="card-cta"
           style={
             {
-              "--cta-fg": "#D94F30",
-              "--cta-hover-bg": "#D94F30",
+              "--cta-fg": "#501684",
+              "--cta-hover-bg": "#501684",
               "--cta-hover-fg": "#FFFFFF",
             } as React.CSSProperties
           }
@@ -142,7 +143,24 @@ export default function Fellowships() {
         <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
           <div>
             <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
-              Governance Fellowship
+              AI Safety Fundamentals
+            </h2>
+            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
+            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
+            <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
+              <li>Intro to deep learning (first session only)</li>
+              <li>Forecasting</li>
+              <li>Reinforcement learning from human feedback</li>
+              <li>Scalable oversight</li>
+              <li>Mechanistic interpretability</li>
+              <li>Technical governance</li>
+              <li>Contributing to technical AI safety</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
+              AI Governance
             </h2>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
             <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
@@ -153,22 +171,6 @@ export default function Fellowships() {
               <li>Governance at frontier labs</li>
               <li>Canada&rsquo;s role in international cooperation</li>
               <li>Contributing to AI governance</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
-              Alignment Fellowship
-            </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
-            <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
-              <li>Intro to deep learning (first session only)</li>
-              <li>Reinforcement learning from human feedback</li>
-              <li>Scalable oversight</li>
-              <li>Mechanistic interpretability</li>
-              <li>Technical governance</li>
-              <li>Contributing to technical AI safety</li>
             </ul>
           </div>
         </div>

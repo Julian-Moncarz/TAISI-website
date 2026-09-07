@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 988" width="1000" height="988" role="img" aria-label="TAISI">
+  <title>TAISI mark, single colour</title>
+  <mask id="taisiC"><path d="M0 0H1000L500 988Z" fill="#fff"/>
+    <g fill="none" stroke="#000" stroke-width="20"><path d="M-20 10H500M1.1 -20L526.4 1018M500 0V1018"/><path d="M228.6 10L81.9 139.7M228.6 10L500 255.2M383.4 10L500 255.2M81.9 139.7L326.8 103.6M81.9 139.7L342.1 446.1M326.8 103.6L343.3 474.3M500 255.2L343.3 474.3M220.8 414.1L500 551.2M500 551.2L375.4 719.7" stroke-linecap="round"/></g>
+  </mask>
+  <path d="M0 0H1000L500 988Z" fill="currentColor" mask="url(#taisiC)"/>
+</svg>

@@ -126,7 +126,7 @@ export default function EmailSignupModal({ source }: { source: string }) {
           className="intro-fade fixed bottom-4 left-1/2 -translate-x-1/2 z-[150] max-w-[calc(100vw-2rem)] rounded-[10px] bg-white border border-black/10 shadow-[0_10px_30px_rgba(26,26,26,0.18)] px-4 py-3 flex items-center gap-3"
         >
           {toast === "sent" ? (
-            <p className="text-navy text-[15px] font-medium">
+            <p className="text-plum text-[15px] font-medium">
               You&rsquo;re on the list.
             </p>
           ) : (

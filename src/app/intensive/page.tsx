@@ -75,8 +75,8 @@ export default function SummerIntensive() {
             className="card-cta"
             style={
               {
-                "--cta-fg": "#D94F30",
-                "--cta-hover-bg": "#D94F30",
+                "--cta-fg": "#501684",
+                "--cta-hover-bg": "#501684",
                 "--cta-hover-fg": "#FFFFFF",
               } as React.CSSProperties
             }

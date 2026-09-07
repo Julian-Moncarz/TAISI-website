@@ -14,7 +14,7 @@ export async function sendWelcomeEmail(email: string) {
       html: `
 <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1a1a1a;">
   <p style="margin: 0 0 16px;">You're on the TAISI mailing list. We'll keep you posted on upcoming programs, events, and opportunities in AI safety.</p>
-  <p style="margin: 0 0 16px;">In the meantime, you can learn more about us at <a href="https://taisi.ca" style="color: #D94F30; text-decoration: none;">taisi.ca</a>.</p>
+  <p style="margin: 0 0 16px;">In the meantime, you can learn more about us at <a href="https://taisi.ca" style="color: #501684; text-decoration: none;">taisi.ca</a>.</p>
   <p style="margin: 24px 0 0; color: #666; font-size: 14px;">Julian Moncarz<br/>TAISI</p>
 </div>`,
     });
