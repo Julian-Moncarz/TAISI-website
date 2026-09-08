@@ -70,6 +70,16 @@ const faqs: { q: string; a: React.ReactNode }[] = [
     a: <>The fall iteration will begin the week of September 20th.</>,
   },
   {
+    q: "What day/time do sessions run?",
+    a: (
+      <>
+        TAISI will be running multiple cohorts and you&rsquo;ll be placed in the
+        cohort that best matches your schedule. We can&rsquo;t guarantee to
+        accommodate everyone&rsquo;s schedule, but we&rsquo;ll try our best.
+      </>
+    ),
+  },
+  {
     q: "I have a question that wasn't answered here. Is there anyone I can reach out to?",
     a: (
       <>
@@ -236,24 +246,40 @@ export default function Fellowships() {
 
         <hr className="mt-10 sm:mt-12 border-t border-gray-200" />
 
-        {/* A description list rather than stacked headings: the pairing is the
-            point, and it reads as question and answer to a screen reader. */}
+        {/* Native details/summary rather than a scripted accordion: it opens
+            on Enter and Space, announces its own expanded state, and still
+            works if the JavaScript never arrives. */}
         <div className="mt-6 sm:mt-8">
-          <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-5 sm:mb-6">
+          <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-4 sm:mb-5">
             FAQ
           </h2>
-          <dl className="max-w-[760px] space-y-6 sm:space-y-7">
+          <div className="max-w-[760px] border-b border-gray-200">
             {faqs.map(({ q, a }) => (
-              <div key={q}>
-                <dt className="text-[17px] sm:text-[19px] font-semibold text-text mb-1.5">
-                  {q}
-                </dt>
-                <dd className="text-[17px] sm:text-[19px] leading-[1.6] text-text-secondary">
+              <details key={q} className="group border-t border-gray-200">
+                <summary className="flex items-start justify-between gap-5 cursor-pointer list-none py-4 text-[17px] sm:text-[19px] font-semibold text-text [&::-webkit-details-marker]:hidden">
+                  <span>{q}</span>
+                  {/* Turns over when the answer opens, so the row says which
+                      way it is going without a label. */}
+                  <svg
+                    aria-hidden
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="square"
+                    className="mt-1.5 shrink-0 text-accent transition-transform duration-200 group-open:-rotate-180"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className="pb-5 pr-8 text-[17px] sm:text-[19px] leading-[1.6] text-text-secondary">
                   {a}
-                </dd>
-              </div>
+                </div>
+              </details>
             ))}
-          </dl>
+          </div>
         </div>
 
         </div>
