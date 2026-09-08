@@ -5,10 +5,26 @@ export const metadata: Metadata = {
   title: "Team | Toronto AI Safety Initiative",
 };
 
-const team = [
-  { name: "Joseph Kostousov", role: "Co-director and Co-founder", photo: "/team/joseph.webp" },
-  { name: "Isabel Liu", role: "Co-director", photo: "/team/isabel.webp" },
-  { name: "Boyan Litchev", role: "Special Projects", photo: "/team/boyan.webp" },
+// href is optional: only some of the team have somewhere to point at.
+const team: { name: string; role: string; photo: string; href?: string }[] = [
+  {
+    name: "Joseph Kostousov",
+    role: "Co-director and Co-founder",
+    photo: "/team/joseph.webp",
+    href: "https://josephkostousov.com/",
+  },
+  {
+    name: "Isabel Liu",
+    role: "Co-director",
+    photo: "/team/isabel.webp",
+    href: "https://www.linkedin.com/in/isabel-liu74/",
+  },
+  {
+    name: "Boyan Litchev",
+    role: "Special Projects",
+    photo: "/team/boyan.webp",
+    href: "https://www.linkedin.com/in/boyan-litchev-75a90a342/",
+  },
   { name: "Paul Hindoian", role: "Policy Lead", photo: "/team/paul.webp" },
   {
     name: "Julian Moncarz",
@@ -31,27 +47,45 @@ export default function Team() {
             One entrance carries the grid, rather than each portrait arriving
             on its own. */}
         <ul className="intro-rise grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-8 sm:gap-x-6 sm:gap-y-10">
-          {team.map(({ name, role, photo }) => (
-            <li key={name}>
-              {/* The cream ground shows through while the image decodes, so
-                  the column does not flash white. */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-cream">
-                <Image
-                  src={photo}
-                  alt={name}
-                  fill
-                  sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
-                  className="object-cover"
-                />
-              </div>
-              <p className="mt-3 text-[16px] sm:text-[17px] font-semibold text-text leading-snug">
-                {name}
-              </p>
-              <p className="mt-1 text-[14px] sm:text-[15px] text-text-secondary leading-snug">
-                {role}
-              </p>
-            </li>
-          ))}
+          {team.map(({ name, role, photo, href }) => {
+            const portrait = (
+              <>
+                {/* The cream ground shows through while the image decodes, so
+                    the column does not flash white. */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-cream">
+                  <Image
+                    src={photo}
+                    alt={name}
+                    fill
+                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
+                    className="object-cover transition-opacity duration-200 group-hover:opacity-90"
+                  />
+                </div>
+                <p className="mt-3 text-[16px] sm:text-[17px] font-semibold text-text leading-snug transition-colors group-hover:text-accent">
+                  {name}
+                </p>
+              </>
+            );
+            return (
+              <li key={name}>
+                {href ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    {portrait}
+                  </a>
+                ) : (
+                  portrait
+                )}
+                <p className="mt-1 text-[14px] sm:text-[15px] text-text-secondary leading-snug">
+                  {role}
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </main>
