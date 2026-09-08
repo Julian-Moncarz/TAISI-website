@@ -62,6 +62,7 @@ function FooterEmailForm() {
 const links = [
   { href: "/fellowships", label: "Fellowship" },
   { href: "/intensive", label: "Intensive" },
+  { href: "/team", label: "Team" },
   { href: "/reach-out", label: "Reach out" },
 ];
 

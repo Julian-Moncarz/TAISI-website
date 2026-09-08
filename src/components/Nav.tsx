@@ -24,7 +24,10 @@ const programLinks = [
   },
 ];
 
-const links = [{ href: "/reach-out", label: "Reach out" }];
+const links = [
+  { href: "/team", label: "Team" },
+  { href: "/reach-out", label: "Reach out" },
+];
 
 // The bar sits light over the hero and firms up once the page is scrolled.
 const WEIGHT_TOP = 400;
