@@ -27,6 +27,65 @@ const fellowTestimonials: Testimonial[] = [
   },
 ];
 
+// Answers hold JSX rather than strings, since the first one carries a link.
+const faqs: { q: string; a: React.ReactNode }[] = [
+  {
+    q: "What if I don't have a technical background?",
+    a: (
+      <>
+        None of our fellowship streams require a technical background. Both will
+        introduce you to the field of AI safety, with a focus on technical and
+        governance aspects depending on the stream. We&rsquo;ll focus mostly on
+        the conceptual arguments for why we might expect misalignment and why it
+        might be a hard problem. For the technical stream, we recommend watching{" "}
+        <a
+          href="https://www.youtube.com/watch?v=aircAruvnKk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-amber-deep"
+        >
+          3B1B: But What is a Neural Network?
+        </a>{" "}
+        to get some high-level intuition for how deep learning works. There
+        won&rsquo;t be any coding though.
+      </>
+    ),
+  },
+  {
+    q: "What is the expected time commitment?",
+    a: (
+      <>
+        Around 3 hours per week. There will be around 1-1.5 hours of readings per
+        week, and a 1.5 hour dinner meeting with your cohort to strengthen your
+        understanding of each week&rsquo;s material.
+      </>
+    ),
+  },
+  {
+    q: "Where will the dinner meetings be held?",
+    a: <>At Trajectory Labs, close to King station.</>,
+  },
+  {
+    q: "When does the reading group start?",
+    a: <>The fall iteration will begin the week of September 20th.</>,
+  },
+  {
+    q: "I have a question that wasn't answered here. Is there anyone I can reach out to?",
+    a: (
+      <>
+        For sure! Send an email to{" "}
+        <a
+          href="mailto:joseph@taisi.ca"
+          className="underline underline-offset-2 hover:text-amber-deep"
+        >
+          joseph@taisi.ca
+        </a>{" "}
+        and we&rsquo;ll get back asap.
+      </>
+    ),
+  },
+];
+
 export default function Fellowships() {
   return (
     <main>
@@ -173,6 +232,28 @@ export default function Fellowships() {
               <li>Contributing to AI governance</li>
             </ul>
           </div>
+        </div>
+
+        <hr className="mt-10 sm:mt-12 border-t border-gray-200" />
+
+        {/* A description list rather than stacked headings: the pairing is the
+            point, and it reads as question and answer to a screen reader. */}
+        <div className="mt-6 sm:mt-8">
+          <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-5 sm:mb-6">
+            FAQ
+          </h2>
+          <dl className="max-w-[760px] space-y-6 sm:space-y-7">
+            {faqs.map(({ q, a }) => (
+              <div key={q}>
+                <dt className="text-[17px] sm:text-[19px] font-semibold text-text mb-1.5">
+                  {q}
+                </dt>
+                <dd className="text-[17px] sm:text-[19px] leading-[1.6] text-text-secondary">
+                  {a}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         </div>
