@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FELLOWSHIP_APPLY_URL, FELLOWSHIP_DEADLINE_SHORT } from "@/lib/links";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 
 // The bar comes in two colourways. Both are the same two brand colours with
 // the ground and the type swapped over, so neither is a different design.
@@ -39,18 +39,17 @@ export default function AnnouncementBar() {
       <div className="max-w-[1200px] mx-auto px-10 sm:px-14 py-3.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[14px] sm:text-[15px] leading-[1.45]">
         <span>
           <span className="font-semibold">
-            Applications are open for our intro fellowship.
-          </span>{" "}
-          <span className={look.muted}>{FELLOWSHIP_DEADLINE_SHORT} EoD.</span>
+            Applications for our intro fellowship are now closed.
+          </span>
         </span>
         <span className="flex items-center gap-x-4">
           <a
-            href={FELLOWSHIP_APPLY_URL}
+            href={NOTIFY_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={`font-semibold border-b transition-colors ${look.link}`}
           >
-            Apply now
+            Express interest for the next round
           </a>
         </span>
       </div>

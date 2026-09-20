@@ -1,6 +1,6 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { FELLOWSHIP_APPLY_URL, FELLOWSHIP_DEADLINE } from "@/lib/links";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
   {
@@ -137,7 +137,7 @@ export default function Fellowships() {
           <div>
             <p>
               <strong className="font-semibold text-accent">
-                Applications are now open for our intro fellowship.
+                Applications for our intro fellowship are now closed.
               </strong>
             </p>
           </div>
@@ -167,7 +167,7 @@ export default function Fellowships() {
 
         <div className="mt-6 sm:mt-7">
         <a
-          href={FELLOWSHIP_APPLY_URL}
+          href={NOTIFY_FORM_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="card-cta"
@@ -179,7 +179,7 @@ export default function Fellowships() {
             } as React.CSSProperties
           }
         >
-          Apply by {FELLOWSHIP_DEADLINE}
+          Express interest for the next round
           <span aria-hidden className="card-cta-arrow">
             <svg
               width="14"

@@ -31,7 +31,7 @@ function FooterEmailForm() {
 
   if (done) {
     return (
-      <p className="text-[13px] text-text-secondary">You&rsquo;re on the list.</p>
+      <p className="text-[13px] text-white/70">You&rsquo;re on the list.</p>
     );
   }
 
@@ -48,12 +48,12 @@ function FooterEmailForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="cta-base cta-solid rounded-full px-4 py-2 text-[14px] shrink-0"
+        className="cta-base cta-amber rounded-full px-4 py-2 text-[14px] shrink-0"
       >
         {submitting ? "..." : "Join our mailing list"}
       </button>
       {error && (
-        <p className="text-accent text-[12px] mt-1 sm:basis-full">{error}</p>
+        <p className="text-amber text-[12px] mt-1 sm:basis-full">{error}</p>
       )}
     </form>
   );
@@ -68,18 +68,20 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="mt-20 py-10">
+    // Purple ground, so the mark takes its on-dark colours and the links sit
+    // in white, with gold kept for hover.
+    <footer className="mt-20 py-12 bg-plum text-white">
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-10">
           {/* Brand */}
           <div className="max-w-[320px]">
             <div className="flex items-center gap-2.5 mb-3">
-              <TaisiMark className="h-[30px] w-auto" />
-              <span className="text-[15px] text-text">Toronto AI Safety Initiative</span>
+              <TaisiMark variant="on-dark" className="h-[30px] w-auto" />
+              <span className="text-[15px] text-white">Toronto AI Safety Initiative</span>
             </div>
             <a
               href="mailto:joseph@taisi.ca"
-              className="block mt-3 text-[13px] text-text-secondary hover:text-accent transition-colors"
+              className="block mt-3 text-[13px] text-white/70 hover:text-amber transition-colors"
             >
               joseph@taisi.ca
             </a>
@@ -91,7 +93,7 @@ export default function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="text-text-secondary hover:text-accent transition-colors"
+                className="text-white/70 hover:text-amber transition-colors"
               >
                 {label}
               </Link>
@@ -100,7 +102,7 @@ export default function Footer() {
 
           {/* Mailing list */}
           <div className="md:max-w-[380px] w-full">
-            <p className="text-[13px] text-text-secondary mb-2">Mailing list</p>
+            <p className="text-[13px] text-white/70 mb-2">Mailing list</p>
             <FooterEmailForm />
           </div>
         </div>

@@ -30,7 +30,7 @@ Next.js 16 app (App Router) with Tailwind CSS v4. Deployed on Vercel.
 
 **Local secrets / testing:** The Airtable PAT for local dev lives at `~/.claude/taisi-secrets.env` (machine-level, never committed). Copy `AIRTABLE_PAT` from there into a gitignored `.env.local` at the repo root before running `npm run dev` against Airtable. The PAT also has Airtable metadata (schema) read/write, so you can list bases/tables via `https://api.airtable.com/v0/meta/bases`.
 
-**Layout:** `layout.tsx` renders `AnnouncementBar`, shared `Nav`, and `Footer`. Nav is a client component with a mobile hamburger menu and a Programs flyout that opens onto Fellowship and Intensive. External application links live in `src/lib/links.ts` and `AnnouncementBar.tsx` (Airtable forms).
+**Layout:** `layout.tsx` renders shared `Nav` and `Footer`. `AnnouncementBar` is not currently rendered; add it back above `Nav` in the layout's sticky wrapper when there is something to announce. Nav is a client component with a mobile hamburger menu and a Programs flyout that opens onto Fellowship and Intensive. External application links live in `src/lib/links.ts` and `AnnouncementBar.tsx` (Airtable forms).
 
 **Styling:** Tailwind v4 with theme tokens defined in `globals.css` via `@theme` (not a tailwind config file). The palette comes from the mark (see `taisi_tabling/` in the projects folder): `--color-accent: #501684` (primary purple, carries buttons and links), `--color-plum: #38095F` and `--color-plum-deep: #1B0630` (deeper purples), `--color-plum-light: #6B2FA0`, `--color-amber: #FF9F03` (gold), `--color-cream: #FCF8F1`. Gold only ever sits on purple or as a rule: it is 3.3:1 on white even at `--color-amber-deep`, too weak for text. Form inputs use a `.form-input` class in globals.css.
 

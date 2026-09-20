@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
@@ -48,10 +47,11 @@ export default function RootLayout({
     // them lower down leaves that token falling back to the system font.
     <html lang="en" className={siteFont.variable}>
       <body className="min-h-screen flex flex-col">
-        {/* Banner and bar pin together, so one sticky wrapper holds both
+        {/* To show an announcement, render <AnnouncementBar /> above Nav in
+            here: the banner and bar then pin together as one sticky block
             rather than each sticking to top: 0 and overlapping. */}
         <div className="sticky top-0 z-[100]">
-          <AnnouncementBar />
+          <div aria-hidden className="h-1.5 bg-plum" />
           <Nav />
         </div>
         <div className="flex-1">{children}</div>

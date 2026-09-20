@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, Suspense, type ReactNode } from "react";
 import RotatingText from "@/components/RotatingText";
 import { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { FELLOWSHIP_APPLY_URL, FELLOWSHIP_DEADLINE } from "@/lib/links";
+import { NOTIFY_FORM_URL } from "@/lib/links";
 import { signupSource, subscribeEmail } from "@/lib/subscribe";
 import EmailSignupModal from "@/components/EmailSignupModal";
 
@@ -116,8 +116,8 @@ const programs: Program[] = [
     style: "outline",
     color: "plum",
     href: "/fellowships",
-    applyHref: FELLOWSHIP_APPLY_URL,
-    applyLabel: `Apply by ${FELLOWSHIP_DEADLINE}`,
+    applyHref: NOTIFY_FORM_URL,
+    applyLabel: "Express interest",
     art: "/hero-observatory.webp",
     tag: "Students",
   },
@@ -661,15 +661,12 @@ function HomeInner() {
             style={{ marginTop: "var(--hero-gap, 2.5rem)" }}
           >
             <a
-              href={FELLOWSHIP_APPLY_URL}
+              href={NOTIFY_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={`${HERO_CTA} cta-solid`}
             >
-              <span className="sm:hidden">Apply now</span>
-              <span className="hidden sm:inline">
-                Apply for our intro fellowship
-              </span>
+              Express interest
               <span aria-hidden className="cta-arrow">
                 <svg
                   width="14"

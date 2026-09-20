@@ -229,6 +229,17 @@
   background-color: white;
   color: var(--color-accent);
 }
+/* The solid button for purple grounds, where the accent fill would sink into
+   the background. Gold is allowed here because it sits on purple. */
+.cta-amber {
+  background-color: var(--color-amber);
+  border-color: var(--color-amber);
+  color: var(--color-plum-deep);
+}
+.cta-amber:hover {
+  background-color: transparent;
+  color: var(--color-amber);
+}
 .cta-outline {
   background-color: transparent;
   color: var(--color-accent);
