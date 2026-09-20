@@ -111,7 +111,7 @@ type Program = {
 const programs: Program[] = [
   {
     title: "Fellowship",
-    body: "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub.\n\nExplore core material in AI safety fundamentals or AI governance with other students and an experienced facilitator. No ML background needed.",
+    body: "6 weekly sessions at Trajectory Labs, an off-campus AI safety hub.\n\nExplore core material in technical AI safety or AI governance with an experienced facilitator. No ML background needed.",
     cta: "Learn more",
     style: "outline",
     color: "plum",

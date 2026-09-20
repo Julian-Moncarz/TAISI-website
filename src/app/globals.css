@@ -411,3 +411,24 @@ h6,
 .font-title {
   font-family: var(--font-title), "Arial Narrow", Arial, sans-serif;
 }
+
+/* The bare LinkedIn and email marks beside each role. No box: they sit as
+   quietly as the text they follow, and darken on hover. */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  background: transparent;
+  border: 0;
+  transition: color 0.15s ease;
+}
+.icon-btn:hover {
+  color: var(--color-plum-deep);
+}
+
+
+
+
+
+

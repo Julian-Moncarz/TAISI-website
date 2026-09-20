@@ -14,7 +14,7 @@ const programLinks = [
     href: "/fellowships",
     label: "Fellowship",
     blurb:
-      "6 weekly sessions over free, fancy dinner at Trajectory Labs, an off-campus AI safety hub. Core material in AI safety fundamentals or AI governance, with other students and an experienced facilitator. No ML background needed.",
+      "6 weekly sessions at Trajectory Labs, an off-campus AI safety hub. Core material in technical AI safety or AI governance, with an experienced facilitator. No ML background needed.",
   },
   {
     href: "/intensive",
