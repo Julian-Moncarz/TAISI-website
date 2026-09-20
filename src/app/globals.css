@@ -432,3 +432,75 @@ h6,
 
 
 
+
+/* The first screen sits on purple with the headline in white and
+   gold, and the purple gives way to the white page as you scroll. The colour
+   rides on the hero backdrop, which is pinned to the viewport and already
+   fades out over the first screen, so nothing below it has to change. */
+.hero-purple {
+  color: #ffffff;
+  --hero-fade: #38095f;
+  --hero-fade-soft: rgba(56, 9, 95, 0.4);
+  --hero-fade-mid: rgba(56, 9, 95, 0.55);
+}
+.hero-purple .hero-backdrop {
+  background-color: var(--color-plum);
+}
+/* The skyline is dark pencil on white, so it is inverted and its black ground
+   dropped out, the same trick the filled programme cards use. */
+.hero-purple .hero-art {
+  background-color: transparent;
+  filter: invert(1);
+  mix-blend-mode: screen;
+  opacity: 0.32;
+}
+.hero-purple .hero-title {
+  color: #ffffff;
+}
+/* The rotating word carries the gold. */
+.hero-purple .text-plum-light {
+  color: var(--color-amber);
+}
+/* Accent purple would sink into this ground, so the buttons go gold and
+   white. */
+.hero-purple .cta-solid {
+  background-color: var(--color-amber);
+  border-color: var(--color-amber);
+  color: var(--color-plum-deep);
+}
+.hero-purple .cta-solid:hover {
+  background-color: transparent;
+  color: var(--color-amber);
+}
+.hero-purple .cta-outline {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.hero-purple .cta-outline:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: var(--color-plum);
+}
+.hero-purple .field-pill {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+.hero-purple .field-pill::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* The hero chevron breathes rather than sitting dead still, and holds still
+   for anyone who asked for less motion. */
+@keyframes hero-chevron-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.hero-chevron svg {
+  animation: hero-chevron-bob 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-chevron svg {
+    animation: none;
+  }
+}

@@ -38,6 +38,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [programsOpen, setProgramsOpen] = useState(false);
   // The banner sits above the bar in the same sticky wrapper, so the mobile
   // menu has to clear whatever the two of them add up to.
@@ -45,6 +46,9 @@ export default function Nav() {
   const [headerH, setHeaderH] = useState(76);
 
   const onProgramsPage = programLinks.some((l) => l.href === pathname);
+  // True until the white part of the page has risen past the bar.
+  const overHero = pathname === "/" && !pastHero;
+  const purple = overHero;
 
   // Nav links reload the page rather than navigating client side, so every
   // page opens at the top with its entrance animations running from the
@@ -74,6 +78,7 @@ export default function Nav() {
       requestAnimationFrame(() => {
         queued = false;
         setScrolled(window.scrollY > 24);
+        setPastHero(window.scrollY > window.innerHeight - 90);
       });
     }
     onScroll();
@@ -109,22 +114,30 @@ export default function Nav() {
     <>
       <nav
         ref={barRef}
-        className={`relative z-[100] backdrop-blur-md transition-colors duration-200 ${
-          programsOpen ? "bg-white" : "bg-white/60"
+        className={`relative z-[100] transition-colors duration-200 ${
+          programsOpen
+            ? purple
+              ? "bg-plum"
+              : "bg-white backdrop-blur-md"
+            : overHero
+              ? scrolled
+                ? "bg-plum"
+                : "bg-transparent"
+              : "bg-white/60 backdrop-blur-md"
         }`}
         onMouseLeave={() => setProgramsOpen(false)}
       >
         <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
           <a href="/" onClick={goHome} className="flex items-center gap-2">
             <TaisiMark className="h-[34px] sm:h-[38px] w-auto translate-y-[2px]" />
-            <span className="nav-weight font-sans text-[17px] text-text" style={{ fontWeight: weight }}>
+            <span className={`nav-weight font-sans text-[17px] ${overHero ? "text-white" : "text-text"}`} style={{ fontWeight: weight }}>
               Toronto AI Safety Initiative
             </span>
           </a>
 
           {/* Desktop links */}
           <div
-            className="nav-weight hidden md:flex items-center gap-8 text-[17px] text-text-secondary"
+            className={`nav-weight hidden md:flex items-center gap-8 text-[17px] ${overHero ? "text-white/80" : "text-text-secondary"}`}
             style={{ fontWeight: weight }}
           >
             {/* Plain anchor: on the homepage the browser smooth-scrolls to
@@ -191,20 +204,20 @@ export default function Nav() {
         >
           <div className="overflow-hidden">
             <div
-              className={`bg-white px-5 sm:px-8 md:px-16 lg:px-24 pt-4 pb-14 transition-opacity duration-200 ${
+              className={`${purple ? "bg-plum" : "bg-white"} px-5 sm:px-8 md:px-16 lg:px-24 pt-4 pb-14 transition-opacity duration-200 ${
                 programsOpen ? "opacity-100" : "opacity-0"
               }`}
             >
               <div className="flex gap-16 lg:gap-24">
                 {/* Section title, sitting under the wordmark */}
                 <div className="w-[240px] shrink-0">
-                  <p className="hero-title text-[2rem] leading-[1.1] font-semibold text-text">
+                  <p className={`hero-title text-[2rem] leading-[1.1] font-semibold ${purple ? "text-white" : "text-text"}`}>
                     Programs
                   </p>
                   <a
                     href={PROGRAMS_HREF}
                     tabIndex={programsOpen ? 0 : -1}
-                    className="mt-4 inline-block border-b border-text pb-1 text-[15px] font-normal text-text hover:text-accent hover:border-accent transition-colors"
+                    className={`mt-4 inline-block border-b pb-1 text-[15px] font-normal transition-colors ${purple ? "border-white/60 text-white hover:text-amber hover:border-amber" : "border-text text-text hover:text-accent hover:border-accent"}`}
                   >
                     See all programs
                   </a>
@@ -219,10 +232,10 @@ export default function Nav() {
                       tabIndex={programsOpen ? 0 : -1}
                       className="group block"
                     >
-                      <span className="hero-title block text-[1.35rem] leading-[1.2] font-normal text-text group-hover:text-accent transition-colors">
+                      <span className={`hero-title block text-[1.35rem] leading-[1.2] font-normal transition-colors ${purple ? "text-white group-hover:text-amber" : "text-text group-hover:text-accent"}`}>
                         {label}
                       </span>
-                      <span className="mt-2 block text-[15px] leading-[1.55] font-normal text-text-secondary">
+                      <span className={`mt-2 block text-[15px] leading-[1.55] font-normal ${purple ? "text-white/70" : "text-text-secondary"}`}>
                         {blurb}
                       </span>
                     </a>

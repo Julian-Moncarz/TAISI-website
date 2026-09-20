@@ -610,11 +610,11 @@ function HomeInner() {
     <main className="md:overflow-hidden">
       {showSignup && <EmailSignupModal source={signupSource(location)} />}
 
-      <section className="relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
+      <section className="hero-purple relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
         {/* Pinned to the viewport rather than to the section: the section
             starts below the announcement bar and runs past the fold, so an
             in-flow backdrop drops the waterline off the bottom of the screen. */}
-        <HeroBackdrop>
+        <HeroBackdrop fadeOverScreens={40}>
         {/* Hero background */}
         <div
           aria-hidden
@@ -627,7 +627,7 @@ function HomeInner() {
           aria-hidden
           className="hidden sm:block pointer-events-none absolute inset-0 z-[7]"
           style={{
-            background: "linear-gradient(to right, #FDFDFE 30vw, rgba(253, 253, 254, 0) 48vw)",
+            background: "linear-gradient(to right, var(--hero-fade, #FDFDFE) 30vw, transparent 48vw)",
           }}
         />
         {/* Settles the bottom of the drawing into the page */}
@@ -636,7 +636,7 @@ function HomeInner() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[8%] z-[7]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(253, 253, 254, 0) 0%, rgba(253, 253, 254, 0.4) 55%, #FDFDFE 100%)",
+              "linear-gradient(to bottom, transparent 0%, var(--hero-fade-soft, rgba(253, 253, 254, 0.4)) 55%, var(--hero-fade, #FDFDFE) 100%)",
           }}
         />
         {/* On phones the drawing sits under the text, so it fades downward */}
@@ -645,7 +645,7 @@ function HomeInner() {
           className="sm:hidden pointer-events-none absolute inset-0 z-[7]"
           style={{
             background:
-              "linear-gradient(to bottom, #FDFDFE 0%, #FDFDFE 34%, rgba(253, 253, 254, 0.55) 54%, rgba(253, 253, 254, 0) 72%)",
+              "linear-gradient(to bottom, var(--hero-fade, #FDFDFE) 0%, var(--hero-fade, #FDFDFE) 34%, var(--hero-fade-mid, rgba(253, 253, 254, 0.55)) 54%, transparent 72%)",
           }}
         />
         </HeroBackdrop>
@@ -686,8 +686,30 @@ function HomeInner() {
           </div>
         </div>
 
+        {/* Says the page carries on below the fold. It scrolls to the first
+            section rather than being decoration only. */}
+        <a
+          href="#what-is-ai-safety"
+          aria-label="Read on"
+          className="hero-chevron absolute inset-x-0 bottom-8 z-10 mx-auto w-10 h-10 grid place-items-center text-white/70 hover:text-amber transition-colors"
+        >
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="square"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
       </section>
 
+      {/* The page below the hero carries its own white ground: it rises over
+          the purple as you scroll, so the two meet on a hard edge. */}
+      <div className="relative z-[1] bg-bg">
       {/* What is AI safety? */}
       <RevealSection id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
         <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
@@ -775,6 +797,7 @@ function HomeInner() {
       >
         <ProgramRow />
       </RevealSection>
+      </div>
 
 
 

@@ -46,12 +46,10 @@ export default function ReachOut() {
 
   return (
     <main>
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <div>
-          <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-4 sm:mb-6 font-semibold">
-            <span className="text-text">Reach out</span>
-          </h1>
-        </div>
+      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-16 pb-16 md:pb-24">
+        {/* Set as a section heading rather than a page-sized title: at hero
+            size it shouted over a short form. */}
+        <h1 className="section-header mb-5 sm:mb-6">Reach out</h1>
 
         {sent ? (
           <div>
