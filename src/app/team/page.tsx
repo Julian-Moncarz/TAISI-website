@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 // linkedin is optional: not everyone has one to point at.
 type Person = {
   name: string;
+  blur: string;
   role: string;
   org?: string;
   photo: string;
@@ -21,6 +22,7 @@ const team: Person[] = [
     name: "Joseph Kostousov",
     role: "Co-director",
     photo: "/team/joseph.webp",
+    blur: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAgCdASoMAA8AA4BaJaACxC8AFAvuhEgAAP6IzTwPlVnf2YCM9rCQpwo2mTrwMqNs7wTNPOBLEjwp/KGdJwbMNVgAAA==",
     email: "joseph@taisi.ca",
     linkedin: "https://www.linkedin.com/in/joseph-kostousov",
   },
@@ -28,6 +30,7 @@ const team: Person[] = [
     name: "Isabel Liu",
     role: "Co-director",
     photo: "/team/isabel.webp",
+    blur: "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoMAA8AA4BaJYwCdIExE4B0Si3gAP5+oecPIWcLt9mOM2s2qaWqRM/8ixcZT9wUcN2EAFpy14kuf9rgAAA=",
     email: "isabel@taisi.ca",
     linkedin: "https://www.linkedin.com/in/isabel-liu74/",
   },
@@ -35,6 +38,7 @@ const team: Person[] = [
     name: "Boyan Litchev",
     role: "Special Projects",
     photo: "/team/boyan.webp",
+    blur: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoMAA8AA4BaJaACdAELXEZZU8mAAP6Fh/ZWLyIcK3QbsM1jTKGEPzIz0lGunqBcWr5TZuD7VZU504bL0X+CD+oZAAA=",
     email: "boyanlitchev@yahoo.com",
     linkedin: "https://www.linkedin.com/in/boyan-litchev-75a90a342/",
   },
@@ -42,12 +46,14 @@ const team: Person[] = [
     name: "Paul Hindoian",
     role: "Policy Lead",
     photo: "/team/paul.webp",
+    blur: "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAQAgCdASoMAA8AA4BaJYwCdADdsTfeF2gYAP7n4bdv/ZLNcAQz+gsmIUiCjlA7i7PhW9LV10c23JlwfbgrU/AA",
     email: "paul.hindoian@mail.utoronto.ca",
   },
   {
     name: "Caitlin Mah",
     role: "Strategy",
     photo: "/team/caitlin.webp",
+    blur: "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoMAA8AA4BaJQBOj+ADA3/USF1WwAD+8wOIXPCXOR2pVtTpS5eWfR1ReqAZd18R/F7zrBqStguJu9Pi+V/5cvLjHr0QAA==",
     email: "clmah918@gmail.com",
     linkedin: "https://www.linkedin.com/in/caitlin-mah",
   },
@@ -59,12 +65,13 @@ const alumni: Person[] = [
     role: "Advisor",
     org: "Kairos Talent Operations",
     photo: "/team/julian.webp",
+    blur: "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAABQAgCdASoMAA8AA4BaJYgCdIExE6zL60D26AAA/aOT5T43tlDcvmso2/umdRjdPDBSntjYSqYvWQAA",
     email: "moncarz.julian@gmail.com",
     linkedin: "https://www.linkedin.com/in/julian-moncarz",
   },
 ];
 
-function Portrait({ name, role, org, photo, email, linkedin }: Person) {
+function Portrait({ name, role, org, photo, blur, email, linkedin }: Person) {
   return (
     <li>
       {/* The cream ground shows through while the image decodes, so the
@@ -75,6 +82,9 @@ function Portrait({ name, role, org, photo, email, linkedin }: Person) {
           alt={name}
           fill
           sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
+          placeholder="blur"
+          blurDataURL={blur}
+          priority
           className="object-cover"
         />
       </div>
