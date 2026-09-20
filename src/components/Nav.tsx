@@ -140,19 +140,20 @@ export default function Nav() {
             className={`nav-weight hidden md:flex items-center gap-8 text-[17px] ${overHero ? "text-white/80" : "text-text-secondary"}`}
             style={{ fontWeight: weight }}
           >
-            {/* Plain anchor: on the homepage the browser smooth-scrolls to
-                the section, elsewhere it loads the homepage at it. */}
-            <a
-              href={PROGRAMS_HREF}
+            {/* Not a link: it opens the panel below and goes nowhere. A
+                button, so it answers to the keyboard as well as the mouse. */}
+            <button
+              type="button"
               onMouseEnter={() => setProgramsOpen(true)}
               onFocus={() => setProgramsOpen(true)}
+              onClick={() => setProgramsOpen((open) => !open)}
               aria-expanded={programsOpen}
               className={`hover:text-accent transition-colors ${
                 onProgramsPage ? "text-text" : ""
               }`}
             >
               Programs
-            </a>
+            </button>
             {links.map(({ href, label }) => (
               <a
                 key={href}
@@ -254,15 +255,11 @@ export default function Nav() {
           style={{ paddingTop: headerH }}
         >
           <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
-            {/* No hover on touch, so the programs sit open beneath the link. */}
-            <a
-              href={PROGRAMS_HREF}
-              className={`hover:text-accent transition-colors ${
-                onProgramsPage ? "text-text" : "text-text-secondary"
-              }`}
-            >
+            {/* No hover on touch, so the two programmes sit open beneath
+                this label. It is a heading, not something to tap. */}
+            <span className={onProgramsPage ? "text-text" : "text-text-secondary"}>
               Programs
-            </a>
+            </span>
             <div className="flex flex-col gap-5 pl-4 -mt-1">
               {programLinks.map(({ href, label }) => (
                 <a

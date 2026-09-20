@@ -22,7 +22,7 @@ const team: Person[] = [
     role: "Co-director",
     photo: "/team/joseph.webp",
     email: "joseph@taisi.ca",
-    linkedin: "https://www.linkedin.com/in/joseph-kostousov-276359217",
+    linkedin: "https://www.linkedin.com/in/joseph-kostousov",
   },
   {
     name: "Isabel Liu",
