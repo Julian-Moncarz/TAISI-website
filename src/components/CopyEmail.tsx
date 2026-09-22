@@ -30,7 +30,14 @@ export default function CopyEmail({ email, name }: { email: string; name: string
   }
 
   return (
-    <>
+    <span className="relative inline-flex">
+      {/* The word sits above the icon and out of the flow, so the row does
+          not shift while it is showing. */}
+      {copied && (
+        <span className="pointer-events-none absolute bottom-full right-0 mb-1 text-[11px] leading-none text-accent whitespace-nowrap">
+          Copied
+        </span>
+      )}
       <button
         type="button"
         onClick={copy}
@@ -52,6 +59,6 @@ export default function CopyEmail({ email, name }: { email: string; name: string
       <span aria-live="polite" className="sr-only">
         {copied ? `${email} copied` : ""}
       </span>
-    </>
+    </span>
   );
 }

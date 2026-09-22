@@ -79,12 +79,6 @@ export default function Footer() {
               <TaisiMark variant="on-dark" className="h-[30px] w-auto" />
               <span className="text-[15px] text-white">Toronto AI Safety Initiative</span>
             </div>
-            <a
-              href="mailto:joseph@taisi.ca"
-              className="block mt-3 text-[13px] text-white/70 hover:text-amber transition-colors"
-            >
-              joseph@taisi.ca
-            </a>
           </div>
 
           {/* Nav */}
