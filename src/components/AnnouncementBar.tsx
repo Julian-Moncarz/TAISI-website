@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { NOTIFY_FORM_URL } from "@/lib/links";
+import { interestFormHref } from "@/lib/links";
 
 // The bar comes in two colourways. Both are the same two brand colours with
 // the ground and the type swapped over, so neither is a different design.
@@ -44,9 +44,7 @@ export default function AnnouncementBar() {
         </span>
         <span className="flex items-center gap-x-4">
           <a
-            href={NOTIFY_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={interestFormHref("fellowship", "announcement")}
             className={`font-semibold border-b transition-colors ${look.link}`}
           >
             Express interest for the next round

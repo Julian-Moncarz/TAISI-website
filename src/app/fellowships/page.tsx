@@ -1,6 +1,6 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { NOTIFY_FORM_URL } from "@/lib/links";
+import { interestFormHref } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
   {
@@ -166,9 +166,7 @@ export default function Fellowships() {
 
         <div className="mt-6 sm:mt-7">
         <a
-          href={NOTIFY_FORM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={interestFormHref("fellowship")}
           className="card-cta"
           style={
             {
@@ -190,7 +188,7 @@ export default function Fellowships() {
               strokeLinecap="square"
               className="shrink-0"
             >
-              <path d="M7 17L17 7M9 7h8v8" />
+              <path d="M5 12h13M12 5l7 7-7 7" />
             </svg>
           </span>
         </a>

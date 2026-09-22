@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, Suspense, type ReactNode } from "react";
 import RotatingText from "@/components/RotatingText";
 import { useReveal } from "@/components/Reveal";
 import HeroBackdrop from "@/components/HeroBackdrop";
-import { NOTIFY_FORM_URL } from "@/lib/links";
+import { interestFormHref } from "@/lib/links";
 import { signupSource, subscribeEmail } from "@/lib/subscribe";
 import EmailSignupModal from "@/components/EmailSignupModal";
 
@@ -116,7 +116,7 @@ const programs: Program[] = [
     style: "outline",
     color: "plum",
     href: "/fellowships",
-    applyHref: NOTIFY_FORM_URL,
+    applyHref: interestFormHref("fellowship", "home-card"),
     applyLabel: "Express interest",
     art: "/hero-observatory.webp",
     tag: "Students",
@@ -343,8 +343,6 @@ function ProgramCard({ program: p }: { program: Program }) {
           {p.applyHref && (
             <a
               href={p.applyHref}
-              target="_blank"
-              rel="noopener noreferrer"
               className="card-apply"
             >
               {p.applyLabel}
@@ -359,7 +357,7 @@ function ProgramCard({ program: p }: { program: Program }) {
                   strokeLinecap="square"
                   className="shrink-0"
                 >
-                  <path d="M7 17L17 7M9 7h8v8" />
+                  <path d="M5 12h13M12 5l7 7-7 7" />
                 </svg>
               </span>
             </a>
@@ -661,9 +659,7 @@ function HomeInner() {
             style={{ marginTop: "var(--hero-gap, 2.5rem)" }}
           >
             <a
-              href={NOTIFY_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={interestFormHref(undefined, "home-hero")}
               className={`${HERO_CTA} cta-solid`}
             >
               Express interest
@@ -678,7 +674,7 @@ function HomeInner() {
                   strokeLinecap="square"
                   className="shrink-0"
                 >
-                  <path d="M7 17L17 7M9 7h8v8" />
+                  <path d="M5 12h13M12 5l7 7-7 7" />
                 </svg>
               </span>
             </a>
