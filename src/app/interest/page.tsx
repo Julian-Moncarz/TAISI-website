@@ -84,7 +84,7 @@ export default function Interest() {
       <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-16 pb-16 md:pb-24">
         {/* Sized as a section heading rather than a page title, matching
             Reach out: at hero size it shouts over a short form. */}
-        <h1 className="section-header mb-4 sm:mb-5">Express interest</h1>
+        <h1 className="section-header mb-5 sm:mb-6">Express interest</h1>
 
         {sent ? (
           <div className="max-w-[560px]">
@@ -97,11 +97,6 @@ export default function Interest() {
           </div>
         ) : (
           <div className="max-w-[560px]">
-            <p className="text-[17px] sm:text-[19px] leading-[1.7] text-text mb-6">
-              Tell us where to reach you and we will let you know when the next
-              round opens. We will not use your details for anything else.
-            </p>
-
             <RequiredFieldsNote />
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-5">

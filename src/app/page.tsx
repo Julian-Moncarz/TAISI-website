@@ -141,13 +141,6 @@ const programs: Program[] = [
     artSize: { w: "58%", h: "54%" },
     tag: "Students",
   },
-  {
-    title: "Coming soon",
-    body: "",
-    cta: "",
-    style: "neutral",
-    color: "accent",
-  },
 ];
 
 // Locked-in card proportions.
