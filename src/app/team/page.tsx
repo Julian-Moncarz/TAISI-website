@@ -94,7 +94,7 @@ const operations: Person[] = [
     name: "Pio Binawan",
     role: "Operations",
     photo: "/team/pio.webp",
-    blur: "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQAgCdASoMAA8AA4BaJZACdAYwnwURi+C9ctAwAAD+t7DVwl5eX/EvMQ1tpSXbeVOBNJ4KAUeFY3agdx+RXMIuPkEkyPPOX9b7N4tWTLpiN2mYOhfeRtULSBhZKuGelf83/Ih8q0QiAA==",
+    blur: "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABwAgCdASoMAA8AA4BaJYgCdAYuvyfNyw4YD3vAAP7KOQt5uP+wGe8yzx/zxteNHQQ873udTMQRJhwWWJeBNeIlwK96AAU79dNk6ljsnotiBNKsZg3eX3R6q2cSiAAA",
     email: "pio.binawan@mail.utoronto.ca",
     linkedin: "https://www.linkedin.com/in/pio-binawan",
   },
