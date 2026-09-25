@@ -59,9 +59,6 @@ const team: Person[] = [
   },
 ];
 
-// Hidden for now. Set to true to put the operations team back on the page.
-const SHOW_OPERATIONS = false;
-
 const operations: Person[] = [
   {
     name: "Aris Kouloukis",
@@ -187,16 +184,12 @@ export default function Team() {
           ))}
         </ul>
 
-        {SHOW_OPERATIONS && (
-          <>
-            <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Operations Team</h2>
-            <ul className={GRID}>
-              {operations.map((person) => (
-                <Portrait key={person.name} {...person} />
-              ))}
-            </ul>
-          </>
-        )}
+        <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Operations Team</h2>
+        <ul className={GRID}>
+          {operations.map((person) => (
+            <Portrait key={person.name} {...person} />
+          ))}
+        </ul>
 
         <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Alumni</h2>
         <ul className={GRID}>
