@@ -59,6 +59,40 @@ const team: Person[] = [
   },
 ];
 
+const operations: Person[] = [
+  {
+    name: "Elizabeth Gratton",
+    role: "Operations",
+    photo: "/team/elizabeth.webp",
+    blur: "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoMAA8AA4BaJYgCdADz9bT+vCcMgAD+vdVAoIMIvuOSupZYv54LWBu6I6S4H2AxYEDKusAbWsihG1YEBkz6XoXLRm+WxM+NqqfgVAAA",
+    email: "emgratton@gmail.com",
+  },
+  {
+    name: "Ilyass Mofaddel",
+    role: "Operations",
+    photo: "/team/ilyass.webp",
+    blur: "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoMAA8AA4BaJQBOgB0+KTUBHIAA/vQMTV5JX+Odv+QrJcOJeQ7kDc9Tbj3Y77BCKxF/+CLBarEWWVlusmyjam2agOUHBrUapO0bFUCFqbAy1jE/OAAAAA==",
+    email: "ilyassmofaddel@gmail.com",
+    linkedin: "https://www.linkedin.com/in/ilyass-mofaddel/",
+  },
+  {
+    name: "Pera Kasemsripitak",
+    role: "Operations",
+    photo: "/team/pera.webp",
+    blur: "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwAgCdASoMAA8AA4BaJZQCdAEfoB7VjfIygAD89y6+OtKUbQ7hC1IBDXstYXQVfrPfv6Msyeuy42eisQEiCjo+Klpr+By6Zi0DuFCv92c9xYcfRso2CnLrzBM4AA==",
+    email: "pkasemsripitak@gmail.com",
+    linkedin: "https://www.linkedin.com/in/perakasem",
+  },
+  {
+    name: "Pio Binawan",
+    role: "Operations",
+    photo: "/team/pio.webp",
+    blur: "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQAgCdASoMAA8AA4BaJZACdAYwnwURi+C9ctAwAAD+t7DVwl5eX/EvMQ1tpSXbeVOBNJ4KAUeFY3agdx+RXMIuPkEkyPPOX9b7N4tWTLpiN2mYOhfeRtULSBhZKuGelf83/Ih8q0QiAA==",
+    email: "pio.binawan@mail.utoronto.ca",
+    linkedin: "https://www.linkedin.com/in/pio-binawan",
+  },
+];
+
 const alumni: Person[] = [
   {
     name: "Julian Moncarz",
@@ -124,8 +158,8 @@ function Portrait({ name, role, org, photo, blur, email, linkedin }: Person) {
   );
 }
 
-// Five across on a wide screen, so the team reads as one row. Alumni sit in
-// the same grid underneath, so a portrait is the same size in both.
+// Five across on a wide screen, so the team reads as one row. Operations and
+// alumni sit in the same grid underneath, so a portrait is the same size in both.
 const GRID =
   "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-8 sm:gap-x-6 sm:gap-y-10";
 
@@ -139,6 +173,13 @@ export default function Team() {
             on its own. */}
         <ul className={`intro-rise ${GRID}`}>
           {team.map((person) => (
+            <Portrait key={person.name} {...person} />
+          ))}
+        </ul>
+
+        <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Operations Team</h2>
+        <ul className={GRID}>
+          {operations.map((person) => (
             <Portrait key={person.name} {...person} />
           ))}
         </ul>
