@@ -64,7 +64,7 @@ const operations: Person[] = [
     name: "Elizabeth Gratton",
     role: "Operations",
     photo: "/team/elizabeth.webp",
-    blur: "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoMAA8AA4BaJYgCdADz9bT+vCcMgAD+vdVAoIMIvuOSupZYv54LWBu6I6S4H2AxYEDKusAbWsihG1YEBkz6XoXLRm+WxM+NqqfgVAAA",
+    blur: "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoMAA8AA4BaJQBOgB06o/jmwWAA/s7P3xRlGJkQnBYM+O3ddqPv+T6KtQo8jhePbkJnHeoq/xyLb4BIDpOLNtOc/aT8Gejlc1DtfD2E94dAAA==",
     email: "emgratton@gmail.com",
   },
   {
