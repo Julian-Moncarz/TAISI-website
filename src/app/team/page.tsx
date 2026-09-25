@@ -61,6 +61,13 @@ const team: Person[] = [
 
 const operations: Person[] = [
   {
+    name: "Aris Kouloukis",
+    role: "Operations",
+    photo: "/team/aris.webp",
+    blur: "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoMAA8AA4BaJYgCdAECphoeVSToAP7yNVzDgjLhb2LxRlq00la97yn8nDUqRqeFQrvLhpXJ5eJRYpdftKP8LOfy71XJk9NXi4HSliW8J4YBg/KcMN7UAA==",
+    email: "ariseros8@gmail.com",
+  },
+  {
     name: "Elizabeth Gratton",
     role: "Operations",
     photo: "/team/elizabeth.webp",
