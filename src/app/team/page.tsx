@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import CopyEmail from "@/components/CopyEmail";
+import Section from "@/components/Section";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Team | Toronto AI Safety Initiative",
@@ -114,90 +116,79 @@ const alumni: Person[] = [
 
 function Portrait({ name, role, org, photo, blur, email, linkedin }: Person) {
   return (
-    <li>
+    <li className="flex flex-col">
       {/* The cream ground shows through while the image decodes, so the
-          column does not flash white. */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-cream">
+          circle does not flash white. */}
+      <div className="relative w-full max-w-[168px] aspect-square overflow-hidden rounded-full bg-cream">
         <Image
           src={photo}
           alt={name}
           fill
-          sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
+          sizes="168px"
           placeholder="blur"
           blurDataURL={blur}
           priority
           className="object-cover"
         />
       </div>
-      <p className="mt-3 text-[16px] sm:text-[17px] font-semibold text-text leading-snug">
-        {name}
-      </p>
-      {/* Role on the left, the two buttons against the right edge, so the
-          icons line up down the row. */}
-      <div className="mt-1 flex items-center gap-x-3">
-        <span className="text-[14px] sm:text-[15px] text-text-secondary leading-snug">
-          {role}
-        </span>
-        <span className="ml-auto flex shrink-0 items-center gap-2.5">
+      <p className="mt-5 t-name">{name}</p>
+      <p className="mt-0.5 t-role">{role}</p>
+      {org && <p className="t-role">{org}</p>}
+      <span className="mt-3 flex items-center gap-3">
         {linkedin && (
           <a
             href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="icon-btn"
+            className="inline-flex p-1 -m-1 text-mute hover:text-ink transition-colors"
             aria-label={`${name} on LinkedIn`}
             title="LinkedIn"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.65h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75V21h-4v-5.65c0-1.35-.03-3.08-1.95-3.08-1.95 0-2.25 1.47-2.25 2.98V21H9z" />
+            {/* Outlined, at the same weight as the email icon beside it. */}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="2.5" y="2.5" width="19" height="19" rx="2" />
+              <path d="M7.5 10.5v6M7.5 7.5v.01M11.5 16.5v-6M11.5 13c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v3.5" />
             </svg>
           </a>
         )}
-          <CopyEmail email={email} name={name} />
-        </span>
-      </div>
-      {org && (
-        <p className="text-[14px] sm:text-[15px] text-text-secondary leading-snug">
-          {org}
-        </p>
-      )}
+        <CopyEmail email={email} name={name} />
+      </span>
     </li>
   );
 }
 
 // Five across on a wide screen, so the team reads as one row. Operations and
-// alumni sit in the same grid underneath, so a portrait is the same size in both.
+// alumni sit in the same grid underneath, so a portrait is the same size in all
+// three. The gaps follow the home page quote grid.
 const GRID =
-  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-5 gap-y-8 sm:gap-x-6 sm:gap-y-10";
+  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-12";
 
 export default function Team() {
   return (
     <main>
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-16 pb-16 md:pb-24">
-        <h1 className="section-header mb-5 sm:mb-6">Executive Team</h1>
-
-        {/* One entrance carries the grid, rather than each portrait arriving
-            on its own. */}
-        <ul className={`intro-rise ${GRID}`}>
+      <PageHero title="Executive team">
+        <ul className={`m-0 p-0 list-none ${GRID}`}>
           {team.map((person) => (
             <Portrait key={person.name} {...person} />
           ))}
         </ul>
+      </PageHero>
 
-        <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Operations Team</h2>
-        <ul className={GRID}>
+      <Section object="stack" title="Operations team">
+        <ul className={`m-0 p-0 list-none ${GRID}`}>
           {operations.map((person) => (
             <Portrait key={person.name} {...person} />
           ))}
         </ul>
+      </Section>
 
-        <h2 className="section-header mt-10 sm:mt-11 mb-5 sm:mb-6">Alumni</h2>
-        <ul className={GRID}>
+      <Section object="fold" title="Alumni">
+        <ul className={`m-0 p-0 list-none ${GRID}`}>
           {alumni.map((person) => (
             <Portrait key={person.name} {...person} />
           ))}
         </ul>
-      </section>
+      </Section>
     </main>
   );
 }

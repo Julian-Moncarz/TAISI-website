@@ -69,21 +69,21 @@ export default function EmailSignupModal({ source }: { source: string }) {
           <div
             aria-hidden
             onClick={() => setOpen(false)}
-            className="intro-fade absolute inset-0 bg-[#1A1A1A]/45"
+            className="intro-fade absolute inset-0 bg-ink/40"
           />
 
           {/* Centred in the viewport the phone is actually showing. Pinning
               the card to the bottom put it under the browser's own chrome. */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[100dvh] flex items-center justify-center p-4 sm:p-6">
             <div
-              className="pointer-events-auto intro-rise relative w-full max-w-[440px] rounded-[12px] bg-white border border-black/10 shadow-[0_20px_60px_rgba(26,26,26,0.22)] px-5 pt-11 pb-5 sm:px-6 sm:pb-6"
+              className="pointer-events-auto intro-rise relative w-full max-w-[440px] rounded-[8px] bg-page px-5 pt-10 pb-6 sm:px-8 sm:pt-10 sm:pb-8"
               style={{ animationDuration: "420ms" }}
             >
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close"
-                className="absolute top-2 right-2 p-2 text-text-secondary/60 hover:text-text transition-colors"
+                className="absolute top-2 right-2 p-2 text-mute hover:text-ink transition-colors"
               >
                 <svg
                   width="16"
@@ -91,11 +91,13 @@ export default function EmailSignupModal({ source }: { source: string }) {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="1.75"
                 >
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
               </button>
+
+              <h2 className="t-h2 mb-6 pr-6">Join our mailing list</h2>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <input
@@ -106,11 +108,11 @@ export default function EmailSignupModal({ source }: { source: string }) {
                   required
                   autoComplete="email"
                   placeholder="you@gmail.com"
-                  className="field-pill"
+                  className="form-input field-pill"
                 />
                 <button
                   type="submit"
-                  className="cta-base cta-solid rounded-full px-6 py-[11px] text-[16px]"
+                  className="btn btn-ink-solid"
                 >
                   I&rsquo;m interested
                 </button>
@@ -123,15 +125,15 @@ export default function EmailSignupModal({ source }: { source: string }) {
       {toast && (
         <div
           role="status"
-          className="intro-fade fixed bottom-4 left-1/2 -translate-x-1/2 z-[150] max-w-[calc(100vw-2rem)] rounded-[10px] bg-white border border-black/10 shadow-[0_10px_30px_rgba(26,26,26,0.18)] px-4 py-3 flex items-center gap-3"
+          className={`notice ${toast === "error" ? "notice-error" : ""} intro-fade fixed bottom-4 left-1/2 -translate-x-1/2 z-[150] w-max max-w-[calc(100vw-2rem)] flex items-center gap-3`}
         >
           {toast === "sent" ? (
-            <p className="text-plum text-[15px] font-medium">
+            <p className="text-ink font-medium">
               You&rsquo;re on the list.
             </p>
           ) : (
             <>
-              <p className="text-text text-[15px]">
+              <p>
                 That didn&rsquo;t go through.
               </p>
               <button
@@ -140,7 +142,7 @@ export default function EmailSignupModal({ source }: { source: string }) {
                   setToast(null);
                   setOpen(true);
                 }}
-                className="text-accent text-[15px] font-semibold hover:underline"
+                className="font-medium underline underline-offset-[3px] decoration-1 hover:text-ink transition-colors"
               >
                 Try again
               </button>

@@ -5,17 +5,13 @@
 export const INTEREST_FORM_PATH = "/interest";
 
 /**
- * Link to the interest form. `program` arrives preselected, and `from`
+ * Link to the interest form, behind every "Express interest" button. `from`
  * records which button was used, so a run of signups can be traced back to
  * the page that produced it.
  */
-export function interestFormHref(
-  program?: "fellowship" | "intensive" | "both",
-  from?: string
-) {
-  const params = new URLSearchParams();
-  if (program) params.set("program", program);
-  if (from) params.set("from", from);
-  const query = params.toString();
-  return query ? `${INTEREST_FORM_PATH}?${query}` : INTEREST_FORM_PATH;
+export function interestFormHref(from?: string) {
+  return from ? `${INTEREST_FORM_PATH}?from=${encodeURIComponent(from)}` : INTEREST_FORM_PATH;
 }
+
+// The community Discord invite. Links to it render only once this is set.
+export const DISCORD_URL = "";

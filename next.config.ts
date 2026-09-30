@@ -3,16 +3,23 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // The intensive moved from /summer-intensive to /intensive. Keep the old
-      // paths working for posters, emails, and anything already shared.
+      // The Intensive was cut in September 2026. Its old addresses land on
+      // the home page rather than a 404, for posters and anything shared.
       {
-        source: "/summer-intensive",
-        destination: "/intensive",
+        source: "/intensive/:path*",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/summer-intensive/:path*",
-        destination: "/intensive/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      // The Reach out form was cut in September 2026: the footer email is the
+      // way to get in touch.
+      {
+        source: "/reach-out",
+        destination: "/",
         permanent: true,
       },
       // The one path we print on QR codes. The signup flag opens the mailing

@@ -1,881 +1,236 @@
-"use client";
+import { Suspense } from "react";
+import Section from "@/components/Section";
+import GeoObject from "@/components/geo/GeoObject";
+import HomeQueryEffects from "@/components/HomeQueryEffects";
+import OrgList from "@/components/OrgList";
+import { TestimonialCard } from "@/components/TestimonialRow";
+import { DISCORD_URL, interestFormHref } from "@/lib/links";
 
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect, useRef, Suspense, type ReactNode } from "react";
-import RotatingText from "@/components/RotatingText";
-import { useReveal } from "@/components/Reveal";
-import HeroBackdrop from "@/components/HeroBackdrop";
-import { interestFormHref } from "@/lib/links";
-import { signupSource, subscribeEmail } from "@/lib/subscribe";
-import EmailSignupModal from "@/components/EmailSignupModal";
+// Layout and copy follow "TAISI Homepage v2" in Claude Design.
 
-// Pill-shaped hero buttons: compact padding, accent fill for the primary
-// action and an accent outline for the alternative.
-const HERO_CTA = "cta-base rounded-full px-6 py-[11px] text-[16px]";
-
-function HeroEmailCTA({ location }: { location: string | null }) {
-  const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open]);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-
-    try {
-      await subscribeEmail(email, signupSource(location));
-      setDone(true);
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (done) {
-    return (
-      <div className={`${HERO_CTA} cta-outline cursor-default`}>
-        You&rsquo;re on the list.
-      </div>
-    );
-  }
-
-  if (!open) {
-    return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={`${HERO_CTA} cta-outline`}
-      >
-        Join our mailing list
-      </button>
-    );
-  }
-
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row sm:items-center gap-3"
-    >
-      <input
-        ref={inputRef}
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        placeholder="you@gmail.com"
-        className="field-pill sm:w-64 self-stretch"
-      />
-      <button
-        type="submit"
-        disabled={submitting}
-        className={`${HERO_CTA} cta-outline shrink-0`}
-      >
-        {submitting ? "..." : "Sign up"}
-      </button>
-      {error && (
-        <p className="text-accent text-[14px] font-medium">{error}</p>
-      )}
-    </form>
-  );
-}
-
-type Program = {
-  title: string;
-  body: string;
-  cta: string;
-  style: CardStyle;
-  color: keyof typeof COLORS;
-  href?: string;
-  /** Second action, sitting ahead of the cta. Adding one splits the card
-   *  into two buttons rather than one link over the whole thing. */
-  applyHref?: string;
-  applyLabel?: string;
-  art?: string;
-  /** Overrides the default card-art footprint. */
-  artSize?: { w: string; h: string };
-  /** Overrides the default card-art anchor (negative values bleed off-card). */
-  artOffset?: { right: string; bottom: string };
-  tag?: string;
-};
-
-const programs: Program[] = [
+const quotes = [
   {
-    title: "Fellowship",
-    body: "6 weekly sessions at Trajectory Labs, an off-campus AI safety hub.\n\nExplore core material in technical AI safety or AI governance with an experienced facilitator. No ML background needed.",
-    cta: "Learn more",
-    style: "outline",
-    color: "plum",
-    href: "/fellowships",
-    applyHref: interestFormHref("fellowship", "home-card"),
-    applyLabel: "Express interest",
-    art: "/hero-observatory.webp",
-    tag: "Students",
+    name: "Jacob Tsimerman",
+    role: "Fields Medalist, U of T · took leave in 2026 to work on AI safety",
+    quote: "AI safety [is] the most important problem of our time.",
+    source: "https://x.com/Jacob_Tsimerman/status/2097282175636734444",
+    image: "/people/tsimerman.webp",
   },
   {
-    title: "Intensive",
-    body: "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. Leave with next steps and a plan for how to contribute.",
-    cta: "Learn more",
-    style: "outline",
-    color: "plum",
-    href: "/intensive",
-    art: "/hero-skyline-1.webp",
-    tag: "Working professionals",
+    name: "Geoffrey Hinton",
+    role: "Nobel laureate, U of T",
+    quote:
+      "If we don’t figure out how to make it safe, there’s a real possibility it could destroy us.",
+    source:
+      "https://www.techradar.com/pro/quote-of-the-day-by-legendary-computer-scientist-geoffrey-hinton-if-we-dont-figure-out-how-to-make-it-safe-theres-a-real-possibility-it-could-destroy-us-a-stark-alarm-on-the-existential-risks-of-ai",
+    image: "/people/hinton.webp",
+  },
+  {
+    name: "Roger Grosse",
+    role: "Professor of CS, U of T · Anthropic",
+    quote:
+      "Given how fast AI is progressing, the problem of ensuring AIs are robustly aligned with human values seems like the most important thing we can be working on now.",
+    source: "https://www.cs.toronto.edu/~rgrosse/",
+    image: "/people/grosse.webp",
+  },
+];
+
+const fellowshipPoints = [
+  "Weekly discussions over dinner",
+  "An introduction to the field of AI safety and its most important concepts",
+  "Hosted at Trajectory Labs, an off-campus AI safety hub near King Station",
+  "Free fancy dinner provided",
+  "No technical background needed",
+];
+
+const programs = [
+  {
+    title: "Reading Group",
+    body: "Read and discuss current AI safety research with other students.",
+  },
+  {
+    title: "Retreats",
+    body: "We send members to AI safety retreats in the U.S., hosted by the AI safety groups at Harvard and MIT.",
   },
   {
     title: "Membership",
-    body: "TAISI members get compute for technical projects, regular coworking access at Trajectory Labs, exclusive semesterly retreats with AI safety researchers, and monthly closed socials.",
-    cta: "",
-    style: "outline",
-    color: "plum",
-    art: "/mit-dome.webp",
-    artSize: { w: "58%", h: "54%" },
-    tag: "Students",
+    body: "Compute for technical projects, coworking at Trajectory Labs, semesterly retreats with AI safety researchers, and monthly socials.",
   },
 ];
 
-// Locked-in card proportions.
-const CARD_WIDTH = 440;
-const CARD_RATIO = "5 / 4";
-const CARD_FONT = { title: 21, body: 16 };
-const ART_OPACITY = 0.55;
-const ART_SIZE = { w: "100%", h: "88%" };
-
-const COLORS = {
-  accent: { hex: "#501684", rgb: "80, 22, 132" },
-  plum: { hex: "#38095F", rgb: "56, 9, 95" },
-  stone: { hex: "#8C8781", rgb: "140, 135, 129" },
-} as const;
-
-const CARD_STYLES = ["outline", "filled", "tinted", "neutral"] as const;
-type CardStyle = (typeof CARD_STYLES)[number];
-
-function cardLook(style: CardStyle, key: keyof typeof COLORS) {
-  const c = COLORS[key];
-  // On a filled card the button inverts to white; on light cards it fills
-  // with the card colour and the label turns white.
-  const filled = {
-    box: { backgroundColor: c.hex, borderColor: c.hex },
-    title: "#FFFFFF",
-    body: "rgba(255, 255, 255, 0.85)",
-    tag: "rgba(255, 255, 255, 0.75)",
-    cta: "#FFFFFF",
-    ctaHoverBg: "#FFFFFF",
-    ctaHoverFg: c.hex,
-  };
-  const onLight = (cta: string, ctaRgb: string) => ({
-    tag: `rgba(${ctaRgb}, 0.75)`,
-    cta,
-    ctaHoverBg: cta,
-    ctaHoverFg: "#FFFFFF",
-  });
-  switch (style) {
-    case "filled":
-      return filled;
-    case "tinted":
-      return {
-        box: {
-          backgroundColor: `rgba(${c.rgb}, 0.1)`,
-          borderColor: `rgba(${c.rgb}, 0.35)`,
-        },
-        title: "#1A1A1A",
-        body: "#4A4A4A",
-        ...onLight(c.hex, c.rgb),
-      };
-    case "neutral":
-      return {
-        box: { backgroundColor: "#FFFFFF", borderColor: "rgba(0, 0, 0, 0.15)" },
-        // Softer than the live cards, so it reads as a placeholder.
-        title: "#8C8781",
-        body: "#8C8781",
-        ...onLight(COLORS.accent.hex, COLORS.accent.rgb),
-      };
-    default:
-      return {
-        box: { backgroundColor: "#FFFFFF", borderColor: c.hex },
-        title: "#1A1A1A",
-        body: "#4A4A4A",
-        ...onLight(c.hex, c.rgb),
-      };
-  }
-}
-
-function ProgramRow() {
-  const scroller = useRef<HTMLDivElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-  function sync() {
-    const el = scroller.current;
-    if (!el) return;
-    setAtStart(el.scrollLeft <= 2);
-    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
-  }
-
-  useEffect(() => {
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
-  }, []);
-
-  function step(direction: 1 | -1) {
-    const el = scroller.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]");
-    const distance = card ? card.clientWidth + 24 : el.clientWidth * 0.8;
-    el.scrollBy({ left: direction * distance, behavior: "smooth" });
-  }
-
-  const arrow =
-    "flex items-center justify-center w-10 h-10 rounded-full border border-accent text-accent transition-colors hover:bg-accent hover:text-white disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:text-accent";
-
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <div>
-      <div className="flex items-center justify-between gap-4 mb-8 sm:mb-10">
-        <h2 className="section-header">
-          Programming
-        </h2>
-        <div className="hidden sm:flex gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={() => step(-1)}
-            disabled={atStart}
-            aria-label="Previous programs"
-            className={arrow}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => step(1)}
-            disabled={atEnd}
-            aria-label="More programs"
-            className={arrow}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* One row you swipe on a wide screen; on a phone the cards stack. */}
-      <div
-        ref={scroller}
-        onScroll={sync}
-        className="sm:-mx-8 sm:overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        <div className="flex flex-col sm:flex-row gap-6 sm:px-8 sm:snap-x sm:snap-mandatory">
-          {programs.map((p) => (
-            <ProgramCard key={p.title} program={p} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProgramCard({ program: p }: { program: Program }) {
-  const look = cardLook(p.style, p.color);
-  // Two actions on one card, so the card itself stops being the link.
-  const split = Boolean(p.applyHref);
-  const shell =
-    "program-card group relative overflow-hidden sm:snap-start sm:shrink-0 flex flex-col justify-between rounded-lg p-6 sm:p-8 border w-full sm:w-[var(--card-w)]";
-  const art = p.art && (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute bg-no-repeat bg-contain bg-right-bottom transition-transform duration-500 group-hover:scale-[1.04]"
-      style={{
-        backgroundImage: `url('${p.art}')`,
-        right: p.artOffset?.right ?? "-6%",
-        bottom: p.artOffset?.bottom ?? "-4%",
-        width: p.artSize?.w ?? ART_SIZE.w,
-        height: p.artSize?.h ?? ART_SIZE.h,
-        opacity: ART_OPACITY,
-        // Dark cards need the sketch inverted, otherwise dark pencil
-        // lines vanish into the fill.
-        mixBlendMode: p.style === "filled" ? "screen" : "multiply",
-        filter: p.style === "filled" ? "invert(1)" : undefined,
-      }}
-    />
-  );
-  const box = {
-    ...look.box,
-    "--card-w": `min(${CARD_WIDTH}px, 86vw)`,
-  } as React.CSSProperties;
-  const inner = (
-    <>
-      {art}
-      {p.tag && (
-        <span
-          className="relative z-[1] block mb-2 sm:absolute sm:top-9 sm:right-8 sm:mb-0 text-[11px] font-semibold uppercase tracking-[0.1em]"
-          style={{ color: look.tag }}
-        >
-          {p.tag}
-        </span>
-      )}
-      <ProgramBody
-        program={p}
-        title={look.title}
-        body={look.body}
-        fontTitle={CARD_FONT.title}
-        fontBody={CARD_FONT.body}
-      />
-      {(p.applyHref || p.cta) && (
-        <div className="relative z-[1] flex flex-wrap items-center gap-3">
-          {p.applyHref && (
-            <a
-              href={p.applyHref}
-              className="card-apply"
-            >
-              {p.applyLabel}
-              <span aria-hidden className="card-cta-arrow">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="square"
-                  className="shrink-0"
-                >
-                  <path d="M5 12h13M12 5l7 7-7 7" />
-                </svg>
-              </span>
-            </a>
-          )}
-          {p.cta && <CardCta program={p} look={look} asLink={split} />}
-        </div>
-      )}
-    </>
-  );
-
-  // A card with two actions cannot also be one link: an anchor around the
-  // whole thing would swallow the apply button. Those cards become a plain
-  // box and let each button carry its own link.
-  return p.href && !split ? (
-    <a data-card href={p.href} className={shell} style={box}>
-      {inner}
+    <a href={href} target="_blank" rel="noopener noreferrer" className="link">
+      {children}
     </a>
-  ) : (
-    <div data-card className={shell} style={box}>
-      {inner}
-    </div>
   );
 }
 
-function CardCta({
-  program: p,
-  look,
-  asLink,
-}: {
-  program: Program;
-  look: ReturnType<typeof cardLook>;
-  asLink: boolean;
-}) {
-  const style = {
-    "--cta-fg": look.cta,
-    "--cta-hover-bg": look.ctaHoverBg,
-    "--cta-hover-fg": look.ctaHoverFg,
-  } as React.CSSProperties;
-  const content = (
-    <>
-      {p.cta}
-      <span aria-hidden className="card-cta-arrow">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="square"
-          className="shrink-0"
-        >
-          <path d="M5 12h13M12 5l7 7-7 7" />
-        </svg>
-      </span>
-    </>
-  );
-
-  return asLink && p.href ? (
-    <a href={p.href} className="card-cta" style={style}>
-      {content}
-    </a>
-  ) : (
-    <span className="card-cta" style={style}>
-      {content}
-    </span>
-  );
-}
-
-function ProgramBody({
-  program,
-  title,
-  body,
-  fontTitle,
-  fontBody,
-}: {
-  program: Program;
-  title: string;
-  body: string;
-  fontTitle: number;
-  fontBody: number;
-}) {
-  return (
-    <div className="relative z-[1]">
-      <h3
-        className="font-semibold mb-3 sm:pr-32"
-        style={{ color: title, fontSize: `${fontTitle}px` }}
-      >
-        {program.title}
-      </h3>
-      {program.body && (
-        <p
-          className="leading-[1.65] whitespace-pre-line"
-          style={{ color: body, fontSize: `${fontBody}px` }}
-        >
-          {program.body}
-        </p>
-      )}
-    </div>
-  );
-}
-
-function OrgLogo({ src, size = "w-7 h-7" }: { src: string; size?: string }) {
-  return (
-    <Image
-      src={src}
-      alt=""
-      width={40}
-      height={40}
-      className={`${size} object-contain shrink-0 transition-transform duration-200 group-hover:scale-110`}
-    />
-  );
-}
-
-function OrgCard({ org }: { org: Org }) {
+function SourceIcon({ href }: { href: string }) {
   return (
     <a
-      href={org.url}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-start gap-3"
+      aria-label="Source"
+      className="text-mute hover:text-ink transition-colors whitespace-nowrap"
     >
-      {org.logo ? (
-        <OrgLogo src={org.logo} size="w-6 h-6" />
-      ) : (
-        <span className="w-6 h-6 shrink-0 mt-0.5 grid place-items-center rounded-sm bg-black/[0.06] text-[10px] font-semibold text-text-secondary group-hover:text-accent transition-colors">
-          {org.name.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase()}
-        </span>
-      )}
-      <span>
-        <span className="block text-[16px] font-semibold text-plum group-hover:text-accent transition-colors">
-          {org.name}
-        </span>
-        <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
-          {org.description}
-        </span>
-      </span>
-    </a>
-  );
-}
-
-const ORG_GRID = "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-6";
-
-const UOFT_PROFS = [
-  { name: "David Duvenaud", url: "https://www.cs.toronto.edu/~duvenaud/" },
-  { name: "Sheila McIlraith", url: "https://www.cs.toronto.edu/~sheila/" },
-  { name: "Zhijing Jin", url: "https://zhijing-jin.com/home" },
-  { name: "Nicolas Papernot", url: "https://www.papernot.fr" },
-];
-
-// Same layout as OrgCard, but the entry has no single home page: each
-// professor's name links out individually instead.
-function UniLabsCard() {
-  return (
-    <div className="flex items-start gap-3">
-      <OrgLogo src="/logos/uoft.png" size="w-6 h-6" />
-      <span>
-        <span className="block text-[16px] font-semibold text-plum">
-          University labs
-        </span>
-        <span className="block text-[14px] leading-[1.5] text-text-secondary mt-0.5">
-          {UOFT_PROFS.map((p, i) => (
-            <span key={p.name}>
-              {i > 0 && (i === UOFT_PROFS.length - 1 ? ", and " : ", ")}
-              <a
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-amber-deep"
-              >
-                {p.name}
-              </a>
-            </span>
-          ))}{" "}
-          do AI safety work at U of T
-        </span>
-      </span>
-    </div>
-  );
-}
-
-function OrgDirectory() {
-  return (
-    <div className="pt-4">
-      <div className={ORG_GRID}>
-        {safetyOrgs.slice(0, 3).map((org) => (
-          <OrgCard key={org.name} org={org} />
-        ))}
-        <UniLabsCard />
-        {safetyOrgs.slice(3).map((org) => (
-          <OrgCard key={org.name} org={org} />
-        ))}
-      </div>
-
-      <p className="mt-6 text-[14px] text-text-secondary">
-        See more organizations on the{" "}
-        <a
-          href="https://www.aisafety.com/map"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-amber-deep"
-        >
-          AI safety field map
-        </a>.
-      </p>
-    </div>
-  );
-}
-
-/**
- * A section that eases into place the first time it is scrolled to. The
- * whole block moves as one: nothing inside it arrives on its own beat.
- */
-function RevealSection({
-  children,
-  className = "",
-  id,
-}: {
-  children: ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  const { ref, shown } = useReveal<HTMLElement>();
-  return (
-    <section ref={ref} id={id} className={`reveal ${shown ? "reveal-in" : ""} ${className}`}>
-      {children}
-    </section>
-  );
-}
-
-function HomeInner() {
-  const params = useSearchParams();
-  const location = params.get("loc") || null;
-  const showSignup = params.get("signup") === "1";
-  const tracked = useRef(false);
-
-  useEffect(() => {
-    if (!location || tracked.current) return;
-    tracked.current = true;
-    fetch("/api/qr-visit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ location }),
-    }).catch(() => {});
-  }, [location]);
-
-  return (
-    <main className="md:overflow-hidden">
-      {showSignup && <EmailSignupModal source={signupSource(location)} />}
-
-      <section className="hero-purple relative -mt-16 min-h-[100svh] flex flex-col justify-start sm:justify-center">
-        {/* Pinned to the viewport rather than to the section: the section
-            starts below the announcement bar and runs past the fold, so an
-            in-flow backdrop drops the waterline off the bottom of the screen. */}
-        <HeroBackdrop fadeOverScreens={40}>
-        {/* Hero background */}
-        <div
-          aria-hidden
-          className="hero-art art-fade pointer-events-none absolute inset-[-10%] bg-[#FDFDFE]"
-        />
-
-        {/* White fade layer over the drawing; matches its blank left side so
-            the skyline dissolves into the page rather than ending on an edge */}
-        <div
-          aria-hidden
-          className="hidden sm:block pointer-events-none absolute inset-0 z-[7]"
-          style={{
-            background: "linear-gradient(to right, var(--hero-fade, #FDFDFE) 30vw, transparent 48vw)",
-          }}
-        />
-        {/* Settles the bottom of the drawing into the page */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[8%] z-[7]"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, var(--hero-fade-soft, rgba(253, 253, 254, 0.4)) 55%, var(--hero-fade, #FDFDFE) 100%)",
-          }}
-        />
-        {/* On phones the drawing sits under the text, so it fades downward */}
-        <div
-          aria-hidden
-          className="sm:hidden pointer-events-none absolute inset-0 z-[7]"
-          style={{
-            background:
-              "linear-gradient(to bottom, var(--hero-fade, #FDFDFE) 0%, var(--hero-fade, #FDFDFE) 34%, var(--hero-fade-mid, rgba(253, 253, 254, 0.55)) 54%, transparent 72%)",
-          }}
-        />
-        </HeroBackdrop>
-
-        {/* Headline and buttons arrive together, as one block */}
-        <div className="intro-rise relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[clamp(2.4rem,13vw,3.35rem)] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
-            AI safety needs more <RotatingText />
-          </h1>
-
-          <div
-            className="flex flex-col items-start sm:flex-row sm:items-center gap-3 sm:gap-4"
-            style={{ marginTop: "var(--hero-gap, 2.5rem)" }}
-          >
-            <a
-              href={interestFormHref(undefined, "home-hero")}
-              className={`${HERO_CTA} cta-solid`}
-            >
-              Express interest
-              <span aria-hidden className="cta-arrow">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="square"
-                  className="shrink-0"
-                >
-                  <path d="M5 12h13M12 5l7 7-7 7" />
-                </svg>
-              </span>
-            </a>
-            <HeroEmailCTA location={location} />
-          </div>
-        </div>
-
-        {/* Says the page carries on below the fold. It scrolls to the first
-            section rather than being decoration only. */}
-        <a
-          href="#what-is-ai-safety"
-          aria-label="Read on"
-          className="hero-chevron absolute inset-x-0 bottom-8 z-10 mx-auto w-10 h-10 grid place-items-center text-white/70 hover:text-amber transition-colors"
-        >
-          <svg
-            width="26"
-            height="26"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="square"
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </a>
-      </section>
-
-      {/* The page below the hero carries its own white ground: it rises over
-          the purple as you scroll, so the two meet on a hard edge. */}
-      <div className="relative z-[1] bg-bg">
-      {/* What is AI safety? */}
-      <RevealSection id="what-is-ai-safety" className="scroll-mt-16 max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-3">
-        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="section-header">
-            What is AI safety?
-          </h2>
-          <p className="mt-5">
-            In July 2026, OpenAI models{" "}
-            <a
-              href="https://openai.com/index/hugging-face-model-evaluation-security-incident/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-amber-deep"
-            >
-              broke out of their test environment
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://www.youtube.com/watch?v=87DyyMV0kCY"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-amber-deep"
-            >
-              hacked into another company
-            </a>
-            . Later, Anthropic{" "}
-            <a
-              href="https://www.theregister.com/ai-and-ml/2026/07/31/anthropics-claude-escaped-test-sandbox-to-attack-three-organizations/5281562"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-amber-deep"
-            >
-              disclosed three cases
-            </a>{" "}
-            of its models escaping sandboxes and attacking other organizations.
-            <br />
-            <br />
-            AI systems are advancing faster than they are being made safe.
-          </p>
-          <p className="mt-8">
-            <strong className="font-semibold">AI safety is the field working to change that.</strong> It seeks to reduce risks from advanced AI through technical research, policy, and many other types of work.
-          </p>
-        </div>
-
-      </RevealSection>
-
-      <RevealSection className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-8 md:pt-12 pb-2 md:pb-4">
-        {/* Where AI safety work happens */}
-        <div className="space-y-5 text-text">
-          <h2 className="section-header">
-            Where can you work on AI safety?
-          </h2>
-          <OrgDirectory />
-        </div>
-      </RevealSection>
-
-      {/* Why get involved? */}
-      <RevealSection className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-2 md:pb-3">
-        <div className="text-[17px] sm:text-[19px] leading-[1.7] text-text">
-          <h2 className="section-header">
-            Why get involved?
-          </h2>
-          <p className="mt-5">
-            AI safety is one of the most pressing problems of our time, and only a few thousand people worldwide work on it full-time. The field is in desperate need of more talent, and not just computer scientists: it needs people from math, law, policy, economics, philosophy, advocacy, and entrepreneurship.
-          </p>
-          <p className="mt-8">
-            <strong className="font-semibold">TAISI exists to find exceptional people like you and introduce you to the field.</strong>
-          </p>
-          <p className="mt-8">
-            If you care about <strong className="font-semibold text-accent">careers</strong>, there are exceptional careers to be made in AI safety.
-          </p>
-          <p className="mt-2">
-            If you care about <strong className="font-semibold text-accent">impact</strong>, this is a chance to have a critical impact on the world.
-          </p>
-          <p className="mt-2">
-            If you care about <strong className="font-semibold text-accent">community</strong> or making friends, we have one of the strongest, kindest communities on campus :)
-          </p>
-        </div>
-      </RevealSection>
-
-      {/* Programs */}
-      <RevealSection
-        id="programming"
-        className="scroll-mt-24 max-w-[1200px] mx-auto px-5 sm:px-8 pt-6 md:pt-10 pb-8 md:pb-12"
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="inline-block align-[-1px]"
       >
-        <ProgramRow />
-      </RevealSection>
-      </div>
-
-
-
-
-
-    </main>
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+    </a>
   );
 }
 
 export default function Home() {
   return (
-    <Suspense>
-      <HomeInner />
-    </Suspense>
+    <main>
+      {/* ?loc= logging and the ?signup=1 dialog for printed QR codes. */}
+      <Suspense>
+        <HomeQueryEffects />
+      </Suspense>
+
+      <section>
+        <div className="container-site pt-12 pb-20 md:pt-[72px] md:pb-24 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 items-center">
+          <div className="intro-rise flex flex-col gap-10 min-w-0">
+            <h1 className="t-display">
+              We&rsquo;re a group of U&nbsp;of&nbsp;T students working to reduce risks from advanced&nbsp;AI.
+            </h1>
+            <div className="flex flex-wrap items-center gap-5">
+              <a href={interestFormHref("home-hero")} className="btn btn-ink">
+                Express interest in our fellowship
+              </a>
+              {DISCORD_URL && (
+                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-text">
+                  Join our Discord
+                </a>
+              )}
+            </div>
+          </div>
+          <div className="w-full max-w-[min(480px,60vh)] aspect-square justify-self-center">
+            <GeoObject kind="armillary" play="loop" />
+          </div>
+        </div>
+      </section>
+
+      <Section
+        object="gyre"
+        title={<>U&nbsp;of&nbsp;T&rsquo;s best minds think AI safety is the most important problem.</>}
+      >
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-x-10 gap-y-12 pt-10">
+          {quotes.map((q) => (
+            <figure key={q.name} className="m-0 flex flex-col gap-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={q.image}
+                alt={q.name}
+                width={72}
+                height={72}
+                loading="lazy"
+                className="w-[72px] h-[72px] rounded-full object-cover bg-cream"
+              />
+              <blockquote className="m-0 t-quote hang">
+                <span className="hang-mark">&ldquo;</span>
+                {q.quote}&rdquo;&nbsp;
+                <SourceIcon href={q.source} />
+              </blockquote>
+              <figcaption className="flex flex-col gap-0.5">
+                <strong className="t-name">{q.name}</strong>
+                <span className="t-role">{q.role}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      <Section id="what-is-ai-safety" object="crate" title="What is AI safety?">
+        <div className="flex flex-col gap-5">
+          <p className="t-body max-w-[760px]">
+            Three years ago, the best AI models could fix{" "}
+            <ExternalLink href="https://arxiv.org/abs/2310.06770">fewer than 2%</ExternalLink> of
+            real-world software bugs. In July 2026, AI agents broke out of their sandboxes and{" "}
+            <ExternalLink href="https://www.dwarkesh.com/p/ajeya-cotra">autonomously hacked</ExternalLink>{" "}
+            another company.
+          </p>
+          <p className="t-body max-w-[760px]">
+            In September 2026, agents solved{" "}
+            <ExternalLink href="https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/">
+              Navier&ndash;Stokes
+            </ExternalLink>
+            , a Millennium Prize Problem, in 88 hours. Human mathematicians had failed to solve it for
+            90 years.
+          </p>
+          <div className="flex flex-col gap-1">
+            <p className="t-lead">AI systems are advancing faster than they are being made safe.</p>
+            <p className="t-lead">AI safety is the field working to change that.</p>
+          </div>
+        </div>
+        <div className="-mt-4">
+          <OrgList />
+        </div>
+      </Section>
+
+      <Section object="coin" title="There are not enough people working on this.">
+        <div className="flex flex-col gap-4 t-body max-w-[720px]">
+          <p>
+            The field is in desperate need of more talent: computer scientists, mathematicians,
+            lawyers, policy experts, economists, philosophers, communicators, and entrepreneurs.
+          </p>
+          <p>
+            <strong>TAISI exists to find exceptional students like you and introduce you to the field.</strong>
+          </p>
+        </div>
+      </Section>
+
+      <Section id="fellowship" object="ratchet" title="Our Intro Fellowship.">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] gap-x-16 gap-y-10 items-start">
+          <div className="flex flex-col gap-9">
+            <ul className="m-0 pl-5 list-disc flex flex-col gap-2.5">
+              {fellowshipPoints.map((p) => (
+                <li key={p} className="text-[18px] sm:text-[20px] leading-[1.55] pl-1">
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap items-center gap-4">
+              <a href={interestFormHref("home-fellowship")} className="btn btn-ink">
+                Express interest in our fellowship
+              </a>
+              <a href="/fellowships" className="btn-text">
+                Learn more &rarr;
+              </a>
+            </div>
+          </div>
+          <TestimonialCard
+            quote="I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks."
+            name="Pera"
+            role="Fellow ’25 and ’26"
+            image="/pera.webp"
+          />
+        </div>
+      </Section>
+
+      <Section id="programs" object="implode" title="Other programming">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
+          {programs.map((p) => (
+            <article key={p.title} className="card px-8 pt-7 pb-8 flex flex-col gap-3">
+              <h3 className="t-h3">{p.title}</h3>
+              <p className="t-body">{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+    </main>
   );
 }
-
-type Org = {
-  name: string;
-  description: string;
-  url: string;
-  logo?: string;
-};
-
-const safetyOrgs: Org[] = [
-  {
-    name: "Anthropic",
-    description: "Frontier lab, does a lot of safety work",
-    logo: "/logos/anthropic-icon.png",
-    url: "https://www.anthropic.com",
-  },
-  {
-    name: "METR",
-    description: "Evaluates frontier models for the top labs",
-    logo: "/logos/metr-icon.png",
-    url: "https://metr.org",
-  },
-  {
-    name: "Redwood Research",
-    description: "Pioneered the field of AI control",
-    logo: "/logos/redwood-icon.png",
-    url: "https://www.redwoodresearch.org",
-  },
-  {
-    name: "MATS",
-    description: "The top AI safety research fellowship",
-    logo: "/logos/mats-icon.png",
-    url: "https://www.matsprogram.org",
-  },
-  {
-    name: "Epoch AI",
-    description: "Data and forecasts on AI progress",
-    logo: "/logos/epoch-icon.svg",
-    url: "https://epoch.ai",
-  },
-  {
-    name: "GovAI",
-    description: "Oxford's AI governance research hub",
-    logo: "/logos/govai-icon.jpg",
-    url: "https://www.governance.ai",
-  },
-  {
-    name: "80,000 Hours",
-    description: "Career advice and the AI safety job board",
-    logo: "/logos/80k-icon.png",
-    url: "https://80000hours.org",
-  },
-  {
-    name: "ARC",
-    description: "Foundational theory for AI alignment",
-    url: "https://www.alignment.org",
-    logo: "/logos/arc.png",
-  },
-  {
-    name: "BlueDot Impact",
-    description: "Runs the field's flagship AI safety courses",
-    url: "https://bluedot.org",
-    logo: "/logos/bluedot.png",
-  },
-  {
-    name: "Resolution",
-    description: "Alignment lab backed by a $160M grant",
-    url: "https://resolution.org",
-    logo: "/logos/resolution.png",
-  },
-  {
-    name: "UK AI Security Institute",
-    description: "The UK government's frontier AI evals lab",
-    url: "https://www.aisi.gov.uk",
-    logo: "/logos/uk-aisi.png",
-  },
-];

@@ -34,24 +34,24 @@ export default function CopyEmail({ email, name }: { email: string; name: string
       {/* The word sits above the icon and out of the flow, so the row does
           not shift while it is showing. */}
       {copied && (
-        <span className="pointer-events-none absolute bottom-full right-0 mb-1 text-[11px] leading-none text-accent whitespace-nowrap">
+        <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1 text-[11px] leading-none text-ink whitespace-nowrap">
           Copied
         </span>
       )}
       <button
         type="button"
         onClick={copy}
-        className="icon-btn"
+        className="inline-flex p-1 -m-1 text-mute hover:text-ink transition-colors"
         aria-label={`Copy email address for ${name}`}
         title={copied ? "Copied" : email}
       >
         {copied ? (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M4 12.5l5 5L20 6.5" />
           </svg>
         ) : (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square">
-            <rect x="2.5" y="5" width="19" height="14" />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <rect x="2.5" y="5" width="19" height="14" rx="2" />
             <path d="M3 6l9 7 9-7" />
           </svg>
         )}

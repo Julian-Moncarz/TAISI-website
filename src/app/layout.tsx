@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
-import { Libre_Franklin } from "next/font/google";
+import { Geist, Jost } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { LogoSprite } from "@/components/Logo";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-// One family for headings and body, loaded once.
-const siteFont = Libre_Franklin({
+// Jost Light carries the headings and the wordmark; Geist is the body face.
+const display = Jost({
   subsets: ["latin"],
-  variable: "--font-body",
+  weight: ["300", "400", "500"],
+  variable: "--font-jost",
+  display: "swap",
+});
+const body = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  // Social preview images (opengraph-image.tsx, twitter-image.tsx) need an
+  // absolute URL.
+  metadataBase: new URL("https://taisi.ca"),
   title: "TAISI | Toronto AI Safety Initiative",
   description:
     "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
@@ -25,14 +35,12 @@ export const metadata: Metadata = {
     title: "TAISI | Toronto AI Safety Initiative",
     description:
       "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
-    images: ["/logo.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "TAISI | Toronto AI Safety Initiative",
     description:
       "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
-    images: ["/logo.png"],
   },
 };
 
@@ -42,16 +50,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Font variables live on <html> so :root can resolve them. The --font-sans
-    // theme token is declared at :root and points at --font-body, so defining
-    // them lower down leaves that token falling back to the system font.
-    <html lang="en" className={siteFont.variable}>
+    // Font variables live on <html> so :root can resolve them: the theme's
+    // --font-sans and --font-display tokens point at them.
+    <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen flex flex-col">
+        <LogoSprite />
         {/* To show an announcement, render <AnnouncementBar /> above Nav in
             here: the banner and bar then pin together as one sticky block
             rather than each sticking to top: 0 and overlapping. */}
         <div className="sticky top-0 z-[100]">
-          <div aria-hidden className="h-1.5 bg-plum" />
           <Nav />
         </div>
         <div className="flex-1">{children}</div>
