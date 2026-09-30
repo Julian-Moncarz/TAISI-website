@@ -8,16 +8,20 @@ import type { GeoKind } from "./geo/objects";
  * left, the page's object on the right. The title always starts at the same
  * height and the object is always the same size, so moving between pages
  * nothing jumps. On phones the object shrinks to an icon above the title.
- * Without an object the title and content run the full width.
+ * Without an object the title and content run the full width; `icon` puts
+ * a small object above the title instead, as a section does.
  */
 export default function PageHero({
   title,
   object,
   play = "loop",
+  icon,
   children,
 }: {
   title: ReactNode;
   object?: GeoKind;
+  /** A section-sized object above the title, for pages with no hero object. */
+  icon?: GeoKind;
   /** Heroes loop; form pages play once so the form stays the focus. */
   play?: "loop" | "mount";
   children?: ReactNode;
@@ -31,6 +35,7 @@ export default function PageHero({
       >
         <div className="intro-rise flex flex-col gap-8 min-w-0">
           {object && <SectionIcon kind={object} play="mount" className="md:hidden" />}
+          {icon && <SectionIcon kind={icon} play="mount" className="mb-2" />}
           <h1 className="t-display">{title}</h1>
           {children}
         </div>

@@ -59,6 +59,15 @@ const team: Person[] = [
     email: "clmah918@gmail.com",
     linkedin: "https://www.linkedin.com/in/caitlin-mah",
   },
+  {
+    name: "Julian Moncarz",
+    role: "Advisor",
+    org: "Kairos Talent Operations",
+    photo: "/team/julian.webp",
+    blur: "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQAgCdASoMAA8AA4BaJZgCdAD0tEKEb5wAAP7u5LzD/fy2MbGRZ+HG5pCe3lrayNbP1Y7t3TLcZ2B4bwSNEH3tx2A2/jdGQqxUzXX4CiY7wCtprsFGAAAA",
+    email: "moncarz.julian@gmail.com",
+    linkedin: "https://www.linkedin.com/in/julian-moncarz",
+  },
 ];
 
 const operations: Person[] = [
@@ -99,18 +108,6 @@ const operations: Person[] = [
     blur: "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABwAgCdASoMAA8AA4BaJYgCdAYuvyfNyw4YD3vAAP7KOQt5uP+wGe8yzx/zxteNHQQ873udTMQRJhwWWJeBNeIlwK96AAU79dNk6ljsnotiBNKsZg3eX3R6q2cSiAAA",
     email: "pio.binawan@mail.utoronto.ca",
     linkedin: "https://www.linkedin.com/in/pio-binawan",
-  },
-];
-
-const alumni: Person[] = [
-  {
-    name: "Julian Moncarz",
-    role: "Advisor",
-    org: "Kairos Talent Operations",
-    photo: "/team/julian.webp",
-    blur: "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAABQAgCdASoMAA8AA4BaJYgCdIExE6zL60D26AAA/aOT5T43tlDcvmso2/umdRjdPDBSntjYSqYvWQAA",
-    email: "moncarz.julian@gmail.com",
-    linkedin: "https://www.linkedin.com/in/julian-moncarz",
   },
 ];
 
@@ -157,16 +154,16 @@ function Portrait({ name, role, org, photo, blur, email, linkedin }: Person) {
   );
 }
 
-// Five across on a wide screen, so the team reads as one row. Operations and
-// alumni sit in the same grid underneath, so a portrait is the same size in all
-// three. The gaps follow the home page quote grid.
+// Six across on a wide screen, so the executive team reads as one row.
+// Operations sits in the same grid underneath, so a portrait is the same size
+// in both. The gaps follow the home page quote grid.
 const GRID =
-  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-12";
+  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12";
 
 export default function Team() {
   return (
     <main>
-      <PageHero title="Executive team">
+      <PageHero title="Executive team" icon="fold">
         <ul className={`m-0 p-0 list-none ${GRID}`}>
           {team.map((person) => (
             <Portrait key={person.name} {...person} />
@@ -177,14 +174,6 @@ export default function Team() {
       <Section object="stack" title="Operations team">
         <ul className={`m-0 p-0 list-none ${GRID}`}>
           {operations.map((person) => (
-            <Portrait key={person.name} {...person} />
-          ))}
-        </ul>
-      </Section>
-
-      <Section object="fold" title="Alumni">
-        <ul className={`m-0 p-0 list-none ${GRID}`}>
-          {alumni.map((person) => (
             <Portrait key={person.name} {...person} />
           ))}
         </ul>
