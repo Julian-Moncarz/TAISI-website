@@ -1,62 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Lockup } from "./Logo";
 import { DISCORD_URL, interestFormHref } from "@/lib/links";
-import { subscribeEmail } from "@/lib/subscribe";
 
 // Pages that are themselves the next step, where a "go and express interest"
 // block would send people away from the form they are filling in.
 const NO_CTA = ["/interest", "/september-fellowship"];
-
-function FooterEmailForm() {
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-    try {
-      await subscribeEmail(email, "footer");
-      setDone(true);
-    } catch {
-      setError("Something went wrong. Try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (done) {
-    return <p className="text-[15px] text-cream/75">You&rsquo;re on the list.</p>;
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <label htmlFor="footer-email" className="text-[14px] text-cream/75">
-        Mailing list
-      </label>
-      <div className="flex gap-2">
-        <input
-          id="footer-email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          placeholder="you@mail.utoronto.ca"
-          className="form-input field-pill flex-1 min-w-0"
-        />
-        <button type="submit" disabled={submitting} className="btn btn-cream btn-sm">
-          {submitting ? "Joining" : "Join"}
-        </button>
-      </div>
-      {error && <p className="text-[13px] text-gold">{error}</p>}
-    </form>
-  );
-}
 
 // Two short columns, so the links never need more width than a phone has.
 // The email address is the way to get in touch; there is no contact form.
@@ -91,10 +41,10 @@ export default function Footer() {
           </div>
         )}
 
-        {/* Logo, links and signup share one bottom line on desktop; below
-            1024px the signup drops to its own row. */}
+        {/* Logo and links share one bottom line; on phones the links drop
+            beneath the logo. */}
         <div
-          className={`grid gap-10 lg:grid-cols-[1fr_auto_320px] lg:items-end lg:gap-16 ${
+          className={`flex flex-wrap justify-between items-end gap-10 ${
             cta ? "pt-10 border-t border-cream/15" : ""
           }`}
         >
@@ -109,9 +59,6 @@ export default function Footer() {
                 ))}
               </div>
             ))}
-          </div>
-          <div className="w-full max-w-[420px] lg:max-w-none">
-            <FooterEmailForm />
           </div>
         </div>
       </div>
