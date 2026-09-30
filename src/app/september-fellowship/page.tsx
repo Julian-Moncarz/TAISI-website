@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { SuccessPanel } from "@/components/FormControls";
+import PageHero from "@/components/PageHero";
 
 export default function SeptemberFellowship() {
   const [recordId, setRecordId] = useState("");
@@ -55,67 +56,65 @@ export default function SeptemberFellowship() {
 
   return (
     <main>
-      <section className="max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-16 md:pb-24">
-        <h1 className="text-center text-[1.75rem] sm:text-[2.25rem] md:text-[3rem] leading-[0.98] tracking-normal mb-6 font-semibold">
-          September fellowship spot
-        </h1>
+      <PageHero title="September fellowship spot" object="logo" play="mount">
+        <div className="max-w-[560px]">
 
-        {submitted ? (
-          <SuccessPanel title="Spot saved" className="mx-auto">
-            <p>Thanks. We&rsquo;ve saved your September fellowship spot and sent you a confirmation email.</p>
-          </SuccessPanel>
-        ) : !linkLoaded ? null : !recordId ? (
-          <SuccessPanel title="Use your personalized link" className="mx-auto">
-            <p>
-              This page needs the unique link from your email. Please open that link, or reply to us and we&rsquo;ll record your response manually.
-            </p>
-          </SuccessPanel>
-        ) : (
-          <>
-            <div className="max-w-[640px] mx-auto space-y-4 text-center text-[15px] sm:text-[16px] leading-[1.7] text-text-secondary">
-              {name && (
-                <p className="text-text text-[16px] sm:text-[17px]">
-                  <strong>{name}</strong>
-                </p>
-              )}
+          {submitted ? (
+            <SuccessPanel title="Spot saved">
+              <p>Thanks. We&rsquo;ve saved your September fellowship spot and sent you a confirmation email.</p>
+            </SuccessPanel>
+          ) : !linkLoaded ? null : !recordId ? (
+            <SuccessPanel title="Use your personalized link">
               <p>
-                Confirm below and we&rsquo;ll hold a guaranteed spot for you in the September fellowship.
+                This page needs the unique link from your email. Please open that link, or reply to us and we&rsquo;ll record your response manually.
               </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="max-w-[560px] mx-auto space-y-8 mt-8">
-              {error && (
-                <p className="text-center text-accent text-[15px] font-medium leading-[1.7]">{error}</p>
-              )}
-
-              <input type="hidden" name="recordId" value={recordId} />
-              <input type="hidden" name="name" value={name} />
-              <input type="hidden" name="email" value={email} />
-
-              <label className="flex items-start gap-3 border border-black/20 px-4 py-4 text-left text-[15px] sm:text-[16px] leading-[1.6] text-text">
-                <input
-                  type="checkbox"
-                  name="wantsSpot"
-                  value="yes"
-                  required
-                  className="mt-1 h-4 w-4 shrink-0 accent-accent"
-                />
-                <span>I would like a guaranteed spot in the September fellowship.</span>
-              </label>
-
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="primary-cta px-8 py-3 text-[15px] disabled:cursor-not-allowed"
-                >
-                  {submitting ? "Submitting..." : "Submit"}
-                </button>
+            </SuccessPanel>
+          ) : (
+            <div>
+              <div className="t-body space-y-4">
+                {name && (
+                  <p className="text-ink text-[17px]">
+                    <strong>{name}</strong>
+                  </p>
+                )}
+                <p>
+                  Confirm below and we&rsquo;ll hold a guaranteed spot for you in the September fellowship.
+                </p>
               </div>
-            </form>
-          </>
-        )}
-      </section>
+
+              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-6">
+                {error && (
+                  <p id="september-error" role="alert" className="text-[13px] text-rose">
+                    {error}
+                  </p>
+                )}
+
+                <input type="hidden" name="recordId" value={recordId} />
+                <input type="hidden" name="name" value={name} />
+                <input type="hidden" name="email" value={email} />
+
+                <label className="flex items-start gap-3 rounded-[6px] border border-ink/[0.18] px-4 py-4 text-[15px] leading-[1.6] text-ink cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="wantsSpot"
+                    value="yes"
+                    required
+                    aria-describedby={error ? "september-error" : undefined}
+                    className="mt-1 h-4 w-4 shrink-0 [accent-color:var(--color-ink)]"
+                  />
+                  <span>I would like a guaranteed spot in the September fellowship.</span>
+                </label>
+
+                <div>
+                  <button type="submit" disabled={submitting} className="btn btn-ink-solid">
+                    {submitting ? "Submitting..." : "Submit"}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+      </PageHero>
     </main>
   );
 }

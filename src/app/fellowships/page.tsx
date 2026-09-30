@@ -1,13 +1,15 @@
 import TestimonialRow, { type Testimonial } from "@/components/TestimonialRow";
-import HeroBackdrop from "@/components/HeroBackdrop";
+import Section from "@/components/Section";
+import PageHero from "@/components/PageHero";
+import Accordion, { type AccordionItem } from "@/components/Accordion";
 import { interestFormHref } from "@/lib/links";
 
 const fellowTestimonials: Testimonial[] = [
   {
     quote:
-      "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I've continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
+      "I participated in a fellowship last fall, and I absolutely loved it! The fellowship gave me a friendly and passionate environment in which to explore recent research in AI alignment techniques during meals with other students. Since the fellowship, I’ve continued to develop my skills alongside these students, and have become much more informed and capable of working to improve AI safety.",
     name: "Boyan",
-    role: "Fellow '25",
+    role: "Fellow ’25",
     image: "/boyan.webp",
     imagePosition: "center 20%",
   },
@@ -15,22 +17,22 @@ const fellowTestimonials: Testimonial[] = [
     quote:
       "Going in, I had some interest in AI safety but little idea how it shows up in real research or how someone technical like me could contribute. The curriculum and weekly discussions gave me a much clearer sense of the field, and I enjoyed the sushi.",
     name: "Divy",
-    role: "Fellow '25",
+    role: "Fellow ’25",
     image: "/divy.webp",
   },
   {
     quote:
       "I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks. These fellowships have given me a foundation for thinking about AI safety that I carry into everything I work on.",
     name: "Pera",
-    role: "Fellow '25 and '26",
+    role: "Fellow ’25 and ’26",
     image: "/pera.webp",
   },
 ];
 
 // Answers hold JSX rather than strings, since the first one carries a link.
-const faqs: { q: string; a: React.ReactNode }[] = [
+const faqs: AccordionItem[] = [
   {
-    q: "What if I don't have a technical background?",
+    q: "What if I don’t have a technical background?",
     a: (
       <>
         None of our fellowship streams require a technical background. Both will
@@ -42,7 +44,7 @@ const faqs: { q: string; a: React.ReactNode }[] = [
           href="https://www.youtube.com/watch?v=aircAruvnKk"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-amber-deep"
+          className="link"
         >
           3B1B: But What is a Neural Network?
         </a>{" "}
@@ -66,11 +68,19 @@ const faqs: { q: string; a: React.ReactNode }[] = [
     a: <>At Trajectory Labs, close to King station.</>,
   },
   {
-    q: "When does the reading group start?",
-    a: <>The fall iteration will begin the week of September 20th.</>,
+    q: "When does the fellowship start?",
+    a: (
+      <>
+        The Winter fellowship starts in January. Exact dates go out to everyone who{" "}
+        <a href={interestFormHref("fellowship-faq")} className="link">
+          expresses interest
+        </a>
+        .
+      </>
+    ),
   },
   {
-    q: "What day/time do sessions run?",
+    q: "What day and time do sessions run?",
     a: (
       <>
         TAISI will be running multiple cohorts and you&rsquo;ll be placed in the
@@ -80,207 +90,109 @@ const faqs: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "I have a question that wasn't answered here. Is there anyone I can reach out to?",
+    q: "I have a question that wasn’t answered here. Who can I ask?",
     a: (
       <>
-        For sure! Send an email to{" "}
+        Email{" "}
         <a
           href="mailto:joseph@taisi.ca"
-          className="underline underline-offset-2 hover:text-amber-deep"
+          className="link"
         >
           joseph@taisi.ca
         </a>{" "}
-        and we&rsquo;ll get back asap.
+        and we&rsquo;ll get back to you soon.
       </>
     ),
+  },
+];
+
+const tracks = [
+  {
+    title: "AI Safety Fundamentals",
+    length: "6 weeks",
+    topics: [
+      "Intro to deep learning (first session only)",
+      "Forecasting",
+      "Reinforcement learning from human feedback",
+      "Scalable oversight",
+      "Mechanistic interpretability",
+      "Technical governance",
+      "Contributing to technical AI safety",
+    ],
+  },
+  {
+    title: "AI Governance",
+    length: "6 weeks",
+    topics: [
+      "Forecasting",
+      "Overview of key actors",
+      "Identifying levers for effective policy frameworks",
+      "Governance at frontier labs",
+      "Canada\u2019s role in international cooperation",
+      "Contributing to AI governance",
+    ],
   },
 ];
 
 export default function Fellowships() {
   return (
     <main>
-      <section className="relative">
-        {/* The drawing is pinned to the viewport and fades out as the page
-            scrolls, the same treatment as the skyline on the homepage. */}
-        <HeroBackdrop fadeOverScreens={0.75}>
-          {/* Observatory drawing, anchored to the right edge of the screen.
-              It is drawn taller than the viewport, so the band crops it to
-              the right-hand part of the sketch. */}
-          <div
-            aria-hidden
-            className="art-fade hidden sm:block absolute inset-y-0 right-0 w-[62%] bg-no-repeat"
-            style={{
-              backgroundImage: "url('/hero-observatory.webp')",
-              backgroundPosition: "right center",
-              backgroundSize: "auto 114%",
-            }}
-          />
-          {/* Fades the drawing into the page on every edge */}
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-white from-40% via-white/75 via-70% to-white/40"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white"
-          />
-        </HeroBackdrop>
-
-        <div className="intro-rise relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14 md:pt-20 pb-8 md:pb-12">
-        <div>
-          <h1 className="hero-title text-[1.75rem] sm:text-[2.25rem] md:text-[3.25rem] leading-[0.98] tracking-normal mb-6 sm:mb-8 font-semibold">
-            <span className="text-text">Fellowship</span>
-          </h1>
-        </div>
-
-        <div className="space-y-4 sm:space-y-5 text-[17px] sm:text-[19px] leading-[1.7] text-text max-w-[820px]">
-          <div>
-            <p>
-              <strong className="font-semibold text-accent">
-                Applications for our intro fellowship are now closed.
-              </strong>
-            </p>
-          </div>
-          <div>
-            <p>
-              We offer two parallel introductory fellowships:{" "}
-              AI Safety Fundamentals and AI Governance.
-            </p>
-          </div>
-          <div>
-            <p>
-              The fundamentals track introduces the technical challenge of making
-              AI systems reliably follow human intentions, while the governance
-              track examines the role of policy, institutions, and global
-              coordination to reduce AI risks. Both cover forecasting how the
-              technology develops.
-            </p>
-          </div>
-          <div>
-            <p>
-              Fellowships run weekly for 6 sessions of paper discussions at
-              Trajectory Labs, an off-campus AI safety hub.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 sm:mt-7">
-        <a
-          href={interestFormHref("fellowship")}
-          className="card-cta"
-          style={
-            {
-              "--cta-fg": "#501684",
-              "--cta-hover-bg": "#501684",
-              "--cta-hover-fg": "#FFFFFF",
-            } as React.CSSProperties
-          }
-        >
-          Express interest for the next round
-          <span aria-hidden className="card-cta-arrow">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="square"
-              className="shrink-0"
-            >
-              <path d="M5 12h13M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </a>
-        </div>
-
-        <div className="mt-8 sm:mt-10">
-          <TestimonialRow items={fellowTestimonials} title="Our fellows" />
-        </div>
-
-        <hr className="mt-8 sm:mt-10 border-t border-gray-200" />
-
-        <div>
-          <p className="mt-6 sm:mt-8 text-[14px] leading-[1.6] text-text-secondary">
-            Curriculum adapted from BlueDot Impact.
+      <PageHero title="Fellowship" object="weave">
+        <div className="flex flex-col gap-4 t-body max-w-[640px]">
+          <p>
+            We offer two parallel introductory fellowships: AI Safety Fundamentals and AI
+            Governance.
+          </p>
+          <p>
+            The fundamentals track introduces the technical challenge of making AI systems reliably
+            follow human intentions, while the governance track examines the role of policy,
+            institutions, and global coordination to reduce AI risks. Both cover forecasting how the
+            technology develops.
+          </p>
+          <p>
+            Fellowships run weekly for 6 sessions of paper discussions at Trajectory Labs, an
+            off-campus AI safety hub.
           </p>
         </div>
-
-        <div className="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-8 sm:gap-12">
-          <div>
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
-              AI Safety Fundamentals
-            </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
-            <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
-              <li>Intro to deep learning (first session only)</li>
-              <li>Forecasting</li>
-              <li>Reinforcement learning from human feedback</li>
-              <li>Scalable oversight</li>
-              <li>Mechanistic interpretability</li>
-              <li>Technical governance</li>
-              <li>Contributing to technical AI safety</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-1">
-              AI Governance
-            </h2>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-4">6 weeks</p>
-            <p className="text-[17px] sm:text-[19px] text-text-secondary mb-3">Topics include:</p>
-            <ul className="space-y-1.5 text-[17px] sm:text-[19px] text-text-secondary list-disc pl-5">
-              <li>Forecasting</li>
-              <li>Overview of key actors</li>
-              <li>Identifying levers for effective policy frameworks</li>
-              <li>Governance at frontier labs</li>
-              <li>Canada&rsquo;s role in international cooperation</li>
-              <li>Contributing to AI governance</li>
-            </ul>
-          </div>
+        <div>
+          <a href={interestFormHref("fellowship-hero")} className="btn btn-ink">
+            Express interest in the Winter cohort
+          </a>
         </div>
+      </PageHero>
 
-        <hr className="mt-10 sm:mt-12 border-t border-gray-200" />
+      <Section object="bounce" title="Our fellows">
+        <TestimonialRow items={fellowTestimonials} />
+      </Section>
 
-        {/* Native details/summary rather than a scripted accordion: it opens
-            on Enter and Space, announces its own expanded state, and still
-            works if the JavaScript never arrives. */}
-        <div className="mt-6 sm:mt-8">
-          <h2 className="text-[1.35rem] sm:text-[1.5rem] font-semibold text-text tracking-normal mb-4 sm:mb-5">
-            FAQ
-          </h2>
-          <div className="max-w-[760px] border-b border-gray-200">
-            {faqs.map(({ q, a }) => (
-              <details key={q} className="group border-t border-gray-200">
-                <summary className="flex items-start justify-between gap-5 cursor-pointer list-none py-4 text-[17px] sm:text-[19px] font-semibold text-text [&::-webkit-details-marker]:hidden">
-                  <span>{q}</span>
-                  {/* Turns over when the answer opens, so the row says which
-                      way it is going without a label. */}
-                  <svg
-                    aria-hidden
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="square"
-                    className="mt-1.5 shrink-0 text-accent transition-transform duration-200 group-open:-rotate-180"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </summary>
-                <div className="pb-5 pr-8 text-[17px] sm:text-[19px] leading-[1.6] text-text-secondary">
-                  {a}
-                </div>
-              </details>
-            ))}
-          </div>
+      <Section object="unroll" title="Curriculum">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-x-16 gap-y-12">
+          {tracks.map((t) => (
+            <div key={t.title} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <h3 className="t-h3">{t.title}</h3>
+                <p className="t-small">{t.length}</p>
+              </div>
+              <div className="t-body">
+                <p className="mb-2">Topics include:</p>
+                <ul className="m-0 pl-5 list-disc flex flex-col gap-1.5">
+                  {t.topics.map((topic) => (
+                    <li key={topic} className="pl-1">
+                      {topic}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
+      </Section>
 
+      <Section object="globe" title="FAQ">
+        <div className="max-w-[760px]">
+          <Accordion items={faqs} />
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

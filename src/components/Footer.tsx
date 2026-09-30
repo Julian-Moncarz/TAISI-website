@@ -1,103 +1,64 @@
 "use client";
 
-import TaisiMark from "./TaisiMark";
-import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Lockup } from "./Logo";
+import { DISCORD_URL, interestFormHref } from "@/lib/links";
 
-function FooterEmailForm() {
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState("");
+// Pages that are themselves the next step, where a "go and express interest"
+// block would send people away from the form they are filling in.
+const NO_CTA = ["/interest", "/september-fellowship"];
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "footer" }),
-      });
-      if (!res.ok) throw new Error("Failed");
-      setDone(true);
-    } catch {
-      setError("Something went wrong.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (done) {
-    return (
-      <p className="text-[13px] text-white/70">You&rsquo;re on the list.</p>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-[360px]">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        placeholder="you@mail.utoronto.ca"
-        className="field-pill flex-1 sm:!text-[14px] !py-2"
-      />
-      <button
-        type="submit"
-        disabled={submitting}
-        className="cta-base cta-amber rounded-full px-4 py-2 text-[14px] shrink-0"
-      >
-        {submitting ? "..." : "Join our mailing list"}
-      </button>
-      {error && (
-        <p className="text-amber text-[12px] mt-1 sm:basis-full">{error}</p>
-      )}
-    </form>
-  );
-}
-
-const links = [
-  { href: "/fellowships", label: "Fellowship" },
-  { href: "/intensive", label: "Intensive" },
-  { href: "/team", label: "Team" },
-  { href: "/reach-out", label: "Reach out" },
+// Two short columns, so the links never need more width than a phone has.
+// The email address is the way to get in touch; there is no contact form.
+const columns = [
+  [
+    { href: "/fellowships", label: "Fellowship" },
+    { href: "/team", label: "Team" },
+  ],
+  [{ href: "mailto:joseph@taisi.ca", label: "joseph@taisi.ca" }],
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const cta = !NO_CTA.includes(pathname);
+
   return (
-    // Purple ground, so the mark takes its on-dark colours and the links sit
-    // in white, with gold kept for hover.
-    <footer className="mt-20 py-12 bg-plum text-white">
-      <div className="max-w-[1200px] mx-auto px-5 sm:px-8">
-        <div className="flex flex-col md:flex-row md:justify-between gap-10">
-          {/* Brand */}
-          <div className="max-w-[320px]">
-            <div className="flex items-center gap-2.5 mb-3">
-              <TaisiMark variant="on-dark" className="h-[30px] w-auto" />
-              <span className="text-[15px] text-white">Toronto AI Safety Initiative</span>
+    <footer id="join" className="on-dark bg-ink text-cream">
+      <div className={`container-site pb-14 flex flex-col gap-20 md:gap-[120px] ${cta ? "pt-[88px] md:pt-32" : "pt-16"}`}>
+        {cta && (
+          <div className="flex flex-col gap-10">
+            <h2 className="t-section">Interested in the Winter Fellowship?</h2>
+            <div className="flex flex-wrap items-center gap-5">
+              <a href={interestFormHref("footer")} className="btn btn-gold">
+                Express interest
+              </a>
+              {DISCORD_URL && (
+                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-text">
+                  Join our Discord
+                </a>
+              )}
             </div>
           </div>
+        )}
 
-          {/* Nav */}
-          <div className="flex flex-col gap-2 text-[14px]">
-            {links.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-white/70 hover:text-amber transition-colors"
-              >
-                {label}
-              </Link>
+        {/* Logo and links share one bottom line; on phones the links drop
+            beneath the logo. */}
+        <div
+          className={`flex flex-wrap justify-between items-end gap-10 ${
+            cta ? "pt-10 border-t border-cream/15" : ""
+          }`}
+        >
+          <Lockup size={60} tone="dark" />
+          <div className="flex gap-12 text-[15px] whitespace-nowrap">
+            {columns.map((col, i) => (
+              <div key={i} className="flex flex-col gap-2.5">
+                {col.map(({ href, label }) => (
+                  <a key={href} href={href} className="text-cream/75 hover:text-gold transition-colors">
+                    {label}
+                  </a>
+                ))}
+              </div>
             ))}
-          </div>
-
-          {/* Mailing list */}
-          <div className="md:max-w-[380px] w-full">
-            <p className="text-[13px] text-white/70 mb-2">Mailing list</p>
-            <FooterEmailForm />
           </div>
         </div>
       </div>

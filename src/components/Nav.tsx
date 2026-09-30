@@ -1,57 +1,32 @@
 "use client";
 
-import TaisiMark from "./TaisiMark";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-
-// Jumps to the programs section of the homepage rather than to a page of
-// its own. The two programs live in the bar that slides out beneath it.
-const PROGRAMS_HREF = "/#programming";
-
-const programLinks = [
-  {
-    href: "/fellowships",
-    label: "Fellowship",
-    blurb:
-      "6 weekly sessions at Trajectory Labs, an off-campus AI safety hub. Core material in technical AI safety or AI governance, with an experienced facilitator. No ML background needed.",
-  },
-  {
-    href: "/intensive",
-    label: "Intensive",
-    blurb:
-      "One day a week at an AI safety lab in downtown Toronto, built to fit around a full-time job. Leave with next steps and a plan for how to contribute.",
-  },
-];
+import { Lockup } from "./Logo";
 
 const links = [
+  { href: "/fellowships", label: "Fellowship" },
   { href: "/team", label: "Team" },
-  { href: "/reach-out", label: "Reach out" },
 ];
 
-// The bar sits light over the hero and firms up once the page is scrolled.
-const WEIGHT_TOP = 400;
-const WEIGHT_SCROLLED = 500;
+// How long the mobile menu takes to fade in and out.
+const MENU_MS = 200;
 
 export default function Nav() {
   const pathname = usePathname();
+  // Mounted and shown are separate so the menu can fade out before it
+  // leaves the page.
   const [open, setOpen] = useState(false);
+  const [shown, setShown] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [pastHero, setPastHero] = useState(false);
-  const [programsOpen, setProgramsOpen] = useState(false);
-  // The banner sits above the bar in the same sticky wrapper, so the mobile
-  // menu has to clear whatever the two of them add up to.
+  // The mobile menu opens under the bar, so it has to clear whatever the
+  // sticky wrapper adds up to (the bar, plus an announcement if one is up).
   const barRef = useRef<HTMLElement>(null);
-  const [headerH, setHeaderH] = useState(76);
-
-  const onProgramsPage = programLinks.some((l) => l.href === pathname);
-  // True until the white part of the page has risen past the bar.
-  const overHero = pathname === "/" && !pastHero;
-  const purple = overHero;
+  const [headerH, setHeaderH] = useState(75);
 
   // Nav links reload the page rather than navigating client side, so every
-  // page opens at the top with its entrance animations running from the
+  // page opens at the top with its objects and entrances playing from the
   // start. Modified clicks are left alone so new-tab still works.
   function hardNav(href: string) {
     return (e: React.MouseEvent) => {
@@ -64,118 +39,72 @@ export default function Nav() {
     };
   }
 
-  const goHome = hardNav("/");
-
-  useEffect(() => { setMounted(true); }, []);
-
-  // Weight follows the scroll position, throttled to a frame so the listener
-  // never runs work per scroll event.
   useEffect(() => {
-    let queued = false;
-    function onScroll() {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        setScrolled(window.scrollY > 24);
-        setPastHero(window.scrollY > window.innerHeight - 90);
-      });
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    setMounted(true);
   }, []);
 
-  // Only the homepage has artwork for the bar to sit lightly over, so every
-  // other page keeps the heavier weight throughout.
-  const weight =
-    pathname === "/" && !scrolled ? WEIGHT_TOP : WEIGHT_SCROLLED;
-
-  // Close mobile menu on route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Prevent scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (open) {
+      const el = barRef.current;
+      if (el) setHeaderH(Math.round(el.getBoundingClientRect().bottom));
+      const id = requestAnimationFrame(() => setShown(true));
+      return () => cancelAnimationFrame(id);
+    }
+    setShown(false);
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
-  // Measure once the menu opens: the sticky wrapper is pinned to the top by
-  // then, so the bar's bottom edge is the full header height.
+  // Keep the menu in the page until its fade-out has finished.
+  const [present, setPresent] = useState(false);
   useEffect(() => {
-    if (!open) return;
-    const el = barRef.current;
-    if (el) setHeaderH(Math.round(el.getBoundingClientRect().bottom));
+    if (open) setPresent(true);
+    else {
+      const t = setTimeout(() => setPresent(false), MENU_MS);
+      return () => clearTimeout(t);
+    }
   }, [open]);
 
   return (
     <>
-      <nav
+      <header
         ref={barRef}
-        className={`relative z-[100] transition-colors duration-200 ${
-          programsOpen
-            ? purple
-              ? "bg-plum"
-              : "bg-white backdrop-blur-md"
-            : overHero
-              ? scrolled
-                ? "bg-plum"
-                : "bg-transparent"
-              : "bg-white/60 backdrop-blur-md"
-        }`}
-        onMouseLeave={() => setProgramsOpen(false)}
+        className="relative z-[100] bg-white/90 backdrop-blur-[10px] border-b border-ink/[0.08]"
       >
-        <div className="flex items-center justify-between px-5 sm:px-8 md:px-16 lg:px-24 py-5">
-          <a href="/" onClick={goHome} className="flex items-center gap-2">
-            <TaisiMark className="h-[34px] sm:h-[38px] w-auto translate-y-[2px]" />
-            <span className={`nav-weight font-sans text-[17px] ${overHero ? "text-white" : "text-text"}`} style={{ fontWeight: weight }}>
-              Toronto AI Safety Initiative
-            </span>
+        <div className="container-site py-4 flex items-center justify-between gap-6">
+          {/* The descriptor line is too small to read at nav size, so the
+              bar carries the name alone, as in the design system's nav. */}
+          <a href="/" onClick={hardNav("/")} aria-label="TAISI home" className="flex no-underline">
+            <Lockup size={42} descriptor={false} />
           </a>
 
-          {/* Desktop links */}
-          <div
-            className={`nav-weight hidden md:flex items-center gap-8 text-[17px] ${overHero ? "text-white/80" : "text-text-secondary"}`}
-            style={{ fontWeight: weight }}
-          >
-            {/* Not a link: it opens the panel below and goes nowhere. A
-                button, so it answers to the keyboard as well as the mouse. */}
-            <button
-              type="button"
-              onMouseEnter={() => setProgramsOpen(true)}
-              onFocus={() => setProgramsOpen(true)}
-              onClick={() => setProgramsOpen((open) => !open)}
-              aria-expanded={programsOpen}
-              className={`hover:text-accent transition-colors ${
-                onProgramsPage ? "text-text" : ""
-              }`}
-            >
-              Programs
-            </button>
+          <nav className="hidden md:flex items-center gap-7 text-[15px] font-medium whitespace-nowrap">
             {links.map(({ href, label }) => (
               <a
                 key={href}
                 href={href}
                 onClick={hardNav(href)}
-                onMouseEnter={() => setProgramsOpen(false)}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : ""
-                }`}
+                aria-current={pathname === href ? "page" : undefined}
+                className={`transition-colors hover:text-ink ${pathname === href ? "text-ink" : "text-mute"}`}
               >
                 {label}
               </a>
             ))}
-          </div>
+          </nav>
 
-          {/* Mobile hamburger */}
           <button
-            className="md:hidden relative z-[100] p-2 -mr-2"
+            className="md:hidden relative z-[100] p-2 -mr-2 text-ink"
             onClick={() => setOpen(!open)}
             aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
               {open ? (
                 <>
                   <line x1="6" y1="6" x2="18" y2="18" />
@@ -191,105 +120,37 @@ export default function Nav() {
             </svg>
           </button>
         </div>
+      </header>
 
-        {/* Programs flyout: a full-width panel under the bar rather than a
-            dropdown. It is taken out of flow, since the nav is sticky and a
-            panel inside it would grow the bar, push every section down and
-            cover the content beneath. Animating grid rows lets it open to
-            its own height without hardcoding one. */}
-        <div
-          className={`hidden md:grid absolute left-0 right-0 top-full transition-[grid-template-rows] duration-300 ease-out ${
-            programsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-          }`}
-          onMouseEnter={() => setProgramsOpen(true)}
-        >
-          <div className="overflow-hidden">
+      {/* Portaled to body so it escapes the sticky wrapper's stacking context. */}
+      {present &&
+        mounted &&
+        createPortal(
+          <div
+            className="md:hidden fixed inset-0 bg-page z-[90] transition-opacity ease-[var(--ease-standard)]"
+            style={{ paddingTop: headerH, opacity: shown ? 1 : 0, transitionDuration: `${MENU_MS}ms` }}
+          >
             <div
-              className={`${purple ? "bg-plum" : "bg-white"} px-5 sm:px-8 md:px-16 lg:px-24 pt-4 pb-14 transition-opacity duration-200 ${
-                programsOpen ? "opacity-100" : "opacity-0"
-              }`}
+              className="container-site pt-8 flex flex-col gap-6 transition-transform ease-[var(--ease-settle)]"
+              style={{ transform: shown ? "none" : "translateY(-8px)", transitionDuration: `${MENU_MS + 100}ms` }}
             >
-              <div className="flex gap-16 lg:gap-24">
-                {/* Section title, sitting under the wordmark */}
-                <div className="w-[240px] shrink-0">
-                  <p className={`hero-title text-[2rem] leading-[1.1] font-semibold ${purple ? "text-white" : "text-text"}`}>
-                    Programs
-                  </p>
-                  <a
-                    href={PROGRAMS_HREF}
-                    tabIndex={programsOpen ? 0 : -1}
-                    className={`mt-4 inline-block border-b pb-1 text-[15px] font-normal transition-colors ${purple ? "border-white/60 text-white hover:text-amber hover:border-amber" : "border-text text-text hover:text-accent hover:border-accent"}`}
-                  >
-                    See all programs
-                  </a>
-                </div>
-
-                <div className="grid grid-cols-2 gap-x-16 lg:gap-x-24 gap-y-8 flex-1 max-w-[900px]">
-                  {programLinks.map(({ href, label, blurb }) => (
-                    <a
-                      key={href}
-                      href={href}
-                      onClick={hardNav(href)}
-                      tabIndex={programsOpen ? 0 : -1}
-                      className="group block"
-                    >
-                      <span className={`hero-title block text-[1.35rem] leading-[1.2] font-normal transition-colors ${purple ? "text-white group-hover:text-amber" : "text-text group-hover:text-accent"}`}>
-                        {label}
-                      </span>
-                      <span className={`mt-2 block text-[15px] leading-[1.55] font-normal ${purple ? "text-white/70" : "text-text-secondary"}`}>
-                        {blurb}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile menu - portaled to body so it escapes nav stacking context */}
-      {open && mounted && createPortal(
-        <div
-          className="md:hidden fixed inset-0 bg-white z-[90]"
-          style={{ paddingTop: headerH }}
-        >
-          <div className="flex flex-col px-5 pt-6 gap-6 text-[17px] font-medium">
-            {/* No hover on touch, so the two programmes sit open beneath
-                this label. It is a heading, not something to tap. */}
-            <span className={onProgramsPage ? "text-text" : "text-text-secondary"}>
-              Programs
-            </span>
-            <div className="flex flex-col gap-5 pl-4 -mt-1">
-              {programLinks.map(({ href, label }) => (
+              {links.map(({ href, label }) => (
                 <a
                   key={href}
                   href={href}
                   onClick={hardNav(href)}
-                  className={`text-[16px] hover:text-accent transition-colors ${
-                    pathname === href ? "text-text" : "text-text-secondary"
+                  aria-current={pathname === href ? "page" : undefined}
+                  className={`t-h2 self-start text-ink ${
+                    pathname === href ? "underline decoration-1 underline-offset-[10px]" : ""
                   }`}
                 >
                   {label}
                 </a>
               ))}
             </div>
-            {links.map(({ href, label }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={hardNav(href)}
-                className={`hover:text-accent transition-colors ${
-                  pathname === href ? "text-text" : "text-text-secondary"
-                }`}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
