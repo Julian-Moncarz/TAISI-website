@@ -643,9 +643,12 @@ function HomeInner() {
 
         {/* Headline and buttons arrive together, as one block */}
         <div className="intro-rise relative z-10 w-full max-w-[1200px] mx-auto px-5 sm:px-8 pt-28 sm:pt-8 pb-24 sm:-translate-y-[4vh]">
-          <h1 className="hero-title text-[clamp(2.4rem,13vw,3.35rem)] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-7 sm:mb-8 md:mb-10 font-semibold">
+          <h1 className="hero-title text-[clamp(2.4rem,13vw,3.35rem)] sm:text-[4rem] md:text-[5.5rem] leading-[0.98] tracking-normal mb-5 sm:mb-6 font-semibold">
             AI safety needs more <RotatingText />
           </h1>
+          <p className="max-w-[560px] text-[17px] sm:text-[20px] leading-[1.5] text-white/85">
+            We&rsquo;re a group of students at the University of Toronto reducing catastrophic risks from advanced AI
+          </p>
 
           <div
             className="flex flex-col items-start sm:flex-row sm:items-center gap-3 sm:gap-4"
