@@ -135,7 +135,7 @@ export default function Home() {
 
       <Section
         object="gyre"
-        title={<>U&nbsp;of&nbsp;T&rsquo;s best minds think AI safety is the most important problem.</>}
+        title={<>U&nbsp;of&nbsp;T&rsquo;s best think AI safety is the most important problem.</>}
       >
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-x-10 gap-y-12 pt-10">
           {quotes.map((q) => (
