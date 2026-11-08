@@ -220,7 +220,7 @@ export default function Home() {
             </p>
             <p>
               If you care about <strong className="font-semibold">community</strong> or making
-              friends, we have one of the closest, kindest communities on campus :)
+              friends, we have one of the tightest-knit, kindest communities on campus :)
             </p>
           </div>
           <div className="card relative aspect-[3/2] overflow-hidden !bg-cream">
