@@ -4,7 +4,6 @@ import Section from "@/components/Section";
 import GeoObject from "@/components/geo/GeoObject";
 import HomeQueryEffects from "@/components/HomeQueryEffects";
 import OrgList from "@/components/OrgList";
-import { TestimonialCard } from "@/components/TestimonialRow";
 import { DISCORD_URL, interestFormHref } from "@/lib/links";
 
 // Layout and copy follow "TAISI Homepage v2" in Claude Design.
@@ -257,14 +256,6 @@ export default function Home() {
               </div>
             </article>
           ))}
-        </div>
-        <div className="max-w-[560px]">
-          <TestimonialCard
-            quote="I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks."
-            name="Pera"
-            role="Fellow ’25 and ’26"
-            image="/pera.webp"
-          />
         </div>
       </Section>
     </main>
