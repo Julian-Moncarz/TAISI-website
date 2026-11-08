@@ -246,13 +246,13 @@ export default function Home() {
                 <h3 className="t-h3">{w.title}</h3>
                 <p className="t-body">{w.body}</p>
                 {w.cta && (
-                  <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <div className="mt-auto pt-4 flex flex-wrap items-center gap-3">
                     <a href={w.cta.href} className="btn btn-ink btn-sm">
                       {w.cta.label}
                     </a>
                     {w.more && (
-                      <a href={w.more} className="btn-text">
-                        Learn more &rarr;
+                      <a href={w.more} className="btn btn-ink btn-sm">
+                        Learn more
                       </a>
                     )}
                   </div>
