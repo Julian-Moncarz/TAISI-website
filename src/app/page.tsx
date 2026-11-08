@@ -209,20 +209,21 @@ export default function Home() {
       {/* Copy carried over from the pre-redesign home page. */}
       <Section id="why-get-involved" object="implode" title="Why get involved?">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,460px)] gap-x-16 gap-y-10 items-center">
-          <div className="flex flex-col gap-5 t-lead">
-            <p>
+          {/* Bulleted to match the list in But what is AI safety? */}
+          <ul className="m-0 pl-6 list-disc flex flex-col gap-5 t-lead marker:text-[0.6em]">
+            <li className="pl-1">
               If you care about <strong className="font-semibold">careers</strong>, there are
               exceptional careers to be made in AI safety.
-            </p>
-            <p>
+            </li>
+            <li className="pl-1">
               If you care about <strong className="font-semibold">impact</strong>, this is a chance to
               have a critical impact on the world.
-            </p>
-            <p>
+            </li>
+            <li className="pl-1">
               If you care about <strong className="font-semibold">community</strong> or making
               friends, we have one of the kindest, tightest-knit communities on campus :)
-            </p>
-          </div>
+            </li>
+          </ul>
           <div className="card relative aspect-[3/2] overflow-hidden !bg-cream">
             <Image
               src="/photos/retreat-friends.webp"
