@@ -1,29 +1,38 @@
-/* The TAISI mark and lockup, from "TAISI Web Design System v2".
+/* The TAISI mark and lockup.
 
-   The mark is the logo cone seen side on: eleven bands fanning from a point,
-   gold on the left to aubergine on the right, cut off by the ellipse of the
-   cone's rim. It is drawn once as a symbol in <LogoSprite /> (rendered by the
-   root layout) and every mark on the page is a <use> of it, so the gradient
-   geometry ships once however many logos there are. */
+   The mark is the original TAISI triangle, redrawn: an aubergine triangle
+   whose left half is broken into gold facets, with thin aubergine seams
+   between the facets and a matching hairline round the edge. It is drawn
+   once as a symbol in <LogoSprite /> (rendered by the root layout) and every
+   mark on the page is a <use> of it, so the geometry ships once however many
+   logos there are. public/brand/taisi-mark.svg is the same drawing. */
 
-const BANDS = [
-  ["-25,-45.14 -19.19,-38.65 50,100", "oklch(0.84 0.1 80)"],
-  ["-19.19,-38.65 -8.98,-32.89 50,100", "oklch(0.8 0.11 67)"],
-  ["-8.98,-32.89 4.97,-28.21 50,100", "oklch(0.77 0.12 54)"],
-  ["4.97,-28.21 21.79,-24.92 50,100", "oklch(0.73 0.12 41)"],
-  ["21.79,-24.92 40.39,-23.22 50,100", "oklch(0.7 0.13 28)"],
-  ["40.39,-23.22 59.61,-23.22 50,100", "oklch(0.66 0.14 15)"],
-  ["59.61,-23.22 78.21,-24.92 50,100", "oklch(0.6 0.14 -1)"],
-  ["78.21,-24.92 95.03,-28.21 50,100", "oklch(0.54 0.14 -17)"],
-  ["95.03,-28.21 108.98,-32.89 50,100", "oklch(0.48 0.15 -33)"],
-  ["108.98,-32.89 119.19,-38.65 50,100", "oklch(0.42 0.15 -49)"],
-  ["119.19,-38.65 125,-45.14 50,100", "oklch(0.36 0.15 -65)"],
+// Each facet of the gold half: its corners and its gold.
+const FACETS = [
+  ["0,0 20,0 7.29,14", "#F4A23A"],
+  ["20,0 32,10.4 7.29,14", "#EE8F2C"],
+  ["20,0 36,0 50,26", "#F7B95E"],
+  ["36,0 50,0 50,26", "#F9CC82"],
+  ["7.29,14 32,10.4 34,48.04", "#F7B95E"],
+  ["32,10.4 50,26 34,48.04", "#F4A23A"],
+  ["7.29,14 34,48.04 21.88,42", "#F9CC82"],
+  ["50,26 50,56 34,48.04", "#EE8F2C"],
+  ["21.88,42 34,48.04 50,56 37.5,72", "#F4A23A"],
+  ["37.5,72 50,56 50,96", "#F7B95E"],
 ] as const;
+// The lines between the gold facets.
+const SEAMS =
+  "M20,0L7.29,14M20,0L50,26M32,10.4L7.29,14M36,0L50,26M32,10.4L34,48.04M34,48.04L7.29,14M50,26L34,48.04M21.88,42L50,56M50,56L37.5,72";
+const PURPLE = "#4A1A7A";
+const TRIANGLE = "M0,0H100L50,96Z";
+// Seams and edge are drawn at one weight. The edge is stroked at twice that
+// and clipped to the triangle, so the half that shows matches the seams.
+const SEAM = 0.5;
 
 const MARK_ID = "taisi-mark";
-const VIEWBOX = "-1 2.24 102 98.76";
+const VIEWBOX = "0 0 100 96";
 // Width over height of the mark's viewBox.
-const MARK_RATIO = 102 / 98.76;
+const MARK_RATIO = 100 / 96;
 
 /** The shared definition every <TaisiMark /> points at. Render it once. */
 export function LogoSprite() {
@@ -31,13 +40,18 @@ export function LogoSprite() {
     <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
       <defs>
         <clipPath id={`${MARK_ID}-clip`}>
-          <path d="M50,100L0,3.24A50.83,18 0 0 0 100,3.24Z" />
+          <path d={TRIANGLE} />
         </clipPath>
         <symbol id={MARK_ID} viewBox={VIEWBOX}>
           <g clipPath={`url(#${MARK_ID}-clip)`}>
-            {BANDS.map(([points, fill]) => (
-              <polygon key={points} points={points} fill={fill} />
+            <path d="M50,0H100L50,96Z" fill={PURPLE} stroke={PURPLE} strokeWidth={0.3} />
+            {/* The matching stroke on each facet closes the hairline gaps
+                anti-aliasing leaves between neighbouring fills. */}
+            {FACETS.map(([points, fill]) => (
+              <polygon key={points} points={points} fill={fill} stroke={fill} strokeWidth={0.3} />
             ))}
+            <path d={SEAMS} fill="none" stroke={PURPLE} strokeWidth={SEAM} strokeLinecap="round" />
+            <path d={TRIANGLE} fill="none" stroke={PURPLE} strokeWidth={SEAM * 2} strokeLinejoin="round" />
           </g>
         </symbol>
       </defs>

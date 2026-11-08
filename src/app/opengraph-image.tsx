@@ -43,7 +43,7 @@ export default async function Image() {
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={markSrc} width={Math.round((h * 102) / 98.76)} height={h} alt="" />
+          <img src={markSrc} width={Math.round((h * 100) / 96)} height={h} alt="" />
           <div style={{ width: h * 0.4, display: "flex" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: h * 0.17 }}>
             <span style={{ fontWeight: 300, fontSize: h * 0.39, letterSpacing: "0.26em", lineHeight: 0.75 }}>

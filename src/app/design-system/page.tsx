@@ -125,7 +125,7 @@ export default function DesignSystem() {
               </div>
             ))}
           </div>
-          <Sub title="The mark’s eleven bands · band-1 to band-11">
+          <Sub title="The colour ramp · band-1 to band-11">
             <div className="flex h-16 rounded-lg overflow-hidden">
               {bands.map((b) => (
                 <div key={b} className="flex-1" style={{ background: b }} />
