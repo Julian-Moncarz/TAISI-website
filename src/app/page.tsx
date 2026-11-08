@@ -216,8 +216,8 @@ export default function Home() {
               have a critical impact on the world.
             </li>
             <li className="pl-1">
-              If you care about <strong className="font-semibold">careers</strong>, there are
-              exceptional careers to be made in AI safety.
+              If you care about your <strong className="font-semibold">career</strong>, there are
+              exceptional opportunities in AI safety.
             </li>
             <li className="pl-1">
               If you care about <strong className="font-semibold">community</strong> or making
