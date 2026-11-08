@@ -25,18 +25,18 @@ const colours = [
 const bands = Array.from({ length: 11 }, (_, i) => `var(--color-band-${i + 1})`);
 
 const type = [
-  { label: "Page title", spec: "t-display · Jost 300 · 38 to 60", cls: "t-display", sample: "We’re a group of U of T students" },
-  { label: "Section", spec: "t-section · Jost 300 · 32 to 46", cls: "t-section", sample: "What is AI safety?" },
-  { label: "H2", spec: "t-h2 · Jost 300 · 26 to 34", cls: "t-h2", sample: "Where you can work" },
-  { label: "H3", spec: "t-h3 · Jost 300 · 24 to 30", cls: "t-h3", sample: "Reading Group" },
-  { label: "H4", spec: "t-h4 · Jost 400 · 22", cls: "t-h4", sample: "Fellowship" },
-  { label: "Lead", spec: "t-lead · Jost 300 · 22 to 26", cls: "t-lead", sample: "AI safety is the field working to change that." },
-  { label: "Quote", spec: "t-quote · Jost 300 · 22", cls: "t-quote", sample: "“The most important problem of our time.”" },
+  { label: "Page title", spec: "t-display · Josefin Sans 300 · 38 to 60", cls: "t-display", sample: "We’re a group of U of T students" },
+  { label: "Section", spec: "t-section · Josefin Sans 300 · 32 to 46", cls: "t-section", sample: "What is AI safety?" },
+  { label: "H2", spec: "t-h2 · Josefin Sans 300 · 26 to 34", cls: "t-h2", sample: "Where you can work" },
+  { label: "H3", spec: "t-h3 · Josefin Sans 300 · 24 to 30", cls: "t-h3", sample: "Reading Group" },
+  { label: "H4", spec: "t-h4 · Josefin Sans 400 · 22", cls: "t-h4", sample: "Fellowship" },
+  { label: "Lead", spec: "t-lead · Josefin Sans 300 · 22 to 26", cls: "t-lead", sample: "AI safety is the field working to change that." },
+  { label: "Quote", spec: "t-quote · Josefin Sans 300 · 22", cls: "t-quote", sample: "“The most important problem of our time.”" },
   { label: "Body", spec: "t-body · Geist 400 · 16 / 1.7", cls: "t-body max-w-[620px]", sample: "Six weekly sessions over dinner at an off-campus AI safety hub." },
   { label: "Name", spec: "t-name · Geist 500 · 15", cls: "t-name", sample: "Jacob Tsimerman" },
   { label: "Role", spec: "t-role · Geist 400 · 14", cls: "t-role", sample: "Fields Medalist, U of T" },
   { label: "Small", spec: "t-small · Geist 400 · 14", cls: "t-small", sample: "Applications close August 22." },
-  { label: "Label", spec: "t-label · Jost 500 · 12 caps", cls: "t-label text-mute", sample: "For students" },
+  { label: "Label", spec: "t-label · Josefin Sans 500 · 12 caps", cls: "t-label text-mute", sample: "For students" },
 ];
 
 const spacing = [4, 8, 16, 24, 32, 48, 64, 96];
@@ -136,7 +136,7 @@ export default function DesignSystem() {
         </Block>
 
         <Block title="Type">
-          <p className="t-body">Jost for display type and the wordmark, Geist for everything else.</p>
+          <p className="t-body">Josefin Sans for display type and the wordmark, Geist for everything else.</p>
           <div className="flex flex-col">
             {type.map((t) => (
               <div

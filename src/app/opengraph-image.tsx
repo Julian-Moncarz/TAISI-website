@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 // The link preview for every page: the lockup and the home page headline.
-// Rendered once at build time. Jost is read from src/app/_fonts (OFL, see
+// Rendered once at build time. Josefin Sans is read from src/app/_fonts (OFL, see
 // OFL.txt there) because the preview renderer cannot use next/font. Its
 // renderer takes hex rather than oklch, so the colours are the hex values
 // listed on /design-system.
@@ -18,8 +18,8 @@ const MUTE = "#565360";
 
 export default async function Image() {
   const [light, regular, mark] = await Promise.all([
-    readFile(join(process.cwd(), "src/app/_fonts/jost-latin-300-normal.woff")),
-    readFile(join(process.cwd(), "src/app/_fonts/jost-latin-400-normal.woff")),
+    readFile(join(process.cwd(), "src/app/_fonts/josefin-sans-latin-300-normal.woff")),
+    readFile(join(process.cwd(), "src/app/_fonts/josefin-sans-latin-400-normal.woff")),
     readFile(join(process.cwd(), "public/brand/taisi-mark.svg")),
   ]);
   const markSrc = `data:image/svg+xml;base64,${mark.toString("base64")}`;
@@ -37,7 +37,7 @@ export default async function Image() {
           justifyContent: "space-between",
           background: "#FFFFFF",
           padding: "80px 96px",
-          fontFamily: "Jost",
+          fontFamily: "Josefin Sans",
           color: INK,
         }}
       >
@@ -84,8 +84,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "Jost", data: light, weight: 300, style: "normal" },
-        { name: "Jost", data: regular, weight: 400, style: "normal" },
+        { name: "Josefin Sans", data: light, weight: 300, style: "normal" },
+        { name: "Josefin Sans", data: regular, weight: 400, style: "normal" },
       ],
     },
   );

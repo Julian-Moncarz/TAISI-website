@@ -35,9 +35,9 @@
   --color-band-10: oklch(0.42 0.15 -49);
   --color-band-11: oklch(0.36 0.15 -65);
 
-  /* Jost for display type and the wordmark, Geist for everything else. */
+  /* Josefin Sans for display type and the wordmark, Geist for everything else. */
   --font-sans: var(--font-geist), Helvetica, Arial, sans-serif;
-  --font-display: var(--font-jost), Helvetica, Arial, sans-serif;
+  --font-display: var(--font-display-face), Helvetica, Arial, sans-serif;
 
   --ease-standard: cubic-bezier(0.45, 0, 0.2, 1);
   --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
@@ -87,7 +87,7 @@ textarea {
 }
 
 /* ---------------------------------------------------------------------------
-   Type. Headings are Jost Light. The scale is strictly ordered at every
+   Type. Headings are Josefin Sans Light. The scale is strictly ordered at every
    width: a page title is always larger than a section heading, which is
    always larger than a subheading, including at their phone minimums. */
 

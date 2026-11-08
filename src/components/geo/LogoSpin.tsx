@@ -178,10 +178,10 @@ export default function LogoSpin({
       </g>
       {showName && (
         <g opacity={textP} transform={`translate(${Math.max(826, X + 50 * S + 116)} 0)`}>
-          <text x="0" y="542" fontFamily="var(--font-jost), Helvetica, sans-serif" fontWeight="300" fontSize="113" letterSpacing="29" fill="var(--color-ink)">
+          <text x="0" y="542" fontFamily="var(--font-display-face), Helvetica, sans-serif" fontWeight="300" fontSize="113" letterSpacing="29" fill="var(--color-ink)">
             TAISI
           </text>
-          <text x="0" y="616" fontFamily="var(--font-jost), Helvetica, sans-serif" fontWeight="400" fontSize="35" letterSpacing="7" fill="var(--color-mute)">
+          <text x="0" y="616" fontFamily="var(--font-display-face), Helvetica, sans-serif" fontWeight="400" fontSize="35" letterSpacing="7" fill="var(--color-mute)">
             TORONTO AI SAFETY INITIATIVE
           </text>
         </g>

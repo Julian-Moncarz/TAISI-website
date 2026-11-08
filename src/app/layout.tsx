@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Jost } from "next/font/google";
+import { Geist, Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -7,11 +7,11 @@ import { LogoSprite } from "@/components/Logo";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-// Jost Light carries the headings and the wordmark; Geist is the body face.
-const display = Jost({
+// Josefin Sans Light carries the headings and the wordmark; Geist is the body face.
+const display = Josefin_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
-  variable: "--font-jost",
+  variable: "--font-display-face",
   display: "swap",
 });
 const body = Geist({
