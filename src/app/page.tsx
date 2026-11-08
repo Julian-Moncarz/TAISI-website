@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Image from "next/image";
 import Section from "@/components/Section";
 import GeoObject from "@/components/geo/GeoObject";
 import HomeQueryEffects from "@/components/HomeQueryEffects";
@@ -35,26 +36,31 @@ const quotes = [
   },
 ];
 
-const fellowshipPoints = [
-  "Weekly discussions over dinner",
-  "An introduction to the field of AI safety and its most important concepts",
-  "Hosted at Trajectory Labs, an off-campus AI safety hub near King Station",
-  "Free fancy dinner provided",
-  "No technical background needed",
-];
-
-const programs = [
+// The ways in, membership first: TAISI is a community, and the fellowship is
+// the usual way into it. Photos are from the Fall 2026 retreat.
+const waysIn = [
   {
-    title: "Reading Group",
-    body: "Read and discuss current AI safety research with other students.",
-  },
-  {
-    title: "Retreats",
-    body: "We send members to AI safety retreats in the U.S., hosted by the AI safety groups at Harvard and MIT.",
-  },
-  {
+    id: "membership",
     title: "Membership",
-    body: "Compute for technical projects, coworking at Trajectory Labs, semesterly retreats with AI safety researchers, and monthly socials.",
+    body: "Members get compute for technical projects, coworking at Trajectory Labs, a retreat with AI safety researchers each semester, and monthly socials. We also send members to AI safety retreats hosted by the groups at Harvard and MIT. Most members join after a fellowship, and students who have taken MAT1510 or have similar experience can apply directly.",
+    photo: "/photos/retreat-conversation.webp",
+    alt: "Three TAISI members talking on the grass at the retreat",
+    cta: { label: "Apply for membership", href: "mailto:joseph@taisi.ca?subject=TAISI%20membership" },
+  },
+  {
+    id: "fellowship",
+    title: "Intro Fellowship",
+    body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about 3 hours a week and needs no technical background.",
+    photo: "/photos/retreat-talk.webp",
+    alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
+    cta: { label: "Express interest in our fellowship", href: interestFormHref("home-get-involved") },
+  },
+  {
+    id: "reading-group",
+    title: "Reading group",
+    body: "Read and discuss current AI safety research with other students.",
+    photo: "/photos/retreat-audience.webp",
+    alt: "TAISI members listening to a talk at the retreat",
   },
 ];
 
@@ -195,42 +201,34 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="fellowship" object="ratchet" title="Our Intro Fellowship.">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] gap-x-16 gap-y-10 items-start">
-          <div className="flex flex-col gap-9">
-            <ul className="m-0 pl-5 list-disc flex flex-col gap-2.5">
-              {fellowshipPoints.map((p) => (
-                <li key={p} className="text-[18px] sm:text-[20px] leading-[1.55] pl-1">
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap items-center gap-4">
-              <a href={interestFormHref("home-fellowship")} className="btn btn-ink">
-                Express interest in our fellowship
-              </a>
-              <a href="/fellowships" className="btn-text">
-                Learn more &rarr;
-              </a>
-            </div>
-          </div>
+      <Section id="get-involved" object="ratchet" title="Get involved">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
+          {waysIn.map((w) => (
+            <article id={w.id} key={w.id} className="card overflow-hidden flex flex-col scroll-mt-[96px]">
+              <div className="relative aspect-[3/2] bg-cream">
+                <Image src={w.photo} alt={w.alt} fill sizes="(min-width: 1024px) 380px, 100vw" className="object-cover" />
+              </div>
+              <div className="px-8 pt-7 pb-8 flex flex-col gap-3 flex-1">
+                <h3 className="t-h3">{w.title}</h3>
+                <p className="t-body">{w.body}</p>
+                {w.cta && (
+                  <div className="mt-auto pt-4">
+                    <a href={w.cta.href} className="btn btn-ink btn-sm">
+                      {w.cta.label}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="max-w-[560px]">
           <TestimonialCard
             quote="I came in curious and found a community of people who genuinely care about getting this right, a real grip on the technical landscape, and a clearer sense of where I want to contribute. The modern discussion space and free food are also awesome perks."
             name="Pera"
             role="Fellow ’25 and ’26"
             image="/pera.webp"
           />
-        </div>
-      </Section>
-
-      <Section id="programs" object="implode" title="Other programming">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-5">
-          {programs.map((p) => (
-            <article key={p.title} className="card px-8 pt-7 pb-8 flex flex-col gap-3">
-              <h3 className="t-h3">{p.title}</h3>
-              <p className="t-body">{p.body}</p>
-            </article>
-          ))}
         </div>
       </Section>
     </main>
