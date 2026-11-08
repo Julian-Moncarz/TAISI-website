@@ -54,6 +54,7 @@ const waysIn = [
     photo: "/photos/retreat-talk.webp",
     alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
     cta: { label: "Express interest in our fellowship", href: interestFormHref("home-get-involved") },
+    more: "/fellowships",
   },
   {
     id: "reading-group",
@@ -201,6 +202,35 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Copy carried over from the pre-redesign home page. */}
+      <Section id="why-get-involved" object="implode" title="Why get involved?">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,460px)] gap-x-16 gap-y-10 items-center">
+          <div className="flex flex-col gap-5 t-lead">
+            <p>
+              If you care about <strong className="font-semibold">careers</strong>, there are
+              exceptional careers to be made in AI safety.
+            </p>
+            <p>
+              If you care about <strong className="font-semibold">impact</strong>, this is a chance to
+              have a critical impact on the world.
+            </p>
+            <p>
+              If you care about <strong className="font-semibold">community</strong> or making
+              friends, we have one of the strongest, kindest communities on campus :)
+            </p>
+          </div>
+          <div className="card relative aspect-[3/2] overflow-hidden !bg-cream">
+            <Image
+              src="/photos/retreat-friends.webp"
+              alt="Three TAISI members smiling together outdoors at the retreat"
+              fill
+              sizes="(min-width: 768px) 460px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </Section>
+
       <Section id="get-involved" object="ratchet" title="Get involved">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
           {waysIn.map((w) => (
@@ -212,10 +242,15 @@ export default function Home() {
                 <h3 className="t-h3">{w.title}</h3>
                 <p className="t-body">{w.body}</p>
                 {w.cta && (
-                  <div className="mt-auto pt-4">
+                  <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
                     <a href={w.cta.href} className="btn btn-ink btn-sm">
                       {w.cta.label}
                     </a>
+                    {w.more && (
+                      <a href={w.more} className="btn-text">
+                        Learn more &rarr;
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
