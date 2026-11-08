@@ -102,7 +102,7 @@ export default function Home() {
       </Suspense>
 
       <section>
-        <div className="container-site pt-12 pb-20 md:pt-[72px] md:pb-24 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 items-center">
+        <div className="container-site pt-12 pb-20 md:pt-[72px] md:pb-24 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,320px)] gap-x-16 gap-y-12 items-center">
           <div className="intro-rise flex flex-col gap-10 min-w-0">
             <h1 className="t-display">
               We&rsquo;re a group of U&nbsp;of&nbsp;T students working to reduce risks from advanced&nbsp;AI.
@@ -118,7 +118,9 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="w-full max-w-[min(480px,60vh)] aspect-square justify-self-center">
+          {/* Kept to the size of the other pages' hero objects, so the
+              headline leads and the object sits beside it. */}
+          <div className="w-full max-w-[200px] md:max-w-[min(320px,45vh)] aspect-square justify-self-center">
             <GeoObject kind="armillary" play="loop" />
           </div>
         </div>
