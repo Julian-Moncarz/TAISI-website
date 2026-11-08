@@ -69,7 +69,7 @@ export default function Interest() {
 
   return (
     <main>
-      <PageHero title="Express interest" object="telescope" play="mount">
+      <PageHero title="Express interest">
         <p className="t-body max-w-[560px]">
           We will email you when applications for the Winter Fellowship open.
         </p>

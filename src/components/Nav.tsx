@@ -7,6 +7,7 @@ import { Lockup } from "./Logo";
 
 const links = [
   { href: "/fellowships", label: "Fellowship" },
+  { href: "/resources", label: "Resources" },
   { href: "/team", label: "Team" },
 ];
 

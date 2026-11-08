@@ -13,6 +13,7 @@ const NO_CTA = ["/interest", "/september-fellowship"];
 const columns = [
   [
     { href: "/fellowships", label: "Fellowship" },
+    { href: "/resources", label: "Resources" },
     { href: "/team", label: "Team" },
   ],
   [{ href: "mailto:joseph@taisi.ca", label: "joseph@taisi.ca" }],

@@ -13,7 +13,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const INK = "#2B1A4D";
-const HEADLINE = ["We’re a group of U of T students", "working to reduce risk from AI."];
+const HEADLINE = ["We’re a group of U of T students", "working to reduce catastrophic", "risk from AI."];
 const MUTE = "#565360";
 
 export default async function Image() {

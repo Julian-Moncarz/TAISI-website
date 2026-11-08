@@ -42,7 +42,7 @@ const waysIn = [
   {
     id: "membership",
     title: "Membership",
-    body: "Members get compute for technical projects, coworking at Trajectory Labs, a retreat with AI safety researchers each semester, and monthly socials. We also send members to AI safety retreats hosted by the groups at Harvard and MIT. Most members join after a fellowship, and students who have taken MAT1510 or have similar experience can apply directly.",
+    body: "Members get compute for technical projects, coworking at Trajectory Labs, a retreat with AI safety researchers each semester, and monthly socials. We also send members to retreats hosted by the AI safety groups at Harvard and MIT. Most members join after a fellowship, and students who have taken MAT1510 or have similar experience can apply directly.",
     photo: "/photos/retreat-conversation.webp",
     alt: "Three TAISI members talking on the grass at the retreat",
     cta: { label: "Apply for membership", href: "mailto:joseph@taisi.ca?subject=TAISI%20membership" },
@@ -50,7 +50,7 @@ const waysIn = [
   {
     id: "fellowship",
     title: "Intro Fellowship",
-    body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about 3 hours a week and needs no technical background.",
+    body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about three hours a week and needs no technical background.",
     photo: "/photos/retreat-talk.webp",
     alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
     cta: { label: "Express interest in our fellowship", href: interestFormHref("home-get-involved") },
@@ -112,7 +112,8 @@ export default function Home() {
         <div className="container-site pt-12 pb-20 md:pt-[72px] md:pb-24 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,320px)] gap-x-16 gap-y-12 items-center">
           <div className="intro-rise flex flex-col gap-10 min-w-0">
             <h1 className="t-display">
-              We&rsquo;re a group of U&nbsp;of&nbsp;T students working to reduce risk from&nbsp;AI.
+              We&rsquo;re a group of U&nbsp;of&nbsp;T students working to{" "}
+              <span className="text-ember">reduce catastrophic risk from&nbsp;AI</span>.
             </h1>
             <div className="flex flex-wrap items-center gap-5">
               <a href={interestFormHref("home-hero")} className="btn btn-ink">

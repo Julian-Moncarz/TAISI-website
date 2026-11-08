@@ -6,7 +6,6 @@ import { useState } from "react";
 // "mark": a transparent mark, set inside a white tile with room around it.
 // Putting every logo on the same tile is what makes them read as one size.
 const orgs = [
-  ["Anthropic", "Frontier lab doing a lot of safety work", "anthropic-icon.png", "https://www.anthropic.com", "fill"],
   ["METR", "Evaluates frontier models for the top labs", "metr-icon.png", "https://metr.org", "mark"],
   ["Redwood Research", "Pioneered the field of AI control", "redwood-icon.png", "https://www.redwoodresearch.org", "mark"],
   ["University labs", "Grosse, McIlraith, Jin and Papernot at U of T", "uoft.png", "https://www.cs.toronto.edu", "mark"],
@@ -18,6 +17,7 @@ const orgs = [
   ["BlueDot Impact", "Runs the field’s flagship courses", "bluedot.png", "https://bluedot.org", "fill"],
   ["Resolution", "Alignment lab backed by a $160M grant", "resolution.png", "https://resolution.org", "mark"],
   ["UK AI Security Institute", "The UK government’s frontier evals lab", "uk-aisi.png", "https://www.aisi.gov.uk", "fill"],
+  ["Tarbell Center", "Trains AI reporters and places them in newsrooms", "tarbell.svg", "https://www.tarbellcenter.org", "mark"],
 ] as const;
 
 /** "Some organizations working on AI safety", collapsed until opened. */
