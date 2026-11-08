@@ -212,12 +212,12 @@ export default function Home() {
           {/* Bulleted to match the list in But what is AI safety? */}
           <ul className="m-0 pl-6 list-disc flex flex-col gap-5 t-lead marker:text-[0.6em]">
             <li className="pl-1">
-              If you care about <strong className="font-semibold">careers</strong>, there are
-              exceptional careers to be made in AI safety.
-            </li>
-            <li className="pl-1">
               If you care about <strong className="font-semibold">impact</strong>, this is a chance to
               have a critical impact on the world.
+            </li>
+            <li className="pl-1">
+              If you care about <strong className="font-semibold">careers</strong>, there are
+              exceptional careers to be made in AI safety.
             </li>
             <li className="pl-1">
               If you care about <strong className="font-semibold">community</strong> or making
