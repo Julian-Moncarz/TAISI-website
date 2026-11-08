@@ -35,9 +35,18 @@ const quotes = [
   },
 ];
 
-// The ways in, membership first: TAISI is a community, and the fellowship is
-// the usual way into it. Photos are from the Fall 2026 retreat.
+// The ways in. The fellowship comes first as the usual way in; membership is
+// what it leads to. Photos are from the Fall 2026 retreat.
 const waysIn = [
+  {
+    id: "fellowship",
+    title: "Intro Fellowship",
+    body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about three hours a week and needs no technical background.",
+    photo: "/photos/retreat-talk.webp",
+    alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
+    cta: { label: "Express interest", href: interestFormHref("home-programs") },
+    more: "/fellowships",
+  },
   {
     id: "membership",
     title: "Membership",
@@ -45,15 +54,6 @@ const waysIn = [
     photo: "/photos/retreat-conversation.webp",
     alt: "Three TAISI members talking on the grass at the retreat",
     cta: { label: "Apply for membership", href: "mailto:joseph@taisi.ca?subject=TAISI%20membership" },
-  },
-  {
-    id: "fellowship",
-    title: "Intro Fellowship",
-    body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about three hours a week and needs no technical background.",
-    photo: "/photos/retreat-talk.webp",
-    alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
-    cta: { label: "Express interest in our fellowship", href: interestFormHref("home-programs") },
-    more: "/fellowships",
   },
   {
     id: "reading-group",
