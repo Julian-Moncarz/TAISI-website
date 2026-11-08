@@ -235,7 +235,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="programs" object="ratchet" title="Our programs">
+      <Section id="programs" object="stack" title="Our programs">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
           {waysIn.map((w) => (
             <article id={w.id} key={w.id} className="card overflow-hidden flex flex-col scroll-mt-[96px]">

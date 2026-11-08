@@ -171,7 +171,7 @@ export default function Team() {
         </ul>
       </PageHero>
 
-      <Section object="stack" title="Operations team">
+      <Section object="ratchet" title="Operations team">
         <ul className={`m-0 p-0 list-none ${GRID}`}>
           {operations.map((person) => (
             <Portrait key={person.name} {...person} />
