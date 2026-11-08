@@ -117,11 +117,15 @@ export default function Home() {
               <a href={interestFormHref("home-hero")} className="btn btn-ink">
                 Express interest in our fellowship
               </a>
-              {DISCORD_URL && (
-                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ink">
-                  Join our Discord
-                </a>
-              )}
+              {/* Shown before the invite exists, pointing nowhere. Set
+                  DISCORD_URL in src/lib/links.ts and it opens the invite. */}
+              <a
+                href={DISCORD_URL || "#"}
+                {...(DISCORD_URL ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="btn btn-ink"
+              >
+                Join our Discord
+              </a>
             </div>
           </div>
           {/* Kept to the size of the other pages' hero objects, so the
@@ -179,11 +183,11 @@ export default function Home() {
             , a Millennium Prize Problem, in 88 hours. Human mathematicians had failed to solve it for
             90 years.
           </p>
-          <div className="flex flex-col gap-1">
-            <p className="t-lead">Soon, AI systems could be smarter than humans.</p>
-            <p className="t-lead">If that happens, they could harm, kill or disempower many people.</p>
-            <p className="t-lead">AI safety is the field working to stop that from happening.</p>
-          </div>
+          <ul className="m-0 pl-6 list-disc flex flex-col gap-2 t-lead">
+            <li className="pl-1">Soon, AI systems could be smarter than humans.</li>
+            <li className="pl-1">If that happens, they could harm, kill or disempower many people.</li>
+            <li className="pl-1">AI safety is the field working to stop that from happening.</li>
+          </ul>
         </div>
         <div className="-mt-4">
           <OrgList />

@@ -13,5 +13,6 @@ export function interestFormHref(from?: string) {
   return from ? `${INTEREST_FORM_PATH}?from=${encodeURIComponent(from)}` : INTEREST_FORM_PATH;
 }
 
-// The community Discord invite. Links to it render only once this is set.
+// The community Discord invite. Until it is set, the hero's Join our Discord
+// button shows but points nowhere.
 export const DISCORD_URL = "";
