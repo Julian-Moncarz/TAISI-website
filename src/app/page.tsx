@@ -113,7 +113,7 @@ export default function Home() {
           <div className="intro-rise flex flex-col gap-10 min-w-0">
             <h1 className="t-display">
               We&rsquo;re a group of U&nbsp;of&nbsp;T students working to{" "}
-              <span className="text-ember">reduce catastrophic risk from&nbsp;AI</span>.
+              <span className="underline decoration-1 underline-offset-[0.14em]">reduce catastrophic risk from&nbsp;AI</span>.
             </h1>
             <div className="flex flex-wrap items-center gap-5">
               <a href={interestFormHref("home-hero")} className="btn btn-ink">
