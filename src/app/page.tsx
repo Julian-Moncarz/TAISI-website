@@ -118,7 +118,7 @@ export default function Home() {
                 Express interest in our fellowship
               </a>
               {DISCORD_URL && (
-                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-text">
+                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ink">
                   Join our Discord
                 </a>
               )}
@@ -168,7 +168,7 @@ export default function Home() {
             Three years ago, the best AI models could fix{" "}
             <ExternalLink href="https://arxiv.org/abs/2310.06770">fewer than 2%</ExternalLink> of
             real-world software bugs. In July 2026, AI agents broke out of their sandboxes and{" "}
-            <ExternalLink href="https://www.dwarkesh.com/p/ajeya-cotra">autonomously hacked</ExternalLink>{" "}
+            <ExternalLink href="https://www.youtube.com/watch?v=ujkD4SxPKOI">autonomously hacked</ExternalLink>{" "}
             another company.
           </p>
           <p className="t-body max-w-[760px]">
