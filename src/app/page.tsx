@@ -181,8 +181,8 @@ export default function Home() {
           </p>
           <div className="flex flex-col gap-1">
             <p className="t-lead">
-              Soon, AI systems could be smarter than humans. If that happens, they could harm or kill
-              many people.
+              Soon, AI systems could be smarter than humans. If that happens, they could harm, kill or
+              disempower many people.
             </p>
             <p className="t-lead">AI safety is the field working to stop that from happening.</p>
           </div>
