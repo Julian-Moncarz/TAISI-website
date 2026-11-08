@@ -166,7 +166,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="what-is-ai-safety" object="crate" title="What is AI safety?">
+      <Section id="what-is-ai-safety" object="crate" title="But what is AI safety?">
         <div className="flex flex-col gap-5">
           <p className="t-body max-w-[760px]">
             Three years ago, the best AI models could fix{" "}
