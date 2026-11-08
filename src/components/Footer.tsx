@@ -27,18 +27,15 @@ export default function Footer() {
     <footer id="join" className="on-dark bg-ink text-cream">
       <div className={`container-site pb-14 flex flex-col gap-20 md:gap-[120px] ${cta ? "pt-[88px] md:pt-32" : "pt-16"}`}>
         {cta && (
-          <div className="flex flex-col gap-10">
-            <h2 className="t-section">Want to get involved?</h2>
-            <div className="flex flex-wrap items-center gap-5">
-              <a href={interestFormHref("footer")} className="btn btn-gold">
-                Express interest in our fellowship
+          <div className="flex flex-wrap items-center gap-5">
+            <a href={interestFormHref("footer")} className="btn btn-gold">
+              Express interest in our fellowship
+            </a>
+            {DISCORD_URL && (
+              <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-text">
+                Join our Discord
               </a>
-              {DISCORD_URL && (
-                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-text">
-                  Join our Discord
-                </a>
-              )}
-            </div>
+            )}
           </div>
         )}
 

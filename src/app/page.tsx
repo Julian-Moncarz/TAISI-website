@@ -52,7 +52,7 @@ const waysIn = [
     body: "Six weeks of readings and dinner discussions at Trajectory Labs, an off-campus AI safety hub near King Station. There is a technical track and a governance track. It takes about three hours a week and needs no technical background.",
     photo: "/photos/retreat-talk.webp",
     alt: "A talk on modelling AI-driven research progress at the TAISI retreat",
-    cta: { label: "Express interest in our fellowship", href: interestFormHref("home-get-involved") },
+    cta: { label: "Express interest in our fellowship", href: interestFormHref("home-programs") },
     more: "/fellowships",
   },
   {
@@ -231,7 +231,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="get-involved" object="ratchet" title="Get involved">
+      <Section id="programs" object="ratchet" title="Our programs">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
           {waysIn.map((w) => (
             <article id={w.id} key={w.id} className="card overflow-hidden flex flex-col scroll-mt-[96px]">

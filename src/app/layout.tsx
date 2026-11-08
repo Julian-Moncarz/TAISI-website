@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://taisi.ca"),
   title: "TAISI | Toronto AI Safety Initiative",
   description:
-    "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+    "A group of University of Toronto students working to reduce catastrophic risk from AI.",
   // No icons block: src/app/icon.png and src/app/apple-icon.png are picked up
   // by file convention instead, which serves them at a content-hashed URL. A
   // fixed /icon.png path meant browsers kept showing whatever they had cached
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TAISI | Toronto AI Safety Initiative",
     description:
-      "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+      "A group of University of Toronto students working to reduce catastrophic risk from AI.",
   },
   twitter: {
     card: "summary_large_image",
     title: "TAISI | Toronto AI Safety Initiative",
     description:
-      "An initiative at the University of Toronto focused on mitigating catastrophic risks from advanced AI.",
+      "A group of University of Toronto students working to reduce catastrophic risk from AI.",
   },
 };
 
