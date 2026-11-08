@@ -183,7 +183,7 @@ export default function Home() {
             , a Millennium Prize Problem, in 88 hours. Human mathematicians had failed to solve it for
             90 years.
           </p>
-          <ul className="m-0 pl-6 list-disc flex flex-col gap-2 t-lead">
+          <ul className="m-0 pl-6 list-disc flex flex-col gap-2 t-lead marker:text-[0.6em]">
             <li className="pl-1">Soon, AI systems could be smarter than humans.</li>
             <li className="pl-1">If that happens, they could harm, kill or disempower many people.</li>
             <li className="pl-1">AI safety is the field working to stop that from happening.</li>
