@@ -180,8 +180,11 @@ export default function Home() {
             90 years.
           </p>
           <div className="flex flex-col gap-1">
-            <p className="t-lead">AI systems are advancing faster than they are being made safe.</p>
-            <p className="t-lead">AI safety is the field working to change that.</p>
+            <p className="t-lead">
+              Soon, AI systems could be smarter than humans. If that happens, they could harm or kill
+              many people.
+            </p>
+            <p className="t-lead">AI safety is the field working to stop that from happening.</p>
           </div>
         </div>
         <div className="-mt-4">
