@@ -132,6 +132,7 @@
     "faculty": { title: "Work with TAISI", featured: BOOK_FACULTY,
       groups: [G.colleagues] },
     "pro": { title: "For working professionals", featured: TL_EVENTS,
+      intro: "TAISI is no longer running intensives for working professionals. Keep an eye out for upcoming AI safety events and programs for professionals in Toronto.",
       groups: [G.experienced, G.career, G.community] }
   };
 
@@ -208,6 +209,7 @@
       var r = RESULTS[last.result];
       stage.innerHTML = '<div class="f-result">' +
         '<h2 class="f-q">' + esc(r.title) + "</h2>" +
+        (r.intro ? '<p class="f-intro">' + esc(r.intro) + "</p>" : "") +
         [].concat(r.featured || []).map(function (f) { return featured(f); }).join("") +
         r.groups.map(group).join("") +
         (r.after ? featured(r.after, "is-after") : "") +
