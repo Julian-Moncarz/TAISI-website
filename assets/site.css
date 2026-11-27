@@ -138,6 +138,7 @@ html.menu-open { overflow: hidden; }
 .page-head { padding: clamp(56px, 7vw, 96px) 0 clamp(32px, 4vw, 48px); }
 .page-head h1 { font-size: var(--fs-h1); line-height: 1.06; letter-spacing: -0.018em; }
 .page-head .lead { margin-top: 16px; }
+.page-note { margin-top: 12px; font-size: var(--fs-small); color: var(--muted); }
 
 /* ---------- Photos with a caption on hover ---------- */
 .photo-hover { position: relative; margin: 0; overflow: hidden; border-radius: var(--r); }
@@ -341,10 +342,12 @@ textarea.field { display: block; min-height: 120px; padding: 12px 14px; line-hei
 /* =========================================================
    Programming
    ========================================================= */
-.progs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding: 16px 0 48px; }
-.progs > :nth-child(3n+2) { transform: translateY(40px); }
+/* Masonry: three columns, each a stack of tiles at their natural height, the same 24px gap everywhere.
+   Tiles are grouped into .progs-col in the HTML; --o on each tile is its reading order once columns collapse. */
+.progs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; padding: 32px 0 48px; }
+.progs-col { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 .prog {
-  position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 260px; padding: 96px 28px 28px;
+  position: relative; display: flex; flex-direction: column; gap: 8px; padding: 72px 24px 24px;
   background: var(--card); border: 1px solid var(--line); border-radius: 14px; color: var(--body); transition: border-color .2s;
 }
 .prog:hover { border-color: var(--line-strong); }
@@ -352,23 +355,21 @@ textarea.field { display: block; min-height: 120px; padding: 12px 14px; line-hei
 .prog:hover .prog-shard { transform: translate(-3px, -4px) rotate(-4deg); }
 .prog h3 { font-size: var(--fs-h3); line-height: 1.25; }
 .prog p { font-size: var(--fs-small); color: var(--body); }
-.prog .meta { margin-top: auto; padding-top: 12px; font-size: var(--fs-meta); font-weight: 500; color: var(--purple); }
+.prog .meta { padding-top: 8px; font-size: var(--fs-meta); font-weight: 500; color: var(--purple); }
 .prog .meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.prog .actions { margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.prog-photo { min-height: 260px; border-radius: 14px; }
+.prog .actions { padding-top: 10px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.prog-photo { border-radius: 14px; aspect-ratio: 4 / 3; }
 .prog-photo img { position: absolute; inset: 0; }
-/* Landscape photo tiles: tile-width, a little shorter than the cards beside them, centred in the row. */
-.prog-photo.is-landscape { align-self: center; min-height: 0; aspect-ratio: 4 / 3; }
 @media (max-width: 960px) {
-  .progs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .progs > :nth-child(3n+2) { transform: none; }
-  .progs > :nth-child(2n) { transform: translateY(40px); }
+  .progs, .progs-col { gap: 18px; }
+  .prog { padding: 68px 20px 20px; }
+  .prog-shard { width: 108px; height: 108px; }
 }
-@media (max-width: 620px) {
-  .progs { grid-template-columns: 1fr; gap: 40px; padding-bottom: 0; }
-  .progs > :nth-child(n) { transform: none; }
-  .prog { min-height: 0; padding-top: 88px; }
-  .prog-photo { min-height: 0; aspect-ratio: 3 / 2; }
+@media (max-width: 760px) {
+  /* One column, in reading order (--o), instead of the three stacks. */
+  .progs { display: flex; flex-direction: column; gap: 32px; padding-bottom: 0; }
+  .progs-col { display: contents; }
+  .progs-col > * { order: var(--o); }
 }
 
 /* Membership */
