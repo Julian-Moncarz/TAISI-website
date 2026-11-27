@@ -17,16 +17,16 @@
   var TAISI_LUMA = "https://luma.com/taisi";
   var TL_LUMA = "https://luma.com/trajectory-labs";
 
-  var INTRO = { name: "Express interest in our intro fellowship", shard: SH + "shard-4.svg", href: INTEREST, wash: "gold",
+  var INTRO = { name: "Intro fellowship", cta: "Express interest", shard: SH + "shard-4.svg", href: INTEREST, wash: "gold",
     status: "Applications open late December",
     note: "Six weekly dinner discussions, led by people working in AI safety full-time." };
   var BOOK = { name: "Book a one-on-one with a TAISI exec", shard: SH + "shard-2.svg", href: BOOKING, wash: "lilac",
     note: "A short call about where to start, which program fits, or anything else on your mind." };
   var BOOK_FACULTY = { name: "Book a one-on-one with one of our execs", shard: SH + "shard-2.svg", href: BOOKING, wash: "gold",
     note: "Tell us about your work and how you'd like to be involved." };
-  var APPLY = { name: "Become a member", shard: SH + "shard-1.svg", href: "/membership?from=resources", wash: "lilac",
+  var APPLY = { name: "Membership", cta: "Apply", shard: SH + "shard-1.svg", href: "/membership?from=resources", wash: "lilac",
     note: "For U of T students who have finished our intro fellowship or have equivalent experience in AI safety." };
-  var MENTOR_INTEREST = { name: "Express interest in our mentored research program", shard: SH + "shard-7.svg", wash: "rose", status: "Applications open in January",
+  var MENTOR_INTEREST = { name: "Mentored research program", cta: "Express interest", shard: SH + "shard-7.svg", wash: "rose", status: "Applications open in January",
     href: "/interest/mentorship?from=resources",
     note: "Mentored projects in technical AI safety, governance or philosophy." };
   var AISC = { name: "AI Safety Camp", logo: R + "aisc.png", href: "https://www.aisafety.camp/", wash: "lilac", note: "Remote, part-time team projects." };
@@ -166,8 +166,12 @@
     if (!it.note && !it.status) return "";
     return '<span class="f-note">' + (it.status ? '<span class="soon-text">' + esc(it.status) + '</span> &middot; ' : "") + esc(it.note || "") + "</span>";
   }
+  // `cta` (e.g. "Express interest", "Apply") shows as a link line under the note; the whole tile is the link.
+  function cta(it) {
+    return it.cta ? '<span class="f-cta">' + esc(it.cta) + ' <span aria-hidden="true">&rarr;</span></span>' : "";
+  }
   function item(it) {
-    var inner = thumb(it) + '<span class="f-text"><span class="f-name">' + esc(it.name) + "</span>" + note(it) + "</span>";
+    var inner = thumb(it) + '<span class="f-text"><span class="f-name">' + esc(it.name) + "</span>" + note(it) + cta(it) + "</span>";
     return it.href
       ? '<a class="f-item" href="' + esc(it.href) + '"' + (isExternal(it.href) ? ' target="_blank" rel="noopener"' : "") + ">" + inner + "</a>"
       : '<div class="f-item is-muted">' + inner + "</div>";
@@ -175,8 +179,8 @@
   function featured(it, extra) {
     return '<a class="f-featured' + (extra ? " " + extra : "") + '" href="' + esc(it.href) + '"' + (isExternal(it.href) ? ' target="_blank" rel="noopener"' : "") + ">" +
       '<img class="f-featured-wash" src="/assets/wash-' + (it.wash || "rose") + '.svg" alt="">' + thumb(it) +
-      '<span class="f-text"><span class="f-name">' + esc(it.name) + "</span>" + note(it) + "</span>" +
-      '<span class="f-go" aria-hidden="true">&rarr;</span></a>';
+      '<span class="f-text"><span class="f-name">' + esc(it.name) + "</span>" + note(it) + cta(it) + "</span>" +
+      (it.cta ? "" : '<span class="f-go" aria-hidden="true">&rarr;</span>') + "</a>";
   }
   function group(g) {
     return '<section class="f-group"><h3>' + esc(g.name) + '</h3><div class="f-items">' + g.items.map(item).join("") + "</div></section>";

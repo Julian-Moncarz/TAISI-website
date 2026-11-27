@@ -439,6 +439,8 @@ img.f-thumb.round { padding: 0; border: 0; object-fit: cover; -webkit-mask: url(
 .f-text { display: flex; flex-direction: column; min-width: 0; }
 .f-name { font-size: var(--fs-small); font-weight: 500; line-height: 1.4; color: var(--ink); }
 .f-note { margin-top: 2px; font-size: var(--fs-meta); line-height: 1.5; color: var(--muted); }
+.f-cta { display: inline-flex; gap: 4px; margin-top: 6px; font-size: var(--fs-meta); font-weight: 500; color: var(--purple); }
+a.f-item:hover .f-cta, .f-featured:hover .f-cta { text-decoration: underline; text-underline-offset: 3px; }
 .f-more { margin-top: 32px; font-size: var(--fs-small); color: var(--muted); }
 .all-res { padding-top: clamp(48px, 5vw, 72px); scroll-margin-top: 72px; }
 .all-res-list { max-width: 960px; }
