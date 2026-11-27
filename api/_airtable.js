@@ -25,14 +25,14 @@ export function checkBasics(req, res) {
 
 // Create one record. Empty values are dropped so optional fields stay blank in Airtable.
 // typecast lets a new single-select value (e.g. a new Program) create its option instead of failing.
-export async function createRecord(res, table, fields, label) {
+export async function createRecord(res, table, fields, label, base = BASE_ID) {
   for (const [k, v] of Object.entries(fields)) if (v === "" || (Array.isArray(v) && !v.length)) delete fields[k];
   if (!process.env.AIRTABLE_PAT) {
     console.error(`${label}: AIRTABLE_PAT is not set`);
     return res.status(500).json({ error: "Failed to save your details" });
   }
   try {
-    const r = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(table)}`, {
+    const r = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(table)}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.AIRTABLE_PAT}`, "Content-Type": "application/json" },
       body: JSON.stringify({ records: [{ fields }], typecast: true }),

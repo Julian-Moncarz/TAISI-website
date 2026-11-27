@@ -402,6 +402,8 @@ textarea.field { display: block; min-height: 120px; padding: 12px 14px; line-hei
 .f-restart { color: var(--muted); border-style: dashed; }
 .f-q { font-size: var(--fs-h2); line-height: 1.15; }
 .f-intro { margin-top: 8px; font-size: var(--fs-small); color: var(--muted); }
+.f-intro a { font-weight: 500; }
+.f-group-note { margin: -4px 0 14px; max-width: 46em; font-size: var(--fs-small); color: var(--muted); }
 .f-options { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .f-option {
   position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; min-height: 184px; padding: 24px;
