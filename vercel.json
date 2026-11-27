@@ -1,0 +1,56 @@
+{
+  "framework": null,
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/team/",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/team/",
+      "permanent": true
+    },
+    {
+      "source": "/fellowships",
+      "destination": "/programming/#fellowships",
+      "permanent": true
+    },
+    {
+      "source": "/fellowships/",
+      "destination": "/programming/#fellowships",
+      "permanent": true
+    },
+    {
+      "source": "/september-fellowship",
+      "destination": "/interest",
+      "permanent": true
+    },
+    {
+      "source": "/september-fellowship/",
+      "destination": "/interest",
+      "permanent": true
+    },
+    {
+      "source": "/summer-intensive",
+      "destination": "/programming/",
+      "permanent": true
+    },
+    {
+      "source": "/summer-intensive/",
+      "destination": "/programming/",
+      "permanent": true
+    },
+    {
+      "source": "/intensive",
+      "destination": "/programming/",
+      "permanent": true
+    },
+    {
+      "source": "/intensive/",
+      "destination": "/programming/",
+      "permanent": true
+    }
+  ]
+}
