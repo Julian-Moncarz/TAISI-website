@@ -357,6 +357,8 @@ textarea.field { display: block; min-height: 120px; padding: 12px 14px; line-hei
 .prog .actions { margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .prog-photo { min-height: 260px; border-radius: 14px; }
 .prog-photo img { position: absolute; inset: 0; }
+/* Landscape photo tiles: tile-width, a little shorter than the cards beside them, centred in the row. */
+.prog-photo.is-landscape { align-self: center; min-height: 0; aspect-ratio: 4 / 3; }
 @media (max-width: 960px) {
   .progs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .progs > :nth-child(3n+2) { transform: none; }
