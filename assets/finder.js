@@ -132,8 +132,9 @@
     "faculty": { title: "Work with TAISI", featured: BOOK_FACULTY,
       groups: [G.colleagues] },
     "pro": { title: "For working professionals", featured: TL_EVENTS,
-      intro: "TAISI is no longer running intensives for working professionals. Keep an eye out for upcoming AI safety events and programs for professionals in Toronto.",
-      groups: [G.experienced, G.career, G.community] }
+      intro: 'There&rsquo;s upcoming programming for AI safety professionals in Toronto. <a href="/interest/professionals?from=resources">Express interest</a> to stay notified.',
+      groups: [G.experienced, G.career, { name: G.community.name, items: G.community.items,
+        note: "TAISI is no longer running intensives for working professionals. Keep an eye out for upcoming AI safety events and programs for professionals in Toronto." }] }
   };
 
   // ---- helpers -------------------------------------------------------------
@@ -181,7 +182,8 @@
       (it.cta ? "" : '<span class="f-go" aria-hidden="true">&rarr;</span>') + "</a>";
   }
   function group(g) {
-    return '<section class="f-group"><h3>' + esc(g.name) + '</h3><div class="f-items">' + g.items.map(item).join("") + "</div></section>";
+    return '<section class="f-group"><h3>' + esc(g.name) + "</h3>" + (g.note ? '<p class="f-group-note">' + esc(g.note) + "</p>" : "") +
+      '<div class="f-items">' + g.items.map(item).join("") + "</div></section>";
   }
 
   // ---- rendering -------------------------------------------------------------
@@ -209,7 +211,7 @@
       var r = RESULTS[last.result];
       stage.innerHTML = '<div class="f-result">' +
         '<h2 class="f-q">' + esc(r.title) + "</h2>" +
-        (r.intro ? '<p class="f-intro">' + esc(r.intro) + "</p>" : "") +
+        (r.intro ? '<p class="f-intro">' + r.intro + "</p>" : "") +   // intro is trusted HTML written in RESULTS
         [].concat(r.featured || []).map(function (f) { return featured(f); }).join("") +
         r.groups.map(group).join("") +
         (r.after ? featured(r.after, "is-after") : "") +

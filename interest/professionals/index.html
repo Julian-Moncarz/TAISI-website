@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Working professionals | Toronto AI Safety Initiative</title>
+  <meta name="description" content="There's upcoming programming for AI safety professionals in Toronto. Express interest to stay notified.">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 1000 988" aria-hidden="true"><defs><clipPath id="hm"><path d="M0 0H1000L500 988Z"/></clipPath></defs><path d="M0 0H1000L500 988Z" fill="#501684"/><path clip-path="url(#hm)" fill="none" stroke="#FF9F03" stroke-width="26" stroke-linecap="round" d="M228.6 0L52.7 155.6M228.6 0L326.3 91.9M326.3 91.9L500 255.2M326.3 91.9L47.1 144.1M326.3 91.9L340.9 446.1M70.7 139.7L340.9 446.1M500 255.2L373.4 -21.8M500 255.2L342.2 476.7M500 -24V1012M342.2 476.7L187.9 403.9M500 551.2L349.2 738.4"/></svg>
+      <span class="full">Toronto AI Safety Initiative</span><span class="short">TAISI</span>
+    </a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false"><svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h16M4 15h16"/></svg><svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="nav-links">
+      <a href="/programming/">Programming</a>
+      <a href="/resources/">Resources</a>
+      <a href="/team/">Team</a>
+      <a class="btn btn-solid btn-sm" href="/#signup">Join the mailing list</a>
+      <div class="nav-social"><a data-social="instagram" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a><a data-social="discord" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5C7 5.8 5.6 6.3 4.5 7c-1.6 2.6-2.2 5.6-1.9 8.6 1.4 1.1 3 1.9 4.6 2.4l1-1.7m6.3-10.8c1.5.3 2.9.8 4 1.5 1.6 2.6 2.2 5.6 1.9 8.6-1.4 1.1-3 1.9-4.6 2.4l-1-1.7M7.8 16.2c2.6 1.1 5.8 1.1 8.4 0M8.6 5.5l.6 1.3c1.8-.3 3.8-.3 5.6 0l.6-1.3"/><circle cx="9.2" cy="12.4" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.8" cy="12.4" r="1.2" fill="currentColor" stroke="none"/></svg><span>Discord</span></a></div>
+    </div>
+  </nav>
+</header>
+
+<main class="form-page">
+  <img class="form-band" src="/assets/wash-band.svg" alt="">
+  <section class="section form-section">
+    <div class="wrap form-layout">
+      <div class="form-intro">
+        <h1>Express interest</h1>
+        <p class="lead">There&rsquo;s upcoming programming for AI safety professionals in Toronto. Express interest to stay notified.</p>
+      </div>
+      <div class="form-stage">
+        <img class="form-wash" src="/assets/wash-portrait-lilac.svg" alt="">
+        <img class="form-wash is-low" src="/assets/wash-portrait-lilac.svg" alt="">
+        <div class="form-card">
+          <img class="form-shard" src="/assets/shards/shard-3.svg" alt="">
+          <form class="eoi" data-form="/api/professionals" novalidate>
+            <div class="eoi-field">
+              <label for="eoi-name">Name</label>
+              <input class="field" id="eoi-name" name="name" type="text" required autocomplete="name">
+            </div>
+            <div class="eoi-field">
+              <label for="eoi-email">Email</label>
+              <input class="field" id="eoi-email" name="email" type="email" required autocomplete="email">
+            </div>
+            <div class="eoi-field">
+              <label for="eoi-link">LinkedIn or portfolio</label>
+              <input class="field" id="eoi-link" name="link" type="text" inputmode="url" required placeholder="https://..." autocomplete="url">
+            </div>
+            <div class="eoi-hp" aria-hidden="true">
+              <label for="eoi-company">Company</label>
+              <input id="eoi-company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div><button class="btn btn-solid" type="submit">Express interest</button></div>
+            <p class="eoi-error" role="alert"></p>
+          </form>
+          <div class="eoi-done" hidden>
+            <h2>You&rsquo;re on the list.</h2>
+            <p>We will email <span data-email></span> about upcoming programming for AI safety professionals in Toronto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="/">
+          <svg viewBox="0 0 1000 988" aria-hidden="true"><defs><clipPath id="fm"><path d="M0 0H1000L500 988Z"/></clipPath></defs><path d="M0 0H1000L500 988Z" fill="#501684"/><path clip-path="url(#fm)" fill="none" stroke="#FF9F03" stroke-width="26" stroke-linecap="round" d="M228.6 0L52.7 155.6M228.6 0L326.3 91.9M326.3 91.9L500 255.2M326.3 91.9L47.1 144.1M326.3 91.9L340.9 446.1M70.7 139.7L340.9 446.1M500 255.2L373.4 -21.8M500 255.2L342.2 476.7M500 -24V1012M342.2 476.7L187.9 403.9M500 551.2L349.2 738.4"/></svg>
+          <span>Toronto AI Safety Initiative</span>
+        </a>
+        <p class="foot-blurb">A student group at the University of Toronto working to reduce catastrophic risks from advanced AI.</p>
+        <p class="foot-blurb">Run entirely by students, and supported by <a href="https://kairos-project.org/" target="_blank" rel="noopener">Kairos</a>.</p>
+      </div>
+      <div class="foot-cols">
+        <div><span class="lbl">Site</span><a href="/programming/">Programming</a><a href="/resources/">Resources</a><a href="/team/">Team</a></div>
+        <div><span class="lbl">Connect</span><a href="https://luma.com/taisi" target="_blank" rel="noopener">Luma</a><a data-social="instagram" href="#" target="_blank" rel="noopener">Instagram</a><a data-social="discord" href="#" target="_blank" rel="noopener">Discord</a><a href="mailto:joseph@taisi.ca">joseph@taisi.ca</a></div>
+      </div>
+    </div>
+    <div class="foot-legal"><span>&copy; 2026 Toronto AI Safety Initiative</span><span>University of Toronto</span></div>
+  </div>
+</footer>
+<script src="/assets/site.js"></script>
+</body>
+</html>
