@@ -50,10 +50,7 @@
       { name: "Roger Grosse", photo: P + "grosse.webp", href: "https://www.cs.toronto.edu/~rgrosse/", note: "Computer Science" },
       { name: "David Duvenaud", photo: P + "duvenaud.webp", href: "https://www.cs.toronto.edu/~duvenaud/", note: "Computer Science" },
       { name: "Zhijing Jin", photo: P + "jin.webp", href: "https://zhijing-jin.com/", note: "Computer Science" },
-      { name: "Sheila McIlraith", href: "https://www.cs.toronto.edu/~sheila/", note: "Computer Science" },
-      { name: "Toryn Klassen", href: "https://www.cs.toronto.edu/~toryn/", note: "Computer Science" },
-      { name: "Yevgeny Liokumovich", href: "https://www.math.toronto.edu/ylio/", note: "Mathematics" },
-      { name: "Arul Shankar", href: "https://arulshnkr1.github.io/", note: "Mathematics" }
+      { name: "Yevgeny Liokumovich", href: "https://www.math.toronto.edu/ylio/", note: "Mathematics" }
     ] },
     toronto: { name: "In Toronto", items: [
       { name: "TAISI events", shard: SH + "shard-3.svg", href: TAISI_LUMA, note: "Our talks, coworking and socials, on Luma." },
