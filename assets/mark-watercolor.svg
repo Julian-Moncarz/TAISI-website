@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-70 -70 1140 1130" role="img" aria-label="TAISI logo, painted in watercolor">
+<defs>
+  <filter id="f0" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="2" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="4" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="6" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f1" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="9" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="11" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="13" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f2" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="16" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="18" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="20" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f3" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="23" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="25" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="27" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f4" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="30" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="32" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="34" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f5" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="37" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="39" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="41" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f6" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="44" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="46" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="48" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f7" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="51" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="53" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="55" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f8" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="58" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="60" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="62" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f9" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="65" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="67" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="69" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="f10" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="72" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="2" seed="74" result="blot"/>
+    <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.5" result="blotA"/>
+    <feComposite in="d" in2="blotA" operator="arithmetic" k1="0.32" k2="0.72" result="uneven"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="2" seed="76" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.3" result="gA"/>
+    <feComposite in="uneven" in2="gA" operator="in" result="grain"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feComposite in="d" in2="b" operator="out" result="edge"/>
+    <feMerge><feMergeNode in="grain"/><feMergeNode in="edge"/></feMerge>
+  </filter>
+  <filter id="brush" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="44" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" seed="45" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.7 1.4" result="gA"/>
+    <feComposite in="d" in2="gA" operator="in"/>
+  </filter>
+  <clipPath id="tri"><path d="M0 0H1000L500 988Z"/></clipPath>
+</defs>
+<g filter="url(#f0)" style="mix-blend-mode:multiply"><polygon points="505.1,0 1000,0 505.1,977.9" fill="#501684" fill-opacity="0.66"/></g><g filter="url(#f1)" style="mix-blend-mode:multiply"><polygon points="0,0 220.9,0 68.3,135.0" fill="#9B6BD0" fill-opacity="0.6"/></g><g filter="url(#f2)" style="mix-blend-mode:multiply"><polygon points="87.9,131.3 228.5,6.9 315.5,88.7" fill="#501684" fill-opacity="0.6"/></g><g filter="url(#f3)" style="mix-blend-mode:multiply"><polygon points="389.0,0 494.9,0 494.9,231.8" fill="#B48BE0" fill-opacity="0.62"/></g><g filter="url(#f4)" style="mix-blend-mode:multiply"><polygon points="236.0,0 377.8,0 484.6,233.7 329.8,88.2" fill="#5E2197" fill-opacity="0.62"/></g><g filter="url(#f5)" style="mix-blend-mode:multiply"><polygon points="80.5,143.1 321.5,98.0 335.2,432.0" fill="#8A55C6" fill-opacity="0.6"/></g><g filter="url(#f6)" style="mix-blend-mode:multiply"><polygon points="331.9,104.2 493.3,255.9 346.7,461.6 346.0,445.9" fill="#45106F" fill-opacity="0.6"/></g><g filter="url(#f7)" style="mix-blend-mode:multiply"><polygon points="205.8,406.7 79.9,157.8 335.9,448.2 336.7,468.5" fill="#501684" fill-opacity="0.58"/></g><g filter="url(#f8)" style="mix-blend-mode:multiply"><polygon points="494.9,271.1 494.9,543.2 349.9,474.7" fill="#9B6BD0" fill-opacity="0.62"/></g><g filter="url(#f9)" style="mix-blend-mode:multiply"><polygon points="361.7,714.7 213.3,421.5 340.0,481.3 492.0,553.0" fill="#3B0B60" fill-opacity="0.6"/></g><g filter="url(#f10)" style="mix-blend-mode:multiply"><polygon points="494.9,977.9 366.7,724.7 494.9,565.7" fill="#45106F" fill-opacity="0.62"/></g>
+<g filter="url(#brush)" clip-path="url(#tri)"><path d="M228.6 0L52.7 155.6M228.6 0L326.3 91.9M326.3 91.9L500 255.2M326.3 91.9L47.1 144.1M326.3 91.9L340.9 446.1M70.7 139.7L340.9 446.1M500 255.2L373.4 -21.8M500 255.2L342.2 476.7M500 255.2L500 -24M500 255.2L500 551.2M340.9 446.1L342.2 476.7M342.2 476.7L187.9 403.9M342.2 476.7L500 551.2M500 551.2L349.2 738.4M500 551.2L500 1012" fill="none" stroke="#FF9F03" stroke-width="9" stroke-linecap="round" stroke-opacity="0.82"/></g>
+</svg>

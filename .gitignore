@@ -1,11 +1,5 @@
-node_modules/
-.next/
+.vercel/
 .env*
-*.tsbuildinfo
-.vercel
-.env*.local
+node_modules/
+__pycache__/
 .DS_Store
-next-env.d.ts
-
-# Local-only ops script (not for repo)
-scripts/send-intensive-acceptances.mjs
